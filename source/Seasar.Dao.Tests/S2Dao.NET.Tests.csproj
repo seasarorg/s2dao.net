@@ -90,7 +90,7 @@
                     HintPath = "..\..\lib\nunit.framework.dll"
                 />
                 <Reference
-                    Name = "Seasar.Dao"
+                    Name = "S2Dao.NET"
                     Project = "{474715CA-5C99-4C50-ADFA-FB628824DFF0}"
                     Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
                 />
