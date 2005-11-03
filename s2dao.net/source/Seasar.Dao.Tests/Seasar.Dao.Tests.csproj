@@ -80,11 +80,6 @@
                     HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
                 />
                 <Reference
-                    Name = "s2dotnet"
-                    AssemblyName = "s2dotnet"
-                    HintPath = "..\..\lib\s2dotnet.dll"
-                />
-                <Reference
                     Name = "nunit.framework"
                     AssemblyName = "nunit.framework"
                     HintPath = "..\..\lib\nunit.framework.dll"
@@ -93,6 +88,11 @@
                     Name = "Seasar.Dao"
                     Project = "{474715CA-5C99-4C50-ADFA-FB628824DFF0}"
                     Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
+                <Reference
+                    Name = "Seasar"
+                    AssemblyName = "Seasar"
+                    HintPath = "..\..\lib\Seasar.dll"
                 />
             </References>
         </Build>
