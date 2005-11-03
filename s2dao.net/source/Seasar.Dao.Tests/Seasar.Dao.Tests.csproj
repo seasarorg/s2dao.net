@@ -104,27 +104,27 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Seasar.Dao.Test.Dbms\DbmsManagerTest.cs"
+                    RelPath = "Seasar.Dao.Tests.Dbms\DbmsManagerTest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Seasar.Dao.Test.Dbms\Department.cs"
+                    RelPath = "Seasar.Dao.Tests.Dbms\Department.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Seasar.Dao.Test.Dbms\Employee.cs"
+                    RelPath = "Seasar.Dao.Tests.Dbms\Employee.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Seasar.Dao.Test.Dbms\MSSQLServerTest.cs"
+                    RelPath = "Seasar.Dao.Tests.Dbms\MSSQLServerTest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Seasar.Dao.Test.Dbms\StandardTest.cs"
+                    RelPath = "Seasar.Dao.Tests.Dbms\StandardTest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
