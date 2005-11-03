@@ -80,9 +80,9 @@
                     HintPath = "..\..\..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
                 />
                 <Reference
-                    Name = "s2dotnet"
-                    AssemblyName = "s2dotnet"
-                    HintPath = "..\..\lib\s2dotnet.dll"
+                    Name = "Seasar"
+                    AssemblyName = "Seasar"
+                    HintPath = "..\..\lib\Seasar.dll"
                 />
             </References>
         </Build>
