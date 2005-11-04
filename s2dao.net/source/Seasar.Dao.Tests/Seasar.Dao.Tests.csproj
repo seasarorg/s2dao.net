@@ -132,11 +132,7 @@
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Id\Hoge.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
+                <Folder RelPath = "Seasar.Dao.Tests.Id\" />
                 <Folder RelPath = "Seasar.Dao.Tests.Impl\" />
                 <File
                     RelPath = "Seasar.Dao.Tests.Parser\SqlParserTest.cs"
