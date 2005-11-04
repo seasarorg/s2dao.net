@@ -17,7 +17,7 @@
                 DelaySign = "false"
                 OutputType = "Library"
                 PreBuildEvent = ""
-                PostBuildEvent = ""
+                PostBuildEvent = 'copy "$(ProjectDir)Tests.dicon" "$(TargetDir)" /Y '
                 RootNamespace = ""
                 RunPostBuildEvent = "OnBuildSuccess"
                 StartupObject = ""
@@ -104,6 +104,10 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Tests.dicon"
+                    BuildAction = "None"
+                />
+                <File
                     RelPath = "Seasar.Dao.Tests.Dbms\DbmsManagerTest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -128,6 +132,12 @@
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
+                <File
+                    RelPath = "Seasar.Dao.Tests.Id\Hoge.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <Folder RelPath = "Seasar.Dao.Tests.Impl\" />
                 <File
                     RelPath = "Seasar.Dao.Tests.Parser\SqlParserTest.cs"
                     SubType = "Code"
