@@ -133,7 +133,16 @@
                     BuildAction = "Compile"
                 />
                 <Folder RelPath = "Seasar.Dao.Tests.Id\" />
-                <Folder RelPath = "Seasar.Dao.Tests.Impl\" />
+                <File
+                    RelPath = "Seasar.Dao.Tests.Impl\BeanArrayMetaDataResultSetHandlerTest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Tests.Impl\Employee.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
                 <File
                     RelPath = "Seasar.Dao.Tests.Parser\SqlParserTest.cs"
                     SubType = "Code"
