@@ -149,6 +149,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Tests.Impl\UpdateDynamicCommandTest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Seasar.Dao.Tests.Parser\SqlParserTest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
