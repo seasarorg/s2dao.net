@@ -23,6 +23,7 @@ namespace Seasar.Dao
     public enum KindOfDbms
     {
         None, 
-        MSSQLServer
+        MSSQLServer,
+		DB2
     }
 }
