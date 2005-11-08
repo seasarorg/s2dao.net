@@ -29,6 +29,7 @@ namespace Seasar.Dao.Dbms
     public class Standard : IDbms
     {
         private Hashtable autoSelectFromClauseCache = new Hashtable();
+		protected IDatabaseMetaData dbMetadata;
 
         public Standard()
         {
@@ -43,6 +44,11 @@ namespace Seasar.Dao.Dbms
         {
             get { return KindOfDbms.None; }
         }
+
+		public IDatabaseMetaData DatabaseMetaData
+		{
+			get { return dbMetadata; }
+		}
 
         public  string GetAutoSelectSql(IBeanMetaData beanMetaData)
         {
@@ -100,14 +106,9 @@ namespace Seasar.Dao.Dbms
             get { return null; }
         }
 
-        public string GetSequenceNextValString(string sequenceName)
+        public virtual string GetSequenceNextValString(string sequenceName)
         {
             return null;
-        }
-
-        public virtual IDatabaseMetaData DatabaseMetaData
-        {
-            get { return null; }
         }
     }
 }

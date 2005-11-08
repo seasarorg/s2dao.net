@@ -28,8 +28,6 @@ namespace Seasar.Dao.Dbms
 {
     public class MSSQLServer : Standard
     {
-        private IDatabaseMetaData dbMetadata;
-
         public override string Suffix
         {
             get { return "_mssql"; }
@@ -57,6 +55,7 @@ namespace Seasar.Dao.Dbms
             IDictionary columns = new Hashtable(CaseInsensitiveHashCodeProvider.Default,
                 CaseInsensitiveComparer.Default);
             IEnumerator tables = tableSet.GetEnumerator();
+
             while(tables.MoveNext())
             {
                 primaryKeys[tables.Current] = GetPrimaryKeySet(
@@ -69,11 +68,6 @@ namespace Seasar.Dao.Dbms
             dbMetaData.PrimaryKeys = primaryKeys;
             dbMetaData.Columns = columns;
             this.dbMetadata = dbMetaData;
-        }
-
-        public override IDatabaseMetaData DatabaseMetaData
-        {
-            get { return dbMetadata; }
         }
 
         protected IList GetTableSet(IDataSource dataSource, IDbConnection cn)
