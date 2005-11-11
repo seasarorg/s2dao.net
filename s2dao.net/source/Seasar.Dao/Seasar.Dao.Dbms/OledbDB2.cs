@@ -3,6 +3,7 @@ using System.Collections;
 using System.Data;
 using System.Data.OleDb;
 using Seasar.Extension.ADO;
+using Seasar.Extension.ADO.Impl;
 using Seasar.Framework.Util;
 
 namespace Seasar.Dao.Dbms
