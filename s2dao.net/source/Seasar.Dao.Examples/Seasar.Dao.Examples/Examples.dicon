@@ -4,6 +4,7 @@
 <components>
     
     <include path="Seasar.Dao.Examples/AutoSelect/AutoSelect.dicon" />
+    <include path="Seasar.Dao.Examples/AutoSelect/OleDbDB2AutoSelect.dicon" />
     <include path="Seasar.Dao.Examples/AutoInsert/AutoInsert.dicon" />
     <include path="Seasar.Dao.Examples/AutoUpdate/AutoUpdate.dicon" />
     <include path="Seasar.Dao.Examples/AutoDelete/AutoDelete.dicon" />
@@ -14,12 +15,11 @@
     <include path="Seasar.Dao.Examples/SqlFile/SqlFile.dicon" />
     
     <component class="Seasar.Examples.ExamplesExplorer">
-        <initMethod name="AddExampless"><arg>"SQL自動生成"</arg><arg>Auto</arg></initMethod>
-        <initMethod name="AddExampless"><arg>"DAOの属性"</arg><arg>DaoAttr</arg></initMethod>
-        <initMethod name="AddExampless"><arg>"SQLファイル"</arg><arg>SqlFileAll</arg></initMethod>
+        <initMethod name="AddExampless"><arg>"MS SQL Server用Examples"</arg><arg>MSSQL</arg></initMethod>
+        <initMethod name="AddExampless"><arg>"DB2用Examples"</arg><arg>DB2</arg></initMethod>
     </component>
     
-    <component name="Auto" class="System.Collections.ArrayList">
+    <component name="MSSQL" class="System.Collections.ArrayList">
         <initMethod name="Add"><arg>
             <component class="Seasar.Examples.Impl.BasicExamplesHandler">
                 <property name="Title">"Select文自動生成"</property>
@@ -63,8 +63,6 @@
                 <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoDelete/AutoDeleteClient.cs"</arg></initMethod>
             </component>
         </arg></initMethod>
-    </component>
-    <component name="DaoAttr" class="System.Collections.ArrayList">
         <initMethod name="Add"><arg>
             <component class="Seasar.Examples.Impl.BasicExamplesHandler">
                 <property name="Title">"Query属性"</property>
@@ -107,9 +105,6 @@
                 <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/PersistentPropsAttr/PersistentPropsAttrClient.cs"</arg></initMethod>
             </component>
         </arg></initMethod>
-    </component>
-    
-    <component name="SqlFileAll" class="System.Collections.ArrayList">
         <initMethod name="Add"><arg>
             <component class="Seasar.Examples.Impl.BasicExamplesHandler">
                 <property name="Title">"SQLファイル"</property>
@@ -118,6 +113,19 @@
                 <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/Ex.dicon"</arg></initMethod>
                 <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/SqlFile/IEmployeeDao.cs"</arg></initMethod>
                 <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/SqlFile/SqlFileClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+    </component>
+    
+    <component name="DB2" class="System.Collections.ArrayList">
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"Select文自動生成"</property>
+                <property name="Examples">OleDbDB2AutoSelect</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/AutoSelect/OleDbDB2AutoSelect.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/OleDbDB2Ex.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoSelect/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoSelect/OleDbDB2AutoSelectClient.cs"</arg></initMethod>
             </component>
         </arg></initMethod>
     </component>
