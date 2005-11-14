@@ -19,6 +19,7 @@
 using System;
 using System.Collections;
 using System.Data;
+using System.Data.OleDb;
 using System.Globalization;
 using System.Reflection;
 using System.Resources;
@@ -58,13 +59,26 @@ namespace Seasar.Dao.Dbms
 
         public static IDbms GetDbms(IDataSource dataSource, IDbConnection cn)
         {
-            IDbms dbms = (IDbms) Activator.CreateInstance(Type.GetType(
-                resourceManager.GetString(cn.GetType().Name)),
-                new object[] { dataSource, cn });
+            IDbms dbms = null;
+            if(dataSource.GetConnection() is OleDbConnection)
+            {
+                OleDbConnection oleDbCn = dataSource.GetConnection() as OleDbConnection;
+                dbms = GetDbms(dataSource, cn, cn.GetType().Name + "_" + oleDbCn.Provider);
+            }
+            else
+            {
+                dbms = GetDbms(dataSource, cn, cn.GetType().Name);
+            }
             if(dbms == null)
-                dbms = (IDbms) ClassUtil.NewInstance(Type.GetType(
-                    resourceManager.GetString("")));
+                dbms = GetDbms(dataSource, cn, "");
             return dbms;
+        }
+
+        private static IDbms GetDbms(IDataSource dataSource, IDbConnection cn, string name)
+        {
+            return (IDbms) Activator.CreateInstance(Type.GetType(
+                resourceManager.GetString(name)),
+                new object[] { dataSource, cn });
         }
     }
 }
