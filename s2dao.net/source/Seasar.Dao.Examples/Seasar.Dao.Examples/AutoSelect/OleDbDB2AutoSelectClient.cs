@@ -26,9 +26,9 @@ namespace Seasar.Dao.Examples.AutoSelect
     /// <summary>
     /// Select文自動生成のサンプルを実行します。
     /// </summary>
-    public class AutoSelectClient
+    public class OleDbDB2AutoSelectClient
     {
-        private const string PATH = "Seasar.Dao.Examples/AutoSelect/AutoSelect.dicon";
+        private const string PATH = "Seasar.Dao.Examples/AutoSelect/OleDbDB2AutoSelect.dicon";
 
         public void Main()
         {
@@ -47,3 +47,4 @@ namespace Seasar.Dao.Examples.AutoSelect
         }
     }
 }
+
