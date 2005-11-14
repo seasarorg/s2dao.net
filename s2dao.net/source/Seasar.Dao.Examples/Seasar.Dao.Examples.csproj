@@ -140,6 +140,10 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Examples\OleDbDB2Ex.dicon"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Seasar.Dao.Examples\AutoDelete\AutoDelete.dicon"
                     BuildAction = "None"
                 />
@@ -188,6 +192,15 @@
                 />
                 <File
                     RelPath = "Seasar.Dao.Examples\AutoSelect\IEmployeeDao.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\AutoSelect\OleDbDB2AutoSelect.dicon"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\AutoSelect\OleDbDB2AutoSelectClient.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
