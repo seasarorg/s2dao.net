@@ -273,7 +273,7 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Seasar.Dao.Dbms\OledbDB2.cs"
+                    RelPath = "Seasar.Dao.Dbms\OleDbDB2.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
