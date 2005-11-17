@@ -18,7 +18,6 @@
 
 using System;
 using System.Data;
-using System.Data.SqlClient;
 using System.Text;
 using System.Text.RegularExpressions;
 using Seasar.Extension.ADO;
@@ -83,6 +82,8 @@ namespace Seasar.Extension.ADO.Impl
         protected virtual IDbCommand Command(IDbConnection connection)
         {
             if(this.sql == null) throw new EmptyRuntimeException("sql");
+            if(!"SqlConnection".Equals(connection.GetType().Name))
+                this.sql = GetCommandText(this.sql);
             return this.dataSource.GetCommand(sql, connection);
         }
 
@@ -107,34 +108,10 @@ namespace Seasar.Extension.ADO.Impl
         protected string GetCompleteSql(object[] args)
         {
             if(args == null || args.Length == 0) return this.sql;
-            if(dataSource.GetConnection() is SqlConnection)
-                return GetCompleteSqlForSqlClient(sql, args);
-            else
-            {
-                StringBuilder buf = new StringBuilder(200);
-                int pos = 0;
-                int pos2 = 0;
-                int index = 0;
-                while(true)
-                {
-                    pos = this.sql.IndexOf('?', pos2);
-                    if(pos > 0)
-                    {
-                        buf.Append(sql.Substring(pos2, pos));
-                        buf.Append(this.GetBindVariableText(args[index++]));
-                        pos2 = pos + 1;
-                    }
-                    else
-                    {
-                        buf.Append(sql.Substring(pos2));
-                        break;
-                    }
-                }
-                return buf.ToString();
-            }
+            return GetCompleteSql(sql, args);
         }
 
-        private string GetCompleteSqlForSqlClient(string sql, object[] args)
+        private string GetCompleteSql(string sql, object[] args)
         {
             Regex regex = new Regex(@"(@\w+)");
             MatchCollection matches = regex.Matches(sql);
@@ -147,6 +124,23 @@ namespace Seasar.Extension.ADO.Impl
             {
                 string capture = matches[i].Captures[0].Value;
                 sql = sql.Replace(capture, GetBindVariableText(args[i]));
+            }
+            return sql;
+        }
+
+        private string GetCommandText(string sql)
+        {
+            Regex regex = new Regex(@"(@\w+)");
+            MatchCollection matches = regex.Matches(sql);
+            return ReplaceSql(sql, "?", matches);
+        }
+
+        private string ReplaceSql(string sql, string newValue, MatchCollection matches)
+        {
+            for(int i = 0; i < matches.Count; ++i)
+            {
+                string capture = matches[i].Captures[0].Value;
+                sql = sql.Replace(capture, newValue);
             }
             return sql;
         }
