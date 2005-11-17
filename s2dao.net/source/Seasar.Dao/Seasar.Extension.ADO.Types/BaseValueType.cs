@@ -18,7 +18,6 @@
 
 using System;
 using System.Data;
-using System.Data.SqlClient;
 using Seasar.Extension.ADO;
 
 namespace Seasar.Extension.ADO.Types
@@ -34,7 +33,7 @@ namespace Seasar.Extension.ADO.Types
 
         public void BindValue(System.Data.IDbCommand cmd, string columnName, object value, DbType dbType)
         {
-            if(dataSource.GetConnection() is SqlConnection) columnName = "@" + columnName;
+            columnName = "@" + columnName;
             IDataParameter parameter = dataSource.GetParameter(columnName, dbType);
             parameter.Value = value == null ? DBNull.Value : value;
             cmd.Parameters.Add(parameter);
