@@ -243,17 +243,7 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Seasar.Dao.Context\AbstractCommandContext.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Context\OleDbCommandContextImpl.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Context\SqlClientCommandContextImpl.cs"
+                    RelPath = "Seasar.Dao.Context\CommandContextImpl.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
