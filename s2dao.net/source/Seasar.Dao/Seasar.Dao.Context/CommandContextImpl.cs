@@ -24,11 +24,10 @@ using Seasar.Framework.Log;
 
 namespace Seasar.Dao.Context
 {
-    public abstract class AbstractCommandContext : ICommandContext 
+    public class CommandContextImpl : ICommandContext 
     {
         private static readonly Logger logger = Logger.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         
-        /// TODO CaseInsensitiveMapÇ∆å›ä∑ÇÃé¿ëïÇ≈Ç»Ç¢à◊ÉpÉâÉÅÅ[É^ÇÃçƒìoò^ÇÕNG
         Hashtable args = new Hashtable( new CaseInsensitiveHashCodeProvider(), new CaseInsensitiveComparer() );
         Hashtable argTypes = new Hashtable( new CaseInsensitiveHashCodeProvider(), new CaseInsensitiveComparer() );
         Hashtable argNames = new Hashtable( new CaseInsensitiveHashCodeProvider(), new CaseInsensitiveComparer() );
@@ -40,17 +39,17 @@ namespace Seasar.Dao.Context
         private bool enabled = true;
         private ICommandContext parent;
 
-        public AbstractCommandContext() 
+        public CommandContextImpl() 
         {
         }
 
-        public AbstractCommandContext(ICommandContext parent) 
+        public CommandContextImpl(ICommandContext parent) 
         {
             this.parent = parent;
             this.enabled = false;
         }
 
-        public virtual object GetArg(string name) 
+        public object GetArg(string name) 
         {
             if (this.args.ContainsKey(name)) 
             {
@@ -71,7 +70,7 @@ namespace Seasar.Dao.Context
             }
         }
     
-        public virtual Type GetArgType(string name) 
+        public Type GetArgType(string name) 
         {
             if (this.argTypes.ContainsKey(name)) 
             {
@@ -92,7 +91,7 @@ namespace Seasar.Dao.Context
             }
         }
 
-        public virtual void AddArg(string name, object arg, Type argType) 
+        public void AddArg(string name, object arg, Type argType) 
         {
             if (this.args.ContainsKey(name))
             {
@@ -113,12 +112,12 @@ namespace Seasar.Dao.Context
             this.argNames.Add(name, name);
         }
 
-        public virtual string Sql
+        public string Sql
         {
             get { return this.sqlBuf.ToString(); }
         }
 
-        public virtual object[] BindVariables
+        public object[] BindVariables
         {
             get
             {
@@ -128,7 +127,7 @@ namespace Seasar.Dao.Context
             }
         }
     
-        public virtual Type[] BindVariableTypes
+        public Type[] BindVariableTypes
         {
             get
             {
@@ -138,7 +137,7 @@ namespace Seasar.Dao.Context
             }
         }
 
-        public virtual string[] BindVariableNames 
+        public string[] BindVariableNames 
         {
             get
             {
@@ -148,13 +147,13 @@ namespace Seasar.Dao.Context
             }
         }
 
-        public virtual ICommandContext AddSql(string sql) 
+        public ICommandContext AddSql(string sql) 
         {
             this.sqlBuf.Append(sql);
             return this;
         }
 
-        public virtual ICommandContext AddSql(string sql, object bindVariable,
+        public ICommandContext AddSql(string sql, object bindVariable,
             Type bindVariableType, string bindVariableName) 
         {
         
@@ -165,12 +164,13 @@ namespace Seasar.Dao.Context
             return this;
         }
 
-        public virtual ICommandContext AddSql(object bindVariable, Type bindVariableType, string bindVariableName)
+        public ICommandContext AddSql(object bindVariable, Type bindVariableType, string bindVariableName)
         {
-            throw new NotImplementedException();
+            AddSql("@" + bindVariableName, bindVariable, bindVariableType, bindVariableName);
+            return this;
         }
 
-        public virtual ICommandContext AddSql(string sql, object[] bindVariables,
+        public ICommandContext AddSql(string sql, object[] bindVariables,
             Type[] bindVariableTypes, string[] bindVariableNames) 
         {
         
@@ -184,9 +184,10 @@ namespace Seasar.Dao.Context
             return this;
         }
 
-        public virtual ICommandContext AppendSql(object bindVariable, Type bindVariableType, string bindVariableName)
+        public ICommandContext AppendSql(object bindVariable, Type bindVariableType, string bindVariableName)
         {
-            throw new NotImplementedException();
+            AddSql(", @" + bindVariableName, bindVariable, bindVariableType, bindVariableName);
+            return this;
         }
 
         public bool IsEnabled
