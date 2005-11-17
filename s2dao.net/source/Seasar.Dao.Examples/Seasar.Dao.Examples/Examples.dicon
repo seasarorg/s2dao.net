@@ -6,6 +6,7 @@
     <include path="Seasar.Dao.Examples/AutoSelect/AutoSelect.dicon" />
     <include path="Seasar.Dao.Examples/AutoSelect/OleDbDB2AutoSelect.dicon" />
     <include path="Seasar.Dao.Examples/AutoInsert/AutoInsert.dicon" />
+    <include path="Seasar.Dao.Examples/AutoInsert/OleDbDB2AutoInsert.dicon" />
     <include path="Seasar.Dao.Examples/AutoUpdate/AutoUpdate.dicon" />
     <include path="Seasar.Dao.Examples/AutoDelete/AutoDelete.dicon" />
     <include path="Seasar.Dao.Examples/QueryAttr/QueryAttr.dicon" />
@@ -126,6 +127,17 @@
                 <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/OleDbDB2Ex.dicon"</arg></initMethod>
                 <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoSelect/IEmployeeDao.cs"</arg></initMethod>
                 <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoSelect/OleDbDB2AutoSelectClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"Insert文自動生成"</property>
+                <property name="Examples">OleDbDB2AutoInsert</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/AutoInsert/OleDbDB2AutoInsert.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/OleDbDB2Ex.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoInsert/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoInsert/AutoInsertLogic.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoInsert/OleDbDB2AutoInsertClient.cs"</arg></initMethod>
             </component>
         </arg></initMethod>
     </component>
