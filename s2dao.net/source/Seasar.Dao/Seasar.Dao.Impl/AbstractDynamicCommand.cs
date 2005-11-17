@@ -92,8 +92,7 @@ namespace Seasar.Dao.Impl
 
         private ICommandContext GetCommandContext()
         {
-            // Žb’è“I‚É
-            return new SqlClientCommandContextImpl();
+            return new CommandContextImpl();            
         }
     }
 }
