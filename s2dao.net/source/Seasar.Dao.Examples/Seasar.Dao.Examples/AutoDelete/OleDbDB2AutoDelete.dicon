@@ -5,13 +5,13 @@
     
     <include path="Seasar.Dao.Examples/OleDbDB2Ex.dicon" />
     
-    <component class="Seasar.Dao.Examples.AutoUpdate.IEmployeeDao">
+    <component class="Seasar.Dao.Examples.AutoDelete.IEmployeeDao">
         <aspect>OleDbDB2Ex.DaoInterceptor</aspect>
     </component>
     
-    <component name="OleDbDB2AutoUpdate" class="Seasar.Dao.Examples.AutoUpdate.OleDbDB2AutoUpdateClient" />
-    <component class="Seasar.Dao.Examples.AutoUpdate.AutoUpdateLogicImpl">
-        <aspect pointcut="TestAutoUpdate">OleDbDB2Ex.LocalRequiredTx</aspect>
+    <component name="OleDbDB2AutoDelete" class="Seasar.Dao.Examples.AutoDelete.OleDbDB2AutoDeleteClient" />
+    <component class="Seasar.Dao.Examples.AutoDelete.AutoDeleteLogicImpl">
+        <aspect pointcut="TestAutoDelete">OleDbDB2Ex.LocalRequiredTx</aspect>
     </component>
 
 </components>

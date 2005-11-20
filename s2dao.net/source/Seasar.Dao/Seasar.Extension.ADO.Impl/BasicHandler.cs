@@ -82,8 +82,7 @@ namespace Seasar.Extension.ADO.Impl
         protected virtual IDbCommand Command(IDbConnection connection)
         {
             if(this.sql == null) throw new EmptyRuntimeException("sql");
-            if(!"SqlConnection".Equals(connection.GetType().Name))
-                this.sql = GetCommandText(this.sql);
+            if(!UseAtmark(connection)) this.sql = GetCommandText(this.sql);
             return this.dataSource.GetCommand(sql, connection);
         }
 
@@ -109,6 +108,14 @@ namespace Seasar.Extension.ADO.Impl
         {
             if(args == null || args.Length == 0) return this.sql;
             return GetCompleteSql(sql, args);
+        }
+
+        private bool UseAtmark(IDbConnection cn)
+        {
+            string cnTypeName = cn.GetType().Name;
+            if("SqlConnection".Equals(cnTypeName)) return true;
+            if("DB2Connection".Equals(cnTypeName)) return true;
+            return false;
         }
 
         private string GetCompleteSql(string sql, object[] args)

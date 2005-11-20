@@ -3,15 +3,15 @@
 "http://www.seasar.org/dtd/components21.dtd">
 <components>
     
-    <include path="Seasar.Dao.Examples/OleDbDB2Ex.dicon" />
+    <include path="Seasar.Dao.Examples/DB2Ex.dicon" />
     
     <component class="Seasar.Dao.Examples.AutoUpdate.IEmployeeDao">
-        <aspect>OleDbDB2Ex.DaoInterceptor</aspect>
+        <aspect>DB2Ex.DaoInterceptor</aspect>
     </component>
     
-    <component name="OleDbDB2AutoUpdate" class="Seasar.Dao.Examples.AutoUpdate.OleDbDB2AutoUpdateClient" />
+    <component name="DB2AutoUpdate" class="Seasar.Dao.Examples.AutoUpdate.DB2AutoUpdateClient" />
     <component class="Seasar.Dao.Examples.AutoUpdate.AutoUpdateLogicImpl">
-        <aspect pointcut="TestAutoUpdate">OleDbDB2Ex.LocalRequiredTx</aspect>
+        <aspect pointcut="TestAutoUpdate">DB2Ex.LocalRequiredTx</aspect>
     </component>
 
 </components>
