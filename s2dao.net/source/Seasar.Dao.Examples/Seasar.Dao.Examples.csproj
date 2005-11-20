@@ -233,6 +233,10 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Examples\AutoUpdate\OleDbDB2AutoUpdate.dicon"
+                    BuildAction = "None"
+                />
+                <File
                     RelPath = "Seasar.Dao.Examples\NoPersistentPropsAttr\IEmployeeDao.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
