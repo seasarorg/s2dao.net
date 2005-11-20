@@ -40,7 +40,7 @@ namespace Seasar.Dao.Tests.Parser
         public void TestParse() {
 	        String sql = "SELECT * FROM emp";
 	        ISqlParser parser = new SqlParserImpl(sql);
-	        ICommandContext ctx = new SqlClientCommandContextImpl();//TODO:OleDbCommandContextImplもテスト
+	        ICommandContext ctx = new CommandContextImpl();//TODO:OleDbCommandContextImplもテスト
 	        INode node = parser.Parse();
 	        node.Accept(ctx);
 	        Assert.AreEqual(sql, ctx.Sql,"1");
@@ -57,7 +57,7 @@ namespace Seasar.Dao.Tests.Parser
         private void parseEndSemicolon(String endChar) {
 	        String sql = "SELECT * FROM emp";
 	        ISqlParser parser = new SqlParserImpl(sql + endChar);
-	        ICommandContext ctx = new SqlClientCommandContextImpl();//TODO:OleDbCommandContextImplもテスト
+	        ICommandContext ctx = new CommandContextImpl();//TODO:OleDbCommandContextImplもテスト
 	        INode node = parser.Parse();
 	        node.Accept(ctx);
 	        Assert.AreEqual(sql, ctx.Sql,"1");
@@ -81,7 +81,7 @@ namespace Seasar.Dao.Tests.Parser
             String sql3 = "SELECT * FROM emp WHERE job = ";
 	        String sql4 = " AND deptno = ";
 	        ISqlParser parser = new SqlParserImpl(sql);
-	        ICommandContext ctx = new SqlClientCommandContextImpl();//TODO:OleDbCommandContextImplもテスト
+	        ICommandContext ctx = new CommandContextImpl();//TODO:OleDbCommandContextImplもテスト
 	        String job = "CLERK";
 	        Int32 deptno = 20;
 	        ctx.AddArg("job", job, job.GetType());
@@ -112,7 +112,7 @@ namespace Seasar.Dao.Tests.Parser
 	        String sql3 = "SELECT * FROM emp WHERE job = ";
 	        String sql4 = "'CLERK'";
 	        ISqlParser parser = new SqlParserImpl(sql);
-	        ICommandContext ctx = new SqlClientCommandContextImpl();//TODO:OleDbCommandContextImplもテスト
+	        ICommandContext ctx = new CommandContextImpl();//TODO:OleDbCommandContextImplもテスト
 	        INode root = parser.Parse();
 	        root.Accept(ctx);
 	        //System.out.println(ctx.Sql);
@@ -131,7 +131,7 @@ namespace Seasar.Dao.Tests.Parser
 			String sql2 = "SELECT * FROM emp WHERE empno = @empno AND 1 = 1";
 	        String sql3 = " AND 1 = 1";
             ISqlParser parser = new SqlParserImpl(sql);
-	        ICommandContext ctx = new SqlClientCommandContextImpl();//TODO:OleDbCommandContextImplもテスト
+	        ICommandContext ctx = new CommandContextImpl();//TODO:OleDbCommandContextImplもテスト
 	        Int32 empno = 7788;
 	        ctx.AddArg("empno", empno, empno.GetType());
 	        INode root = parser.Parse();
@@ -149,7 +149,7 @@ namespace Seasar.Dao.Tests.Parser
 			String sql2 = "SELECT * FROM emp WHERE job = @job";
 	        String sql3 = "SELECT * FROM emp";
 	        ISqlParser parser = new SqlParserImpl(sql);
-	        ICommandContext ctx = new SqlClientCommandContextImpl();//TODO:OleDbCommandContextImplもテスト
+	        ICommandContext ctx = new CommandContextImpl();//TODO:OleDbCommandContextImplもテスト
 	        String job = "CLERK";
 	        ctx.AddArg("job", job, job.GetType());
             INode root = parser.Parse();
@@ -169,7 +169,7 @@ namespace Seasar.Dao.Tests.Parser
 	        Assert.AreEqual(" WHERE job = ", sqlNode2.Sql,"8");
 	        BindVariableNode varNode = (BindVariableNode) ifNode.GetChild(1);
 	        Assert.AreEqual("job", varNode.Expression,"9");
-	        ICommandContext ctx2 = new SqlClientCommandContextImpl();//TODO:OleDbCommandContextImplもテスト
+	        ICommandContext ctx2 = new CommandContextImpl();//TODO:OleDbCommandContextImplもテスト
 	        root.Accept(ctx2);
 	        //System.out.println(ctx2.Sql);
 	        Assert.AreEqual(sql3, ctx2.Sql,"10");
@@ -179,7 +179,7 @@ namespace Seasar.Dao.Tests.Parser
         public void TestParseIf2() {
 	        String sql = "/*IF aaa != null*/aaa/*IF bbb != null*/bbb/*END*//*END*/";
 	        ISqlParser parser = new SqlParserImpl(sql);
-            ICommandContext ctx = new SqlClientCommandContextImpl();//TODO:OleDbCommandContextImplもテスト
+            ICommandContext ctx = new CommandContextImpl();//TODO:OleDbCommandContextImplもテスト
             INode root = parser.Parse();
 	        root.Accept(ctx);
 	        //System.out.println("[" + ctx.Sql + "]");
@@ -193,7 +193,7 @@ namespace Seasar.Dao.Tests.Parser
 	        root.Accept(ctx);
 	        //System.out.println("[" + ctx.Sql + "]");
 	        Assert.AreEqual("aaabbb", ctx.Sql,"3");
-	        ICommandContext ctx2 = new SqlClientCommandContextImpl();//TODO:OleDbCommandContextImplもテスト
+	        ICommandContext ctx2 = new CommandContextImpl();//TODO:OleDbCommandContextImplもテスト
 	        ctx2.AddArg("aaa", "hoge", typeof(String));
 	        ctx2.AddArg("bbb", null, typeof(String));
 	        root.Accept(ctx2);
@@ -207,7 +207,7 @@ namespace Seasar.Dao.Tests.Parser
 	        string sql2 = "SELECT * FROM emp WHERE job = @job";
 	        String sql3 = "SELECT * FROM emp WHERE job is null";
             ISqlParser parser = new SqlParserImpl(sql);
-	        ICommandContext ctx = new SqlClientCommandContextImpl();//TODO:OleDbCommandContextImplもテスト
+	        ICommandContext ctx = new CommandContextImpl();//TODO:OleDbCommandContextImplもテスト
 	        String job = "CLERK";
 	        ctx.AddArg("job", job, job.GetType());
 	        INode root = parser.Parse();
@@ -217,7 +217,7 @@ namespace Seasar.Dao.Tests.Parser
 	        Object[] vars = ctx.BindVariables;
 	        Assert.AreEqual(1, vars.Length,"2");
 	        Assert.AreEqual(job, vars[0],"3");
-	        ICommandContext ctx2 = new SqlClientCommandContextImpl();//TODO:OleDbCommandContextImplもテスト
+	        ICommandContext ctx2 = new CommandContextImpl();//TODO:OleDbCommandContextImplもテスト
 	        root.Accept(ctx2);
 	        //System.out.println("[" + ctx2.Sql + "]");
 	        Assert.AreEqual(sql3, ctx2.Sql,"4");
@@ -227,7 +227,7 @@ namespace Seasar.Dao.Tests.Parser
         public void TestParseElse2() {
 	        String sql = "/*IF false*/aaa--ELSE bbb = /*bbb*/123/*END*/";
 	        ISqlParser parser = new SqlParserImpl(sql);
-	        ICommandContext ctx = new SqlClientCommandContextImpl();//TODO:OleDbCommandContextImplもテスト
+	        ICommandContext ctx = new CommandContextImpl();//TODO:OleDbCommandContextImplもテスト
 	        Int32 bbb = 123;
 	        ctx.AddArg("bbb", bbb, bbb.GetType());
             INode root = parser.Parse();
@@ -243,7 +243,7 @@ namespace Seasar.Dao.Tests.Parser
         public void TestParseElse3() {
 	        String sql = "/*IF false*/aaa--ELSE bbb/*IF false*/ccc--ELSE ddd/*END*//*END*/";
 	        ISqlParser parser = new SqlParserImpl(sql);
-	        ICommandContext ctx = new SqlClientCommandContextImpl();//TODO:OleDbCommandContextImplもテスト
+	        ICommandContext ctx = new CommandContextImpl();//TODO:OleDbCommandContextImplもテスト
             INode root = parser.Parse();
 	        root.Accept(ctx);
 	        //System.out.println("[" + ctx.Sql + "]");
@@ -256,7 +256,7 @@ namespace Seasar.Dao.Tests.Parser
 	        String sql2 = "SELECT * FROM emp WHERE deptno = 10";
 	        ISqlParser parser = new SqlParserImpl(sql);
 	        INode root = parser.Parse();
-	        ICommandContext ctx = new SqlClientCommandContextImpl();//TODO:OleDbCommandContextImplもテスト
+	        ICommandContext ctx = new CommandContextImpl();//TODO:OleDbCommandContextImplもテスト
 	        root.Accept(ctx);
 	        //System.out.println(ctx.Sql);
 	        Assert.AreEqual(sql2, ctx.Sql,"1");
@@ -271,26 +271,26 @@ namespace Seasar.Dao.Tests.Parser
 	        String sql5 = "SELECT * FROM emp WHERE deptno = @deptno";
 	        ISqlParser parser = new SqlParserImpl(sql);
 	        INode root = parser.Parse();
-	        ICommandContext ctx = new SqlClientCommandContextImpl();//TODO:OleDbCommandContextImplもテスト
+	        ICommandContext ctx = new CommandContextImpl();//TODO:OleDbCommandContextImplもテスト
 	        root.Accept(ctx);
 	        //System.out.println(ctx.Sql);
             Assert.AreEqual(sql2, ctx.Sql,"1");
         	
-	        ICommandContext ctx2 = new SqlClientCommandContextImpl();//TODO:OleDbCommandContextImplもテスト
+	        ICommandContext ctx2 = new CommandContextImpl();//TODO:OleDbCommandContextImplもテスト
 	        ctx2.AddArg("job", "CLERK", typeof(String));
 	        ctx2.AddArg("deptno", null, typeof(Int32));
 	        root.Accept(ctx2);
 	        //System.out.println(ctx2.Sql);
 	        Assert.AreEqual(sql3, ctx2.Sql,"2");
         	
-	        ICommandContext ctx3 = new SqlClientCommandContextImpl();//TODO:OleDbCommandContextImplもテスト
+	        ICommandContext ctx3 = new CommandContextImpl();//TODO:OleDbCommandContextImplもテスト
 	        ctx3.AddArg("job", "CLERK", typeof(String));
 	        ctx3.AddArg("deptno", 20, typeof(Int32));
 	        root.Accept(ctx3);
 	        //System.out.println(ctx3.Sql);
 	        Assert.AreEqual(sql4, ctx3.Sql,"3");
         	
-	        ICommandContext ctx4 = new SqlClientCommandContextImpl();//TODO:OleDbCommandContextImplもテスト
+	        ICommandContext ctx4 = new CommandContextImpl();//TODO:OleDbCommandContextImplもテスト
 	        ctx4.AddArg("deptno", 20, typeof(Int32));
 	        ctx4.AddArg("job", null, typeof(String));
 	        root.Accept(ctx4);
@@ -304,7 +304,7 @@ namespace Seasar.Dao.Tests.Parser
 	        String sql2 = "WHERE aaa BETWEEN @bbb AND @ccc";
 	        ISqlParser parser = new SqlParserImpl(sql);
 	        INode root = parser.Parse();
-	        ICommandContext ctx = new SqlClientCommandContextImpl();//TODO:OleDbCommandContextImplもテスト
+	        ICommandContext ctx = new CommandContextImpl();//TODO:OleDbCommandContextImplもテスト
 	        ctx.AddArg("bbb", "111", typeof(String));
 	        ctx.AddArg("ccc", "222", typeof(String));
 	        root.Accept(ctx);
@@ -321,7 +321,7 @@ namespace Seasar.Dao.Tests.Parser
             String sql3 = "SELECT * FROM emp WHERE deptno IN (@deptnoList1, @deptnoList2, @deptnoList3, @deptnoList4, @deptnoList5, @deptnoList6, @deptnoList7, @deptnoList8, @deptnoList9, @deptnoList10) ORDER BY ename";
             ISqlParser parser = new SqlParserImpl(sql);
 	        INode root = parser.Parse();
-	        ICommandContext ctx = new SqlClientCommandContextImpl();//TODO:OleDbCommandContextImplもテスト
+	        ICommandContext ctx = new CommandContextImpl();//TODO:OleDbCommandContextImplもテスト
 	        IList deptnoList = new ArrayList();
 	        deptnoList.Add(10);
 	        deptnoList.Add(20);
@@ -334,7 +334,7 @@ namespace Seasar.Dao.Tests.Parser
             Assert.AreEqual(10, vars[0],"3");
 	        Assert.AreEqual(20, vars[1],"4");
             //追加テスト
-            ctx = new SqlClientCommandContextImpl();
+            ctx = new CommandContextImpl();
             deptnoList = new ArrayList();
             deptnoList.Add(10);
             deptnoList.Add(20);
@@ -364,7 +364,7 @@ namespace Seasar.Dao.Tests.Parser
             String sql2 = "SELECT * FROM emp WHERE deptno IN (@deptnoList1, @deptnoList2) ORDER BY ename";
             ISqlParser parser = new SqlParserImpl(sql);
 	        INode root = parser.Parse();
-	        ICommandContext ctx = new SqlClientCommandContextImpl();//TODO:OleDbCommandContextImplもテスト
+	        ICommandContext ctx = new CommandContextImpl();//TODO:OleDbCommandContextImplもテスト
 	        int[] deptnoArray = {10, 20};
 	        ctx.AddArg("deptnoList", deptnoArray, deptnoArray.GetType());
 	        root.Accept(ctx);
@@ -384,7 +384,7 @@ namespace Seasar.Dao.Tests.Parser
             String sql2 = "SELECT * FROM emp WHERE ename IN (@enames1, @enames2) AND job IN (@jobs1, @jobs2)";
             ISqlParser parser = new SqlParserImpl(sql);
 	        INode root = parser.Parse();
-	        ICommandContext ctx = new SqlClientCommandContextImpl();//TODO:OleDbCommandContextImplもテスト
+	        ICommandContext ctx = new CommandContextImpl();//TODO:OleDbCommandContextImplもテスト
 	        String[] enames = {"SCOTT", "MARY"};
 	        String[] jobs = {"ANALYST", "FREE"};
 	        ctx.AddArg("enames", enames, enames.GetType());
@@ -409,7 +409,7 @@ namespace Seasar.Dao.Tests.Parser
 
             ISqlParser parser = new SqlParserImpl(sql);
 	        INode root = parser.Parse();
-	        ICommandContext ctx = new SqlClientCommandContextImpl();//TODO:OleDbCommandContextImplもテスト
+	        ICommandContext ctx = new CommandContextImpl();//TODO:OleDbCommandContextImplもテスト
 	        ctx.AddArg("$1", 0, typeof(Int32));
 	        ctx.AddArg("$2", 1000, typeof(Int32));
 	        root.Accept(ctx);
@@ -435,7 +435,7 @@ namespace Seasar.Dao.Tests.Parser
 	        String sql = "INSERT INTO ITEM (ID, NUM) VALUES (/*id*/1, /*num*/20)";
 	        ISqlParser parser = new SqlParserImpl(sql);
 	        INode root = parser.Parse();
-	        ICommandContext ctx = new SqlClientCommandContextImpl();//TODO:OleDbCommandContextImplもテスト
+	        ICommandContext ctx = new CommandContextImpl();//TODO:OleDbCommandContextImplもテスト
 	        ctx.AddArg("id", 0, typeof(Int32));
 	        ctx.AddArg("num", 1, typeof(Int32));
 	        root.Accept(ctx);
@@ -448,7 +448,7 @@ namespace Seasar.Dao.Tests.Parser
 	        String sql = "/*$aaa*/";
 	        ISqlParser parser = new SqlParserImpl(sql);
 	        INode root = parser.Parse();
-	        ICommandContext ctx = new SqlClientCommandContextImpl();//TODO:OleDbCommandContextImplもテスト
+	        ICommandContext ctx = new CommandContextImpl();//TODO:OleDbCommandContextImplもテスト
 	        ctx.AddArg("aaa", 0, typeof(Int32));
 	        root.Accept(ctx);
 	        //System.out.println(ctx.Sql);
