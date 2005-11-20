@@ -46,6 +46,6 @@
 		<value>Seasar.Dao.Dbms.Standard</value>
 	</data>
 	<data name="OleDbConnection_IBMDADB2">
-		<value>Seasar.Dao.Dbms.OleDbDB2</value>
+		<value>Seasar.Dao.Dbms.DB2</value>
 	</data>
 </root>
