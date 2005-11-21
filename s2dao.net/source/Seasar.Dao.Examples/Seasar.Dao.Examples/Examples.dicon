@@ -33,10 +33,23 @@
     <include path="Seasar.Dao.Examples/PersistentPropsAttr/DB2PersistentPropsAttr.dicon" />
     <include path="Seasar.Dao.Examples/SqlFile/DB2SqlFile.dicon" />
     
+    <include path="Seasar.Dao.Examples/AutoSelect/MySqlAutoSelect.dicon" />
+    <!--
+    <include path="Seasar.Dao.Examples/AutoInsert/MySqlAutoInsert.dicon" />
+    <include path="Seasar.Dao.Examples/AutoUpdate/MySqlAutoUpdate.dicon" />
+    <include path="Seasar.Dao.Examples/AutoDelete/MySqlAutoDelete.dicon" />
+    <include path="Seasar.Dao.Examples/QueryAttr/MySqlQueryAttr.dicon" />
+    <include path="Seasar.Dao.Examples/SqlAttr/MySqlSqlAttr.dicon" />
+    <include path="Seasar.Dao.Examples/NoPersistentPropsAttr/MySqlNoPersistentPropsAttr.dicon" />
+    <include path="Seasar.Dao.Examples/PersistentPropsAttr/MySqlPersistentPropsAttr.dicon" />
+    <include path="Seasar.Dao.Examples/SqlFile/MySqlSqlFile.dicon" />
+    -->
+    
     <component class="Seasar.Examples.ExamplesExplorer">
         <initMethod name="AddExampless"><arg>"MS SQL Server用Examples"</arg><arg>MSSQL</arg></initMethod>
         <initMethod name="AddExampless"><arg>"DB2(OleDb)用Examples"</arg><arg>OleDbDB2</arg></initMethod>
         <initMethod name="AddExampless"><arg>"DB2用Examples"</arg><arg>DB2</arg></initMethod>
+        <initMethod name="AddExampless"><arg>"MySQL用Examples"</arg><arg>MySql</arg></initMethod>
     </component>
     
     <component name="MSSQL" class="System.Collections.ArrayList">
@@ -331,6 +344,106 @@
                 <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/SqlFile/DB2SqlFileClient.cs"</arg></initMethod>
             </component>
         </arg></initMethod>
+    </component>
+    
+    <component name="MySql" class="System.Collections.ArrayList">
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"Select文自動生成"</property>
+                <property name="Examples">MySqlAutoSelect</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/AutoSelect/MySqlAutoSelect.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/MySqlEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoSelect/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoSelect/MySqlAutoSelectClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <!--
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"Insert文自動生成"</property>
+                <property name="Examples">MySqlAutoInsert</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/AutoInsert/MySqlAutoInsert.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/MySqlEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoInsert/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoInsert/AutoInsertLogic.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoInsert/MySqlAutoInsertClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"Update文自動生成"</property>
+                <property name="Examples">MySqlAutoUpdate</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/AutoUpdate/MySqlAutoUpdate.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/MySqlEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoUpdate/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoUpdate/AutoUpdateLogic.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoUpdate/MySqlAutoUpdateClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"Delete文自動生成"</property>
+                <property name="Examples">MySqlAutoDelete</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/AutoDelete/MySqlAutoDelete.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/MySqlEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoDelete/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoDelete/AutoDeleteLogic.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoDelete/MySqlAutoDeleteClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"Query属性"</property>
+                <property name="Examples">MySqlQueryAttr</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/QueryAttr/MySqlQueryAttr.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/MySqlEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/QueryAttr/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/QueryAttr/MySqlQueryAttrClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"Sql属性"</property>
+                <property name="Examples">MySqlSqlAttr</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/SqlAttr/MySqlSqlAttr.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/MySqlEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/SqlAttr/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/SqlAttr/MySqlSqlAttrClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"NoPersistentProps属性"</property>
+                <property name="Examples">MySqlNoPersistentPropsAttr</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/NoPersistentPropsAttr/MySqlNoPersistentPropsAttr.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/MySqlEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/NoPersistentPropsAttr/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/NoPersistentPropsAttr/NoPersistentPropsAttrLogic.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/NoPersistentPropsAttr/MySqlNoPersistentPropsAttrClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"PersistentProps属性"</property>
+                <property name="Examples">MySqlPersistentPropsAttr</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/PersistentPropsAttr/MySqlPersistentPropsAttr.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/MySqlEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/PersistentPropsAttr/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/PersistentPropsAttr/PersistentPropsAttrLogic.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/PersistentPropsAttr/MySqlPersistentPropsAttrClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"SQLファイル"</property>
+                <property name="Examples">MySqlSqlFile</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/SqlFile/MySqlSqlFile.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/MySqlEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/SqlFile/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/SqlFile/MySqlSqlFileClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        -->
     </component>
 
 </components>
