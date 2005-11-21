@@ -263,6 +263,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Dbms\MySQL.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Seasar.Dao.Dbms\Standard.cs"
                     SubType = "Code"
                     BuildAction = "Compile"

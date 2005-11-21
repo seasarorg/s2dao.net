@@ -115,6 +115,7 @@ namespace Seasar.Extension.ADO.Impl
             string cnTypeName = cn.GetType().Name;
             if("SqlConnection".Equals(cnTypeName)) return true;
             if("DB2Connection".Equals(cnTypeName)) return true;
+            if("MySqlConnection".Equals(cnTypeName)) return true;
             return false;
         }
 

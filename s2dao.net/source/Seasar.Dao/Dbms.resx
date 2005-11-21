@@ -51,4 +51,7 @@
 	<data name="DB2Connection">
 		<value>Seasar.Dao.Dbms.DB2</value>
 	</data>
+	<data name="MySqlConnection">
+		<value>Seasar.Dao.Dbms.MySQL</value>
+	</data>
 </root>

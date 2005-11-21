@@ -104,12 +104,6 @@
                     AssemblyName = "Seasar"
                     HintPath = "..\..\lib\Seasar.dll"
                 />
-                <Reference
-                    Name = "IBM.Data.DB2"
-                    AssemblyName = "IBM.Data.DB2"
-                    HintPath = "C:\Program Files\IBM\SQLLIB\Bin\netf11\IBM.Data.DB2.dll"
-                    AssemblyFolderKey = "hklm\ibm db2 .net data provider"
-                />
             </References>
         </Build>
         <Files>
@@ -148,6 +142,10 @@
                     RelPath = "Seasar.Dao.Examples\ForCleanupException.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\MySqlEx.dicon"
+                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "Seasar.Dao.Examples\OleDbDB2Ex.dicon"
@@ -247,6 +245,15 @@
                 />
                 <File
                     RelPath = "Seasar.Dao.Examples\AutoSelect\IEmployeeDao.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\AutoSelect\MySqlAutoSelect.dicon"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\AutoSelect\MySqlAutoSelectClient.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

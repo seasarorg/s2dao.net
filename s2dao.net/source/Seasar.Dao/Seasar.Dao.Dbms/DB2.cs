@@ -48,8 +48,8 @@ namespace Seasar.Dao.Dbms
                 string tableName = tables.Current as String;
                 string[] schemaAndName = tableName.Split('.');
                 primaryKeys[tableName] = GetPrimaryKeySet(
-                    dataSource, cn, (string) tables.Current);
-                columns[tableName] = GetColumnSet(dataSource, cn, (string) tables.Current);
+                    dataSource, cn, tableName);
+                columns[tableName] = GetColumnSet(dataSource, cn, tableName);
                 if(uid != null && string.Compare(schemaAndName[0], uid, true) == 0)
                 {
                     primaryKeys[schemaAndName[1]] = primaryKeys[tableName];
