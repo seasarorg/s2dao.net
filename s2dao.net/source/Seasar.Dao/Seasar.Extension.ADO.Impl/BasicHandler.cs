@@ -83,6 +83,7 @@ namespace Seasar.Extension.ADO.Impl
         {
             if(this.sql == null) throw new EmptyRuntimeException("sql");
             if(!UseAtmark(connection)) this.sql = GetCommandText(this.sql);
+            if(IsMySql(connection)) this.sql = GetMySqlCommandText(this.sql);
             return this.dataSource.GetCommand(sql, connection);
         }
 
@@ -119,6 +120,18 @@ namespace Seasar.Extension.ADO.Impl
             return false;
         }
 
+        private bool IsMySql(IDbConnection cn)
+        {
+            if("MySqlConnection".Equals(cn.GetType().Name))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         private string GetCompleteSql(string sql, object[] args)
         {
             Regex regex = new Regex(@"(@\w+)");
@@ -141,6 +154,19 @@ namespace Seasar.Extension.ADO.Impl
             Regex regex = new Regex(@"(@\w+)");
             MatchCollection matches = regex.Matches(sql);
             return ReplaceSql(sql, "?", matches);
+        }
+
+        private string GetMySqlCommandText(string sql)
+        {
+            string text = sql;
+            Regex regex = new Regex(@"(@\w+)");
+            MatchCollection matches = regex.Matches(sql);
+            for(int i = 0; i < matches.Count; ++i)
+            {
+                if(!matches[i].Success) continue;
+                text = text.Replace(matches[i].Value, "?" + matches[i].Value.Substring(1));
+            }
+            return text;
         }
 
         private string ReplaceSql(string sql, string newValue, MatchCollection matches)

@@ -33,7 +33,14 @@ namespace Seasar.Extension.ADO.Types
 
         public void BindValue(System.Data.IDbCommand cmd, string columnName, object value, DbType dbType)
         {
-            columnName = "@" + columnName;
+            if("MySqlCommand".Equals(cmd.GetType().Name))
+            {
+                columnName = "?" + columnName;
+            }
+            else
+            {
+                columnName = "@" + columnName;
+            }
             IDataParameter parameter = dataSource.GetParameter(columnName, dbType);
             parameter.Value = value == null ? DBNull.Value : value;
             cmd.Parameters.Add(parameter);
