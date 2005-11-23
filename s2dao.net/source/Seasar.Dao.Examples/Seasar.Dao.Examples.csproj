@@ -180,6 +180,15 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Examples\AutoDelete\MySqlAutoDelete.dicon"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\AutoDelete\MySqlAutoDeleteClient.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Seasar.Dao.Examples\AutoDelete\OleDbDB2AutoDelete.dicon"
                     BuildAction = "None"
                 />
@@ -213,6 +222,15 @@
                 />
                 <File
                     RelPath = "Seasar.Dao.Examples\AutoInsert\IEmployeeDao.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\AutoInsert\MySqlAutoInsert.dicon"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\AutoInsert\MySqlAutoInsertClient.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -295,6 +313,15 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Examples\AutoUpdate\MySqlAutoUpdate.dicon"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\AutoUpdate\MySqlAutoUpdateClient.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Seasar.Dao.Examples\AutoUpdate\OleDbDB2AutoUpdate.dicon"
                     BuildAction = "None"
                 />
@@ -314,6 +341,15 @@
                 />
                 <File
                     RelPath = "Seasar.Dao.Examples\NoPersistentPropsAttr\IEmployeeDao.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\NoPersistentPropsAttr\MySqlNoPersistentPropsAttr.dicon"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\NoPersistentPropsAttr\MySqlNoPersistentPropsAttrClient.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -355,6 +391,15 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Examples\PersistentPropsAttr\MySqlPersistentPropsAttr.dicon"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\PersistentPropsAttr\MySqlPersistentPropsAttrClient.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Seasar.Dao.Examples\PersistentPropsAttr\OleDbDB2PersistentPropsAttr.dicon"
                     BuildAction = "None"
                 />
@@ -392,6 +437,15 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Examples\QueryAttr\MySqlQueryAttr.dicon"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\QueryAttr\MySqlQueryAttrClient.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Seasar.Dao.Examples\QueryAttr\OleDbDB2QueryAttr.dicon"
                     BuildAction = "None"
                 />
@@ -420,6 +474,15 @@
                 />
                 <File
                     RelPath = "Seasar.Dao.Examples\SqlAttr\IEmployeeDao.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\SqlAttr\MySqlSqlAttr.dicon"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\SqlAttr\MySqlSqlAttrClient.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -458,6 +521,15 @@
                 <File
                     RelPath = "Seasar.Dao.Examples\SqlFile\IEmployeeDao_GetEnameByEmpno.sql"
                     BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\SqlFile\MySqlSqlFile.dicon"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\SqlFile\MySqlSqlFileClient.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
                 />
                 <File
                     RelPath = "Seasar.Dao.Examples\SqlFile\OleDbDB2SqlFile.dicon"
