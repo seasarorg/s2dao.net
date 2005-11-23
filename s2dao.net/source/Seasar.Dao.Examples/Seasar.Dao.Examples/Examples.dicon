@@ -34,7 +34,6 @@
     <include path="Seasar.Dao.Examples/SqlFile/DB2SqlFile.dicon" />
     
     <include path="Seasar.Dao.Examples/AutoSelect/MySqlAutoSelect.dicon" />
-    <!--
     <include path="Seasar.Dao.Examples/AutoInsert/MySqlAutoInsert.dicon" />
     <include path="Seasar.Dao.Examples/AutoUpdate/MySqlAutoUpdate.dicon" />
     <include path="Seasar.Dao.Examples/AutoDelete/MySqlAutoDelete.dicon" />
@@ -43,7 +42,6 @@
     <include path="Seasar.Dao.Examples/NoPersistentPropsAttr/MySqlNoPersistentPropsAttr.dicon" />
     <include path="Seasar.Dao.Examples/PersistentPropsAttr/MySqlPersistentPropsAttr.dicon" />
     <include path="Seasar.Dao.Examples/SqlFile/MySqlSqlFile.dicon" />
-    -->
     
     <component class="Seasar.Examples.ExamplesExplorer">
         <initMethod name="AddExampless"><arg>"MS SQL Server用Examples"</arg><arg>MSSQL</arg></initMethod>
@@ -357,7 +355,6 @@
                 <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoSelect/MySqlAutoSelectClient.cs"</arg></initMethod>
             </component>
         </arg></initMethod>
-        <!--
         <initMethod name="Add"><arg>
             <component class="Seasar.Examples.Impl.BasicExamplesHandler">
                 <property name="Title">"Insert文自動生成"</property>
@@ -443,7 +440,6 @@
                 <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/SqlFile/MySqlSqlFileClient.cs"</arg></initMethod>
             </component>
         </arg></initMethod>
-        -->
     </component>
 
 </components>
