@@ -50,7 +50,7 @@ namespace Seasar.Dao.Dbms
                 primaryKeys[tableName] = GetPrimaryKeySet(
                     dataSource, cn, tableName);
                 columns[tableName] = GetColumnSet(dataSource, cn, tableName);
-                if(uid != null && string.Compare(schemaAndName[0], uid, true) == 0)
+                if(uid != null && string.Compare(schemaAndName[0].Trim(), uid, true) == 0)
                 {
                     primaryKeys[schemaAndName[1]] = primaryKeys[tableName];
                     columns[schemaAndName[1]] = columns[tableName];
@@ -69,7 +69,9 @@ namespace Seasar.Dao.Dbms
             if(ret != null) return ret;
 
             ret = GetParamValue(cn.ConnectionString.ToLower(), "User ID".ToLower());
-            return ret;
+			if(ret == null) ret = Environment.UserName;
+
+            return ret.Trim();
         }
 
         private string GetParamValue(string str, string name)

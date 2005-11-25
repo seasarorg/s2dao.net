@@ -25,9 +25,6 @@ using Seasar.Framework.Exceptions;
 
 namespace Seasar.Dao.Id
 {
-    /// <summary>
-    /// AbstractIdentifierGenerator ÇÃäTóvÇÃê‡ñæÇ≈Ç∑ÅB
-    /// </summary>
     public abstract class AbstractIdentifierGenerator : IIdentifierGenerator
     {
         private static IDataReaderHandler dataReaderHandler = new ObjectDataReaderHandler();
@@ -60,7 +57,7 @@ namespace Seasar.Dao.Id
         {
             if(propertyName == null) throw new EmptyRuntimeException("propertyName");
             PropertyInfo propertyInfo = bean.GetType().GetProperty(propertyName);
-            propertyInfo.SetValue(bean, value, null);
+            propertyInfo.SetValue(bean, Convert.ChangeType(value, propertyInfo.PropertyType), null);
         }
 
         #region IIdentifierGenerator ÉÅÉìÉo
