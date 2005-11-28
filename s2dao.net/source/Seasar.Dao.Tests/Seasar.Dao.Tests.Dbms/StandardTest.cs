@@ -24,19 +24,16 @@ using NUnit.Framework;
 
 namespace Seasar.Dao.Tests.Dbms
 {
-	/// <summary>
-	/// StandardTest の概要の説明です。
-	/// </summary>
 	[TestFixture]
 	public class StandardTest {
 
-		[Test,Ignore("StandardのDatabaseMetaDataはnullを返しています。実装予定がないならここはコメントアウトしてください。")]
-		public void TestCreateAutoSelectList() {
-			IDbms dbms = new Standard();
-			IBeanMetaData bmd = new BeanMetaDataImpl(typeof(Employee),
-					dbms.DatabaseMetaData, dbms);
-			String sql = dbms.GetAutoSelectSql(bmd);
-			//System.out.println(sql);
-		}
+//		[Test,Ignore("StandardのDatabaseMetaDataはnullを返しています。実装予定がないならここはコメントアウトしてください。")]
+//		public void TestCreateAutoSelectList() {
+//			IDbms dbms = new Standard();
+//			IBeanMetaData bmd = new BeanMetaDataImpl(typeof(Employee),
+//					dbms.DatabaseMetaData, dbms);
+//			String sql = dbms.GetAutoSelectSql(bmd);
+//			System.out.println(sql);
+//		}
 	}
 }
