@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?> 
 <!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
 "http://www.seasar.org/dtd/components21.dtd">
-<components>
+<components namespace="Tests">
 
     <!-- データプロバイダ -->
     <component name="SqlClient" class="Seasar.Extension.ADO.DataProvider">
@@ -16,5 +16,12 @@
         <property name="DataProvider">SqlClient</property>
         <property name="ConnectionString">"Server=localhost;database=s2dotnetdemo;Integrated Security=SSPI"</property>
     </component>
+
+    <!-- S2Dao.NETのDaoInterceptorとそれに必要なコンポーネント -->
+    <component class="Seasar.Extension.ADO.Impl.BasicDataReaderFactory" />
+    <component class="Seasar.Extension.ADO.Impl.BasicCommandFactory" />
+    <component class="Seasar.Dao.Impl.DaoMetaDataFactoryImpl" />
+    <component name="DaoInterceptor"
+        class="Seasar.Dao.Interceptors.S2DaoInterceptor"/>
 
 </components>
