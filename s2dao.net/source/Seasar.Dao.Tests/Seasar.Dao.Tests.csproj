@@ -144,17 +144,7 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Seasar.Dao.Tests.Impl\DeleteAutoStaticCommandTest.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
                     RelPath = "Seasar.Dao.Tests.Impl\Employee.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\SelectDynamicCommandTest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
