@@ -35,6 +35,7 @@ namespace Seasar.Extension.ADO.Impl
         private IDataSource dataSource;
         private string sql;
         private ICommandFactory commandFactory = BasicCommandFactory.INSTANCE;
+        private BindVariableType bindVariableType = BindVariableType.None;
         
         public BasicHandler()
         {
@@ -70,6 +71,18 @@ namespace Seasar.Extension.ADO.Impl
             set { commandFactory = value; }
         }
 
+        protected BindVariableType BindVariableType
+        {
+            get
+            {
+                if(bindVariableType == BindVariableType.None)
+                {
+                    bindVariableType = DataProviderUtil.GetBindVariableType(Connection);
+                }
+                return bindVariableType;
+            }
+        }
+
         protected IDbConnection Connection
         {
             get
@@ -82,8 +95,18 @@ namespace Seasar.Extension.ADO.Impl
         protected virtual IDbCommand Command(IDbConnection connection)
         {
             if(this.sql == null) throw new EmptyRuntimeException("sql");
-            if(!UseAtmark(connection)) this.sql = GetCommandText(this.sql);
-            if(IsMySql(connection)) this.sql = GetMySqlCommandText(this.sql);
+            if(BindVariableType == BindVariableType.Question)
+            {
+                this.sql = GetCommandText(this.sql);
+            }
+            else if(BindVariableType == BindVariableType.QuestionWithParam)
+            {
+                this.sql = GetChangeSignCommandText(this.sql, "?");
+            }
+            else if(BindVariableType == BindVariableType.ColonWithParam)
+            {
+                this.sql = GetChangeSignCommandText(this.sql, ":");
+            }
             return this.dataSource.GetCommand(sql, connection);
         }
 
@@ -111,27 +134,6 @@ namespace Seasar.Extension.ADO.Impl
             return GetCompleteSql(sql, args);
         }
 
-        private bool UseAtmark(IDbConnection cn)
-        {
-            string cnTypeName = cn.GetType().Name;
-            if("SqlConnection".Equals(cnTypeName)) return true;
-            if("DB2Connection".Equals(cnTypeName)) return true;
-            if("MySqlConnection".Equals(cnTypeName)) return true;
-            return false;
-        }
-
-        private bool IsMySql(IDbConnection cn)
-        {
-            if("MySqlConnection".Equals(cn.GetType().Name))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
         private string GetCompleteSql(string sql, object[] args)
         {
             Regex regex = new Regex(@"(@\w+)");
@@ -156,7 +158,7 @@ namespace Seasar.Extension.ADO.Impl
             return ReplaceSql(sql, "?", matches);
         }
 
-        private string GetMySqlCommandText(string sql)
+        private string GetChangeSignCommandText(string sql, string sign)
         {
             string text = sql;
             Regex regex = new Regex(@"(@\w+)");
@@ -164,7 +166,7 @@ namespace Seasar.Extension.ADO.Impl
             for(int i = 0; i < matches.Count; ++i)
             {
                 if(!matches[i].Success) continue;
-                text = text.Replace(matches[i].Value, "?" + matches[i].Value.Substring(1));
+                text = text.Replace(matches[i].Value, sign + matches[i].Value.Substring(1));
             }
             return text;
         }
