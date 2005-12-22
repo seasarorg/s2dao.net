@@ -95,17 +95,17 @@ namespace Seasar.Extension.ADO.Impl
         protected virtual IDbCommand Command(IDbConnection connection)
         {
             if(this.sql == null) throw new EmptyRuntimeException("sql");
-            if(BindVariableType == BindVariableType.Question)
+            switch(BindVariableType)
             {
-                this.sql = GetCommandText(this.sql);
-            }
-            else if(BindVariableType == BindVariableType.QuestionWithParam)
-            {
-                this.sql = GetChangeSignCommandText(this.sql, "?");
-            }
-            else if(BindVariableType == BindVariableType.ColonWithParam)
-            {
-                this.sql = GetChangeSignCommandText(this.sql, ":");
+                case BindVariableType.Question:
+                    this.sql = GetCommandText(this.sql);
+                    break;
+                case BindVariableType.QuestionWithParam:
+                    this.sql = GetChangeSignCommandText(this.sql, "?");
+                    break;
+                case BindVariableType.ColonWithParam:
+                    this.sql = GetChangeSignCommandText(this.sql, ":");
+                    break;
             }
             return this.dataSource.GetCommand(sql, connection);
         }

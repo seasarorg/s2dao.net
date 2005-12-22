@@ -20,12 +20,26 @@ using System;
 using System.Data.OleDb;
 using System.Data;
 using Seasar.Extension.ADO;
+using Seasar.Framework.Util;
 
 namespace Seasar.Extension.ADO.Types
 {
     public abstract class BaseValueType
     {
         private IDataSource dataSource;
+        protected BindVariableType bindVariableType = BindVariableType.None;
+
+        protected BindVariableType BindVariableType
+        {
+            get
+            {
+                if(bindVariableType == BindVariableType.None)
+                {
+                    bindVariableType = DataProviderUtil.GetBindVariableType(dataSource.GetConnection());
+                }
+                return bindVariableType;
+            }
+        }
 
         public BaseValueType(IDataSource dataSource)
         {
@@ -34,13 +48,17 @@ namespace Seasar.Extension.ADO.Types
 
         public void BindValue(System.Data.IDbCommand cmd, string columnName, object value, DbType dbType)
         {
-            if("MySqlCommand".Equals(cmd.GetType().Name))
+            switch(BindVariableType)
             {
-                columnName = "?" + columnName;
-            }
-            else
-            {
-                columnName = "@" + columnName;
+                case BindVariableType.QuestionWithParam:
+                    columnName = "?" + columnName;
+                    break;
+                case BindVariableType.ColonWithParam:
+                    columnName = ":" + columnName;
+                    break;
+                default:
+                    columnName = "@" + columnName;
+                    break;
             }
 
             IDataParameter parameter = dataSource.GetParameter(columnName, value == null ? DBNull.Value : value);
