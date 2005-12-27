@@ -25,6 +25,7 @@ namespace Seasar.Dao
         None, 
         MSSQLServer,
 		DB2,
-        MySQL
+        MySQL,
+        Oracle
     }
 }

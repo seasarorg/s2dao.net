@@ -69,7 +69,7 @@ namespace Seasar.Dao.Dbms
             return buf.ToString();
         }
 
-        protected string CreateAutoSelectFromClause(IBeanMetaData beanMetaData)
+        protected virtual string CreateAutoSelectFromClause(IBeanMetaData beanMetaData)
         {
             StringBuilder buf = new StringBuilder(100);
             buf.Append("FROM ");
