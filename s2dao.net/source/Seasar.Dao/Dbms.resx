@@ -54,4 +54,7 @@
 	<data name="MySqlConnection">
 		<value>Seasar.Dao.Dbms.MySQL</value>
 	</data>
+	<data name="OracleConnection">
+		<value>Seasar.Dao.Dbms.Oracle</value>
+	</data>
 </root>

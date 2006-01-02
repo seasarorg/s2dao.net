@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
 "http://www.seasar.org/dtd/components21.dtd">
-<components namespace="Ex">
+<components namespace="OracleEx">
 
     <!-- データプロバイダ -->
-    <component name="SqlClient" class="Seasar.Extension.ADO.DataProvider">
-        <property name="ConnectionType">"System.Data.SqlClient.SqlConnection"</property>
-        <property name="CommandType">"System.Data.SqlClient.SqlCommand"</property>
-        <property name="ParameterType">"System.Data.SqlClient.SqlParameter"</property>
-        <property name="DataAdapterType">"System.Data.SqlClient.SqlDataAdapter"</property>
+    <component name="Oracle" class="Seasar.Extension.ADO.DataProvider">
+        <property name="ConnectionType">"System.Data.OracleClient.OracleConnection"</property>
+        <property name="CommandType">"System.Data.OracleClient.OracleCommand"</property>
+        <property name="ParameterType">"System.Data.OracleClient.OracleParameter"</property>
+        <property name="DataAdapterType">"System.Data.OracleClient.OracleDataAdapter"</property>
     </component>
     
     <!-- データソース -->
     <component name="SqlDataSource" class="Seasar.Extension.Tx.Impl.TxDataSource">
-        <property name="DataProvider">Ex.SqlClient</property>
-        <property name="ConnectionString">"Server=DIMENSION9100;database=s2dotnetdemo;Integrated Security=SSPI"</property>
+        <property name="DataProvider">Oracle</property>
+        <property name="ConnectionString">"Data Source=ORCL;User ID=s2demouser;Password=s2demouser"</property>
     </component>
     
     <!-- S2Dao.NETのDaoInterceptorとそれに必要なコンポーネント -->

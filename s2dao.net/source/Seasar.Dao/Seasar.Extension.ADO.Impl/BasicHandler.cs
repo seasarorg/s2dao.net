@@ -71,16 +71,13 @@ namespace Seasar.Extension.ADO.Impl
             set { commandFactory = value; }
         }
 
-        protected BindVariableType BindVariableType
+        protected BindVariableType GetBindVariableType(IDbConnection cn)
         {
-            get
+            if(bindVariableType == BindVariableType.None)
             {
-                if(bindVariableType == BindVariableType.None)
-                {
-                    bindVariableType = DataProviderUtil.GetBindVariableType(Connection);
-                }
-                return bindVariableType;
+                bindVariableType = DataProviderUtil.GetBindVariableType(cn);
             }
+            return bindVariableType;
         }
 
         protected IDbConnection Connection
@@ -95,7 +92,7 @@ namespace Seasar.Extension.ADO.Impl
         protected virtual IDbCommand Command(IDbConnection connection)
         {
             if(this.sql == null) throw new EmptyRuntimeException("sql");
-            switch(BindVariableType)
+            switch(GetBindVariableType(connection))
             {
                 case BindVariableType.Question:
                     this.sql = GetCommandText(this.sql);

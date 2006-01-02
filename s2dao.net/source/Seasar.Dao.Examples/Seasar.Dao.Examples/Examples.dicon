@@ -43,11 +43,22 @@
     <include path="Seasar.Dao.Examples/PersistentPropsAttr/MySqlPersistentPropsAttr.dicon" />
     <include path="Seasar.Dao.Examples/SqlFile/MySqlSqlFile.dicon" />
     
+    <include path="Seasar.Dao.Examples/AutoSelect/OracleAutoSelect.dicon" />
+    <include path="Seasar.Dao.Examples/AutoInsert/OracleAutoInsert.dicon" />
+    <include path="Seasar.Dao.Examples/AutoUpdate/OracleAutoUpdate.dicon" />
+    <include path="Seasar.Dao.Examples/AutoDelete/OracleAutoDelete.dicon" />
+    <include path="Seasar.Dao.Examples/QueryAttr/OracleQueryAttr.dicon" />
+    <include path="Seasar.Dao.Examples/SqlAttr/OracleSqlAttr.dicon" />
+    <include path="Seasar.Dao.Examples/NoPersistentPropsAttr/OracleNoPersistentPropsAttr.dicon" />
+    <include path="Seasar.Dao.Examples/PersistentPropsAttr/OraclePersistentPropsAttr.dicon" />
+    <include path="Seasar.Dao.Examples/SqlFile/OracleSqlFile.dicon" />
+    
     <component class="Seasar.Examples.ExamplesExplorer">
         <initMethod name="AddExampless"><arg>"MS SQL Server用Examples"</arg><arg>MSSQL</arg></initMethod>
         <initMethod name="AddExampless"><arg>"DB2(OleDb)用Examples"</arg><arg>OleDbDB2</arg></initMethod>
         <initMethod name="AddExampless"><arg>"DB2用Examples"</arg><arg>DB2</arg></initMethod>
         <initMethod name="AddExampless"><arg>"MySQL用Examples"</arg><arg>MySql</arg></initMethod>
+        <initMethod name="AddExampless"><arg>"Oracle用Examples"</arg><arg>Oracle</arg></initMethod>
     </component>
     
     <component name="MSSQL" class="System.Collections.ArrayList">
@@ -438,6 +449,105 @@
                 <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/MySqlEx.dicon"</arg></initMethod>
                 <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/SqlFile/IEmployeeDao.cs"</arg></initMethod>
                 <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/SqlFile/MySqlSqlFileClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+    </component>
+    
+    
+    <component name="Oracle" class="System.Collections.ArrayList">
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"Select文自動生成"</property>
+                <property name="Examples">OracleAutoSelect</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/AutoSelect/OracleAutoSelect.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/OracleEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoSelect/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoSelect/OracleAutoSelectClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"Insert文自動生成"</property>
+                <property name="Examples">OracleAutoInsert</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/AutoInsert/OracleAutoInsert.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/OracleEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoInsert/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoInsert/AutoInsertLogic.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoInsert/OracleAutoInsertClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"Update文自動生成"</property>
+                <property name="Examples">OracleAutoUpdate</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/AutoUpdate/OracleAutoUpdate.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/OracleEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoUpdate/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoUpdate/AutoUpdateLogic.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoUpdate/OracleAutoUpdateClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"Delete文自動生成"</property>
+                <property name="Examples">OracleAutoDelete</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/AutoDelete/OracleAutoDelete.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/OracleEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoDelete/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoDelete/AutoDeleteLogic.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoDelete/OracleAutoDeleteClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"Query属性"</property>
+                <property name="Examples">OracleQueryAttr</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/QueryAttr/OracleQueryAttr.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/OracleEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/QueryAttr/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/QueryAttr/OracleQueryAttrClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"Sql属性"</property>
+                <property name="Examples">OracleSqlAttr</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/SqlAttr/OracleSqlAttr.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/OracleEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/SqlAttr/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/SqlAttr/OracleSqlAttrClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"NoPersistentProps属性"</property>
+                <property name="Examples">OracleNoPersistentPropsAttr</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/NoPersistentPropsAttr/OracleNoPersistentPropsAttr.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/OracleEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/NoPersistentPropsAttr/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/NoPersistentPropsAttr/NoPersistentPropsAttrLogic.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/NoPersistentPropsAttr/OracleNoPersistentPropsAttrClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"PersistentProps属性"</property>
+                <property name="Examples">OraclePersistentPropsAttr</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/PersistentPropsAttr/OraclePersistentPropsAttr.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/OracleEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/PersistentPropsAttr/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/PersistentPropsAttr/PersistentPropsAttrLogic.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/PersistentPropsAttr/OraclePersistentPropsAttrClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"SQLファイル"</property>
+                <property name="Examples">OracleSqlFile</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/SqlFile/OracleSqlFile.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/OracleEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/SqlFile/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/SqlFile/OracleSqlFileClient.cs"</arg></initMethod>
             </component>
         </arg></initMethod>
     </component>
