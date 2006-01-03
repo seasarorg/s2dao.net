@@ -11,9 +11,21 @@
         <property name="DataAdapterType">"System.Data.OracleClient.OracleDataAdapter"</property>
     </component>
     
+    <!-- データプロバイダ(ODP.NET) -->
+    <component name="ODP.NET" class="Seasar.Extension.ADO.DataProvider">
+        <property name="ConnectionType">"Oracle.DataAccess.Client.OracleConnection"</property>
+        <property name="CommandType">"Oracle.DataAccess.Client.OracleCommand"</property>
+        <property name="ParameterType">"Oracle.DataAccess.Client.OracleParameter"</property>
+        <property name="DataAdapterType">"Oracle.DataAccess.Client.OracleDataAdapter"</property>
+    </component>
+    
     <!-- データソース -->
     <component name="SqlDataSource" class="Seasar.Extension.Tx.Impl.TxDataSource">
-        <property name="DataProvider">Oracle</property>
+		<property name="DataProvider">Oracle</property>
+		<!-- ODP.NETを使用する場合 -->
+		<!--
+        <property name="DataProvider">ODP.NET</property>
+        -->
         <property name="ConnectionString">"Data Source=ORCL;User ID=s2demouser;Password=s2demouser"</property>
     </component>
     
