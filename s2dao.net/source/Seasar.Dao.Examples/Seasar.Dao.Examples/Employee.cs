@@ -32,7 +32,6 @@ namespace Seasar.Dao.Examples
         public Employee()
         {
         }
-
         public int Empno
         {
             set { empno = value; }

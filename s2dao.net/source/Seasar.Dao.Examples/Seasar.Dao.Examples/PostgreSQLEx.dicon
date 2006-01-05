@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
 "http://www.seasar.org/dtd/components21.dtd">
-<components namespace="MySqlEx">
+<components namespace="PostgreSQLEx">
 
     <!-- データプロバイダ -->
-    <component name="MySql" class="Seasar.Extension.ADO.DataProvider">
-        <property name="ConnectionType">"MySql.Data.MySqlClient.MySqlConnection"</property>
-        <property name="CommandType">"MySql.Data.MySqlClient.MySqlCommand"</property>
-        <property name="ParameterType">"MySql.Data.MySqlClient.MySqlParameter"</property>
-        <property name="DataAdapterType">"MySql.Data.MySqlClient.MySqlDataAdapter"</property>
+    <component name="Npgsql" class="Seasar.Extension.ADO.DataProvider">
+        <property name="ConnectionType">"Npgsql.NpgsqlConnection"</property>
+        <property name="CommandType">"Npgsql.NpgsqlCommand"</property>
+        <property name="ParameterType">"Npgsql.NpgsqlParameter"</property>
+        <property name="DataAdapterType">"Npgsql.NpgsqlDataAdapter"</property>
     </component>
     
     <!-- データソース -->
     <component name="SqlDataSource" class="Seasar.Extension.Tx.Impl.TxDataSource">
-        <property name="DataProvider">MySql</property>
-        <property name="ConnectionString">"server=127.0.0.1;user id=s2demo; password=s2demo; database=s2demo;"</property>
+        <property name="DataProvider">Npgsql</property>
+        <property name="ConnectionString">"server=127.0.0.1;Port=5432;User Id=s2demouser;Password=s2demouser;Database=s2demo;Pooling=True;MinPoolSize=5;MaxPoolSize=20"</property>
     </component>
     
     <!-- S2Dao.NETのDaoInterceptorとそれに必要なコンポーネント -->

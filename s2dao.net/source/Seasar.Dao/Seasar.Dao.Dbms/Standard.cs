@@ -18,8 +18,12 @@
 
 using System;
 using System.Collections;
+using System.Data;
+using System.Data.Common;
 using System.Text;
 using Seasar.Extension.ADO;
+using Seasar.Extension.ADO.Impl;
+using Seasar.Framework.Util;
 
 namespace Seasar.Dao.Dbms
 {
@@ -110,5 +114,51 @@ namespace Seasar.Dao.Dbms
         {
             return null;
         }
+
+		public void SetupDatabaseMetaData(IList tableSet, IDataSource dataSource, IDbConnection cn)
+		{
+			IDictionary primaryKeys = new Hashtable(CaseInsensitiveHashCodeProvider.Default,
+				CaseInsensitiveComparer.Default);
+			IDictionary columns = new Hashtable(CaseInsensitiveHashCodeProvider.Default,
+				CaseInsensitiveComparer.Default);
+
+			IEnumerator tables = tableSet.GetEnumerator();
+			while(tables.MoveNext())
+			{
+				string tableName = tables.Current as String;
+				string sql = "SELECT * FROM " + tableName;
+				DbDataAdapter adapter = 
+					dataSource.GetDataAdapter(dataSource.GetCommand(sql, cn)) as DbDataAdapter;
+				DataTable metadataTable = new DataTable(tableName);
+				adapter.FillSchema(metadataTable, SchemaType.Mapped);
+				primaryKeys[tableName] = GetPrimaryKeySet(metadataTable.PrimaryKey);
+				columns[tableName] = GetColumnSet(metadataTable.Columns);
+			}
+			DatabaseMetaDataImpl dbMetaData = new DatabaseMetaDataImpl();
+			dbMetaData.TableSet = tableSet;
+			dbMetaData.PrimaryKeys = primaryKeys;
+			dbMetaData.Columns = columns;
+			dbMetadata = dbMetaData;
+		}
+
+		private IList GetPrimaryKeySet(DataColumn[] primarykeys)
+		{
+			IList list = new CaseInsentiveSet();
+			foreach (DataColumn pkey in primarykeys)
+			{
+				list.Add(pkey.ColumnName);
+			}
+			return list;
+		}
+
+		private IList GetColumnSet(DataColumnCollection columns)
+		{
+			IList list = new CaseInsentiveSet();
+			foreach (DataColumn column in columns)
+			{
+				list.Add(column.ColumnName);
+			}
+			return list;
+		}
     }
 }

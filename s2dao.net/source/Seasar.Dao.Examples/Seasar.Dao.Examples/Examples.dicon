@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?> 
+<?xml version="1.0" encoding="utf-8" ?> 
 <!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
 "http://www.seasar.org/dtd/components21.dtd">
 <components>
@@ -42,7 +42,17 @@
     <include path="Seasar.Dao.Examples/NoPersistentPropsAttr/MySqlNoPersistentPropsAttr.dicon" />
     <include path="Seasar.Dao.Examples/PersistentPropsAttr/MySqlPersistentPropsAttr.dicon" />
     <include path="Seasar.Dao.Examples/SqlFile/MySqlSqlFile.dicon" />
-    
+
+    <include path="Seasar.Dao.Examples/AutoSelect/PostgreSQLAutoSelect.dicon" />
+    <include path="Seasar.Dao.Examples/AutoInsert/PostgreSQLAutoInsert.dicon" />
+    <include path="Seasar.Dao.Examples/AutoUpdate/PostgreSQLAutoUpdate.dicon" />
+    <include path="Seasar.Dao.Examples/AutoDelete/PostgreSQLAutoDelete.dicon" />
+    <include path="Seasar.Dao.Examples/QueryAttr/PostgreSQLQueryAttr.dicon" />
+    <include path="Seasar.Dao.Examples/SqlAttr/PostgreSQLSqlAttr.dicon" />
+    <include path="Seasar.Dao.Examples/NoPersistentPropsAttr/PostgreSQLNoPersistentPropsAttr.dicon" />
+    <include path="Seasar.Dao.Examples/PersistentPropsAttr/PostgreSQLPersistentPropsAttr.dicon" />
+    <include path="Seasar.Dao.Examples/SqlFile/PostgreSQLSqlFile.dicon" />
+
     <include path="Seasar.Dao.Examples/AutoSelect/OracleAutoSelect.dicon" />
     <include path="Seasar.Dao.Examples/AutoInsert/OracleAutoInsert.dicon" />
     <include path="Seasar.Dao.Examples/AutoUpdate/OracleAutoUpdate.dicon" />
@@ -58,7 +68,8 @@
         <initMethod name="AddExampless"><arg>"DB2(OleDb)用Examples"</arg><arg>OleDbDB2</arg></initMethod>
         <initMethod name="AddExampless"><arg>"DB2用Examples"</arg><arg>DB2</arg></initMethod>
         <initMethod name="AddExampless"><arg>"MySQL用Examples"</arg><arg>MySql</arg></initMethod>
-        <initMethod name="AddExampless"><arg>"Oracle用Examples"</arg><arg>Oracle</arg></initMethod>
+		<initMethod name="AddExampless"><arg>"Oracle用Examples"</arg><arg>Oracle</arg></initMethod>
+		<initMethod name="AddExampless"><arg>"PostgreSQL用Examples"</arg><arg>PostgreSQL</arg></initMethod>
     </component>
     
     <component name="MSSQL" class="System.Collections.ArrayList">
@@ -548,6 +559,104 @@
                 <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/OracleEx.dicon"</arg></initMethod>
                 <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/SqlFile/IEmployeeDao.cs"</arg></initMethod>
                 <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/SqlFile/OracleSqlFileClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+    </component>
+
+    <component name="PostgreSQL" class="System.Collections.ArrayList">
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"Select文自動生成"</property>
+                <property name="Examples">PostgreSQLAutoSelect</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/AutoSelect/PostgreSQLAutoSelect.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/PostgreSQLEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoSelect/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoSelect/PostgreSQLAutoSelectClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"Insert文自動生成"</property>
+                <property name="Examples">PostgreSQLAutoInsert</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/AutoInsert/PostgreSQLAutoInsert.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/PostgreSQLEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoInsert/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoInsert/AutoInsertLogic.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoInsert/PostgreSQLAutoInsertClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"Update文自動生成"</property>
+                <property name="Examples">PostgreSQLAutoUpdate</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/AutoUpdate/PostgreSQLAutoUpdate.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/PostgreSQLEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoUpdate/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoUpdate/AutoUpdateLogic.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoUpdate/PostgreSQLAutoUpdateClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"Delete文自動生成"</property>
+                <property name="Examples">PostgreSQLAutoDelete</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/AutoDelete/PostgreSQLAutoDelete.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/PostgreSQLEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoDelete/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoDelete/AutoDeleteLogic.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoDelete/PostgreSQLAutoDeleteClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"Query属性"</property>
+                <property name="Examples">PostgreSQLQueryAttr</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/QueryAttr/PostgreSQLQueryAttr.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/PostgreSQLEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/QueryAttr/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/QueryAttr/PostgreSQLQueryAttrClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"Sql属性"</property>
+                <property name="Examples">PostgreSQLSqlAttr</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/SqlAttr/PostgreSQLSqlAttr.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/PostgreSQLEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/SqlAttr/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/SqlAttr/PostgreSQLSqlAttrClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"NoPersistentProps属性"</property>
+                <property name="Examples">PostgreSQLNoPersistentPropsAttr</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/NoPersistentPropsAttr/PostgreSQLNoPersistentPropsAttr.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/PostgreSQLEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/NoPersistentPropsAttr/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/NoPersistentPropsAttr/NoPersistentPropsAttrLogic.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/NoPersistentPropsAttr/PostgreSQLNoPersistentPropsAttrClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"PersistentProps属性"</property>
+                <property name="Examples">PostgreSQLPersistentPropsAttr</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/PersistentPropsAttr/PostgreSQLPersistentPropsAttr.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/PostgreSQLEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/PersistentPropsAttr/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/PersistentPropsAttr/PersistentPropsAttrLogic.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/PersistentPropsAttr/PostgreSQLPersistentPropsAttrClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"SQLファイル"</property>
+                <property name="Examples">PostgreSQLSqlFile</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/SqlFile/PostgreSQLSqlFile.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/PostgreSQLEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/SqlFile/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/SqlFile/PostgreSQLSqlFileClient.cs"</arg></initMethod>
             </component>
         </arg></initMethod>
     </component>

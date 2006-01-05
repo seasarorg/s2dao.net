@@ -16,12 +16,10 @@
  */
 #endregion
 
-using System;
 using System.Collections;
 using System.Data;
 using Seasar.Extension.ADO;
 using Seasar.Extension.ADO.Impl;
-using Seasar.Extension.Tx.Impl;
 using Seasar.Framework.Util;
 
 namespace Seasar.Dao.Dbms
@@ -48,26 +46,7 @@ namespace Seasar.Dao.Dbms
 
         public MSSQLServer(IDataSource dataSource, IDbConnection cn)
         {
-            IList tableSet = GetTableSet(dataSource, cn);
-                
-            IDictionary primaryKeys = new Hashtable(CaseInsensitiveHashCodeProvider.Default,
-                CaseInsensitiveComparer.Default);
-            IDictionary columns = new Hashtable(CaseInsensitiveHashCodeProvider.Default,
-                CaseInsensitiveComparer.Default);
-            IEnumerator tables = tableSet.GetEnumerator();
-
-            while(tables.MoveNext())
-            {
-                primaryKeys[tables.Current] = GetPrimaryKeySet(
-                    dataSource, cn, (string) tables.Current);
-                columns[tables.Current] = GetColumnSet(dataSource, cn, (string) tables.Current);
-            }
-                
-            DatabaseMetaDataImpl dbMetaData = new DatabaseMetaDataImpl();
-            dbMetaData.TableSet = tableSet;
-            dbMetaData.PrimaryKeys = primaryKeys;
-            dbMetaData.Columns = columns;
-            this.dbMetadata = dbMetaData;
+			base.SetupDatabaseMetaData(GetTableSet(dataSource, cn), dataSource, cn);
         }
 
         protected IList GetTableSet(IDataSource dataSource, IDbConnection cn)
@@ -83,46 +62,6 @@ namespace Seasar.Dao.Dbms
                     while(reader.Read())
                     {
                         list.Add(reader["table_name"]);
-                    }
-                }
-            }
-            return list;
-        }
-
-        protected IList GetPrimaryKeySet(IDataSource dataSource, IDbConnection cn, string tableName)
-        {
-            IList list = new CaseInsentiveSet();
-            string cmdText = "sp_pkeys";
-            using(IDbCommand cmd = dataSource.GetCommand(cmdText, cn))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add(dataSource.GetParameter("@table_name", tableName));
-                DataSourceUtil.SetTransaction(dataSource, cmd);
-                using(IDataReader reader = cmd.ExecuteReader())
-                {
-                    while(reader.Read())
-                    {
-                        list.Add(reader["column_name"]);
-                    }
-                }
-            }
-            return list;
-        }
-
-        protected IList GetColumnSet(IDataSource dataSource, IDbConnection cn, string tableName)
-        {
-            IList list = new CaseInsentiveSet();
-            string cmdText = "sp_columns";
-            using(IDbCommand cmd = dataSource.GetCommand(cmdText, cn))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add(dataSource.GetParameter("@table_name", tableName));
-                DataSourceUtil.SetTransaction(dataSource, cmd);
-                using(IDataReader reader = cmd.ExecuteReader())
-                {
-                    while(reader.Read())
-                    {
-                        list.Add(reader["column_name"]);
                     }
                 }
             }

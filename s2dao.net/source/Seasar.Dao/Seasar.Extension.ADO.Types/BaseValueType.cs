@@ -56,6 +56,9 @@ namespace Seasar.Extension.ADO.Types
                 case BindVariableType.ColonWithParam:
                     columnName = ":" + columnName;
                     break;
+				case BindVariableType.ColonWithParamToLower:
+					columnName = ":" + columnName.ToLower();
+					break;
                 default:
                     columnName = "@" + columnName;
                     break;

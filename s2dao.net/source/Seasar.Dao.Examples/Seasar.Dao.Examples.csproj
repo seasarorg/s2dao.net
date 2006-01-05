@@ -156,6 +156,10 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Examples\PostgreSQLEx.dicon"
+                    BuildAction = "None"
+                />
+                <File
                     RelPath = "Seasar.Dao.Examples\AutoDelete\AutoDelete.dicon"
                     BuildAction = "None"
                 />
@@ -207,6 +211,15 @@
                 />
                 <File
                     RelPath = "Seasar.Dao.Examples\AutoDelete\OracleAutoDeleteClient.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\AutoDelete\PostgreSQLAutoDelete.dicon"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\AutoDelete\PostgreSQLAutoDeleteClient.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -266,6 +279,15 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Examples\AutoInsert\PostgreSQLAutoInsert.dicon"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\AutoInsert\PostgreSQLAutoInsertClient.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Seasar.Dao.Examples\AutoSelect\AutoSelect.dicon"
                     BuildAction = "None"
                 />
@@ -312,6 +334,15 @@
                 />
                 <File
                     RelPath = "Seasar.Dao.Examples\AutoSelect\OracleAutoSelectClient.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\AutoSelect\PostgreSQLAutoSelect.dicon"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\AutoSelect\PostgreSQLAutoSelectClient.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -371,6 +402,15 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Examples\AutoUpdate\PostgreSQLAutoUpdate.dicon"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\AutoUpdate\PostgreSQLAutoUpdateClient.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Seasar.Dao.Examples\NoPersistentPropsAttr\DB2NoPersistentPropsAttr.dicon"
                     BuildAction = "None"
                 />
@@ -422,6 +462,15 @@
                 />
                 <File
                     RelPath = "Seasar.Dao.Examples\NoPersistentPropsAttr\OracleNoPersistentPropsAttrClient.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\NoPersistentPropsAttr\PostgreSQLNoPersistentPropsAttr.dicon"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\NoPersistentPropsAttr\PostgreSQLNoPersistentPropsAttrClient.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -481,6 +530,15 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Examples\PersistentPropsAttr\PostgreSQLPersistentPropsAttr.dicon"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\PersistentPropsAttr\PostgreSQLPersistentPropsAttrClient.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Seasar.Dao.Examples\QueryAttr\DB2QueryAttr.dicon"
                     BuildAction = "None"
                 />
@@ -518,6 +576,15 @@
                 />
                 <File
                     RelPath = "Seasar.Dao.Examples\QueryAttr\OracleQueryAttrClient.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\QueryAttr\PostgreSQLQueryAttr.dicon"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\QueryAttr\PostgreSQLQueryAttrClient.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -572,6 +639,15 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Examples\SqlAttr\PostgreSQLSqlAttr.dicon"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\SqlAttr\PostgreSQLSqlAttrClient.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Seasar.Dao.Examples\SqlAttr\SqlAttr.dicon"
                     BuildAction = "None"
                 />
@@ -622,6 +698,15 @@
                 />
                 <File
                     RelPath = "Seasar.Dao.Examples\SqlFile\OracleSqlFileClient.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\SqlFile\PostgreSQLSqlFile.dicon"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\SqlFile\PostgreSQLSqlFileClient.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

@@ -26,6 +26,7 @@ namespace Seasar.Dao
         MSSQLServer,
 		DB2,
         MySQL,
-        Oracle
+        Oracle,
+    	PostgreSQL
     }
 }

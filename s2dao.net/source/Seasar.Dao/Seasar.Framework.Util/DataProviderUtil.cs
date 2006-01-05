@@ -45,6 +45,10 @@ namespace Seasar.Framework.Util
             {
                 return BindVariableType.QuestionWithParam;
             }
+			else if("NpgsqlConnection".Equals(cn.GetType().Name))
+			{
+				return BindVariableType.ColonWithParamToLower;
+			}
             else
             {
                 return BindVariableType.Question;

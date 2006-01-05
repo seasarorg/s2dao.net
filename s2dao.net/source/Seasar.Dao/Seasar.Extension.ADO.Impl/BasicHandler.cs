@@ -103,6 +103,10 @@ namespace Seasar.Extension.ADO.Impl
                 case BindVariableType.ColonWithParam:
                     this.sql = GetChangeSignCommandText(this.sql, ":");
                     break;
+				case BindVariableType.ColonWithParamToLower:
+					this.sql = GetChangeSignCommandText(this.sql, ":");
+					this.sql = this.sql.ToLower();
+					break;
             }
             return this.dataSource.GetCommand(sql, connection);
         }

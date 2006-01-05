@@ -29,6 +29,7 @@ namespace Seasar.Framework.Util
 		AtmarkWithParam,
         Question,
         QuestionWithParam,
-        ColonWithParam
+        ColonWithParam,
+		ColonWithParamToLower
 	}
 }
