@@ -127,8 +127,10 @@ namespace Seasar.Dao.Dbms
 			{
 				string tableName = tables.Current as String;
 				string sql = "SELECT * FROM " + tableName;
-				DbDataAdapter adapter = 
-					dataSource.GetDataAdapter(dataSource.GetCommand(sql, cn)) as DbDataAdapter;
+
+				IDbCommand cmd = dataSource.GetCommand(sql, cn);
+				DataSourceUtil.SetTransaction(dataSource, cmd);
+				DbDataAdapter adapter = dataSource.GetDataAdapter(cmd) as DbDataAdapter;
 				DataTable metadataTable = new DataTable(tableName);
 				adapter.FillSchema(metadataTable, SchemaType.Mapped);
 				primaryKeys[tableName] = GetPrimaryKeySet(metadataTable.PrimaryKey);
