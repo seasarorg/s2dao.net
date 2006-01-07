@@ -22,12 +22,12 @@ using Seasar.Dao.Attrs;
 
 namespace Seasar.Dao.Tests.Impl
 {
-    [Table("EMP2")]
+    [Table("EMP")]
     public class Employee
     {
         private int empno;
         private string ename;
-        private short deptnum;
+        private short deptno;
 
         public Employee()
         {
@@ -45,10 +45,10 @@ namespace Seasar.Dao.Tests.Impl
             get { return ename; }
         }
 
-        public short Deptnum
+        public short Deptno
         {
-            set { deptnum = value; }
-            get { return deptnum; }
+            set { deptno = value; }
+            get { return deptno; }
         }
 
         public override string ToString()
@@ -58,8 +58,8 @@ namespace Seasar.Dao.Tests.Impl
             buf.Append(Empno);
             buf.Append(", Ename=");
             buf.Append(Ename);
-            buf.Append(", Deptnum=");
-            buf.Append(Deptnum);
+            buf.Append(", Deptno=");
+            buf.Append(Deptno);
             return buf.ToString();
         }
 

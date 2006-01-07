@@ -76,7 +76,7 @@ namespace Seasar.Dao.Impl
         {
             get
             {
-                return GetPropertyType(timestampPropertyName);
+                return GetPropertyType(versionNoPropertyName);
             }
         }
 
