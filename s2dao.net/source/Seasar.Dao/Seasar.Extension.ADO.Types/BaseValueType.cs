@@ -76,5 +76,7 @@ namespace Seasar.Extension.ADO.Types
 			}
             cmd.Parameters.Add(parameter);
         }
+
+        protected abstract object GetValue(object value, Type type);
     }
 }

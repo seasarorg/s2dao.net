@@ -80,23 +80,23 @@ namespace Seasar.Dao.Impl
             {
                 IValueType valueType = null;
                 string columnName = rpt.GetMyKey(i);
+                IPropertyType pt;
                 if(columnNames.Contains(columnName))
                 {
-                    IPropertyType pt = 
-                        BeanMetaData.GetPropertyTypeByColumnName(columnName);
+                    pt = BeanMetaData.GetPropertyTypeByColumnName(columnName);
                     valueType = pt.ValueType;
                 }
                 else
                 {
-                    IPropertyType pt = 
-                        bmd.GetPropertyTypeByColumnName(rpt.GetYourKey(i));
+                    pt = bmd.GetPropertyTypeByColumnName(rpt.GetYourKey(i));
                     columnName = pt.ColumnName + "_" + rpt.RelationNo;
                     if(columnNames.Contains(columnName))
                         valueType = pt.ValueType;
                     else
                         return null;
                 }
-                object value = valueType.GetValue(reader, columnName);
+                object value = valueType.GetValue(reader, columnName,
+                    pt.PropertyInfo.PropertyType);
                 if(value == null) return null;
 
                 relKeyValues[columnName] = value;

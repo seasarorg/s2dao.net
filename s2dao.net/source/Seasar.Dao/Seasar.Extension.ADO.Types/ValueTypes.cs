@@ -19,29 +19,34 @@
 using System;
 using System.Collections;
 using System.Data;
+using System.Data.SqlTypes;
 using Seasar.Extension.ADO;
 using Seasar.Framework.Container.Factory;
+using Nullables;
 
 namespace Seasar.Extension.ADO.Types
 {
     public sealed class ValueTypes
     {
         public static IValueType STRING;
+        public static IValueType BYTE;
+        public static IValueType SBYTE;
         public static IValueType INT16;
         public static IValueType INT32;
         public static IValueType INT64;
         public static IValueType SINGLE;
         public static IValueType DOUBLE;
         public static IValueType DECIMAL;
-        public static IValueType TIME;
-        public static IValueType DATE;
         public static IValueType DATETIME;
         public static IValueType BINARY;
         public static IValueType BOOLEAN;
+        public static IValueType GUID;
         public static IValueType OBJECT;
 
         private readonly static byte[] BYTE_ARRAY = new byte[0];
-        private readonly static Type BYTE_ARRAY_TYPE = BYTE_ARRAY.GetType();
+        private readonly static NullableByte[] NULLABLE_BYTE_ARRAY = new NullableByte[0];
+        public readonly static Type BYTE_ARRAY_TYPE = BYTE_ARRAY.GetType();
+        public readonly static Type NULLABLE_BYTE_ARRAY_TYPE = NULLABLE_BYTE_ARRAY.GetType();
         private static Hashtable types = new Hashtable();
 
 
@@ -52,20 +57,23 @@ namespace Seasar.Extension.ADO.Types
         public static void Init(IDataSource dataSource)
         {
             STRING = new StringType(dataSource);
+            BYTE = new ByteType(dataSource);
+            SBYTE = new SByteType(dataSource);
             INT16 = new Int16Type(dataSource);
             INT32 = new Int32Type(dataSource);
             INT64 = new Int64Type(dataSource);
             SINGLE = new SingleType(dataSource);
             DOUBLE = new DoubleType(dataSource);
             DECIMAL = new DecimalType(dataSource);
-            TIME = new TimeType(dataSource);
-            DATE = new DateType(dataSource);
             DATETIME = new DateTimeType(dataSource);
             BINARY = new BinaryType(dataSource);
             BOOLEAN = new BooleanType(dataSource);
+            GUID = new GuidType(dataSource);
             OBJECT = new ObjectType(dataSource);
 
             RegisterValueType(typeof(String), STRING);
+            RegisterValueType(typeof(Byte), BYTE);
+            RegisterValueType(typeof(SByte), SBYTE);
             RegisterValueType(typeof(Int16), INT16);
             RegisterValueType(typeof(Int32), INT32);
             RegisterValueType(typeof(Int64), INT64);
@@ -75,6 +83,36 @@ namespace Seasar.Extension.ADO.Types
             RegisterValueType(typeof(DateTime), DATETIME);
             RegisterValueType(BYTE_ARRAY_TYPE, BINARY);
             RegisterValueType(typeof(Boolean), BOOLEAN);
+            RegisterValueType(typeof(Guid), GUID);
+
+            RegisterValueType(typeof(SqlString), STRING);
+            RegisterValueType(typeof(SqlByte), BYTE);
+            RegisterValueType(typeof(SqlInt16), INT16);
+            RegisterValueType(typeof(SqlInt32), INT32);
+            RegisterValueType(typeof(SqlInt64), INT64);
+            RegisterValueType(typeof(SqlSingle), SINGLE);
+            RegisterValueType(typeof(SqlDouble), DOUBLE);
+            RegisterValueType(typeof(SqlDecimal), DECIMAL);
+            RegisterValueType(typeof(SqlDateTime), DATETIME);
+            RegisterValueType(typeof(SqlBinary), BINARY);
+            RegisterValueType(typeof(SqlBoolean), BOOLEAN);
+            RegisterValueType(typeof(SqlMoney), DECIMAL);
+            RegisterValueType(typeof(SqlGuid), GUID);
+
+            RegisterValueType(typeof(NullableChar), STRING);
+            RegisterValueType(typeof(NullableByte), BYTE);
+            RegisterValueType(typeof(NullableSByte), SBYTE);
+            RegisterValueType(typeof(NullableInt16), INT16);
+            RegisterValueType(typeof(NullableInt32), INT32);
+            RegisterValueType(typeof(NullableInt64), INT64);
+            RegisterValueType(typeof(NullableSingle), SINGLE);
+            RegisterValueType(typeof(NullableDouble), DOUBLE);
+            RegisterValueType(typeof(NullableDecimal), DECIMAL);
+            RegisterValueType(typeof(NullableDateTime), DATETIME);
+            RegisterValueType(NULLABLE_BYTE_ARRAY_TYPE, BINARY);
+            RegisterValueType(typeof(NullableBoolean), BOOLEAN);
+            RegisterValueType(typeof(NullableGuid), GUID);
+
         }
 
         public static void RegisterValueType(Type type, IValueType valueType)
@@ -112,6 +150,9 @@ namespace Seasar.Extension.ADO.Types
             switch(type)
             {
                 case DbType.Byte :
+                    return GetValueType(typeof(Byte));
+                case DbType.SByte :
+                    return GetValueType(typeof(SByte));
                 case DbType.Int16 :
                     return GetValueType(typeof(Int16));
                 case DbType.Int32 :
@@ -136,6 +177,8 @@ namespace Seasar.Extension.ADO.Types
                     return GetValueType(typeof(String));
                 case DbType.Boolean :
                     return GetValueType(typeof(Boolean));
+                case DbType.Guid :
+                    return GetValueType(typeof(Guid));
                 default :
                     return OBJECT;
             }

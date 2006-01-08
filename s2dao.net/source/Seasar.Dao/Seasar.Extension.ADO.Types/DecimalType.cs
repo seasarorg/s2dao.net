@@ -18,7 +18,9 @@
 
 using System;
 using System.Data;
+using System.Data.SqlTypes;
 using Seasar.Extension.ADO;
+using Nullables;
 
 namespace Seasar.Extension.ADO.Types
 {
@@ -31,14 +33,14 @@ namespace Seasar.Extension.ADO.Types
 
         #region IValueType ÉÅÉìÉo
 
-        public object GetValue(IDataReader reader, int index)
+        public object GetValue(IDataReader reader, int index, Type type)
         {
-            return Convert.ToDecimal(reader.GetValue(index));
+            return GetValue(reader[index], type);
         }
 
-        object Seasar.Extension.ADO.IValueType.GetValue(IDataReader reader, string columnName)
+        public object GetValue(IDataReader reader, string columnName, Type type)
         {
-            return Convert.ToDecimal(reader[columnName]);
+            return GetValue(reader[columnName], type);
         }
 
         public void BindValue(IDbCommand cmd, string columnName, object value)
@@ -47,5 +49,74 @@ namespace Seasar.Extension.ADO.Types
         }
 
         #endregion
+
+        protected override object GetValue(object value, Type type)
+        {
+            if(typeof(decimal).Equals(type))
+            {
+                return GetPrimitiveValue(value);
+            }
+            else if(typeof(SqlDecimal).Equals(type))
+            {
+                return GetSqlDecimalValue(value);
+            }
+            else if(typeof(NullableDecimal).Equals(type))
+            {
+                return GetNullableDecimalValue(value);
+            }
+            else
+            {
+                return value;
+            }
+        }
+
+        private decimal GetPrimitiveValue(object value)
+        {
+            return Convert.ToDecimal(value);
+        }
+
+        private SqlDecimal GetSqlDecimalValue(object value)
+        {
+            if(value == DBNull.Value)
+            {
+                return SqlDecimal.Null;
+            }
+            else if(value is decimal)
+            {
+                return new SqlDecimal((decimal) value);
+            }
+            else if(value is int)
+            {
+                return new SqlDecimal((int) value);
+            }
+            else if(value is long)
+            {
+                return new SqlDecimal((long) value);
+            }
+            else if(value is double)
+            {
+                return new SqlDecimal((double) value);
+            }
+            else
+            {
+                return SqlDecimal.Parse(value.ToString());
+            }
+        }
+
+        private NullableDecimal GetNullableDecimalValue(object value)
+        {
+            if(value == DBNull.Value)
+            {
+                return null;
+            }
+            else if(value is decimal)
+            {
+                return new NullableDecimal((decimal) value);
+            }
+            else
+            {
+                return NullableDecimal.Parse(value.ToString());
+            }
+        }
     }
 }

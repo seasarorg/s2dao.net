@@ -24,11 +24,14 @@ using Nullables;
 
 namespace Seasar.Extension.ADO.Types
 {
-    public class BooleanType :BaseValueType, IValueType
-    {
-        public BooleanType(IDataSource dataSource)
+	/// <summary>
+	/// ByteType
+	/// </summary>
+	public class ByteType : BaseValueType, IValueType
+	{
+		public ByteType(IDataSource dataSource)
             : base(dataSource)
-        {
+		{
         }
 
         #region IValueType ÉÅÉìÉo
@@ -45,24 +48,24 @@ namespace Seasar.Extension.ADO.Types
 
         public void BindValue(IDbCommand cmd, string columnName, object value)
         {
-            BindValue(cmd, columnName, value, DbType.Boolean);
+            BindValue(cmd, columnName, value, DbType.Byte);
         }
 
         #endregion
 
         protected override object GetValue(object value, Type type)
         {
-            if(typeof(bool).Equals(type))
+            if(typeof(byte).Equals(type))
             {
                 return GetPrimitiveValue(value);
             }
-            else if(typeof(SqlBoolean).Equals(type))
+            else if(typeof(SqlByte).Equals(type))
             {
-                return GetSqlBooleanValue(value);
+                return GetSqlByteValue(value);
             }
-            else if(typeof(NullableBoolean).Equals(type))
+            else if(typeof(NullableByte).Equals(type))
             {
-                return GetNullableBooleanValue(value);
+                return GetNullableByteValue(value);
             }
             else
             {
@@ -70,46 +73,41 @@ namespace Seasar.Extension.ADO.Types
             }
         }
 
-        private bool GetPrimitiveValue(object value)
+        private byte GetPrimitiveValue(object value)
         {
-            return Convert.ToBoolean(value);
+            return Convert.ToByte(value);
         }
 
-        private SqlBoolean GetSqlBooleanValue(object value)
+        private SqlByte GetSqlByteValue(object value)
         {
             if(value == DBNull.Value)
             {
-                return SqlBoolean.Null;
+                return SqlByte.Null;
             }
-            else if(value is int)
+            if(value is byte)
             {
-                return new SqlBoolean((int) value);
-            }
-            else if(value is bool)
-            {
-                return new SqlBoolean((bool) value);
+                return new SqlByte((byte) value);
             }
             else
             {
-                return SqlBoolean.Parse(value.ToString());
+                return SqlByte.Parse(value.ToString());
             }
         }
 
-        private NullableBoolean GetNullableBooleanValue(object value)
+        private NullableByte GetNullableByteValue(object value)
         {
             if(value == DBNull.Value)
             {
                 return null;
             }
-            else if(value is bool)
+            if(value is byte)
             {
-                return new NullableBoolean((bool) value);
+                return new NullableByte((byte) value);
             }
             else
             {
-                return NullableBoolean.Parse(value.ToString());
+                return NullableByte.Parse(value.ToString());
             }
-
         }
     }
 }

@@ -49,8 +49,8 @@ namespace Seasar.Dao.Impl
                 if(columnNames.Contains(pt.ColumnName))
                 {
                     IValueType valueType = pt.ValueType;
-                    object value = valueType.GetValue(reader, pt.ColumnName);
                     PropertyInfo pi = pt.PropertyInfo;
+                    object value = valueType.GetValue(reader, pt.ColumnName, pi.PropertyType);
                     pi.SetValue(row, value, null);
                 }
                 else if(!pt.IsPersistent)
@@ -62,8 +62,8 @@ namespace Seasar.Dao.Impl
                         if(string.Compare(columnName2, pt.ColumnName, true) == 0)
                         {
                             IValueType valueType = pt.ValueType;
-                            object value = valueType.GetValue(reader, columnName);
                             PropertyInfo pi = pt.PropertyInfo;
+                            object value = valueType.GetValue(reader, columnName, pi.PropertyType);
                             pi.SetValue(row, value, null);
                             break;
                         }
@@ -101,6 +101,7 @@ namespace Seasar.Dao.Impl
                 if(!columnNames.Contains(columnName)) continue;
                 if(row == null) row = CreateRelationRow(rpt);
                 object value = null;
+                PropertyInfo pi = pt.PropertyInfo;
                 if(relKeyValues != null && relKeyValues.ContainsKey(columnName))
                 {
                     value = relKeyValues[columnName];
@@ -108,9 +109,8 @@ namespace Seasar.Dao.Impl
                 else
                 {
                     IValueType valueType = pt.ValueType;
-                    value = valueType.GetValue(reader, columnName);
+                    value = valueType.GetValue(reader, columnName, pi.PropertyType);
                 }
-                PropertyInfo pi = pt.PropertyInfo;
                 if(value != null) pi.SetValue(row, value, null);
             }
             return row;

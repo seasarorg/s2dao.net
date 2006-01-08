@@ -24,11 +24,15 @@ using Nullables;
 
 namespace Seasar.Extension.ADO.Types
 {
-    public class BooleanType :BaseValueType, IValueType
-    {
-        public BooleanType(IDataSource dataSource)
+	/// <summary>
+	/// GuidType
+	/// </summary>
+	public class GuidType : BaseValueType, IValueType
+	{
+
+		public GuidType(IDataSource dataSource)
             : base(dataSource)
-        {
+		{
         }
 
         #region IValueType ÉÅÉìÉo
@@ -45,24 +49,24 @@ namespace Seasar.Extension.ADO.Types
 
         public void BindValue(IDbCommand cmd, string columnName, object value)
         {
-            BindValue(cmd, columnName, value, DbType.Boolean);
+            BindValue(cmd, columnName, value, DbType.Guid);
         }
 
         #endregion
 
         protected override object GetValue(object value, Type type)
         {
-            if(typeof(bool).Equals(type))
+            if(typeof(Guid).Equals(type))
             {
-                return GetPrimitiveValue(value);
+                return GetGuidValue(value);
             }
-            else if(typeof(SqlBoolean).Equals(type))
+            else if(typeof(SqlGuid).Equals(type))
             {
-                return GetSqlBooleanValue(value);
+                return GetSqlGuidValue(value);
             }
-            else if(typeof(NullableBoolean).Equals(type))
+            else if(typeof(NullableGuid).Equals(type))
             {
-                return GetNullableBooleanValue(value);
+                return GetNullableGuid(value);
             }
             else
             {
@@ -70,46 +74,72 @@ namespace Seasar.Extension.ADO.Types
             }
         }
 
-        private bool GetPrimitiveValue(object value)
-        {
-            return Convert.ToBoolean(value);
-        }
-
-        private SqlBoolean GetSqlBooleanValue(object value)
+        private Guid GetGuidValue(object value)
         {
             if(value == DBNull.Value)
             {
-                return SqlBoolean.Null;
+                return Guid.Empty;
             }
-            else if(value is int)
+            else if(value is Guid)
             {
-                return new SqlBoolean((int) value);
+                return (Guid) value;
             }
-            else if(value is bool)
+            else if(value is string)
             {
-                return new SqlBoolean((bool) value);
+                return new Guid((string) value);
+            }
+            else if(value is byte[])
+            {
+                return new Guid((byte[]) value);
             }
             else
             {
-                return SqlBoolean.Parse(value.ToString());
+                return new Guid(value.ToString());
             }
         }
 
-        private NullableBoolean GetNullableBooleanValue(object value)
+        private SqlGuid GetSqlGuidValue(object value)
+        {
+            if(value == DBNull.Value)
+            {
+                return SqlGuid.Null;
+            }
+            else if(value is Guid)
+            {
+                return new SqlGuid((Guid) value);
+            }
+            else if(value is string)
+            {
+                return new SqlGuid((string) value);
+            }
+            else if(value is byte[])
+            {
+                return new SqlGuid((byte[]) value);
+            }
+            else
+            {
+                return SqlGuid.Parse(value.ToString());
+            }
+        }
+
+        private NullableGuid GetNullableGuid(object value)
         {
             if(value == DBNull.Value)
             {
                 return null;
             }
-            else if(value is bool)
+            else if(value is Guid)
             {
-                return new NullableBoolean((bool) value);
+                return new NullableGuid((Guid) value);
+            }
+            else if(value is string)
+            {
+                return new NullableGuid((string) value);
             }
             else
             {
-                return NullableBoolean.Parse(value.ToString());
+                return new NullableGuid(value.ToString());
             }
-
         }
     }
 }

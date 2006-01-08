@@ -18,7 +18,9 @@
 
 using System;
 using System.Data;
+using System.Data.SqlTypes;
 using Seasar.Extension.ADO;
+using Nullables;
 
 namespace Seasar.Extension.ADO.Types
 {
@@ -31,14 +33,14 @@ namespace Seasar.Extension.ADO.Types
 
         #region IValueType ÉÅÉìÉo
 
-        public object GetValue(IDataReader reader, int index)
+        public object GetValue(IDataReader reader, int index, Type type)
         {
-            return Convert.ToDouble(reader.GetValue(index));
+            return GetValue(reader[index], type);
         }
 
-        object Seasar.Extension.ADO.IValueType.GetValue(IDataReader reader, string columnName)
+        public object GetValue(IDataReader reader, string columnName, Type type)
         {
-            return Convert.ToDouble(reader[columnName]);
+            return GetValue(reader[columnName], type);
         }
 
         public void BindValue(IDbCommand cmd, string columnName, object value)
@@ -47,5 +49,62 @@ namespace Seasar.Extension.ADO.Types
         }
 
         #endregion
+
+        protected override object GetValue(object value, Type type)
+        {
+            if(typeof(double).Equals(type))
+            {
+                return GetPrimitiveValue(value);
+            }
+            else if(typeof(SqlDouble).Equals(type))
+            {
+                return GetSqlDoubleValue(value);
+            }
+            else if(typeof(NullableDouble).Equals(type))
+            {
+                return GetNullableDouble(value);
+            }
+            else
+            {
+                return value;
+            }
+        }
+
+        private double GetPrimitiveValue(object value)
+        {
+            return Convert.ToDouble(value);
+        }
+
+        private SqlDouble GetSqlDoubleValue(object value)
+        {
+            if(value == DBNull.Value)
+            {
+                return SqlDouble.Null;
+            }
+            else if(value is double)
+            {
+                return new SqlDouble((double) value);
+            }
+            else
+            {
+                return SqlDouble.Parse(value.ToString());
+            }
+        }
+
+        private NullableDouble GetNullableDouble(object value)
+        {
+            if(value == DBNull.Value)
+            {
+                return null;
+            }
+            else if(value is double)
+            {
+                return new NullableDouble((double) value);
+            }
+            else
+            {
+                return NullableDouble.Parse(value.ToString());
+            }
+        }
     }
 }

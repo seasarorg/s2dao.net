@@ -18,7 +18,9 @@
 
 using System;
 using System.Data;
+using System.Data.SqlTypes;
 using Seasar.Extension.ADO;
+using Nullables;
 
 namespace Seasar.Extension.ADO.Types
 {
@@ -31,14 +33,14 @@ namespace Seasar.Extension.ADO.Types
 
         #region IValueType ÉÅÉìÉo
 
-        public object GetValue(IDataReader reader, int index)
+        public object GetValue(IDataReader reader, int index, Type type)
         {
-            return Convert.ToSingle(reader.GetValue(index));
+            return GetValue(reader[index], type);
         }
 
-        object Seasar.Extension.ADO.IValueType.GetValue(IDataReader reader, string columnName)
+        public object GetValue(IDataReader reader, string columnName, Type type)
         {
-            return Convert.ToSingle(reader[columnName]);
+            return GetValue(reader[columnName], type);
         }
 
         public void BindValue(IDbCommand cmd, string columnName, object value)
@@ -47,5 +49,66 @@ namespace Seasar.Extension.ADO.Types
         }
 
         #endregion
+
+        protected override object GetValue(object value, Type type)
+        {
+            if(typeof(float).Equals(type))
+            {
+                return GetPrimitiveValue(value);
+            }
+            else if(typeof(SqlSingle).Equals(type))
+            {
+                return GetSqlSingleValue(value);
+            }
+            else if(typeof(NullableSingle).Equals(type))
+            {
+                return GetNullableSingleValue(value);
+            }
+            else
+            {
+                return value;
+            }
+        }
+
+        private float GetPrimitiveValue(object value)
+        {
+            return Convert.ToSingle(value);
+        }
+
+        private SqlSingle GetSqlSingleValue(object value)
+        {
+            if(value == DBNull.Value)
+            {
+                return SqlSingle.Null;
+            }
+            else if(value is double)
+            {
+                return new SqlSingle((double) value);
+            }
+            else if(value is float)
+            {
+                return new SqlSingle((float) value);
+            }
+            else
+            {
+                return SqlSingle.Parse(value.ToString());
+            }
+        }
+
+        private NullableSingle GetNullableSingleValue(object value)
+        {
+            if(value == DBNull.Value)
+            {
+                return null;
+            }
+            else if(value is float)
+            {
+                return new NullableSingle((float) value);
+            }
+            else
+            {
+                return NullableSingle.Parse(value.ToString());
+            }
+        }
     }
 }

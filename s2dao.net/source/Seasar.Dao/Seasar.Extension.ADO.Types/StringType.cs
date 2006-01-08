@@ -18,6 +18,7 @@
 
 using System;
 using System.Data;
+using System.Data.SqlTypes;
 using System.Data.SqlClient;
 using Seasar.Extension.ADO;
 
@@ -33,14 +34,14 @@ namespace Seasar.Extension.ADO.Types
 
         #region IValueType ÉÅÉìÉo
 
-        public object GetValue(System.Data.IDataReader reader, int index)
+        public object GetValue(System.Data.IDataReader reader, int index, Type type)
         {
-            return reader.GetString(index);
+            return GetValue(reader[index], type);
         }
 
-        object Seasar.Extension.ADO.IValueType.GetValue(System.Data.IDataReader reader, string columnName)
+        public object GetValue(System.Data.IDataReader reader, string columnName, Type type)
         {
-            return (string) reader[columnName];
+            return GetValue(reader[columnName], type);
         }
 
         public void BindValue(System.Data.IDbCommand cmd, string columnName, object value)
@@ -49,5 +50,21 @@ namespace Seasar.Extension.ADO.Types
         }
 
         #endregion
+
+        protected override object GetValue(object value, Type type)
+        {
+            if(value == DBNull.Value)
+            {
+                return null;
+            }
+            else if(value is string)
+            {
+                return (string) value;
+            }
+            else
+            {
+                return value.ToString();
+            }
+        }
     }
 }
