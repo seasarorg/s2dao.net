@@ -84,6 +84,11 @@
                     AssemblyName = "Seasar"
                     HintPath = "..\..\lib\Seasar.dll"
                 />
+                <Reference
+                    Name = "Nullables"
+                    AssemblyName = "Nullables"
+                    HintPath = "..\..\lib\Nullables.dll"
+                />
             </References>
         </Build>
         <Files>
@@ -608,12 +613,12 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Seasar.Extension.ADO.Types\DateTimeType.cs"
+                    RelPath = "Seasar.Extension.ADO.Types\ByteType.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Seasar.Extension.ADO.Types\DateType.cs"
+                    RelPath = "Seasar.Extension.ADO.Types\DateTimeType.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -624,6 +629,11 @@
                 />
                 <File
                     RelPath = "Seasar.Extension.ADO.Types\DoubleType.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Extension.ADO.Types\GuidType.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -648,17 +658,17 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Extension.ADO.Types\SByteType.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Seasar.Extension.ADO.Types\SingleType.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
                     RelPath = "Seasar.Extension.ADO.Types\StringType.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Extension.ADO.Types\TimeType.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
