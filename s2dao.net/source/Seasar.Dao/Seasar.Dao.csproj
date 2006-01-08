@@ -258,6 +258,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Dbms\Firebird.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Seasar.Dao.Dbms\MSSQLServer.cs"
                     SubType = "Code"
                     BuildAction = "Compile"

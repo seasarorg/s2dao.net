@@ -139,6 +139,10 @@
                     BuildAction = "None"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Examples\FirebirdEx.dicon"
+                    BuildAction = "None"
+                />
+                <File
                     RelPath = "Seasar.Dao.Examples\ForCleanupException.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -179,6 +183,15 @@
                 />
                 <File
                     RelPath = "Seasar.Dao.Examples\AutoDelete\DB2AutoDeleteClient.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\AutoDelete\FirebirdAutoDelete.dicon"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\AutoDelete\FirebirdAutoDeleteClient.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -247,6 +260,15 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Examples\AutoInsert\FirebirdAutoInsert.dicon"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\AutoInsert\FirebirdAutoInsertClient.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Seasar.Dao.Examples\AutoInsert\IEmployeeDao.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -302,6 +324,15 @@
                 />
                 <File
                     RelPath = "Seasar.Dao.Examples\AutoSelect\DB2AutoSelectClient.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\AutoSelect\FirebirdAutoSelect.dicon"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\AutoSelect\FirebirdAutoSelectClient.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -370,6 +401,15 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Examples\AutoUpdate\FirebirdAutoUpdate.dicon"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\AutoUpdate\FirebirdAutoUpdateClient.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Seasar.Dao.Examples\AutoUpdate\IEmployeeDao.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -416,6 +456,15 @@
                 />
                 <File
                     RelPath = "Seasar.Dao.Examples\NoPersistentPropsAttr\DB2NoPersistentPropsAttrClient.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\NoPersistentPropsAttr\FirebirdNoPersistentPropsAttr.dicon"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\NoPersistentPropsAttr\FirebirdNoPersistentPropsAttrClient.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -484,6 +533,15 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Examples\PersistentPropsAttr\FirebirdPersistentPropsAttr.dicon"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\PersistentPropsAttr\FirebirdPersistentPropsAttrClient.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Seasar.Dao.Examples\PersistentPropsAttr\IEmployeeDao.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -548,6 +606,15 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Examples\QueryAttr\FirebirdQueryAttr.dicon"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\QueryAttr\FirebirdQueryAttrClient.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Seasar.Dao.Examples\QueryAttr\IEmployeeDao.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -607,6 +674,15 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Examples\SqlAttr\FirebirdSqlAttr.dicon"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\SqlAttr\FirebirdSqlAttrClient.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Seasar.Dao.Examples\SqlAttr\IEmployeeDao.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -662,6 +738,15 @@
                 />
                 <File
                     RelPath = "Seasar.Dao.Examples\SqlFile\DB2SqlFileClient.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\SqlFile\FirebirdSqlFile.dicon"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\SqlFile\FirebirdSqlFileClient.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

@@ -27,6 +27,7 @@ namespace Seasar.Dao
 		DB2,
         MySQL,
         Oracle,
-    	PostgreSQL
+    	PostgreSQL,
+		Firebird
     }
 }

@@ -62,6 +62,16 @@
     <include path="Seasar.Dao.Examples/NoPersistentPropsAttr/OracleNoPersistentPropsAttr.dicon" />
     <include path="Seasar.Dao.Examples/PersistentPropsAttr/OraclePersistentPropsAttr.dicon" />
     <include path="Seasar.Dao.Examples/SqlFile/OracleSqlFile.dicon" />
+
+    <include path="Seasar.Dao.Examples/AutoSelect/FirebirdAutoSelect.dicon" />
+    <include path="Seasar.Dao.Examples/AutoInsert/FirebirdAutoInsert.dicon" />
+    <include path="Seasar.Dao.Examples/AutoUpdate/FirebirdAutoUpdate.dicon" />
+    <include path="Seasar.Dao.Examples/AutoDelete/FirebirdAutoDelete.dicon" />
+    <include path="Seasar.Dao.Examples/QueryAttr/FirebirdQueryAttr.dicon" />
+    <include path="Seasar.Dao.Examples/SqlAttr/FirebirdSqlAttr.dicon" />
+    <include path="Seasar.Dao.Examples/NoPersistentPropsAttr/FirebirdNoPersistentPropsAttr.dicon" />
+    <include path="Seasar.Dao.Examples/PersistentPropsAttr/FirebirdPersistentPropsAttr.dicon" />
+    <include path="Seasar.Dao.Examples/SqlFile/FirebirdSqlFile.dicon" />
     
     <component class="Seasar.Examples.ExamplesExplorer">
         <initMethod name="AddExampless"><arg>"MS SQL Server用Examples"</arg><arg>MSSQL</arg></initMethod>
@@ -70,6 +80,7 @@
         <initMethod name="AddExampless"><arg>"MySQL用Examples"</arg><arg>MySql</arg></initMethod>
 		<initMethod name="AddExampless"><arg>"Oracle用Examples"</arg><arg>Oracle</arg></initMethod>
 		<initMethod name="AddExampless"><arg>"PostgreSQL用Examples"</arg><arg>PostgreSQL</arg></initMethod>
+		<initMethod name="AddExampless"><arg>"Firebird用Examples"</arg><arg>Firebird</arg></initMethod>		
     </component>
     
     <component name="MSSQL" class="System.Collections.ArrayList">
@@ -661,4 +672,103 @@
         </arg></initMethod>
     </component>
 
+    <component name="Firebird" class="System.Collections.ArrayList">
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"Select文自動生成"</property>
+                <property name="Examples">FirebirdAutoSelect</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/AutoSelect/FirebirdAutoSelect.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/FirebirdEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoSelect/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoSelect/FirebirdAutoSelectClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"Insert文自動生成"</property>
+                <property name="Examples">FirebirdAutoInsert</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/AutoInsert/FirebirdAutoInsert.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/FirebirdEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoInsert/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoInsert/AutoInsertLogic.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoInsert/FirebirdAutoInsertClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"Update文自動生成"</property>
+                <property name="Examples">FirebirdAutoUpdate</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/AutoUpdate/FirebirdAutoUpdate.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/FirebirdEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoUpdate/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoUpdate/AutoUpdateLogic.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoUpdate/FirebirdAutoUpdateClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"Delete文自動生成"</property>
+                <property name="Examples">FirebirdAutoDelete</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/AutoDelete/FirebirdAutoDelete.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/FirebirdEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoDelete/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoDelete/AutoDeleteLogic.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoDelete/FirebirdAutoDeleteClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"Query属性"</property>
+                <property name="Examples">FirebirdQueryAttr</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/QueryAttr/FirebirdQueryAttr.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/FirebirdEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/QueryAttr/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/QueryAttr/FirebirdQueryAttrClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"Sql属性"</property>
+                <property name="Examples">FirebirdSqlAttr</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/SqlAttr/FirebirdSqlAttr.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/FirebirdEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/SqlAttr/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/SqlAttr/FirebirdSqlAttrClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"NoPersistentProps属性"</property>
+                <property name="Examples">FirebirdNoPersistentPropsAttr</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/NoPersistentPropsAttr/FirebirdNoPersistentPropsAttr.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/FirebirdEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/NoPersistentPropsAttr/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/NoPersistentPropsAttr/NoPersistentPropsAttrLogic.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/NoPersistentPropsAttr/FirebirdNoPersistentPropsAttrClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"PersistentProps属性"</property>
+                <property name="Examples">FirebirdPersistentPropsAttr</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/PersistentPropsAttr/FirebirdPersistentPropsAttr.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/FirebirdEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/PersistentPropsAttr/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/PersistentPropsAttr/PersistentPropsAttrLogic.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/PersistentPropsAttr/FirebirdPersistentPropsAttrClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"SQLファイル"</property>
+                <property name="Examples">FirebirdSqlFile</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/SqlFile/FirebirdSqlFile.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/FirebirdEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/SqlFile/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/SqlFile/FirebirdSqlFileClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+
+    </component>
+    
 </components>

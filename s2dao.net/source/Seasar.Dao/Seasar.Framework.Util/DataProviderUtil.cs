@@ -33,7 +33,8 @@ namespace Seasar.Framework.Util
         public static BindVariableType GetBindVariableType(IDbConnection cn)
         {
             if("SqlConnection".Equals(cn.GetType().Name) || 
-                "DB2Connection".Equals(cn.GetType().Name))
+                "DB2Connection".Equals(cn.GetType().Name) ||
+				"FbConnection".Equals(cn.GetType().Name))
             {
                 return BindVariableType.AtmarkWithParam;
             }
