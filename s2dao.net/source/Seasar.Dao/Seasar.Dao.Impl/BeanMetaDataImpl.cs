@@ -364,19 +364,22 @@ namespace Seasar.Dao.Impl
             IDatabaseMetaData dbMetaData)
         {
             IList columnSet = dbMetaData.GetColumnSet(tableName);
-            if(columnSet.Count == 0)
-                logger.Log("WDAO0002", new object[] { tableName });
-            for(IEnumerator enu = columnSet.GetEnumerator(); enu.MoveNext();)
+            if(columnSet == null || columnSet.Count == 0)
             {
-                string columnName = (string) enu.Current;
-                string columnName2 = columnName.Replace("_", "");
-                for(int i = 0; i < PropertyTypeSize; ++i)
+                logger.Log("WDAO0002", new object[] { tableName });
+            } else {
+                for(IEnumerator enu = columnSet.GetEnumerator(); enu.MoveNext();)
                 {
-                    IPropertyType pt = GetPropertyType(i);
-                    if(string.Compare(pt.ColumnName, columnName2, true) == 0)
+                    string columnName = (string) enu.Current;
+                    string columnName2 = columnName.Replace("_", "");
+                    for(int i = 0; i < PropertyTypeSize; ++i)
                     {
-                        pt.ColumnName = columnName;
-                        break;
+                        IPropertyType pt = GetPropertyType(i);
+                        if(string.Compare(pt.ColumnName, columnName2, true) == 0)
+                        {
+                            pt.ColumnName = columnName;
+                            break;
+                        }
                     }
                 }
             }
