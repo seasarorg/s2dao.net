@@ -34,33 +34,7 @@ namespace Seasar.Dao.Dbms
 
         public DB2(IDataSource dataSource, IDbConnection cn)
         {
-            IList tableSet = GetTableSet(dataSource, cn);
-
-            IDictionary primaryKeys = new Hashtable(CaseInsensitiveHashCodeProvider.Default,
-                CaseInsensitiveComparer.Default);
-            IDictionary columns = new Hashtable(CaseInsensitiveHashCodeProvider.Default,
-                CaseInsensitiveComparer.Default);
-            IEnumerator tables = tableSet.GetEnumerator();
-            string uid = GetUserID(cn);
-
-            while(tables.MoveNext())
-            {
-                string tableName = tables.Current as String;
-                string[] schemaAndName = tableName.Split('.');
-                primaryKeys[tableName] = GetPrimaryKeySet(
-                    dataSource, cn, tableName);
-                columns[tableName] = GetColumnSet(dataSource, cn, tableName);
-                if(uid != null && string.Compare(schemaAndName[0].Trim(), uid, true) == 0)
-                {
-                    primaryKeys[schemaAndName[1]] = primaryKeys[tableName];
-                    columns[schemaAndName[1]] = columns[tableName];
-                }
-            }
-            DatabaseMetaDataImpl dbMetaData = new DatabaseMetaDataImpl();
-            dbMetaData.TableSet = tableSet;
-            dbMetaData.PrimaryKeys = primaryKeys;
-            dbMetaData.Columns = columns;
-            this.dbMetadata = dbMetaData;
+            base.SetupDatabaseMetaData(GetTableSet(dataSource, cn), dataSource, cn);
         }
 
         protected string GetUserID(IDbConnection cn)
@@ -98,58 +72,19 @@ namespace Seasar.Dao.Dbms
                 DataSourceUtil.SetTransaction(dataSource, cmd);
                 using(IDataReader reader = cmd.ExecuteReader())
                 {
+                    string uid = GetUserID(cn);
                     while(reader.Read())
                     {
                         list.Add(reader["tabschema"] + "." + reader["tabname"]);
+                        string schema = ((string)reader["tabschema"]).Trim();
+                        if(uid != null && string.Compare(schema, uid, true) == 0)
+                        {
+                            list.Add(reader["tabname"]);
+                        }
                     }
                 }
             }
 			
-            return list;
-        }
-
-        protected IList GetPrimaryKeySet(IDataSource dataSource, IDbConnection cn, string tableName)
-        {
-
-            IList list = new CaseInsentiveSet();
-            string[] schemaAndName = tableName.Split('.');
-            string sql = @"select colname from syscat.keycoluse
-                where tabschema=? and tabname=? order by colseq asc";
-            using(IDbCommand cmd = dataSource.GetCommand(sql, cn))
-            {
-                cmd.Parameters.Add(dataSource.GetParameter("tabschema", schemaAndName[0]));
-                cmd.Parameters.Add(dataSource.GetParameter("tabname", schemaAndName[1]));
-                DataSourceUtil.SetTransaction(dataSource, cmd);
-                using(IDataReader reader = cmd.ExecuteReader())
-                {
-                    while(reader.Read())
-                    {
-                        list.Add(reader["colname"]);
-                    }
-                }
-            }
-            return list;
-        }
-
-        protected IList GetColumnSet(IDataSource dataSource, IDbConnection cn, string tableName)
-        {
-            IList list = new CaseInsentiveSet();
-            string[] schemaAndName = tableName.Split('.');
-            string sql = @"select colname from syscat.columns
-                where tabschema=? and tabname=? order by colno asc";
-            using(IDbCommand cmd = dataSource.GetCommand(sql, cn))
-            {
-                cmd.Parameters.Add(dataSource.GetParameter("tabschema", schemaAndName[0]));
-                cmd.Parameters.Add(dataSource.GetParameter("tabname", schemaAndName[1]));
-                DataSourceUtil.SetTransaction(dataSource, cmd);
-                using(IDataReader reader = cmd.ExecuteReader())
-                {
-                    while(reader.Read())
-                    {
-                        list.Add(reader["colname"]);
-                    }
-                }
-            }
             return list;
         }
 	}

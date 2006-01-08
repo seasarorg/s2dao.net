@@ -92,26 +92,7 @@ namespace Seasar.Dao.Dbms
 
 		public Oracle(IDataSource dataSource, IDbConnection cn)
 		{
-            IList tableSet = GetTableSet(dataSource, cn);
-
-            IDictionary primaryKeys = new Hashtable(CaseInsensitiveHashCodeProvider.Default,
-                CaseInsensitiveComparer.Default);
-            IDictionary columns = new Hashtable(CaseInsensitiveHashCodeProvider.Default,
-                CaseInsensitiveComparer.Default);
-            IEnumerator tables = tableSet.GetEnumerator();
-
-            while(tables.MoveNext())
-            {
-                string tableName = tables.Current as String;
-                primaryKeys[tableName] = GetPrimaryKeySet(
-                    dataSource, cn, tableName);
-                columns[tableName] = GetColumnSet(dataSource, cn, tableName);
-            }
-            DatabaseMetaDataImpl dbMetaData = new DatabaseMetaDataImpl();
-            dbMetaData.TableSet = tableSet;
-            dbMetaData.PrimaryKeys = primaryKeys;
-            dbMetaData.Columns = columns;
-            this.dbMetadata = dbMetaData;
+            base.SetupDatabaseMetaData(GetTableSet(dataSource, cn), dataSource, cn);
 		}
 
         protected IList GetTableSet(IDataSource dataSource, IDbConnection cn)
@@ -130,48 +111,6 @@ namespace Seasar.Dao.Dbms
                 }
             }
 			
-            return list;
-        }
-
-        protected IList GetPrimaryKeySet(IDataSource dataSource, IDbConnection cn, string tableName)
-        {
-
-            IList list = new CaseInsentiveSet();
-            string sql = @"select column_name from user_constraints A, user_cons_columns B
-                    where A.constraint_name=B.constraint_name and A.constraint_type='P'
-                    and A.table_name=:table_name";
-            using(IDbCommand cmd = dataSource.GetCommand(sql, cn))
-            {
-                cmd.Parameters.Add(dataSource.GetParameter(":table_name", tableName));
-                DataSourceUtil.SetTransaction(dataSource, cmd);
-                using(IDataReader reader = cmd.ExecuteReader())
-                {
-                    while(reader.Read())
-                    {
-                        list.Add(reader["column_name"]);
-                    }
-                }
-            }
-            return list;
-        }
-
-        protected IList GetColumnSet(IDataSource dataSource, IDbConnection cn, string tableName)
-        {
-            IList list = new CaseInsentiveSet();
-            string sql = @"select COLNO,CNAME from COL
-                where TNAME=:TNAME order by COLNO asc";
-            using(IDbCommand cmd = dataSource.GetCommand(sql, cn))
-            {
-                cmd.Parameters.Add(dataSource.GetParameter(":TNAME", tableName));
-                DataSourceUtil.SetTransaction(dataSource, cmd);
-                using(IDataReader reader = cmd.ExecuteReader())
-                {
-                    while(reader.Read())
-                    {
-                        list.Add(reader["CNAME"]);
-                    }
-                }
-            }
             return list;
         }
 	}
