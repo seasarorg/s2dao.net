@@ -22,6 +22,7 @@ using Seasar.Dao.Dbms;
 using Seasar.Dao.Impl;
 using Seasar.Extension.ADO;
 using Seasar.Extension.ADO.Impl;
+using Seasar.Extension.ADO.Types;
 using Seasar.Framework.Container;
 using Seasar.Framework.Container.Factory;
 using Seasar.Framework.Util;
@@ -40,9 +41,9 @@ namespace Seasar.Dao.Tests.Impl
         [Test]
         public void TestExecuteTx()
         {
-
             IS2Container container = S2ContainerFactory.Create(PATH);
             IDataSource dataSource = (IDataSource) container.GetComponent(typeof(IDataSource));
+        	ValueTypes.Init(dataSource);
 
             IDbConnection cn = DataSourceUtil.GetConnection(dataSource);
             IDbms dbms = new MSSQLServer(dataSource,cn);
@@ -55,12 +56,11 @@ namespace Seasar.Dao.Tests.Impl
 
             cmd.Sql = "SELECT * FROM emp WHERE empno = /*empno*/1234";
             
-            Assert.Ignore("BasicHandler.BindArgs‚Ìargs‚É“ü‚Á‚Ä‚¢‚©‚È‚¢");
-
+			cmd.ArgNames = new string[] { "empno" };
+			cmd.ArgTypes = new Type[] { typeof(int) };
             Employee emp = (Employee) cmd.Execute(new Object[] { 7788 });
-            Assert.IsNotNull(emp, "1");
 
-
+			Assert.IsNotNull(emp, "1");
         }
     }
 }
