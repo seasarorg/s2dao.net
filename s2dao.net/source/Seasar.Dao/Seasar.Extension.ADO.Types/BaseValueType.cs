@@ -21,6 +21,7 @@ using System.Data.OleDb;
 using System.Data;
 using Seasar.Extension.ADO;
 using Seasar.Framework.Util;
+using Nullables;
 
 namespace Seasar.Extension.ADO.Types
 {
@@ -64,7 +65,7 @@ namespace Seasar.Extension.ADO.Types
                     break;
             }
 
-            IDataParameter parameter = dataSource.GetParameter(columnName, value == null ? DBNull.Value : value);
+            IDataParameter parameter = dataSource.GetParameter(columnName, GetBindValue(value));
 			if("OleDbCommand".Equals(cmd.GetType().Name) && dbType == DbType.String)
 			{
 				OleDbParameter oleDbParam = parameter as OleDbParameter;
@@ -75,6 +76,43 @@ namespace Seasar.Extension.ADO.Types
 				parameter.DbType = dbType;
 			}
             cmd.Parameters.Add(parameter);
+        }
+
+        protected object GetBindValue(object value)
+        {
+            if(value.GetType().IsPrimitive)
+            {
+                return value;
+            }
+            else if(value is System.Data.SqlTypes.INullable)
+            {
+                System.Data.SqlTypes.INullable nValue = (System.Data.SqlTypes.INullable) value;
+                if(nValue.IsNull)
+                {
+                    return DBNull.Value;
+                }
+                else
+                {
+                    System.Reflection.PropertyInfo pi = value.GetType().GetProperty("Value");
+                    return pi.GetValue(value, null);
+                }
+            }
+            else if(value is Nullables.INullableType)
+            {
+                Nullables.INullableType nValue = value as Nullables.INullableType;
+                if(nValue == null || !nValue.HasValue)
+                {
+                    return DBNull.Value;
+                }
+                else
+                {
+                    return nValue.Value;
+                }
+            }
+            else
+            {
+                return value == null ? DBNull.Value : value;
+            }
         }
 
         protected abstract object GetValue(object value, Type type);

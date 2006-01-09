@@ -80,14 +80,14 @@
                     HintPath = "..\..\..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
                 />
                 <Reference
-                    Name = "Seasar"
-                    AssemblyName = "Seasar"
-                    HintPath = "..\..\lib\Seasar.dll"
-                />
-                <Reference
                     Name = "Nullables"
                     AssemblyName = "Nullables"
                     HintPath = "..\..\lib\Nullables.dll"
+                />
+                <Reference
+                    Name = "Seasar"
+                    AssemblyName = "Seasar"
+                    HintPath = "..\..\lib\Seasar.dll"
                 />
             </References>
         </Build>

@@ -21,6 +21,7 @@ using System.Data;
 using System.Data.SqlTypes;
 using System.Data.SqlClient;
 using Seasar.Extension.ADO;
+using Nullables;
 
 namespace Seasar.Extension.ADO.Types
 {
@@ -53,6 +54,26 @@ namespace Seasar.Extension.ADO.Types
 
         protected override object GetValue(object value, Type type)
         {
+            if(typeof(string).Equals(type))
+            {
+                return GetStringValue(value);
+            }
+            else if(typeof(SqlString).Equals(type))
+            {
+                return GetSqlStringValue(value);
+            }
+            else if(typeof(NullableChar).Equals(type))
+            {
+                return GetNullableCharValue(value);
+            }
+            else
+            {
+                return value;
+            }
+        }
+
+        private string GetStringValue(object value)
+        {
             if(value == DBNull.Value)
             {
                 return null;
@@ -64,6 +85,38 @@ namespace Seasar.Extension.ADO.Types
             else
             {
                 return value.ToString();
+            }
+        }
+
+        private SqlString GetSqlStringValue(object value)
+        {
+            if( value == DBNull.Value)
+            {
+                return SqlString.Null;
+            }
+            else if(value is string)
+            {
+                return new SqlString((string) value);
+            }
+            else
+            {
+                return new SqlString(value.ToString());
+            }
+        }
+
+        private NullableChar GetNullableCharValue(object value)
+        {
+            if(value == DBNull.Value)
+            {
+                return null;
+            }
+            else if(value is string)
+            {
+                return new NullableChar(((string) value)[0]);
+            }
+            else
+            {
+                return NullableChar.Parse(value.ToString());
             }
         }
     }
