@@ -67,37 +67,39 @@ namespace Seasar.Dao.Tests.Impl
         }
 
         [Test]
-        [Ignore("IdentityTableAutoDao–¢ì¬")]
         public void TestExecute2Tx() 
         {
-//            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IdentityTableAutoDao),
-//                dataSource, BasicCommandFactory.INSTANCE,
-//                BasicDataReaderFactory.INSTANCE);
-//
-//            ISqlCommand cmd = dmd.GetSqlCommand("Insert");
-//            IdentityTable table = new IdentityTable();
-//            table.setIdName("hoge");
-//            Int32 count = (Int32) cmd.Execute(new Object[] { table });
-//            Assert.AreEqual(new Int32(1), count, "1");
-//            //System.out.println(table.getMyid());
-//            Assert.IsTrue("2", table.getMyid() > 0);
+            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IdentityTableAutoDao),
+                dataSource, BasicCommandFactory.INSTANCE,
+                BasicDataReaderFactory.INSTANCE);
+
+            Assert.Ignore("IDENTITYTABLE‚Ö‚ÌINSERT•¶‚ª³‚µ‚­¶¬‚³‚ê‚È‚¢");
+
+            ISqlCommand cmd = dmd.GetSqlCommand("Insert");
+            IdentityTable table = new IdentityTable();
+            table.IdName = "hoge";
+            Int32 count = (Int32) cmd.Execute(new Object[] { table });
+            Assert.AreEqual(1, count, "1");
+            //System.out.println(table.getMyid());
+            Assert.IsTrue(table.Myid > 0,"2");
         }
 
         [Test]
-        [Ignore("IdentityTableAutoDao–¢ì¬")]
         public void TestExecute3Tx() 
         {
-//            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IdentityTableAutoDao),
-//                dataSource, BasicCommandFactory.INSTANCE,
-//                BasicDataReaderFactory.INSTANCE);
-//
-//            ISqlCommand cmd = dmd.GetSqlCommand("Insert");
-//            SeqTable table = new SeqTable();
-//            table.setName("hoge");
-//            Int32 count = (Int32) cmd.Execute(new Object[] { table });
-//            Assert.AreEqual(1, count, "1");
-//            //System.out.println(table.getId());
-//            Assert.IsTrue("2", table.getId() > 0);
+            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IdentityTableAutoDao),
+                dataSource, BasicCommandFactory.INSTANCE,
+                BasicDataReaderFactory.INSTANCE);
+
+            Assert.Ignore("IDENTITYTABLE‚Ö‚ÌINSERT•¶‚ª³‚µ‚­¶¬‚³‚ê‚È‚¢");
+
+            ISqlCommand cmd = dmd.GetSqlCommand("Insert");
+            SeqTable table = new SeqTable();
+            table.Name ="hoge";
+            Int32 count = (Int32) cmd.Execute(new Object[] { table });
+            Assert.AreEqual(1, count, "1");
+            //System.out.println(table.getId());
+            Assert.IsTrue(table.ID > 0,"2");
         }
 
         [Test]
