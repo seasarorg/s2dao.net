@@ -25,15 +25,35 @@ namespace Seasar.Dao.Tests.Impl
     [Table("EMP")]
     public class Employee
     {
-        private int empno;
+        private long empno;
         private string ename;
-        private short deptno;
+
+        private string job;
+
+        private short mgr;
+
+        private DateTime hiredate;
+
+        private float sal;
+
+        private float comm;
+
+        private int deptno;
+    
+        private byte[] password;
+    
+        private string dummy;
+    
+        private Department department;
+    
+        //private Timestamp timestamp;
+        private DateTime timestamp;
 
         public Employee()
         {
         }
 
-        public int Empno
+        public long Empno
         {
             set { empno = value; }
             get { return empno; }
@@ -45,11 +65,67 @@ namespace Seasar.Dao.Tests.Impl
             get { return ename; }
         }
 
-        public short Deptno
+        public string Job
+        {
+            set { job = value; }
+            get { return job; }
+        }
+
+        public short Mgr
+        {
+            set { mgr = value; }
+            get { return mgr; }
+        }
+
+        //範囲外例外
+//        public DateTime Hiredate
+//        {
+//            set { hiredate = value; }
+//            get { return hiredate; }
+//        }
+
+        public float Sal
+        {
+            set { sal = value; }
+            get { return sal; }
+        }
+
+        //Null例外
+//        public float Comm
+//        {
+//            set { comm = value; }
+//            get { return comm; }
+//        }
+
+        public int Deptno
         {
             set { deptno = value; }
             get { return deptno; }
         }
+
+        public byte[] Password
+        {
+            set { password = value; }
+            get { return password; }
+        }
+
+        public string Dummy
+        {
+            set { dummy = value; }
+            get { return dummy; }
+        }
+        public Department Department
+        {
+            set { department = value; }
+            get { return department; }
+        }
+
+        //範囲外例外
+//        public DateTime Timestamp
+//        {
+//            set { timestamp = value; }
+//            get { return timestamp; }
+//        }
 
         public override string ToString()
         {

@@ -144,6 +144,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Tests.Impl\BeanMetaDataDataReaderHandlerTest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Seasar.Dao.Tests.Impl\DeleteAutoStaticCommandTest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -200,6 +205,11 @@
                 />
                 <File
                     RelPath = "Seasar.Dao.Tests.Impl\UpdateAutoStaticCommandTest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Tests.Impl\UpdateBatchAutoStaticCommandTest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
