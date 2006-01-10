@@ -44,6 +44,30 @@ namespace Seasar.Dao.Examples.AutoSelect
             {
                 Console.WriteLine(((Employee) employees.Current).ToString());
             }
+
+            IDepartmentDao1 deptDao = (IDepartmentDao1) container.GetComponent(typeof(IDepartmentDao1));
+
+            // 全ての部署を取得
+            IList deptList = deptDao.GetAllList();
+
+            IEnumerator depts = deptList.GetEnumerator();
+            Console.WriteLine("/** 全ての部署のリスト(System.Data.SqlTypesを使用) **/");
+            while(depts.MoveNext())
+            {
+                Console.WriteLine(((Department1) depts.Current).ToString());
+            }
+
+            IDepartmentDao2 deptDao2 = (IDepartmentDao2) container.GetComponent(typeof(IDepartmentDao2));
+
+            // 全ての部署を取得
+            IList deptList2 = deptDao2.GetAllList();
+
+            IEnumerator depts2 = deptList2.GetEnumerator();
+            Console.WriteLine("/** 全ての部署のリスト(Nullablesを使用) **/");
+            while(depts2.MoveNext())
+            {
+                Console.WriteLine(((Department2) depts2.Current).ToString());
+            }
         }
     }
 }

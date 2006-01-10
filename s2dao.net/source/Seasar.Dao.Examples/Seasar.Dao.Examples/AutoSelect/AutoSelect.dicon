@@ -9,6 +9,14 @@
         <aspect>Ex.DaoInterceptor</aspect>
     </component>
     
+    <component class="Seasar.Dao.Examples.AutoSelect.IDepartmentDao1">
+        <aspect>Ex.DaoInterceptor</aspect>
+    </component>
+    
+    <component class="Seasar.Dao.Examples.AutoSelect.IDepartmentDao2">
+        <aspect>Ex.DaoInterceptor</aspect>
+    </component>
+    
     <component name="AutoSelect" class="Seasar.Dao.Examples.AutoSelect.AutoSelectClient" />
 
 </components>
