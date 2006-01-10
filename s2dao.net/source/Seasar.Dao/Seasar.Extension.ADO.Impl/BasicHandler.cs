@@ -18,12 +18,15 @@
 
 using System;
 using System.Data;
+using System.Data.SqlTypes;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using Seasar.Extension.ADO;
 using Seasar.Extension.ADO.Types;
 using Seasar.Framework.Exceptions;
 using Seasar.Framework.Util;
+using Nullables;
 
 namespace Seasar.Extension.ADO.Impl
 {
@@ -184,6 +187,12 @@ namespace Seasar.Extension.ADO.Impl
 
         protected string GetBindVariableText(object bindVariable)
         {
+            if(bindVariable is INullable || bindVariable is INullableType)
+            {
+                PropertyInfo pi = bindVariable.GetType().GetProperty("Value");
+                GetBindVariableText(pi.GetValue(bindVariable, null));
+            }
+
             if(bindVariable is string)
             {
                 return "'" + bindVariable + "'";
