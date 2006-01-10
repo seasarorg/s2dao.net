@@ -50,7 +50,7 @@ namespace Seasar.Dao.Node
                 value = pi.GetValue(value, null);
                 type = pi.PropertyType;
             }
-            ctx.AddSql(value, type, baseName);
+            ctx.AddSql(value, type, propertyName);
         }
 
     }
