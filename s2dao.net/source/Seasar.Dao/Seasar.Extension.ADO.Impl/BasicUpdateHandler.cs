@@ -68,7 +68,7 @@ namespace Seasar.Extension.ADO.Impl
         protected int Execute(IDbConnection connection, object[] args, Type[] argTypes,
             string[] argNames)
         {
-            IDbCommand cmd = DataSource.GetCommand(Sql, connection);
+            IDbCommand cmd = this.Command(connection);
             try
             {
                 BindArgs(cmd, args, argTypes, argNames);
