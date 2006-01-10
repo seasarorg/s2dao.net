@@ -104,6 +104,11 @@
                     AssemblyName = "Seasar"
                     HintPath = "..\..\lib\Seasar.dll"
                 />
+                <Reference
+                    Name = "Nullables"
+                    AssemblyName = "Nullables"
+                    HintPath = "..\..\lib\Nullables.dll"
+                />
             </References>
         </Build>
         <Files>
@@ -124,6 +129,16 @@
                 <File
                     RelPath = "Seasar.Dao.Examples\DB2Ex.dicon"
                     BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\Department1.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\Department2.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
                 />
                 <File
                     RelPath = "Seasar.Dao.Examples\Employee.cs"
@@ -333,6 +348,16 @@
                 />
                 <File
                     RelPath = "Seasar.Dao.Examples\AutoSelect\FirebirdAutoSelectClient.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\AutoSelect\IDepartmentDao1.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\AutoSelect\IDepartmentDao2.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
