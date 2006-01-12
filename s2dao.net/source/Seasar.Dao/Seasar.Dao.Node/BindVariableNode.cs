@@ -42,16 +42,24 @@ namespace Seasar.Dao.Node
 
         public override void Accept(ICommandContext ctx)
         {
-            object value = ctx.GetArg(baseName);
-            Type type = ctx.GetArgType(baseName);
-            if(propertyName != null)
+			string name = null;
+			object value = null;
+			Type type = null;
+            
+			if(propertyName == null)
+            {
+            	name = baseName;
+				value = ctx.GetArg(baseName);
+				type = ctx.GetArgType(baseName);
+            }
+			else
             {
                 PropertyInfo pi = type.GetProperty(propertyName);
-                value = pi.GetValue(value, null);
+                name = propertyName;
+				value = pi.GetValue(value, null);
                 type = pi.PropertyType;
             }
-            ctx.AddSql(value, type, propertyName);
+            ctx.AddSql(value, type, name);
         }
-
     }
 }
