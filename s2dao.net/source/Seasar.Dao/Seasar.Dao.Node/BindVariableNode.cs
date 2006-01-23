@@ -54,10 +54,10 @@ namespace Seasar.Dao.Node
             }
 			else
             {
-                PropertyInfo pi = type.GetProperty(propertyName);
-                name = propertyName;
-				value = pi.GetValue(value, null);
-                type = pi.PropertyType;
+				PropertyInfo pi = ctx.GetArgType(baseName).GetProperty(propertyName);
+				name = propertyName;
+				value = pi.GetValue(ctx.GetArg(baseName), null);
+				type = pi.PropertyType;
             }
             ctx.AddSql(value, type, name);
         }
