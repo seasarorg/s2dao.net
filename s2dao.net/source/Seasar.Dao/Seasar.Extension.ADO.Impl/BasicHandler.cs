@@ -20,7 +20,6 @@ using System;
 using System.Data;
 using System.Data.SqlTypes;
 using System.Reflection;
-using System.Text;
 using System.Text.RegularExpressions;
 using Seasar.Extension.ADO;
 using Seasar.Extension.ADO.Types;
@@ -150,7 +149,7 @@ namespace Seasar.Extension.ADO.Impl
             for(int i = 0; i < matches.Count; ++i)
             {
                 string capture = matches[i].Captures[0].Value;
-                sql = sql.Replace(capture, GetBindVariableText(args[i]));
+				sql = ReplaceAtFirstElement(sql, capture, GetBindVariableText(args[i]));
             }
             return sql;
         }
@@ -170,7 +169,7 @@ namespace Seasar.Extension.ADO.Impl
             for(int i = 0; i < matches.Count; ++i)
             {
                 if(!matches[i].Success) continue;
-                text = text.Replace(matches[i].Value, sign + matches[i].Value.Substring(1));
+				text = ReplaceAtFirstElement(text, matches[i].Value, sign + matches[i].Value.Substring(1));
             }
             return text;
         }
@@ -180,10 +179,16 @@ namespace Seasar.Extension.ADO.Impl
             for(int i = 0; i < matches.Count; ++i)
             {
                 string capture = matches[i].Captures[0].Value;
-                sql = sql.Replace(capture, newValue);
+				sql = ReplaceAtFirstElement(sql, capture, newValue);
             }
             return sql;
         }
+
+		private string ReplaceAtFirstElement(string source, string original, string replace)
+		{
+			Regex regexp = new Regex(original, RegexOptions.IgnoreCase);
+			return regexp.Replace(source, replace, 1);
+		}
 
         protected string GetBindVariableText(object bindVariable)
         {
