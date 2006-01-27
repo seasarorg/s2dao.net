@@ -99,6 +99,14 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "DAOMessages.ja-JP.resx"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "DAOMessages.resx"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Dbms.resx"
                     BuildAction = "EmbeddedResource"
                 />
