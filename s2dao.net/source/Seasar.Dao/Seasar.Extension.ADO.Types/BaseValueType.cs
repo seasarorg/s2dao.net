@@ -80,7 +80,11 @@ namespace Seasar.Extension.ADO.Types
 
         protected object GetBindValue(object value)
         {
-            if(value.GetType().IsPrimitive)
+            if(value == null)
+            {
+                return DBNull.Value;
+            }
+            else if(value.GetType().IsPrimitive)
             {
                 return value;
             }
