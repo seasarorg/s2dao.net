@@ -17,35 +17,16 @@
 #endregion
 
 using System;
+using Seasar.Dao.Attrs;
 
-namespace Seasar.Dao.Attrs
+namespace Seasar.Dao.Tests.Impl
 {
-    [AttributeUsage(AttributeTargets.Property)]
-    public class IDAttribute : Attribute
-    {
-        private string id;
-        private string sequenceName;
-
-        public IDAttribute(string id)
-        {
-            this.id = id;
-        }
-
-        public IDAttribute(string id,string sequenceName)
-        {
-            this.id = id;
-            this.sequenceName = sequenceName;
-        }
-
-        public string ID
-        {
-            get { return id; }
-        }
-
-        public string SequenceName
-        {
-            get { return sequenceName; }
-            set { sequenceName = value; }
-        }
+	/// <summary>
+	/// SeqTableAutoDao ÇÃäTóvÇÃê‡ñæÇ≈Ç∑ÅB
+	/// </summary>
+    [Bean(typeof(SeqTable))]
+    public interface SeqTableAutoDao
+	{
+        void Insert(SeqTable seqTable);
     }
 }

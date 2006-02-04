@@ -13,14 +13,14 @@ namespace Seasar.Dao.Tests.Impl
         private String idName;
 
         [ID("identity")]
-        [Column("id")]
+        [Column("ID")]
         public int Myid
         {
             set { myid = value; }
             get { return myid; }
         }
 
-        public String IdName
+        public String Name
         {
             set { idName = value; }
             get { return idName; }

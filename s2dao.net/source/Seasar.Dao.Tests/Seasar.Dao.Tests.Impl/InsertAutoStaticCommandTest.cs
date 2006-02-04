@@ -73,11 +73,11 @@ namespace Seasar.Dao.Tests.Impl
                 dataSource, BasicCommandFactory.INSTANCE,
                 BasicDataReaderFactory.INSTANCE);
 
-            Assert.Ignore("IDENTITYTABLEへのINSERT文が正しく生成されない");
+            Assert.Ignore("IDENTITYTABLEのIDテーブルをIdentityにすればInsertは可能になるが、@@IDENTITYを取得できていない");
 
             ISqlCommand cmd = dmd.GetSqlCommand("Insert");
             IdentityTable table = new IdentityTable();
-            table.IdName = "hoge";
+            table.Name = "hoge";
             Int32 count = (Int32) cmd.Execute(new Object[] { table });
             Assert.AreEqual(1, count, "1");
             //System.out.println(table.getMyid());
@@ -87,19 +87,19 @@ namespace Seasar.Dao.Tests.Impl
         [Test]
         public void TestExecute3Tx() 
         {
-            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IdentityTableAutoDao),
+            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(SeqTableAutoDao),
                 dataSource, BasicCommandFactory.INSTANCE,
                 BasicDataReaderFactory.INSTANCE);
 
-            Assert.Ignore("IDENTITYTABLEへのINSERT文が正しく生成されない");
-
-            ISqlCommand cmd = dmd.GetSqlCommand("Insert");
-            SeqTable table = new SeqTable();
-            table.Name ="hoge";
-            Int32 count = (Int32) cmd.Execute(new Object[] { table });
-            Assert.AreEqual(1, count, "1");
-            //System.out.println(table.getId());
-            Assert.IsTrue(table.ID > 0,"2");
+//            Assert.Ignore("SQL Serverでは使用不可");
+//
+//            ISqlCommand cmd = dmd.GetSqlCommand("Insert");
+//            SeqTable table = new SeqTable();
+//            table.Name ="hoge";
+//            Int32 count = (Int32) cmd.Execute(new Object[] { table });
+//            Assert.AreEqual(1, count, "1");
+//            //System.out.println(table.getId());
+//            Assert.IsTrue(table.ID > 0,"2");
         }
 
         [Test]
