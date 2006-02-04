@@ -17,7 +17,7 @@
                 DelaySign = "false"
                 OutputType = "WinExe"
                 PreBuildEvent = ""
-                PostBuildEvent = 'xcopy "$(ProjectDir)Seasar.Dao.Examples" "$(TargetDir)\Seasar.Dao.Examples" /S /I /Y /D'
+                PostBuildEvent = 'xcopy "$(ProjectDir)Seasar.Dao.Examples" "$(TargetDir)\Seasar.Dao.Examples" /S /I /Y /D&#xd;&#xa;copy "$(ProjectDir)\Seasar.Dao.Examples\s2dotnetdemo.mdb" "$(ProjectDir)$(OutDir)"'
                 RootNamespace = ""
                 RunPostBuildEvent = "OnBuildSuccess"
                 StartupObject = ""
@@ -171,11 +171,19 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Examples\OleDbMDBEx.dicon"
+                    BuildAction = "None"
+                />
+                <File
                     RelPath = "Seasar.Dao.Examples\OracleEx.dicon"
                     BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "Seasar.Dao.Examples\PostgreSQLEx.dicon"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\s2dotnetdemo.mdb"
                     BuildAction = "None"
                 />
                 <File
@@ -230,6 +238,15 @@
                 />
                 <File
                     RelPath = "Seasar.Dao.Examples\AutoDelete\OleDbDB2AutoDeleteClient.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\AutoDelete\OleDbMDBAutoDelete.dicon"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\AutoDelete\OleDbMDBAutoDeleteClient.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -303,6 +320,15 @@
                 />
                 <File
                     RelPath = "Seasar.Dao.Examples\AutoInsert\OleDbDB2AutoInsertClient.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\AutoInsert\OleDbMDBAutoInsert.dicon"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\AutoInsert\OleDbMDBAutoInsertClient.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -385,6 +411,15 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Examples\AutoSelect\OleDbMDBAutoSelect.dicon"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\AutoSelect\OleDbMDBAutoSelectClient.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Seasar.Dao.Examples\AutoSelect\OracleAutoSelect.dicon"
                     BuildAction = "None"
                 />
@@ -454,6 +489,15 @@
                 />
                 <File
                     RelPath = "Seasar.Dao.Examples\AutoUpdate\OleDbDB2AutoUpdateClient.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\AutoUpdate\OleDbMDBAutoUpdate.dicon"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\AutoUpdate\OleDbMDBAutoUpdateClient.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -531,6 +575,15 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Examples\NoPersistentPropsAttr\OleDbMDBNoPersistentPropsAttr.dicon"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\NoPersistentPropsAttr\OleDbMDBNoPersistentPropsAttrClient.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Seasar.Dao.Examples\NoPersistentPropsAttr\OracleNoPersistentPropsAttr.dicon"
                     BuildAction = "None"
                 />
@@ -586,6 +639,15 @@
                 />
                 <File
                     RelPath = "Seasar.Dao.Examples\PersistentPropsAttr\OleDbDB2PersistentPropsAttrClient.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\PersistentPropsAttr\OleDbMDBPersistentPropsAttr.dicon"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\PersistentPropsAttr\OleDbMDBPersistentPropsAttrClient.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -663,6 +725,15 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Examples\QueryAttr\OleDbMDBQueryAttr.dicon"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\QueryAttr\OleDbMDBQueryAttrClient.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Seasar.Dao.Examples\QueryAttr\OracleQueryAttr.dicon"
                     BuildAction = "None"
                 />
@@ -727,6 +798,15 @@
                 />
                 <File
                     RelPath = "Seasar.Dao.Examples\SqlAttr\OleDbDB2SqlAttrClient.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\SqlAttr\OleDbMDBSqlAttr.dicon"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\SqlAttr\OleDbMDBSqlAttrClient.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -799,6 +879,15 @@
                 />
                 <File
                     RelPath = "Seasar.Dao.Examples\SqlFile\OleDbDB2SqlFileClient.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\SqlFile\OleDbMDBSqlFile.dicon"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Examples\SqlFile\OleDbMDBSqlFileClient.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

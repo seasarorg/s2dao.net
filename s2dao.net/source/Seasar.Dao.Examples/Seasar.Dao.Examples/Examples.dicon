@@ -72,6 +72,17 @@
     <include path="Seasar.Dao.Examples/NoPersistentPropsAttr/FirebirdNoPersistentPropsAttr.dicon" />
     <include path="Seasar.Dao.Examples/PersistentPropsAttr/FirebirdPersistentPropsAttr.dicon" />
     <include path="Seasar.Dao.Examples/SqlFile/FirebirdSqlFile.dicon" />
+
+    <include path="Seasar.Dao.Examples/AutoSelect/OleDbMDBAutoSelect.dicon" />
+    <include path="Seasar.Dao.Examples/AutoInsert/OleDbMDBAutoInsert.dicon" />
+    <include path="Seasar.Dao.Examples/AutoUpdate/OleDbMDBAutoUpdate.dicon" />
+    <include path="Seasar.Dao.Examples/AutoDelete/OleDbMDBAutoDelete.dicon" />
+    <include path="Seasar.Dao.Examples/QueryAttr/OleDbMDBQueryAttr.dicon" />
+    <include path="Seasar.Dao.Examples/SqlAttr/OleDbMDBSqlAttr.dicon" />
+    <include path="Seasar.Dao.Examples/NoPersistentPropsAttr/OleDbMDBNoPersistentPropsAttr.dicon" />
+    <include path="Seasar.Dao.Examples/PersistentPropsAttr/OleDbMDBPersistentPropsAttr.dicon" />
+    <include path="Seasar.Dao.Examples/SqlFile/OleDbMDBSqlFile.dicon" />
+
     
     <component class="Seasar.Examples.ExamplesExplorer">
         <initMethod name="AddExampless"><arg>"MS SQL Server用Examples"</arg><arg>MSSQL</arg></initMethod>
@@ -81,6 +92,7 @@
 		<initMethod name="AddExampless"><arg>"Oracle用Examples"</arg><arg>Oracle</arg></initMethod>
 		<initMethod name="AddExampless"><arg>"PostgreSQL用Examples"</arg><arg>PostgreSQL</arg></initMethod>
 		<initMethod name="AddExampless"><arg>"Firebird用Examples"</arg><arg>Firebird</arg></initMethod>		
+        <initMethod name="AddExampless"><arg>"MDB(OleDb)用Examples"</arg><arg>OleDbMDB</arg></initMethod>
     </component>
     
     <component name="MSSQL" class="System.Collections.ArrayList">
@@ -768,7 +780,106 @@
                 <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/SqlFile/FirebirdSqlFileClient.cs"</arg></initMethod>
             </component>
         </arg></initMethod>
-
     </component>
+    
+    <component name="OleDbMDB" class="System.Collections.ArrayList">
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"Select文自動生成"</property>
+                <property name="Examples">OleDbMDBAutoSelect</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/AutoSelect/OleDbMDBAutoSelect.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/OleDbMDBEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoSelect/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoSelect/OleDbMDBAutoSelectClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"Insert文自動生成"</property>
+                <property name="Examples">OleDbMDBAutoInsert</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/AutoInsert/OleDbMDBAutoInsert.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/OleDbMDBEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoInsert/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoInsert/AutoInsertLogic.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoInsert/OleDbMDBAutoInsertClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"Update文自動生成"</property>
+                <property name="Examples">OleDbMDBAutoUpdate</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/AutoUpdate/OleDbMDBAutoUpdate.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/OleDbMDBEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoUpdate/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoUpdate/AutoUpdateLogic.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoUpdate/OleDbMDBAutoUpdateClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"Delete文自動生成"</property>
+                <property name="Examples">OleDbMDBAutoDelete</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/AutoDelete/OleDbMDBAutoDelete.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/OleDbMDBEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoDelete/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoDelete/AutoDeleteLogic.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/AutoDelete/OleDbMDBAutoDeleteClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"Query属性"</property>
+                <property name="Examples">OleDbMDBQueryAttr</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/QueryAttr/OleDbMDBQueryAttr.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/OleDbMDBEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/QueryAttr/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/QueryAttr/OleDbMDBQueryAttrClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"Sql属性"</property>
+                <property name="Examples">OleDbMDBSqlAttr</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/SqlAttr/OleDbMDBSqlAttr.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/OleDbMDBEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/SqlAttr/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/SqlAttr/OleDbMDBSqlAttrClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"NoPersistentProps属性"</property>
+                <property name="Examples">OleDbMDBNoPersistentPropsAttr</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/NoPersistentPropsAttr/OleDbMDBNoPersistentPropsAttr.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/OleDbMDBEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/NoPersistentPropsAttr/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/NoPersistentPropsAttr/NoPersistentPropsAttrLogic.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/NoPersistentPropsAttr/OleDbMDBNoPersistentPropsAttrClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"PersistentProps属性"</property>
+                <property name="Examples">OleDbMDBPersistentPropsAttr</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/PersistentPropsAttr/OleDbMDBPersistentPropsAttr.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/OleDbMDBEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/PersistentPropsAttr/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/PersistentPropsAttr/PersistentPropsAttrLogic.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/PersistentPropsAttr/OleDbMDBPersistentPropsAttrClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+        <initMethod name="Add"><arg>
+            <component class="Seasar.Examples.Impl.BasicExamplesHandler">
+                <property name="Title">"SQLファイル"</property>
+                <property name="Examples">OleDbMDBSqlFile</property>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/SqlFile/OleDbMDBSqlFile.dicon"</arg></initMethod>
+                <initMethod name="AddDicon"><arg>"Seasar.Dao.Examples/OleDbMDBEx.dicon"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/SqlFile/IEmployeeDao.cs"</arg></initMethod>
+                <initMethod name="AddCode"><arg>"Seasar.Dao.Examples/SqlFile/OleDbMDBSqlFileClient.cs"</arg></initMethod>
+            </component>
+        </arg></initMethod>
+    </component>
+
+    
     
 </components>

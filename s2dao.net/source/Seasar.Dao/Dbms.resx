@@ -63,4 +63,7 @@
 	<data name="FbConnection">
 		<value>Seasar.Dao.Dbms.Firebird</value>
 	</data>
+	<data name="OleDbConnection_Microsoft.Jet.OLEDB.4.0">
+		<value>Seasar.Dao.Dbms.MDB</value>
+	</data>
 </root>
