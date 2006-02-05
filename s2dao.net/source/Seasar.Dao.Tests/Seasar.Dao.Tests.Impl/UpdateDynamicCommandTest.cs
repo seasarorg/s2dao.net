@@ -20,6 +20,7 @@ using System;
 using Seasar.Dao.Impl;
 using Seasar.Extension.ADO;
 using Seasar.Extension.ADO.Impl;
+using Seasar.Extension.ADO.Types;
 using Seasar.Framework.Container;
 using Seasar.Framework.Container.Factory;
 using NUnit.Framework;
@@ -41,20 +42,17 @@ namespace Seasar.Dao.Tests.Impl
 
             IS2Container container = S2ContainerFactory.Create(PATH);
             IDataSource dataSource = (IDataSource) container.GetComponent(typeof(IDataSource));
+            ValueTypes.Init(dataSource);//Ç±ÇÍÇ™Ç»Ç¢Ç∆èàóùÇ≈Ç´Ç»Ç¢
 
             UpdateDynamicCommand cmd = new UpdateDynamicCommand(dataSource,
                 BasicCommandFactory.INSTANCE);
             //cmd.setSql("UPDATE emp SET ename = /*employee.ename*/'HOGE' WHERE empno = /*employee.empno*/1234");
             cmd.Sql = "UPDATE emp SET ename = /*employee.Ename*/'HOGE' WHERE empno = /*employee.Empno*/1234";
-            //cmd.Sql = "UPDATE emp SET ename = /*Ename*/'HOGE' WHERE empno = /*Empno*/1234";
-            //cmd.ArgNames = new String[] { "Ename","Empno" };
-            cmd.ArgNames = new String[] { "Ename","Empno" };
+            cmd.ArgNames = new String[] { "employee" };
 
             Employee emp = new Employee();
             emp.Empno=7788;
             emp.Ename="SCOTT";
-            Assert.Ignore("BasicUpdateHandler:line56ÇÃGetCompleteSqlÇ≈ï‘Ç≥ÇÍÇÈSQLÇÕwhere empno = 'SCOTT'Ç…Ç»Ç¡ÇƒÇµÇ‹Ç§ÇµÅAline98Ç…ì¸ÇÈÇ∆ValueTypesÇÃñ‚ëËÇ™î≠ê∂Ç∑ÇÈ");
-            //int count = (int) cmd.Execute(new Object[] { emp.Ename,emp.Empno });
             int count = (int) cmd.Execute(new Object[] { emp });
             Assert.AreEqual(1, count, "1");
         }

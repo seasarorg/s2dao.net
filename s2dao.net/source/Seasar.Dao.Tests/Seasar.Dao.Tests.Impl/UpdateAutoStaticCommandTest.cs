@@ -59,8 +59,8 @@ namespace Seasar.Dao.Tests.Impl
             Assert.AreEqual(1, count, "1");
         }
 
-        [Test]
         [Ignore("System.Data.SqlClient.SqlException : 変数名 '@VersionNo' は既に宣言されています。変数名は、クエリ バッチまたはストアド プロシージャ内で、重複してはいけません。 が発生")]
+        [Test]
         public void TestExecute2Tx() 
         {
             IDaoMetaData dmd = new DaoMetaDataImpl(typeof(DepartmentAutoDao),

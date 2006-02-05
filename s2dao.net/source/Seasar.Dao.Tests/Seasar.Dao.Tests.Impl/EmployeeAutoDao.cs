@@ -79,11 +79,13 @@ namespace Seasar.Dao.Tests.Impl
         void Update3(Employee employee);
 
         //TODO:存在するとNotSupportedExceptionになる
+        //（DaoMetaDataImpl#IsBeanTypeAssignableでEmployee[]とEmployeeがIsAssignableFromと判断されないため）
         //void UpdateBatch(Employee[] employees);
 
         void Delete(Employee employee);
 
         //TODO:存在するとNotSupportedException("DeleteBatchAutoStaticCommand")になる
+        //（DaoMetaDataImpl#IsBeanTypeAssignableでEmployee[]とEmployeeがIsAssignableFromと判断されないため）
         //void DeleteBatch(Employee[] employees);
     }
 }

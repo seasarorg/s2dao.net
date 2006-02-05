@@ -74,6 +74,7 @@ namespace Seasar.Dao.Tests.Impl
                 BasicDataReaderFactory.INSTANCE);
 
             Assert.Ignore("IDENTITYTABLEのIDテーブルをIdentityにすればInsertは可能になるが、@@IDENTITYを取得できていない");
+            //AbstractAutoHandler#ExecuteでCommandUtil.Close(cmd)の後にPostUpdateBean(bean)をしているので、別セッションになってしまう
 
             ISqlCommand cmd = dmd.GetSqlCommand("Insert");
             IdentityTable table = new IdentityTable();

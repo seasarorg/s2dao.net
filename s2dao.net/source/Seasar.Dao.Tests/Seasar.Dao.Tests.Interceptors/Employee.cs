@@ -27,7 +27,7 @@ namespace Seasar.Dao.Tests.Interceptors
     {
         private int empno;
         private string ename;
-        private short deptnum;
+        private short deptno;
 
         public Employee()
         {
@@ -45,10 +45,10 @@ namespace Seasar.Dao.Tests.Interceptors
             get { return ename; }
         }
 
-        public short Deptnum
+        public short Deptno
         {
-            set { deptnum = value; }
-            get { return deptnum; }
+            set { deptno = value; }
+            get { return deptno; }
         }
 
         public override string ToString()
@@ -59,7 +59,7 @@ namespace Seasar.Dao.Tests.Interceptors
             buf.Append(", Ename=");
             buf.Append(Ename);
             buf.Append(", Deptnum=");
-            buf.Append(Deptnum);
+            buf.Append(Deptno);
             return buf.ToString();
         }
 
