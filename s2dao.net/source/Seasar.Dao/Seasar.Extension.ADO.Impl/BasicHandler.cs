@@ -192,13 +192,33 @@ namespace Seasar.Extension.ADO.Impl
 
         protected string GetBindVariableText(object bindVariable)
         {
-            if(bindVariable is INullable || bindVariable is INullableType)
+            if(bindVariable is INullable)
             {
-                PropertyInfo pi = bindVariable.GetType().GetProperty("Value");
-                GetBindVariableText(pi.GetValue(bindVariable, null));
+                INullable nullable = bindVariable as INullable;
+                if (nullable.IsNull)
+                {
+                    return GetBindVariableText(null);
+                }
+                else
+                {
+                    PropertyInfo pi = bindVariable.GetType().GetProperty("Value");
+                    return GetBindVariableText(pi.GetValue(bindVariable, null));
+                }
             }
-
-            if(bindVariable is string)
+            else if (bindVariable is INullableType)
+            {
+                INullableType nullable = bindVariable as INullableType;
+                if (!nullable.HasValue)
+                {
+                    return GetBindVariableText(null);
+                }
+                else
+                {
+                    PropertyInfo pi = bindVariable.GetType().GetProperty("Value");
+                    return GetBindVariableText(pi.GetValue(bindVariable, null));
+                }
+            }
+            else if(bindVariable is string)
             {
                 return "'" + bindVariable + "'";
             }
