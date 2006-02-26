@@ -175,7 +175,7 @@ namespace Seasar.Dao.Impl
                     varList.Add(pt.PropertyInfo.GetValue(bean, null));
                 }
                 varTypeList.Add(pt.PropertyInfo.PropertyType);
-                varNameList.Add(pt.PropertyInfo.Name);
+                varNameList.Add(pt.ColumnName);
             }
             BindVariables = varList.ToArray();
             BindVariableTypes = (Type[]) varTypeList.ToArray(typeof(Type));
@@ -207,7 +207,7 @@ namespace Seasar.Dao.Impl
                     varList.Add(pt.PropertyInfo.GetValue(bean, null));
                 }
                 varTypeList.Add(pt.PropertyInfo.PropertyType);
-                varNameList.Add(pt.PropertyInfo.Name);
+                varNameList.Add(pt.ColumnName);
             }
             AddAutoUpdateWhereBindVariables(varList, varTypeList, varNameList, bean);
             BindVariables = varList.ToArray();
@@ -236,7 +236,7 @@ namespace Seasar.Dao.Impl
                 PropertyInfo pi = pt.PropertyInfo;
                 varList.Add(pi.GetValue(bean, null));
                 varTypeList.Add(pi.PropertyType);
-                varNameList.Add(pi.Name);
+                varNameList.Add(pt.ColumnName);
             }
             if(bmd.HasVersionNoPropertyType)
             {
@@ -244,7 +244,7 @@ namespace Seasar.Dao.Impl
                 PropertyInfo pi = pt.PropertyInfo;
                 varList.Add(pi.GetValue(bean, null));
                 varTypeList.Add(pi.PropertyType);
-                varNameList.Add(pi.Name);
+                varNameList.Add(pt.ColumnName);
             }
             if(bmd.HasTimestampPropertyType)
             {
@@ -252,7 +252,7 @@ namespace Seasar.Dao.Impl
                 PropertyInfo pi = pt.PropertyInfo;
                 varList.Add(pi.GetValue(bean, null));
                 varTypeList.Add(pi.PropertyType);
-                varNameList.Add(pi.Name);
+                varNameList.Add(pt.ColumnName);
             }
         }
 
