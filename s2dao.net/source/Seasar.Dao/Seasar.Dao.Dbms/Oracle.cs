@@ -73,6 +73,8 @@ namespace Seasar.Dao.Dbms
                 {
                     whereBuf.Append(myTableName);
                     whereBuf.Append(".");
+                    whereBuf.Append(rpt.GetMyKey(j));
+                    whereBuf.Append("=");
                     whereBuf.Append(yourAliasName);
                     whereBuf.Append(".");
                     whereBuf.Append(rpt.GetYourKey(j));
