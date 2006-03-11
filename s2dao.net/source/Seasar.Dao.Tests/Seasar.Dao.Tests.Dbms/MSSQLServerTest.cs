@@ -49,11 +49,11 @@ namespace Seasar.Dao.Tests.Dbms
             //IDataSource dataSource = new DataSourceImpl(sqlClient,"Server=127.0.0.1;database=s2dotnetdemo;Password=demopass;User ID=demouser");
 
             IS2Container container = S2ContainerFactory.Create(PATH);
-            IDataSource dataSource = (IDataSource) container.GetComponent(typeof(IDataSource));
+            IDataSource dataSource = 
+                (IDataSource) container.GetComponent(typeof(IDataSource));
 
-            IDbConnection cn = DataSourceUtil.GetConnection(dataSource);
-            IDbms dbms = new MSSQLServer(dataSource,cn);
-			IBeanMetaData bmd = new BeanMetaDataImpl(typeof(Employee), dbms.DatabaseMetaData, dbms);
+            IDbms dbms = new MSSQLServer();
+			IBeanMetaData bmd = new BeanMetaDataImpl(typeof(Employee), new DatabaseMetaDataImpl(dataSource), dbms);
 			String sql = dbms.GetAutoSelectSql(bmd);
 			//System.out.println(sql);
 		}
@@ -69,11 +69,11 @@ namespace Seasar.Dao.Tests.Dbms
             //IDataSource dataSource = new DataSourceImpl(sqlClient,"Server=127.0.0.1;database=s2dotnetdemo;Password=demopass;User ID=demouser");
             
             IS2Container container = S2ContainerFactory.Create(PATH);
-            IDataSource dataSource = (IDataSource) container.GetComponent(typeof(IDataSource));
+            IDataSource dataSource = 
+                (IDataSource) container.GetComponent(typeof(IDataSource));
 
-            IDbConnection cn = DataSourceUtil.GetConnection(dataSource);
-            IDbms dbms = new MSSQLServer(dataSource,cn);
-            IBeanMetaData bmd = new BeanMetaDataImpl(typeof(Department), dbms.DatabaseMetaData, dbms);
+            IDbms dbms = new MSSQLServer();
+            IBeanMetaData bmd = new BeanMetaDataImpl(typeof(Department), new DatabaseMetaDataImpl(dataSource), dbms);
 			String sql = dbms.GetAutoSelectSql(bmd);
 			//System.out.println(sql);
 			Assert.IsTrue( sql.EndsWith("FROM DEPT"),"1");

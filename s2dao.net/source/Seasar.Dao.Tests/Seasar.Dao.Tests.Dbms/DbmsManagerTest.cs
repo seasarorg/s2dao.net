@@ -57,10 +57,6 @@ namespace Seasar.Dao.Tests.Dbms
 
             Assert.IsNotNull(DbmsManager.GetDbms(dataSource),"3");
             
-            IDbConnection cn = DataSourceUtil.GetConnection(dataSource);
-            Assert.IsNotNull(DbmsManager.GetDbms(dataSource,cn),"4");
-
-
 		}
 	}
 }
