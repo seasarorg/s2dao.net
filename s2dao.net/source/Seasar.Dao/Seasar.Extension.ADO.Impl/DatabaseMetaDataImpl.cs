@@ -18,51 +18,87 @@
 
 using System;
 using System.Collections;
+using System.Data;
+using System.Data.Common;
+using Seasar.Extension.ADO;
+using Seasar.Framework.Util;
 
 namespace Seasar.Extension.ADO.Impl
 {
     public class DatabaseMetaDataImpl : IDatabaseMetaData
     {
-        private IList tableSet;
-        private IDictionary primaryKeys;
-        private IDictionary columns;
+        private IDictionary primaryKeys = new Hashtable(
+               CaseInsensitiveHashCodeProvider.Default, CaseInsensitiveComparer.Default);
 
-        public DatabaseMetaDataImpl()
-        {
-        }
+        private IDictionary columns = new Hashtable(CaseInsensitiveHashCodeProvider.Default,
+            CaseInsensitiveComparer.Default);
 
-        public IList TableSet
-        {
-            set { tableSet = value; }
-        }
+        private IDataSource dataSource;
 
-        public IDictionary PrimaryKeys
+        public DatabaseMetaDataImpl(IDataSource dataSource)
         {
-            set { primaryKeys = value; }
-        }
-
-        public IDictionary Columns
-        {
-            set { columns = value; }
+            this.dataSource = dataSource;
         }
 
         #region IDatabaseMetaData ÉÅÉìÉo
 
         public System.Collections.IList GetPrimaryKeySet(string tableName)
         {
+            if(!this.primaryKeys.Contains(tableName)) CreateTableMetaData(tableName);
             return (IList) primaryKeys[tableName];
-        }
-
-        public IList GetTableSet()
-        {
-            return tableSet;
         }
 
         public IList GetColumnSet(string tableName)
         {
+            if(!this.columns.Contains(tableName)) CreateTableMetaData(tableName);
             return (IList) columns[tableName];
         }
 
         #endregion
+
+        private void CreateTableMetaData(string tableName)
+        {
+            lock(this)
+            {
+                IDbConnection cn = DataSourceUtil.GetConnection(dataSource);
+                try
+                {
+                    string sql = "SELECT * FROM " + tableName;
+
+                    IDbCommand cmd = dataSource.GetCommand(sql, cn);
+                    DataSourceUtil.SetTransaction(dataSource, cmd);
+                    DbDataAdapter adapter = dataSource.GetDataAdapter(cmd) as DbDataAdapter;
+                    DataTable metaDataTable = new DataTable(tableName);
+                    adapter.FillSchema(metaDataTable, SchemaType.Mapped);
+                    primaryKeys[tableName] = GetPrimaryKeySet(metaDataTable.PrimaryKey);
+                    columns[tableName] = GetColumnSet(metaDataTable.Columns);
+                }
+                finally
+                {
+                    DataSourceUtil.CloseConnection(dataSource, cn);
+                }
+            }
+        }
+
+        private IList GetPrimaryKeySet(DataColumn[] primarykeys)
+        {
+            IList list = new CaseInsentiveSet();
+            foreach (DataColumn pkey in primarykeys)
+            {
+                list.Add(pkey.ColumnName);
+            }
+            return list;
+        }
+
+        private IList GetColumnSet(DataColumnCollection columns)
+        {
+            IList list = new CaseInsentiveSet();
+            foreach (DataColumn column in columns)
+            {
+                list.Add(column.ColumnName);
+            }
+            return list;
+        }
+        
     }
 }

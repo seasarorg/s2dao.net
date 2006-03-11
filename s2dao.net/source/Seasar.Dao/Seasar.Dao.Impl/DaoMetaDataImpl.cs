@@ -58,8 +58,8 @@ namespace Seasar.Dao.Impl
         protected IBeanMetaData beanMetaData;
         protected Hashtable sqlCommands = new Hashtable();
 
-        public DaoMetaDataImpl(Type daoType, IDataSource dataSource,
-            ICommandFactory commandFactory, IDataReaderFactory dataReaderFactory)
+        public DaoMetaDataImpl(Type daoType, IDataSource dataSource,ICommandFactory commandFactory,
+            IDataReaderFactory dataReaderFactory, IDatabaseMetaData dbMetaData)
         {
             this.daoType = daoType;
             daoInterface = GetDaoInterface(daoType);
@@ -70,7 +70,6 @@ namespace Seasar.Dao.Impl
             this.commandFactory = commandFactory;
             this.dataReaderFactory = dataReaderFactory;
             dbms = DbmsManager.GetDbms(dataSource);
-            IDatabaseMetaData dbMetaData = dbms.DatabaseMetaData;
             beanMetaData = new BeanMetaDataImpl(beanType, dbMetaData, dbms);
             SetupSqlCommand();
         }

@@ -19,6 +19,7 @@
 using System;
 using System.Collections;
 using Seasar.Extension.ADO;
+using Seasar.Extension.ADO.Impl;
 
 namespace Seasar.Dao.Impl
 {
@@ -28,6 +29,7 @@ namespace Seasar.Dao.Impl
         private IDataSource dataSource;
         private ICommandFactory commandFactory;
         private IDataReaderFactory dataReaderFactory;
+        private IDatabaseMetaData dbMetaData;
 
         public DaoMetaDataFactoryImpl(IDataSource dataSource,
             ICommandFactory commandFactory, IDataReaderFactory dataReaderFactory)
@@ -35,6 +37,7 @@ namespace Seasar.Dao.Impl
             this.dataSource = dataSource;
             this.commandFactory = commandFactory;
             this.dataReaderFactory = dataReaderFactory;
+            this.dbMetaData = new DatabaseMetaDataImpl(dataSource);
         }
 
         #region IDaoMetaDataFactory ÉÅÉìÉo
@@ -47,7 +50,7 @@ namespace Seasar.Dao.Impl
                 IDaoMetaData dmd = (IDaoMetaData) daoMetaDataCache[key];
                 if(dmd != null) return dmd;
                 dmd = new DaoMetaDataImpl(daoType, dataSource, commandFactory,
-                    dataReaderFactory);
+                    dataReaderFactory, dbMetaData);
                 daoMetaDataCache[key] = dmd;
                 return dmd;
             }

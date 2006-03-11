@@ -24,7 +24,6 @@ namespace Seasar.Extension.ADO
     public interface IDatabaseMetaData
     {
         IList GetPrimaryKeySet(string tableName);
-        IList GetTableSet();
         IList GetColumnSet(string tableName);
     }
 }
