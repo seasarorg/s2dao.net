@@ -90,30 +90,5 @@ namespace Seasar.Dao.Dbms
             }
             return buf.ToString();
         }
-
-
-		public Oracle(IDataSource dataSource, IDbConnection cn)
-		{
-            base.SetupDatabaseMetaData(GetTableSet(dataSource, cn), dataSource, cn);
-		}
-
-        protected IList GetTableSet(IDataSource dataSource, IDbConnection cn)
-        {
-            IList list = new CaseInsentiveSet();
-            string sql = @"select TNAME from TAB";
-            using(IDbCommand cmd = dataSource.GetCommand(sql, cn))
-            {
-                DataSourceUtil.SetTransaction(dataSource, cmd);
-                using(IDataReader reader = cmd.ExecuteReader())
-                {
-                    while(reader.Read())
-                    {
-                        list.Add(reader["TNAME"]);
-                    }
-                }
-            }
-			
-            return list;
-        }
 	}
 }

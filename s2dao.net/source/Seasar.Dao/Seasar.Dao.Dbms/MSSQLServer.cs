@@ -43,29 +43,5 @@ namespace Seasar.Dao.Dbms
                 return KindOfDbms.MSSQLServer;
             }
         }
-
-        public MSSQLServer(IDataSource dataSource, IDbConnection cn)
-        {
-			base.SetupDatabaseMetaData(GetTableSet(dataSource, cn), dataSource, cn);
-        }
-
-        protected IList GetTableSet(IDataSource dataSource, IDbConnection cn)
-        {
-            IList list = new CaseInsentiveSet();
-            string cmdText = "sp_tables @table_type=\"'TABLE'\"";
-            
-            using(IDbCommand cmd = dataSource.GetCommand(cmdText, cn))
-            {
-                DataSourceUtil.SetTransaction(dataSource, cmd);
-                using(IDataReader reader = cmd.ExecuteReader())
-                {
-                    while(reader.Read())
-                    {
-                        list.Add(reader["table_name"]);
-                    }
-                }
-            }
-            return list;
-        }
     }
 }

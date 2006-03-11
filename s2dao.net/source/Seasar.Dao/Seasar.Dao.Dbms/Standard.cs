@@ -33,7 +33,6 @@ namespace Seasar.Dao.Dbms
     public class Standard : IDbms
     {
         private Hashtable autoSelectFromClauseCache = new Hashtable();
-		protected IDatabaseMetaData dbMetadata;
 
         public Standard()
         {
@@ -48,11 +47,6 @@ namespace Seasar.Dao.Dbms
         {
             get { return KindOfDbms.None; }
         }
-
-		public IDatabaseMetaData DatabaseMetaData
-		{
-			get { return dbMetadata; }
-		}
 
         public  string GetAutoSelectSql(IBeanMetaData beanMetaData)
         {
@@ -114,53 +108,5 @@ namespace Seasar.Dao.Dbms
         {
             return null;
         }
-
-		public void SetupDatabaseMetaData(IList tableSet, IDataSource dataSource, IDbConnection cn)
-		{
-			IDictionary primaryKeys = new Hashtable(CaseInsensitiveHashCodeProvider.Default,
-				CaseInsensitiveComparer.Default);
-			IDictionary columns = new Hashtable(CaseInsensitiveHashCodeProvider.Default,
-				CaseInsensitiveComparer.Default);
-
-			IEnumerator tables = tableSet.GetEnumerator();
-			while(tables.MoveNext())
-			{
-				string tableName = tables.Current as String;
-				string sql = "SELECT * FROM " + tableName;
-
-				IDbCommand cmd = dataSource.GetCommand(sql, cn);
-				DataSourceUtil.SetTransaction(dataSource, cmd);
-				DbDataAdapter adapter = dataSource.GetDataAdapter(cmd) as DbDataAdapter;
-				DataTable metadataTable = new DataTable(tableName);
-				adapter.FillSchema(metadataTable, SchemaType.Mapped);
-				primaryKeys[tableName] = GetPrimaryKeySet(metadataTable.PrimaryKey);
-				columns[tableName] = GetColumnSet(metadataTable.Columns);
-			}
-			DatabaseMetaDataImpl dbMetaData = new DatabaseMetaDataImpl();
-			dbMetaData.TableSet = tableSet;
-			dbMetaData.PrimaryKeys = primaryKeys;
-			dbMetaData.Columns = columns;
-			dbMetadata = dbMetaData;
-		}
-
-		private IList GetPrimaryKeySet(DataColumn[] primarykeys)
-		{
-			IList list = new CaseInsentiveSet();
-			foreach (DataColumn pkey in primarykeys)
-			{
-				list.Add(pkey.ColumnName);
-			}
-			return list;
-		}
-
-		private IList GetColumnSet(DataColumnCollection columns)
-		{
-			IList list = new CaseInsentiveSet();
-			foreach (DataColumn column in columns)
-			{
-				list.Add(column.ColumnName);
-			}
-			return list;
-		}
     }
 }

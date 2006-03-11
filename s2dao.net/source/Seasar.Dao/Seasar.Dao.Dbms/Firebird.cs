@@ -26,27 +26,5 @@ namespace Seasar.Dao.Dbms
 			get { return KindOfDbms.Firebird; }
 		}
 
-		public Firebird(IDataSource dataSource, IDbConnection cn)
-		{
-			base.SetupDatabaseMetaData(GetTableSet(dataSource, cn), dataSource, cn);
-		}
-
-		protected IList GetTableSet(IDataSource dataSource, IDbConnection cn)
-		{
-			IList list = new CaseInsentiveSet();
-			string sql = "SELECT RDB$RELATION_NAME FROM RDB$RELATIONS WHERE RDB$SYSTEM_FLAG <> 1";
-			using (IDbCommand cmd = dataSource.GetCommand(sql.ToString(), cn))
-			{
-				DataSourceUtil.SetTransaction(dataSource, cmd);
-				using (IDataReader reader = cmd.ExecuteReader())
-				{
-					while (reader.Read())
-					{
-						list.Add(reader.GetString(0).Trim());
-					}
-				}
-			}
-			return list;
-		}
 	}
 }

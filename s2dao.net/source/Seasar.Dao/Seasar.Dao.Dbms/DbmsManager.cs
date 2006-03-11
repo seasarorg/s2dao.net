@@ -45,40 +45,25 @@ namespace Seasar.Dao.Dbms
         public static IDbms GetDbms(IDataSource dataSource)
         {
             IDbms dbms = null;
-            IDbConnection cn = DataSourceUtil.GetConnection(dataSource);
-            try
+            IDbConnection cn = dataSource.GetConnection();
+            if(cn is OleDbConnection)
             {
-                dbms = GetDbms(dataSource, cn);
-            }
-            finally
-            {
-                DataSourceUtil.CloseConnection(dataSource, cn);
-            }
-            return dbms;
-        }
-
-        public static IDbms GetDbms(IDataSource dataSource, IDbConnection cn)
-        {
-            IDbms dbms = null;
-            if(dataSource.GetConnection() is OleDbConnection)
-            {
-                OleDbConnection oleDbCn = dataSource.GetConnection() as OleDbConnection;
-                dbms = GetDbms(dataSource, cn, cn.GetType().Name + "_" + oleDbCn.Provider);
+                OleDbConnection oleDbCn = cn as OleDbConnection;
+                dbms = GetDbms(cn.GetType().Name + "_" + oleDbCn.Provider);
             }
             else
             {
-                dbms = GetDbms(dataSource, cn, cn.GetType().Name);
+                dbms = GetDbms(cn.GetType().Name);
             }
             if(dbms == null)
-                dbms = GetDbms(dataSource, cn, "");
+                dbms = GetDbms("");
             return dbms;
         }
 
-        private static IDbms GetDbms(IDataSource dataSource, IDbConnection cn, string name)
+        private static IDbms GetDbms(string name)
         {
             return (IDbms) Activator.CreateInstance(Type.GetType(
-                resourceManager.GetString(name)),
-                new object[] { dataSource, cn });
+                resourceManager.GetString(name)), false);
         }
     }
 }
