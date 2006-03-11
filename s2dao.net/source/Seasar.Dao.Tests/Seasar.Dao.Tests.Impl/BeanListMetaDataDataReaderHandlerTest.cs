@@ -24,6 +24,7 @@ using Seasar.Dao;
 using Seasar.Dao.Dbms;
 using Seasar.Dao.Impl;
 using Seasar.Extension.ADO;
+using Seasar.Extension.ADO.Impl;
 using Seasar.Extension.ADO.Types;
 using Seasar.Framework.Container;
 using Seasar.Framework.Container.Factory;
@@ -48,8 +49,8 @@ namespace Seasar.Dao.Tests.Impl
             IDataSource dataSource = (IDataSource) container.GetComponent(typeof(IDataSource));
 
             IDbConnection cn = DataSourceUtil.GetConnection(dataSource);
-            IDbms dbms = new MSSQLServer(dataSource,cn);
-            beanMetaData_ = new BeanMetaDataImpl(typeof(Employee), dbms.DatabaseMetaData, dbms);
+            IDbms dbms = new MSSQLServer();
+            beanMetaData_ = new BeanMetaDataImpl(typeof(Employee), new DatabaseMetaDataImpl(dataSource), dbms);
         }
 
         [Test]

@@ -45,7 +45,7 @@ namespace Seasar.Dao.Tests.Impl
 
             IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeAutoDao),
                 dataSource, BasicCommandFactory.INSTANCE,
-                BasicDataReaderFactory.INSTANCE);
+                BasicDataReaderFactory.INSTANCE,new DatabaseMetaDataImpl(dataSource));
             ISqlCommand cmd = dmd.GetSqlCommand("Delete");
 
             ISqlCommand cmd2 = dmd.GetSqlCommand("GetEmployee");
@@ -69,7 +69,7 @@ namespace Seasar.Dao.Tests.Impl
 
             IDaoMetaData dmd = new DaoMetaDataImpl(typeof(DepartmentAutoDao),
                 dataSource, BasicCommandFactory.INSTANCE,
-                BasicDataReaderFactory.INSTANCE);
+                BasicDataReaderFactory.INSTANCE, new DatabaseMetaDataImpl(dataSource));
             ISqlCommand cmd = dmd.GetSqlCommand("Delete");
             Department dept = new Department();
             dept.Deptno = 10;
@@ -93,7 +93,7 @@ namespace Seasar.Dao.Tests.Impl
 
             IDaoMetaData dmd = new DaoMetaDataImpl(typeof(DepartmentAutoDao),
                 dataSource, BasicCommandFactory.INSTANCE,
-                BasicDataReaderFactory.INSTANCE);
+                BasicDataReaderFactory.INSTANCE, new DatabaseMetaDataImpl(dataSource));
             DeleteAutoStaticCommand cmd = (DeleteAutoStaticCommand) dmd
             .GetSqlCommand("Delete");
             Department dept = new Department();

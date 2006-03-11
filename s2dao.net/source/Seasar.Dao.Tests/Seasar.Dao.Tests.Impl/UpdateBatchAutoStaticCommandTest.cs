@@ -30,7 +30,7 @@ namespace Seasar.Dao.Tests.Impl
         {
             IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeAutoDao),
                 dataSource, BasicCommandFactory.INSTANCE,
-                BasicDataReaderFactory.INSTANCE);
+                BasicDataReaderFactory.INSTANCE, new DatabaseMetaDataImpl(dataSource));
 
             Assert.Ignore("UpdateBatch‚ð—LŒø‚É‚·‚é‚Æ—áŠO");
 

@@ -46,12 +46,12 @@ namespace Seasar.Dao.Tests.Impl
         	ValueTypes.Init(dataSource);
 
             IDbConnection cn = DataSourceUtil.GetConnection(dataSource);
-            IDbms dbms = new MSSQLServer(dataSource,cn);
+            IDbms dbms = new MSSQLServer();
 
             SelectDynamicCommand cmd = new SelectDynamicCommand(dataSource,
                 BasicCommandFactory.INSTANCE,
                 new BeanMetaDataDataReaderHandler(new BeanMetaDataImpl(
-						typeof(Employee), dbms.DatabaseMetaData, dbms)),
+						typeof(Employee), new DatabaseMetaDataImpl(dataSource), dbms)),
 						BasicDataReaderFactory.INSTANCE);
 
             cmd.Sql = "SELECT * FROM emp WHERE empno = /*empno*/1234";

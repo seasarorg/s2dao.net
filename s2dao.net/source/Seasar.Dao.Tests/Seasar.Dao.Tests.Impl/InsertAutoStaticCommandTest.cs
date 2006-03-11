@@ -49,7 +49,7 @@ namespace Seasar.Dao.Tests.Impl
         {
             IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeAutoDao),
                 dataSource, BasicCommandFactory.INSTANCE,
-                BasicDataReaderFactory.INSTANCE);
+                BasicDataReaderFactory.INSTANCE,new DatabaseMetaDataImpl(dataSource));
 
             ISqlCommand cmd = dmd.GetSqlCommand("Insert");
             Employee emp = new Employee();
@@ -71,7 +71,7 @@ namespace Seasar.Dao.Tests.Impl
         {
             IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IdentityTableAutoDao),
                 dataSource, BasicCommandFactory.INSTANCE,
-                BasicDataReaderFactory.INSTANCE);
+                BasicDataReaderFactory.INSTANCE,new DatabaseMetaDataImpl(dataSource));
 
             Assert.Ignore("IDENTITYTABLEのIDテーブルをIdentityにすればInsertは可能になるが、@@IDENTITYを取得できていない");
             //AbstractAutoHandler#ExecuteでCommandUtil.Close(cmd)の後にPostUpdateBean(bean)をしているので、別セッションになってしまう
@@ -90,7 +90,7 @@ namespace Seasar.Dao.Tests.Impl
         {
             IDaoMetaData dmd = new DaoMetaDataImpl(typeof(SeqTableAutoDao),
                 dataSource, BasicCommandFactory.INSTANCE,
-                BasicDataReaderFactory.INSTANCE);
+                BasicDataReaderFactory.INSTANCE, new DatabaseMetaDataImpl(dataSource));
 
 //            Assert.Ignore("SQL Serverでは使用不可");
 //
@@ -108,7 +108,7 @@ namespace Seasar.Dao.Tests.Impl
         {
             IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeAutoDao),
                 dataSource, BasicCommandFactory.INSTANCE,
-                BasicDataReaderFactory.INSTANCE);
+                BasicDataReaderFactory.INSTANCE, new DatabaseMetaDataImpl(dataSource));
 
             ISqlCommand cmd = dmd.GetSqlCommand("Insert2");
             Employee emp = new Employee();
@@ -129,7 +129,7 @@ namespace Seasar.Dao.Tests.Impl
         {
             IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeAutoDao),
                 dataSource, BasicCommandFactory.INSTANCE,
-                BasicDataReaderFactory.INSTANCE);
+                BasicDataReaderFactory.INSTANCE, new DatabaseMetaDataImpl(dataSource));
             ISqlCommand cmd = dmd.GetSqlCommand("Insert3");
             Employee emp = new Employee();
             emp.Empno =99;

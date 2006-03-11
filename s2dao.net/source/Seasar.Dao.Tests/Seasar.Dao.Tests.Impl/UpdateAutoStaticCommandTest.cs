@@ -50,7 +50,7 @@ namespace Seasar.Dao.Tests.Impl
         {
             IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeAutoDao),
                 dataSource, BasicCommandFactory.INSTANCE,
-                BasicDataReaderFactory.INSTANCE);
+                BasicDataReaderFactory.INSTANCE, new DatabaseMetaDataImpl(dataSource));
 
             ISqlCommand cmd = dmd.GetSqlCommand("Update");
             ISqlCommand cmd2 = dmd.GetSqlCommand("GetEmployee");
@@ -65,7 +65,7 @@ namespace Seasar.Dao.Tests.Impl
         {
             IDaoMetaData dmd = new DaoMetaDataImpl(typeof(DepartmentAutoDao),
                 dataSource, BasicCommandFactory.INSTANCE,
-                BasicDataReaderFactory.INSTANCE);
+                BasicDataReaderFactory.INSTANCE, new DatabaseMetaDataImpl(dataSource));
             
             ISqlCommand cmd = dmd.GetSqlCommand("Update");
             Department dept = new Department();
@@ -82,7 +82,7 @@ namespace Seasar.Dao.Tests.Impl
         {
             IDaoMetaData dmd = new DaoMetaDataImpl(typeof(DepartmentAutoDao),
                 dataSource, BasicCommandFactory.INSTANCE,
-                BasicDataReaderFactory.INSTANCE);
+                BasicDataReaderFactory.INSTANCE, new DatabaseMetaDataImpl(dataSource));
             
             ISqlCommand cmd = dmd.GetSqlCommand("Update");
             Department dept = new Department();
@@ -104,7 +104,7 @@ namespace Seasar.Dao.Tests.Impl
         {
             IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeAutoDao),
                 dataSource, BasicCommandFactory.INSTANCE,
-                BasicDataReaderFactory.INSTANCE);
+                BasicDataReaderFactory.INSTANCE, new DatabaseMetaDataImpl(dataSource));
             
             ISqlCommand cmd = dmd.GetSqlCommand("Update2");
             ISqlCommand cmd2 = dmd.GetSqlCommand("GetEmployee");
@@ -118,7 +118,7 @@ namespace Seasar.Dao.Tests.Impl
         {
             IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeAutoDao),
                 dataSource, BasicCommandFactory.INSTANCE,
-                BasicDataReaderFactory.INSTANCE);
+                BasicDataReaderFactory.INSTANCE, new DatabaseMetaDataImpl(dataSource));
 
             ISqlCommand cmd = dmd.GetSqlCommand("Update3");
             ISqlCommand cmd2 = dmd.GetSqlCommand("GetEmployee");
