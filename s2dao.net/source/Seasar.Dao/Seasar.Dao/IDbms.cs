@@ -28,6 +28,5 @@ namespace Seasar.Dao
         string IdentitySelectString { get; }
         string GetSequenceNextValString(string sequenceName);
         KindOfDbms Dbms { get; }
-        IDatabaseMetaData DatabaseMetaData { get; }
     }
 }
