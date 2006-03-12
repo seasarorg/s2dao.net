@@ -18,12 +18,7 @@
 
 using System;
 using System.Collections;
-using System.Data;
-using System.Data.Common;
 using System.Text;
-using Seasar.Extension.ADO;
-using Seasar.Extension.ADO.Impl;
-using Seasar.Framework.Util;
 
 namespace Seasar.Dao.Dbms
 {

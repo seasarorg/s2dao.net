@@ -18,7 +18,6 @@
 
 using System;
 using System.Reflection;
-using Seasar.Dao.Dbms;
 using Seasar.Extension.ADO;
 using Seasar.Extension.ADO.Impl;
 using Seasar.Framework.Exceptions;

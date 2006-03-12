@@ -16,12 +16,6 @@
  */
 #endregion
 
-using System.Collections;
-using System.Data;
-using Seasar.Extension.ADO;
-using Seasar.Extension.ADO.Impl;
-using Seasar.Framework.Util;
-
 namespace Seasar.Dao.Dbms
 {
     public class MSSQLServer : Standard

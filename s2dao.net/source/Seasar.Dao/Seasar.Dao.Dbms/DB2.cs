@@ -1,9 +1,4 @@
 using System;
-using System.Data;
-using System.Collections;
-using Seasar.Extension.ADO;
-using Seasar.Extension.ADO.Impl;
-using Seasar.Framework.Util;
 
 namespace Seasar.Dao.Dbms
 {

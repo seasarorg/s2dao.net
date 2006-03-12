@@ -17,13 +17,10 @@
 #endregion
 
 using System;
-using System.Collections;
 using System.Data;
 using System.Data.OleDb;
-using System.Globalization;
 using System.Reflection;
 using System.Resources;
-using Seasar.Framework.Util;
 using Seasar.Extension.ADO;
 
 namespace Seasar.Dao.Dbms

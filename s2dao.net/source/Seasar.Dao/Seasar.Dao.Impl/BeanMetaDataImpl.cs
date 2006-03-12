@@ -26,7 +26,6 @@ using Seasar.Dao.Impl;
 using Seasar.Extension.ADO;
 using Seasar.Framework.Beans;
 using Seasar.Framework.Log;
-using Seasar.Framework.Util;
 
 namespace Seasar.Dao.Impl
 {
