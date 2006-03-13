@@ -173,7 +173,7 @@ namespace Seasar.Examples
             this.ResultView.Location = new System.Drawing.Point(0, 0);
             this.ResultView.Multiline = true;
             this.ResultView.Name = "ResultView";
-            this.ResultView.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
+            this.ResultView.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.ResultView.Size = new System.Drawing.Size(556, 340);
             this.ResultView.TabIndex = 2;
             this.ResultView.Text = "";

@@ -18,8 +18,10 @@
 
 using System;
 using System.Collections;
+using System.Data.SqlTypes;
 using Seasar.Framework.Container;
 using Seasar.Framework.Container.Factory;
+using Nullables;
 
 namespace Seasar.Dao.Examples.AutoSelect
 {
@@ -63,11 +65,41 @@ namespace Seasar.Dao.Examples.AutoSelect
             IList deptList2 = deptDao2.GetAllList();
 
             IEnumerator depts2 = deptList2.GetEnumerator();
-            Console.WriteLine("/** 全ての部署のリスト(Nullablesを使用) **/");
+            Console.WriteLine("/** 全ての部署のリスト(NullableTypeを使用) **/");
             while(depts2.MoveNext())
             {
                 Console.WriteLine(((Department2) depts2.Current).ToString());
             }
+
+            // Nullである項目を取得(INullable)
+            SqlInt16 active = deptDao2.GetActiveByDeptno(20);
+            Console.WriteLine("/** deptnoが20と40のActiveを取得(INullableを使用) **/");
+            Console.WriteLine("deptno=20");
+            Console.WriteLine(active.IsNull ? "null" : active.Value.ToString());
+            active = deptDao2.GetActiveByDeptno(40);
+            Console.WriteLine("deptno=40");
+            Console.WriteLine(active.IsNull ? "null" : active.Value.ToString());
+
+            // Nullである項目を取得(INullable)
+            NullableInt16 active2 = deptDao2.GetActiveByDeptno2(20);
+            Console.WriteLine("/** deptnoが20と40のActiveを取得(INullableTypeを使用) **/");
+            Console.WriteLine("deptno=20");
+            Console.WriteLine(active2.HasValue ? active2.Value.ToString() : "null");
+            active2 = deptDao2.GetActiveByDeptno2(40);
+            Console.WriteLine("deptno=40");
+            Console.WriteLine(active2.HasValue ? active2.Value.ToString() : "null");
+
+            // NullをStringで受け取る
+            string dname = deptDao2.GetDnameByDeptno(50);
+            Console.WriteLine("/** deptnoが50のdnameを取得(NULLで受け取る) **/");
+            Console.WriteLine("deptno=50");
+            Console.WriteLine(dname == null ? "null" : dname);
+
+            // NullをStringで受け取る
+            dname = deptDao2.GetDnameByDeptno(60);
+            Console.WriteLine("/** deptnoが60のdnameを取得(存在しないデータを受け取る) **/");
+            Console.WriteLine("deptno=60");
+            Console.WriteLine(dname == null ? "null" : dname);
         }
     }
 }
