@@ -19,6 +19,7 @@
 using System;
 using System.Reflection;
 using Seasar.Framework.Aop.Interceptors;
+using Seasar.Framework.Util;
 
 namespace Seasar.Dao.Interceptors
 {
@@ -41,18 +42,7 @@ namespace Seasar.Dao.Interceptors
             object ret = cmd.Execute(invocation.Arguments);
             
             Type retType = ((MethodInfo) method).ReturnType;
-            if(typeof(IConvertible).IsAssignableFrom(retType))
-            {
-                if(ret == null) 
-                {
-                    if(!retType.Equals(typeof(string))) 
-                        ret = Convert.ChangeType(decimal.Zero, retType);
-                }
-                else
-                {
-                    ret = Convert.ChangeType(ret, retType);
-                }
-            }
+            ret = ConversionUtil.ConvertTargetType(ret, retType);
             return ret;
         }
 
