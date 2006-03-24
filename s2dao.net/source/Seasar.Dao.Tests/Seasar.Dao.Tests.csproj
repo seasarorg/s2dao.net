@@ -17,7 +17,7 @@
                 DelaySign = "false"
                 OutputType = "Library"
                 PreBuildEvent = ""
-                PostBuildEvent = 'copy "$(ProjectDir)Tests.dicon" "$(TargetDir)" /Y &#xd;&#xa;xcopy "$(ProjectDir)Seasar.Dao.Tests.Interceptors" "$(TargetDir)Seasar.Dao.Tests.Interceptors" /S /I /Y /D'
+                PostBuildEvent = 'copy "$(ProjectDir)App.config" "$(TargetDir)Seasar.Dao.Tests.dll.config" /Y &#xd;&#xa;xcopy "$(ProjectDir)Seasar.Dao.Tests.Interceptors" "$(TargetDir)Seasar.Dao.Tests.Interceptors" /S /I /Y /D'
                 RootNamespace = ""
                 RunPostBuildEvent = "OnBuildSuccess"
                 StartupObject = ""
@@ -94,10 +94,24 @@
                     AssemblyName = "Seasar"
                     HintPath = "..\..\lib\Seasar.dll"
                 />
+                <Reference
+                    Name = "Seasar.Unit"
+                    AssemblyName = "Seasar.Unit"
+                    HintPath = "..\..\lib\Seasar.Unit.dll"
+                />
+                <Reference
+                    Name = "MbUnit.Framework"
+                    AssemblyName = "MbUnit.Framework"
+                    HintPath = "..\..\lib\MbUnit.Framework.dll"
+                />
             </References>
         </Build>
         <Files>
             <Include>
+                <File
+                    RelPath = "App.config"
+                    BuildAction = "None"
+                />
                 <File
                     RelPath = "AssemblyInfo.cs"
                     SubType = "Code"
@@ -105,7 +119,7 @@
                 />
                 <File
                     RelPath = "Tests.dicon"
-                    BuildAction = "None"
+                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "Seasar.Dao.Tests.Dbms\DbmsManagerTest.cs"
