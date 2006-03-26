@@ -90,11 +90,6 @@
                     Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
                 />
                 <Reference
-                    Name = "Seasar"
-                    AssemblyName = "Seasar"
-                    HintPath = "..\..\lib\Seasar.dll"
-                />
-                <Reference
                     Name = "Seasar.Unit"
                     AssemblyName = "Seasar.Unit"
                     HintPath = "..\..\lib\Seasar.Unit.dll"
@@ -103,6 +98,11 @@
                     Name = "MbUnit.Framework"
                     AssemblyName = "MbUnit.Framework"
                     HintPath = "..\..\lib\MbUnit.Framework.dll"
+                />
+                <Reference
+                    Name = "Seasar"
+                    AssemblyName = "Seasar"
+                    HintPath = "..\..\lib\Seasar.dll"
                 />
             </References>
         </Build>
@@ -137,7 +137,7 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Seasar.Dao.Tests.Dbms\MSSQLServerTest.cs"
+                    RelPath = "Seasar.Dao.Tests.Dbms\OracleTest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -146,7 +146,21 @@
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
-                <Folder RelPath = "Seasar.Dao.Tests.Id\" />
+                <File
+                    RelPath = "Seasar.Dao.Tests.Id\Hoge.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Tests.Id\IdentifierGeneratorFactoryTest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Tests.Id\IdentityIdentifierGeneratorTest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
                 <File
                     RelPath = "Seasar.Dao.Tests.Impl\BeanArrayMetaDataResultSetHandlerTest.cs"
                     SubType = "Code"
