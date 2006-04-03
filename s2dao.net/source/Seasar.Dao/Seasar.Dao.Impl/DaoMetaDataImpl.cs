@@ -214,7 +214,9 @@ namespace Seasar.Dao.Impl
 
         protected IDataReaderHandler CreateDataReaderHandler(MethodInfo mi)
         {
-            if(typeof(IList).IsAssignableFrom(mi.ReturnType))
+            if (mi.ReturnType.IsArray)
+                return new BeanArrayMetaDataDataReaderHandler(beanMetaData);
+            else if(typeof(IList).IsAssignableFrom(mi.ReturnType))
                 return new BeanListMetaDataDataReaderHandler(beanMetaData);
             else if(IsBeanTypeAssignable(mi.ReturnType))
                 return new BeanMetaDataDataReaderHandler(beanMetaData);
