@@ -162,6 +162,15 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Tests.Id\PostgreSQLEx.dicon"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Tests.Id\SequenceIdentifierGeneratorTest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Seasar.Dao.Tests.Impl\BeanArrayMetaDataResultSetHandlerTest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
