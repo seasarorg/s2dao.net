@@ -18,6 +18,7 @@
 
 using System;
 using System.Text;
+using System.Data.SqlTypes;
 using Seasar.Dao.Attrs;
 
 namespace Seasar.Dao.Tests.Impl
@@ -30,7 +31,7 @@ namespace Seasar.Dao.Tests.Impl
 
         private string job;
 
-        private short mgr;
+        private SqlInt16 mgr;
 
         private DateTime hiredate;
 
@@ -71,7 +72,7 @@ namespace Seasar.Dao.Tests.Impl
             get { return job; }
         }
 
-        public short Mgr
+        public SqlInt16 Mgr
         {
             set { mgr = value; }
             get { return mgr; }
