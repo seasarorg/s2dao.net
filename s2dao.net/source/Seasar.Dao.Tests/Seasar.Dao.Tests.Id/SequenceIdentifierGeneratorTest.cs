@@ -29,6 +29,9 @@ using MbUnit.Framework;
 
 namespace Seasar.Dao.Tests.Id
 {
+    /// <summary>
+    /// SequenceIdentifierGeneratorのテストです。PostgreSQLを使用します
+    /// </summary>
 	[TestFixture]
 	public class SequenceIdentifierGeneratorTest : S2TestCase
     {
