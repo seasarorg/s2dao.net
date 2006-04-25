@@ -24,13 +24,10 @@ using Seasar.Extension.ADO.Impl;
 using Seasar.Framework.Container;
 using Seasar.Framework.Container.Factory;
 using Seasar.Framework.Util;
-using NUnit.Framework;
+using MbUnit.Framework;
 
 namespace Seasar.Dao.Tests.Impl
 {
-	/// <summary>
-	/// InsertAutoStaticCommandTest ‚ÌŠT—v‚Ìà–¾‚Å‚·B
-	/// </summary>
     [TestFixture]
     public class InsertAutoStaticCommandTest
 	{

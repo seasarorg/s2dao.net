@@ -20,13 +20,10 @@ using System;
 using System.Collections;
 using Seasar.Framework.Container;
 using Seasar.Framework.Container.Factory;
-using NUnit.Framework;
+using MbUnit.Framework;
 
 namespace Seasar.Dao.Tests.Interceptors
 {
-	/// <summary>
-	/// S2DaoInterceptorTest ‚ÌŠT—v‚Ìà–¾‚Å‚·B
-	/// </summary>
     [TestFixture]
     public class S2DaoInterceptorTest
 	{

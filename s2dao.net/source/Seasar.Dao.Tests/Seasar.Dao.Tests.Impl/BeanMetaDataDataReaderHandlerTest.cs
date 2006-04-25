@@ -27,13 +27,10 @@ using Seasar.Extension.ADO.Types;
 using Seasar.Framework.Container;
 using Seasar.Framework.Container.Factory;
 using Seasar.Framework.Util;
-using NUnit.Framework;
+using MbUnit.Framework;
 
 namespace Seasar.Dao.Tests.Impl
 {
-	/// <summary>
-	/// BeanMetaDataDataReaderHandlerTest ‚ÌŠT—v‚Ìà–¾‚Å‚·B
-	/// </summary>
     [TestFixture]
     public class BeanMetaDataDataReaderHandlerTest
 	{

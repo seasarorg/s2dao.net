@@ -5,13 +5,10 @@ using Seasar.Extension.ADO;
 using Seasar.Extension.ADO.Impl;
 using Seasar.Framework.Container;
 using Seasar.Framework.Container.Factory;
-using NUnit.Framework;
+using MbUnit.Framework;
 
 namespace Seasar.Dao.Tests.Impl
 {
-	/// <summary>
-	/// UpdateBatchAutoStaticCommandTest ‚ÌŠT—v‚Ìà–¾‚Å‚·B
-	/// </summary>
     [TestFixture]
     public class UpdateBatchAutoStaticCommandTest
 	{
