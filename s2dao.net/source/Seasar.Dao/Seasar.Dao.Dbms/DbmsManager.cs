@@ -19,6 +19,7 @@
 using System;
 using System.Data;
 using System.Data.OleDb;
+using System.Data.Odbc;
 using System.Reflection;
 using System.Resources;
 using Seasar.Extension.ADO;
@@ -41,26 +42,51 @@ namespace Seasar.Dao.Dbms
 
         public static IDbms GetDbms(IDataSource dataSource)
         {
-            IDbms dbms = null;
+            // IDbConnectionをDataSourceから取得する
             IDbConnection cn = dataSource.GetConnection();
+
+            //IDbmsの実装クラスを取得するためのKey
+            string dbmsKey = null;
+
             if(cn is OleDbConnection)
             {
+                // OleDbConnectionの場合はKeyをType名とProvider名から作成する
                 OleDbConnection oleDbCn = cn as OleDbConnection;
-                dbms = GetDbms(cn.GetType().Name + "_" + oleDbCn.Provider);
+                dbmsKey = cn.GetType().Name + "_" + oleDbCn.Provider;
+            }
+            else if(cn is OdbcConnection)
+            {
+                // OdbcConnectionの場合はKeyをType名とDriver名から作成する
+                OdbcConnection odbcCn = cn as OdbcConnection;
+                dbmsKey = cn.GetType().Name + "_" + odbcCn.Driver;
             }
             else
             {
-                dbms = GetDbms(cn.GetType().Name);
+                dbmsKey = cn.GetType().Name;
             }
-            if(dbms == null)
-                dbms = GetDbms("");
-            return dbms;
+
+            // KeyからIDbms実装クラスのインスタンスを取得する
+            return GetDbms(dbmsKey);
         }
 
-        private static IDbms GetDbms(string name)
+        /// <summary>
+        /// Dbms.resxをdbmsKeyで探し、IDbms実装クラスのインスタンスを取得する
+        /// </summary>
+        /// <param name="dbmsKey">Dbms.resxを検索する為のKey</param>
+        /// <returns>IDbms実装クラスのインスタンス</returns>
+        /// <remarks>dbmsKeyに対応するものが見つからない場合は、
+        /// 標準のStandardを使用する</remarks>
+        public static IDbms GetDbms(string dbmsKey)
         {
-            return (IDbms) Activator.CreateInstance(Type.GetType(
-                resourceManager.GetString(name)), false);
+            // Dbms.resxからIDbmsの実装クラス名を取得する
+            string typeName = resourceManager.GetString(dbmsKey);
+
+            // IDbms実装クラスのTypeを取得する
+            // Dbms.resxに対応するIDbms実装クラスが無い場合は、標準のStandardを使用する
+            Type type = typeName == null ? typeof(Standard) : Type.GetType(typeName);
+
+            // IDbms実装クラスのインスタンスを作成して返す
+            return (IDbms) Activator.CreateInstance(type, false);
         }
     }
 }
