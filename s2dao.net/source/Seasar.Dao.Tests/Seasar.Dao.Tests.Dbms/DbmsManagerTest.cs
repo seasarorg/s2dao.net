@@ -43,5 +43,13 @@ namespace Seasar.Dao.Tests.Dbms
             Assert.IsNotNull(DbmsManager.GetDbms(dataSource),"1");
             
 		}
+
+        [Test, S2]
+        public void TestGetStandard()
+        {
+            Assert.IsTrue(DbmsManager.GetDbms("OleDbConnection_xxx") is Standard);
+            Assert.IsTrue(DbmsManager.GetDbms("OdbcConnection_xxx") is Standard);
+            Assert.IsTrue(DbmsManager.GetDbms("xxx") is Standard);
+        }
 	}
 }
