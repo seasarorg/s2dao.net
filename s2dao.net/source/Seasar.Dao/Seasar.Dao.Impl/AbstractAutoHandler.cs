@@ -244,7 +244,7 @@ namespace Seasar.Dao.Impl
                 PropertyInfo pi = pt.PropertyInfo;
                 varList.Add(pi.GetValue(bean, null));
                 varTypeList.Add(pi.PropertyType);
-                varNameList.Add(pt.ColumnName);
+                varNameList.Add(BeanMetaData.VersionNoBindingName);
             }
             if(bmd.HasTimestampPropertyType)
             {
@@ -252,7 +252,7 @@ namespace Seasar.Dao.Impl
                 PropertyInfo pi = pt.PropertyInfo;
                 varList.Add(pi.GetValue(bean, null));
                 varTypeList.Add(pi.PropertyType);
-                varNameList.Add(pt.ColumnName);
+                varNameList.Add(BeanMetaData.TimestampBindingName);
             }
         }
 

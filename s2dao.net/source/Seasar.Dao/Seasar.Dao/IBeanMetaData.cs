@@ -26,9 +26,11 @@ namespace Seasar.Dao
         string TableName { get; }
         IPropertyType VersionNoPropertyType { get; }
         string VersionNoPropertyName { get; }
+        string VersionNoBindingName { get; }
         bool HasVersionNoPropertyType { get; }
         IPropertyType TimestampPropertyType { get; }
         string TimestampPropertyName { get; }
+        string TimestampBindingName { get; }
         bool HasTimestampPropertyType { get; }
         string ConvertFullColumnName(string alias);
         IPropertyType GetPropertyTypeByAliasName(string aliasName);

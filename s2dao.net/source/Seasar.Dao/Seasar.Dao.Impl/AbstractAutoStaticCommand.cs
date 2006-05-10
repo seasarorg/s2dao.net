@@ -167,7 +167,7 @@ namespace Seasar.Dao.Impl
                 buf.Append(" AND ");
                 buf.Append(pt.ColumnName);
                 buf.Append(" = @");
-                buf.Append(pt.ColumnName);
+                buf.Append(bmd.VersionNoBindingName);
             }
             if(bmd.HasTimestampPropertyType)
             {
@@ -175,8 +175,10 @@ namespace Seasar.Dao.Impl
                 buf.Append(" AND ");
                 buf.Append(pt.ColumnName);
                 buf.Append(" = @");
-                buf.Append(pt.ColumnName);
+                buf.Append(bmd.TimestampBindingName);
             }
         }
+
+        
     }
 }

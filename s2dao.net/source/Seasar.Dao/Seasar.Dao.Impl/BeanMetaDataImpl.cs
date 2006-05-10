@@ -40,8 +40,10 @@ namespace Seasar.Dao.Impl
         private string autoSelectList;
         private bool relation;
         private IIdentifierGenerator identifierGenerator;
-        private string versionNoPropertyName = "versionNo";
-        private string timestampPropertyName = "timestamp";
+        private string versionNoPropertyName = "VersionNo";
+        private string timestampPropertyName = "Timestamp";
+        private string versionNoBindingName;
+        private string timestampBindingName;
 
         public BeanMetaDataImpl(Type beanType, IDatabaseMetaData dbMetaData,
             IDbms dbms) : this(beanType, dbMetaData, dbms, false)
@@ -87,6 +89,14 @@ namespace Seasar.Dao.Impl
             }
         }
 
+        public string VersionNoBindingName
+        {
+            get
+            {
+                return versionNoBindingName;
+            }
+        }
+
         public bool HasVersionNoPropertyType
         {
             get
@@ -108,6 +118,14 @@ namespace Seasar.Dao.Impl
             get
             {
                 return timestampPropertyName;
+            }
+        }
+
+        public string TimestampBindingName
+        {
+            get
+            {
+                return timestampBindingName;
             }
         }
 
@@ -285,12 +303,30 @@ namespace Seasar.Dao.Impl
         {
             VersionNoPropertyAttribute attr = AttributeUtil.GetVersionNoPropertyAttribute(beanType);
             if(attr != null) versionNoPropertyName = attr.PropertyName;
+
+            int i = 0;
+
+            do
+            {
+                versionNoBindingName = versionNoPropertyName + i++;
+            } while (HasPropertyType(versionNoBindingName));
+
         }
 
         protected void SetupTimestampPropertyName(Type beanType)
         {
             TimestampPropertyAttribute attr = AttributeUtil.GetTimestampPropertyAttribute(beanType);
             if(attr != null) timestampPropertyName = attr.PropertyName;
+
+            int i = 0;
+
+            do
+            {
+                timestampBindingName = timestampPropertyName + i++;
+            } while (HasPropertyType(timestampBindingName));
+
+            if(timestampBindingName.Equals(versionNoBindingName))
+                timestampBindingName = timestampPropertyName + i++;
         }
 
         protected void SetupProperty(Type beanType, IDatabaseMetaData dbMetaData,IDbms dbms)
