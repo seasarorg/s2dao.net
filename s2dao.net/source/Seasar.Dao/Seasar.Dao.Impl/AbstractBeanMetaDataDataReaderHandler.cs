@@ -50,7 +50,7 @@ namespace Seasar.Dao.Impl
                 {
                     IValueType valueType = pt.ValueType;
                     PropertyInfo pi = pt.PropertyInfo;
-                    object value = valueType.GetValue(reader, pt.ColumnName, pi.PropertyType);
+                    object value = valueType.GetValue(reader, pt.ColumnName);
                     pi.SetValue(row, value, null);
                 }
                 else if(!pt.IsPersistent)
@@ -63,7 +63,7 @@ namespace Seasar.Dao.Impl
                         {
                             IValueType valueType = pt.ValueType;
                             PropertyInfo pi = pt.PropertyInfo;
-                            object value = valueType.GetValue(reader, columnName, pi.PropertyType);
+                            object value = valueType.GetValue(reader, columnName);
                             pi.SetValue(row, value, null);
                             break;
                         }
@@ -109,7 +109,7 @@ namespace Seasar.Dao.Impl
                 else
                 {
                     IValueType valueType = pt.ValueType;
-                    value = valueType.GetValue(reader, columnName, pi.PropertyType);
+                    value = valueType.GetValue(reader, columnName);
                 }
                 if(value != null) pi.SetValue(row, value, null);
             }

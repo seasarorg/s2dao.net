@@ -95,8 +95,7 @@ namespace Seasar.Dao.Impl
                     else
                         return null;
                 }
-                object value = valueType.GetValue(reader, columnName,
-                    pt.PropertyInfo.PropertyType);
+                object value = valueType.GetValue(reader, columnName);
                 if(value == null) return null;
 
                 relKeyValues[columnName] = value;
