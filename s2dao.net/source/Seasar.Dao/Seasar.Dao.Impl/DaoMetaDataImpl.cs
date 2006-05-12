@@ -66,7 +66,7 @@ namespace Seasar.Dao.Impl
             annotationReader = new FieldAnnotationReader(daoType);
             beanType = annotationReader.GetBeanType();
             this.dataSource = dataSource;
-            ValueTypes.Init(dataSource);
+
             this.commandFactory = commandFactory;
             this.dataReaderFactory = dataReaderFactory;
             dbms = DbmsManager.GetDbms(dataSource);
