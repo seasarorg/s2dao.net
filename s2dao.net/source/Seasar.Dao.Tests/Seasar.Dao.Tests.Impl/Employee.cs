@@ -33,11 +33,9 @@ namespace Seasar.Dao.Tests.Impl
 
         private SqlInt16 mgr;
 
-        private DateTime hiredate;
-
         private float sal;
 
-        private float comm;
+//        private float comm;
 
         private int deptno;
     
@@ -48,7 +46,6 @@ namespace Seasar.Dao.Tests.Impl
         private Department department;
     
         //private Timestamp timestamp;
-        private DateTime timestamp;
 
         public Employee()
         {

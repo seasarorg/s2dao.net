@@ -43,7 +43,6 @@ namespace Seasar.Dao.Tests.Impl
         {
             IS2Container container = S2ContainerFactory.Create(PATH);
             IDataSource dataSource = (IDataSource) container.GetComponent(typeof(IDataSource));
-        	ValueTypes.Init(dataSource);
 
             IDbConnection cn = DataSourceUtil.GetConnection(dataSource);
             IDbms dbms = new MSSQLServer();

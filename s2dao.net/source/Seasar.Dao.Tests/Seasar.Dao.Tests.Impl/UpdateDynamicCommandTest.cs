@@ -42,7 +42,6 @@ namespace Seasar.Dao.Tests.Impl
 
             IS2Container container = S2ContainerFactory.Create(PATH);
             IDataSource dataSource = (IDataSource) container.GetComponent(typeof(IDataSource));
-            ValueTypes.Init(dataSource);//‚±‚ê‚ª‚È‚¢‚Æˆ—‚Å‚«‚È‚¢
 
             UpdateDynamicCommand cmd = new UpdateDynamicCommand(dataSource,
                 BasicCommandFactory.INSTANCE);
