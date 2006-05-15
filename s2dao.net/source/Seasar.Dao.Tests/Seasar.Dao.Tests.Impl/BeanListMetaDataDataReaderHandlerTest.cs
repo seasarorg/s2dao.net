@@ -62,18 +62,15 @@ namespace Seasar.Dao.Tests.Impl
             IDataSource dataSource = (IDataSource) container.GetComponent(typeof(IDataSource));
 
             //SQLServer用
-            //IDbConnection cn = DataSourceUtil.GetConnection(dataSource);
             SqlConnection cn = (SqlConnection)DataSourceUtil.GetConnection(dataSource);
             SqlCommand cmd = new SqlCommand(sql, cn);
 
             IList ret = null;
             try 
             {
-                //ResultSet rs = ps.executeQuery();
                 SqlDataReader rs = cmd.ExecuteReader();
                 try 
                 {
-                    Assert.Ignore("ValueTypesのInitが呼ばれないとここでエラーになるがどこで呼ぶべき？");
                     ret = (IList) handler.Handle(rs);
                 } 
                 finally 
@@ -89,81 +86,97 @@ namespace Seasar.Dao.Tests.Impl
             //for (int i = 0; i < ret.Count; ++i) 
             //{
             //    Employee emp = (Employee) ret.get(i);
-            //    //System.out.println(emp.getEmpno() + "," + emp.getEname());
+            //    ////System.out.println(emp.getEmpno() + "," + emp.getEname());
             //}
             foreach (object itm in ret) 
             {
                 Employee emp = (Employee) itm;
-                //System.out.println(emp.getEmpno() + "," + emp.getEname());
+                ////System.out.println(emp.getEmpno() + "," + emp.getEname());
             }
 
         }
 
-        [Test,Ignore("ValueTypesの問題を確認してから実装")]
+        [Test]
         public void TestHandle2()
         {
-//            ResultSetHandler handler = new BeanListMetaDataResultSetHandler(
-//                beanMetaData_);
-//            String sql = "select emp.*, dept.dname as dname_0 from emp, dept where emp.deptno = dept.deptno and emp.deptno = 20";
-//            Connection con = getConnection();
-//            PreparedStatement ps = con.prepareStatement(sql);
-//            List ret = null;
-//            try 
-//            {
-//                ResultSet rs = ps.executeQuery();
-//                try 
-//                {
-//                    ret = (List) handler.handle(rs);
-//                } 
-//                finally 
-//                {
-//                    rs.close();
-//                }
-//            } 
-//            finally 
-//            {
-//                ps.close();
-//            }
-//            assertNotNull("1", ret);
-//            for (int i = 0; i < ret.size(); ++i) 
-//            {
-//                Employee emp = (Employee) ret.get(i);
-//                System.out.println(emp);
-//                Department dept = emp.getDepartment();
-//                assertNotNull("2", dept);
-//                assertEquals("3", emp.getDeptno(), dept.getDeptno());
-//                assertNotNull("4", dept.getDname());
-//            }        
+            IDataReaderHandler handler = new BeanListMetaDataDataReaderHandler(
+                beanMetaData_);
+            String sql = "select emp.*, dept.dname as dname_0 from emp, dept where emp.deptno = dept.deptno and emp.deptno = 20";
+
+            IS2Container container = S2ContainerFactory.Create(PATH);
+            IDataSource dataSource = (IDataSource) container.GetComponent(typeof(IDataSource));
+
+            //SQLServer用
+            SqlConnection cn = (SqlConnection)DataSourceUtil.GetConnection(dataSource);
+            SqlCommand cmd = new SqlCommand(sql, cn);
+
+            IList ret = null;
+            try 
+            {
+                SqlDataReader rs = cmd.ExecuteReader();
+                try 
+                {
+                    ret = (IList) handler.Handle(rs);
+                } 
+                finally 
+                {
+                    rs.Close();
+                }
+            } 
+            finally 
+            {
+                cn.Close();
+            }
+            Assert.IsNotNull(ret, "1");
+            foreach (object itm in ret) 
+            {
+                Employee emp = (Employee) itm;
+                ////System.out.println(emp);
+                Department dept = emp.Department;
+                Assert.IsNotNull(dept,"2");
+                Assert.AreEqual(emp.Deptno, dept.Deptno, "3");
+                Assert.IsNotNull(dept.Dname,"4");
+            }
+
         }
 
-        [Test,Ignore("ValueTypesの問題を確認してから実装")]
+        [Test]
         public void TestHandle3()
         {
-//            ResultSetHandler handler = new BeanListMetaDataResultSetHandler(
-//                beanMetaData_);
-//            String sql = "select emp.*, dept.deptno as deptno_0, dept.dname as dname_0 from emp, dept where dept.deptno = 20 and emp.deptno = dept.deptno";
-//            Connection con = getConnection();
-//            PreparedStatement ps = con.prepareStatement(sql);
-//            List ret = null;
-//            try 
-//            {
-//                ResultSet rs = ps.executeQuery();
-//                try 
-//                {
-//                    ret = (List) handler.handle(rs);
-//                } 
-//                finally 
-//                {
-//                    rs.close();
-//                }
-//            } 
-//            finally 
-//            {
-//                ps.close();
-//            }
-//            Employee emp = (Employee) ret.get(0);
-//            Employee emp2 = (Employee) ret.get(1);
-//            assertSame("1", emp.getDepartment(), emp2.getDepartment());
+            IDataReaderHandler handler = new BeanListMetaDataDataReaderHandler(
+                beanMetaData_);
+            String sql = "select emp.*, dept.deptno as deptno_0, dept.dname as dname_0 from emp, dept where dept.deptno = 20 and emp.deptno = dept.deptno";
+            IS2Container container = S2ContainerFactory.Create(PATH);
+            IDataSource dataSource = (IDataSource) container.GetComponent(typeof(IDataSource));
+
+            //SQLServer用
+            SqlConnection cn = (SqlConnection)DataSourceUtil.GetConnection(dataSource);
+            SqlCommand cmd = new SqlCommand(sql, cn);
+
+            IList ret = null;
+            try 
+            {
+                SqlDataReader rs = cmd.ExecuteReader();
+                try 
+                {
+                    ret = (IList) handler.Handle(rs);
+                } 
+                finally 
+                {
+                    rs.Close();
+                }
+            } 
+            finally 
+            {
+                cn.Close();
+            }
+
+            IEnumerator employees = ret.GetEnumerator();
+            employees.MoveNext();
+            Employee emp = (Employee) employees.Current;
+            employees.MoveNext();
+            Employee emp2 = (Employee) employees.Current;
+            Assert.AreSame(emp.Department, emp2.Department,"1");
         }
 
 	}

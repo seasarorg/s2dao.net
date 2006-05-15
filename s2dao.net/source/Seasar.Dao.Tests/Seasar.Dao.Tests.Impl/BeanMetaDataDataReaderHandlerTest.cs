@@ -63,9 +63,6 @@ namespace Seasar.Dao.Tests.Impl
 			    //ResultSet rs = ps.executeQuery();
                 IDataReader rs = cmd.ExecuteReader();
 			    try {
-                    
-                    Assert.Ignore("AbstractBeanMetaDataDataReaderHandler#CreateRow‚ÅvalueType.GetValue‚ÉŽ¸”s‚·‚é");
-                    
                     ret = (Employee) handler.Handle(rs);
 			    } finally {
 				    //rs.Close();
@@ -95,9 +92,6 @@ namespace Seasar.Dao.Tests.Impl
                 IDataReader rs = cmd.ExecuteReader();
                 try 
                 {
-                    
-                    Assert.Ignore("AbstractBeanMetaDataDataReaderHandler#CreateRow‚ÅvalueType.GetValue‚ÉŽ¸”s‚·‚é");
-                    
                     ret = (Employee) handler.Handle(rs);
 			    } finally {
 				    //rs.Close();
@@ -125,9 +119,6 @@ namespace Seasar.Dao.Tests.Impl
                 IDataReader rs = cmd.ExecuteReader();
                 try 
                 {
-                    
-                    Assert.Ignore("AbstractBeanMetaDataDataReaderHandler#CreateRow‚ÅvalueType.GetValue‚ÉŽ¸”s‚·‚é");
-                    
                     ret = (Employee) handler.Handle(rs);
 			    } finally {
 				    //rs.Close();
@@ -138,7 +129,7 @@ namespace Seasar.Dao.Tests.Impl
             Assert.IsNotNull(ret, "1");
             //System.out.println(ret.getEname());
 		    Department dept = ret.Department;
-            Assert.IsNull(dept, "2");
+            Assert.IsNotNull(dept, "2");
             Assert.AreEqual("RESEARCH", dept.Dname, "3");
 	    }
 	}

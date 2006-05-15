@@ -21,6 +21,7 @@ using Seasar.Dao;
 using Seasar.Dao.Impl;
 using Seasar.Extension.ADO;
 using Seasar.Extension.ADO.Impl;
+using Seasar.Extension.Unit;
 using Seasar.Framework.Container;
 using Seasar.Framework.Container.Factory;
 using Seasar.Framework.Exceptions;
@@ -33,7 +34,7 @@ namespace Seasar.Dao.Tests.Impl
 	/// UpdateAutoStaticCommandTest の概要の説明です。
 	/// </summary>
     [TestFixture]
-    public class UpdateAutoStaticCommandTest
+    public class UpdateAutoStaticCommandTest : S2TestCase
 	{
         private const string PATH = "Tests.dicon";
         private IDataSource dataSource;
@@ -45,7 +46,7 @@ namespace Seasar.Dao.Tests.Impl
             dataSource = (IDataSource) container.GetComponent(typeof(IDataSource));
         }
 
-        [Test]
+        [Test, S2(Tx.Rollback)]
         public void TestExecuteTx() 
         {
             IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeAutoDao),
@@ -57,10 +58,10 @@ namespace Seasar.Dao.Tests.Impl
             Employee emp = (Employee) cmd2.Execute(new Object[] { 7788 });
             Int32 count = (Int32) cmd.Execute(new Object[] { emp });
             Assert.AreEqual(1, count, "1");
+
         }
 
-        [Ignore("System.Data.SqlClient.SqlException : 変数名 '@VersionNo' は既に宣言されています。変数名は、クエリ バッチまたはストアド プロシージャ内で、重複してはいけません。 が発生")]
-        [Test]
+        [Test, S2(Tx.Rollback)]
         public void TestExecute2Tx() 
         {
             IDaoMetaData dmd = new DaoMetaDataImpl(typeof(DepartmentAutoDao),
@@ -73,11 +74,18 @@ namespace Seasar.Dao.Tests.Impl
             Int32 count = (Int32) cmd.Execute(new Object[] { dept });
             Assert.AreEqual(1, count, "1");
             Assert.AreEqual(1, dept.VersionNo, "2");
+
+            
+            //更新したVersionNoを戻しておく
+            string cmdText = "Update [dbo].[DEPT] SET VERSIONNO = 0 WHERE DEPTNO = 10";
+            System.Data.IDbConnection cn = DataSourceUtil.GetConnection(dataSource);
+            System.Data.IDbCommand dbcmd = dataSource.GetCommand(cmdText,cn);
+            CommandUtil.ExecuteNonQuery(dataSource,dbcmd);
+
         }
 
-        //[ExpectedException(typeof(UpdateFailureRuntimeException))]でなくてよい？
-        [Test]
-        [ExpectedException(typeof(SQLRuntimeException))]
+        [Test, S2(Tx.Rollback)]
+        [ExpectedException(typeof(NotSingleRowUpdatedRuntimeException))]
         public void TestExecute3Tx() 
         {
             IDaoMetaData dmd = new DaoMetaDataImpl(typeof(DepartmentAutoDao),
@@ -99,7 +107,7 @@ namespace Seasar.Dao.Tests.Impl
 //            }
         }
 
-        [Test]
+        [Test, S2(Tx.Rollback)]
         public void TestExecute4Tx() 
         {
             IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeAutoDao),
@@ -113,7 +121,7 @@ namespace Seasar.Dao.Tests.Impl
             Assert.AreEqual(1, count, "1");
         }
 
-        [Test]
+        [Test, S2(Tx.Rollback)]
         public void TestExecute5Tx() 
         {
             IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeAutoDao),

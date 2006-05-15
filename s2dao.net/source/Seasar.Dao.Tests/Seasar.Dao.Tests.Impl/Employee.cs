@@ -112,6 +112,8 @@ namespace Seasar.Dao.Tests.Impl
             set { dummy = value; }
             get { return dummy; }
         }
+
+        [Relno(0)]
         public Department Department
         {
             set { department = value; }

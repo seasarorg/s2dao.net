@@ -65,7 +65,7 @@ namespace Seasar.Dao.Tests.Impl
         [PersistentProps("deptno")]
         void Insert3(Employee employee);
 
-        //TODO:存在するとNotSupportedExceptionになる
+        //NotSupported
         //void InsertBatch(Employee[] employees);
 
         void Update(Employee employee);
@@ -78,14 +78,12 @@ namespace Seasar.Dao.Tests.Impl
         [PersistentProps("deptno")]
         void Update3(Employee employee);
 
-        //TODO:存在するとNotSupportedExceptionになる
-        //（DaoMetaDataImpl#IsBeanTypeAssignableでEmployee[]とEmployeeがIsAssignableFromと判断されないため）
+        //NotSupported
         //void UpdateBatch(Employee[] employees);
 
         void Delete(Employee employee);
 
-        //TODO:存在するとNotSupportedException("DeleteBatchAutoStaticCommand")になる
-        //（DaoMetaDataImpl#IsBeanTypeAssignableでEmployee[]とEmployeeがIsAssignableFromと判断されないため）
+        //NotSupported
         //void DeleteBatch(Employee[] employees);
     }
 }
