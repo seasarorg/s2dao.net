@@ -104,6 +104,11 @@
                     AssemblyName = "Seasar"
                     HintPath = "..\..\lib\Seasar.dll"
                 />
+                <Reference
+                    Name = "log4net"
+                    AssemblyName = "log4net"
+                    HintPath = "..\..\lib\log4net.dll"
+                />
             </References>
         </Build>
         <Files>
