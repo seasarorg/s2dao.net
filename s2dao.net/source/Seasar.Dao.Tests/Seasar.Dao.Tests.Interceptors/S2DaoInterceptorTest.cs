@@ -18,69 +18,79 @@
 
 using System;
 using System.Collections;
+using System.IO;
+using System.Reflection;
 using Seasar.Framework.Container;
 using Seasar.Framework.Container.Factory;
+using Seasar.Extension.Unit;
 using MbUnit.Framework;
+using log4net;
+using log4net.Config;
+using log4net.Util;
 
 namespace Seasar.Dao.Tests.Interceptors
 {
     [TestFixture]
-    public class S2DaoInterceptorTest
+    public class S2DaoInterceptorTest : S2TestCase
 	{
 
         private const string PATH = "Seasar.Dao.Tests.Interceptors/IEmployeeDao.dicon";
-        private IEmployeeDao employeeDao;
+        private IEmployeeDao _employeeDao = null;
+        private ILog _log= LogManager.GetLogger(typeof(S2DaoInterceptorTest));
 
-        [SetUp]
-        public void SetUp()
+        public S2DaoInterceptorTest()
         {
-            IS2Container container = S2ContainerFactory.Create(PATH);
-            employeeDao = (IEmployeeDao) container.GetComponent(typeof(IEmployeeDao));
+            FileInfo info = new FileInfo(SystemInfo.AssemblyShortName(
+                Assembly.GetExecutingAssembly()) + ".dll.config");
+            XmlConfigurator.Configure(LogManager.GetRepository(), info);
         }
 
-        [Test]
+        public void SetUpSelectBeanList()
+        {
+            Include(PATH);
+        }
+
+        [Test, S2()]
         public void TestSelectBeanList() {
-	        IList employees = employeeDao.GetAllEmployees();
+	        IList employees = _employeeDao.GetAllEmployees();
 	        for (int i = 0; i < employees.Count; ++i) {
-		        //System.out.println(employees.get(i));
+                _log.Debug(employees[i].ToString());
 	        }
 	        Assert.AreEqual(true, employees.Count > 0, "1");
         }
 
-        [Test]
+        public void SetUpSelectBean()
+        {
+            Include(PATH);
+        }
+
+        [Test, S2()]
         public void TestSelectBean() {
-	        Employee employee = employeeDao.GetEmployee(7788);
-	        //System.out.println(employee);
+	        Employee employee = _employeeDao.GetEmployee(7788);
+	        _log.Debug(employee.ToString());
 	        Assert.AreEqual("SCOTT", employee.Ename, "1");
         }
 
-        [Test]
-        public void TestSelectObject() {
-            Assert.Ignore("未作成");
-            int count = employeeDao.GetCount();
-	        //System.out.println("count:" + count);
-	        Assert.AreEqual(true, count > 0, "1");
-        }
-
-        [Test]
-        public void TestUpdateTx() {
-	        Employee employee = employeeDao.GetEmployee(7788);
-            Assert.Ignore("未作成");
-	        //Assert.AreEqual(1, employeeDao.Update(employee), "1");
-        }
-
-        [Test]
-        public void TestEntityManager() {
-            Assert.Ignore("「System.InvalidCastException : 引数の戻り値の型が無効です。」が発生してしまう");
-            Employee[] employees = employeeDao.GetEmployeesByDeptno(10);
-	        Assert.AreEqual(3, employees.Length, "1");
-        }
-
-        [Test]
-        public void TestInsertTx() {
-	        Assert.Ignore("未作成");
-	        //employeeDao.Insert(9999, "hoge");
-        }
+//        [Test]
+//        public void TestSelectObject() {
+//            Assert.Ignore("未作成");
+//            int count = _employeeDao.GetCount();
+//	        //System.out.println("count:" + count);
+//	        Assert.AreEqual(true, count > 0, "1");
+//        }
+//
+//        [Test]
+//        public void TestUpdateTx() {
+//	        Employee employee = _employeeDao.GetEmployee(7788);
+//            Assert.Ignore("未作成");
+//	        //Assert.AreEqual(1, employeeDao.Update(employee), "1");
+//        }
+//
+//        [Test]
+//        public void TestInsertTx() {
+//	        Assert.Ignore("未作成");
+//	        //employeeDao.Insert(9999, "hoge");
+//        }
 
     }
 }
