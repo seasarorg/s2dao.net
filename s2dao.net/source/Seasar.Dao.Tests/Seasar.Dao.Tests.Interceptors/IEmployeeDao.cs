@@ -26,22 +26,46 @@ namespace Seasar.Dao.Tests.Interceptors
     public interface IEmployeeDao
     {
         /// <summary>
-        /// ‘S‚Ä‚Ì]‹Æˆõ‚ğæ“¾‚µ‚Ü‚·B
+        /// ‘S‚Ä‚Ì]‹Æˆõ‚ğæ“¾‚·‚é
         /// </summary>
         /// <returns>Employee‚ÌƒŠƒXƒg</returns>
         IList GetAllEmployees();
 
-        //public String getEmployee_ARGS = "empno";
+        /// <summary>
+        /// ]‹Æˆõ”Ô†‚©‚ç]‹Æˆõ‚ğæ“¾‚·‚é
+        /// </summary>
+        /// <param name="empno">]‹Æˆõ”Ô†</param>
+        /// <returns>]‹Æˆõ</returns>
         [Query("empno=/*empno*/")]
         Employee GetEmployee(int empno);
-	
-        Employee[] GetEmployeesByDeptno(int deptno);
-	
+//	
+//        /// <summary>
+//        /// 
+//        /// </summary>
+//        /// <param name="deptno"></param>
+//        /// <returns></returns>
+//        Employee[] GetEmployeesByDeptno(int deptno);
+
+	    /// <summary>
+	    /// ]‹Æˆõ‚ÌŒ”‚ğæ“¾‚·‚é
+	    /// </summary>
+	    /// <returns>]‹Æˆõ”</returns>
+        [Sql("select count(*) from EMP")]
         int GetCount();
 
-        //public String Insert_ARGS = "empno, ename";
-        //int Insert(int empno, String ename);
+        /// <summary>
+        /// ]‹Æˆõ‚ğ’Ç‰Á‚·‚é
+        /// </summary>
+        /// <param name="empno">]‹Æˆõ”Ô†</param>
+        /// <param name="ename">]‹Æˆõ–¼</param>
+        /// <returns>’Ç‰ÁŒ”</returns>
+        int Insert(int empno, String ename);
 
-        //int Update(Employee employee);
+        /// <summary>
+        /// ]‹Æˆõ‚ğXV‚·‚é
+        /// </summary>
+        /// <param name="employee">]‹Æˆõ</param>
+        /// <returns>XVŒ”</returns>
+        int Update(Employee employee);
     }
 }

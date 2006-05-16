@@ -45,13 +45,9 @@ namespace Seasar.Dao.Tests.Interceptors
             XmlConfigurator.Configure(LogManager.GetRepository(), info);
         }
 
-        public void SetUpSelectBeanList()
-        {
-            Include(PATH);
-        }
-
         [Test, S2()]
-        public void TestSelectBeanList() {
+        public void TestSelectBeanList()
+        {
 	        IList employees = _employeeDao.GetAllEmployees();
 	        for (int i = 0; i < employees.Count; ++i) {
                 _log.Debug(employees[i].ToString());
@@ -59,38 +55,34 @@ namespace Seasar.Dao.Tests.Interceptors
 	        Assert.AreEqual(true, employees.Count > 0, "1");
         }
 
-        public void SetUpSelectBean()
-        {
-            Include(PATH);
-        }
-
         [Test, S2()]
-        public void TestSelectBean() {
+        public void TestSelectBean()
+        {
 	        Employee employee = _employeeDao.GetEmployee(7788);
 	        _log.Debug(employee.ToString());
 	        Assert.AreEqual("SCOTT", employee.Ename, "1");
         }
 
-//        [Test]
-//        public void TestSelectObject() {
-//            Assert.Ignore("–¢ì¬");
-//            int count = _employeeDao.GetCount();
-//	        //System.out.println("count:" + count);
-//	        Assert.AreEqual(true, count > 0, "1");
-//        }
-//
-//        [Test]
-//        public void TestUpdateTx() {
-//	        Employee employee = _employeeDao.GetEmployee(7788);
-//            Assert.Ignore("–¢ì¬");
-//	        //Assert.AreEqual(1, employeeDao.Update(employee), "1");
-//        }
-//
-//        [Test]
-//        public void TestInsertTx() {
-//	        Assert.Ignore("–¢ì¬");
-//	        //employeeDao.Insert(9999, "hoge");
-//        }
+        [Test, S2()]
+        public void TestSelectObject()
+       {
+            int count = _employeeDao.GetCount();
+            _log.Debug("count:" + count);
+	        Assert.AreEqual(true, count > 0, "1");
+        }
+
+        [Test, S2(Tx.Rollback)]
+        public void TestUpdate()
+        {
+	        Employee employee = _employeeDao.GetEmployee(7788);
+	        Assert.AreEqual(1, _employeeDao.Update(employee), "1");
+        }
+
+        [Test, S2(Tx.Rollback)]
+        public void TestInsert()
+        {
+	        Assert.AreEqual(1, _employeeDao.Insert(9999, "hoge"));
+        }
 
     }
 }

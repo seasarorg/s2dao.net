@@ -3,6 +3,10 @@
 "http://www.seasar.org/dtd/components21.dtd">
 <components namespace="Tests">
 
+    <component class="Seasar.Dao.Tests.Interceptors.IEmployeeDao">
+        <aspect>Tests.DaoInterceptor</aspect>
+    </component>
+
     <!-- データプロバイダ -->
     <component name="SqlClient" class="Seasar.Extension.ADO.DataProvider">
         <property name="ConnectionType">"System.Data.SqlClient.SqlConnection"</property>

@@ -90,24 +90,24 @@
                     Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
                 />
                 <Reference
-                    Name = "Seasar.Unit"
-                    AssemblyName = "Seasar.Unit"
-                    HintPath = "..\..\lib\Seasar.Unit.dll"
-                />
-                <Reference
                     Name = "MbUnit.Framework"
                     AssemblyName = "MbUnit.Framework"
                     HintPath = "..\..\lib\MbUnit.Framework.dll"
                 />
                 <Reference
-                    Name = "Seasar"
-                    AssemblyName = "Seasar"
-                    HintPath = "..\..\lib\Seasar.dll"
-                />
-                <Reference
                     Name = "log4net"
                     AssemblyName = "log4net"
                     HintPath = "..\..\lib\log4net.dll"
+                />
+                <Reference
+                    Name = "Seasar.Unit"
+                    AssemblyName = "Seasar.Unit"
+                    HintPath = "..\..\lib\Seasar.Unit.dll"
+                />
+                <Reference
+                    Name = "Seasar"
+                    AssemblyName = "Seasar"
+                    HintPath = "..\..\lib\Seasar.dll"
                 />
             </References>
         </Build>
@@ -276,8 +276,8 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Seasar.Dao.Tests.Interceptors\IEmployeeDao.dicon"
-                    BuildAction = "None"
+                    RelPath = "Seasar.Dao.Tests.Interceptors\IEmployeeDao_Insert.sql"
+                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "Seasar.Dao.Tests.Interceptors\S2DaoInterceptorTest.cs"
