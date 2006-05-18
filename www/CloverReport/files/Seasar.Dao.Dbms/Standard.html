@@ -1,0 +1,1164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Coverage for s2dao.net</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="../../style.css"/>
+    <link rel="stylesheet" type="text/css" href="../../print.css" media="print"/>
+  </head>
+  <body>
+    <table class="coverageTable" cellspacing="0" cellpadding="2">
+      <tr><td class="reportHeader" colspan="6">
+  <table width="100%">
+    <tr><td valign="top">
+      <h1 class="titleText">
+        Clover.NET coverage report - 
+                  Coverage for s2dao.net 
+              </h1>
+      <p class="timestamp">
+        <span class="heading">Coverage timestamp:</span>&nbsp;2006年5月18日 15:09:15
+      </p>
+      <p class="navBar">
+                  <a class="navBarModeLink" href="../../overview.html">Overview</a>
+          &nbsp;&nbsp;
+          <a class="navBarModeLink" href="../../namespaces/Seasar.Dao.Dbms/ns-summary.html">Namespace</a>
+          &nbsp;&nbsp;
+          <span class="navBarCurrent">File</span>
+              </p>
+      <p class="navBar">
+        &nbsp;&nbsp;&nbsp;
+                  <a class="navBarLink" href="../../index.html" target="_top">FRAMES</a>&nbsp;&nbsp;
+          <a class="navBarLink" href="../../files/Seasar.Dao.Dbms/Standard.html" target="_top">NO FRAMES</a>&nbsp;&nbsp;
+              </p>
+      
+    </td><td align="right" valign="top" class="stats">
+      <table cellpadding="1">
+        <tr>
+                      <td  rowspan="3" valign="top">File Stats:</td>
+                    <td align="right">LOC:</td>
+          <td align="right">108</td>
+          <td rowspan="3">&nbsp;</td>
+          <td align="right">Methods:</td>
+          <td align="right">7</td>
+        </tr>
+        <tr>
+          <td align="right">NCLOC:</td>
+          <td align="right">80</td>
+          <td align="right">Classes:</td>
+          <td align="right">1</td>
+        </tr>
+              </table>
+    </td></tr>
+  </table>
+</td></tr>
+
+
+      <tr><td class="hbreak" colspan="6">&nbsp;</td></tr>
+      
+              <tr>
+    <td class="graphHeaderLeft">Source File</td>
+    <td class="graphHeader">Conditionals</td>
+    <td class="graphHeader">Statements</td>
+    <td class="graphHeader">Methods</td>
+    <td class="graphBarHeader" colspan="2">TOTAL</td>
+  </tr>   
+  <tr>
+    <td class="graphItem">
+                        Seasar.Dao.Dbms\Standard.cs
+                  </td>
+    
+    <td class="graphPercent">100.0%</td>
+    <td class="graphPercent">89.7%</td>
+    <td class="graphPercent">42.9%</td>
+    <td class="graphBarLeft">84.6%</td>
+    <td class="graphBar">
+              <table cellspacing="0" cellpadding="0">
+          <tr>
+                          <td class="covered"><img alt="coverage" src="../../img/green.gif"
+                  width="169" height="12"/></td>
+              <td class="uncovered"><img alt="coverage" src="../../img/red.gif"
+                  width="31" height="12"/></td>
+                      </tr>
+        </table>
+          </td>
+  </tr>     </table>
+    
+    <table cellspacing="0" cellpadding="0" class="srcView">
+          <tr>
+        <td class="lineNumber">
+                  1
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine"><span class="ppdirec">#region Copyright</span></span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  2
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine"><span class="blockComment">/*</span></span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  3
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine"><span class="blockComment"> * Copyright 2005 the Seasar Foundation and the Others.</span></span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  4
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine"><span class="blockComment"> *</span></span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  5
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine"><span class="blockComment"> * Licensed under the Apache License, Version 2.0 (the "License");</span></span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  6
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine"><span class="blockComment"> * you may not use this file except in compliance with the License.</span></span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  7
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine"><span class="blockComment"> * You may obtain a copy of the License at</span></span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  8
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine"><span class="blockComment"> *</span></span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  9
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine"><span class="blockComment"> *     http://www.apache.org/licenses/LICENSE-2.0</span></span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  10
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine"><span class="blockComment"> *</span></span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  11
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine"><span class="blockComment"> * Unless required by applicable law or agreed to in writing, software</span></span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  12
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine"><span class="blockComment"> * distributed under the License is distributed on an "AS IS" BASIS,</span></span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  13
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine"><span class="blockComment"> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,</span></span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  14
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine"><span class="blockComment"> * either express or implied. See the License for the specific language</span></span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  15
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine"><span class="blockComment"> * governing permissions and limitations under the License.</span></span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  16
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine"><span class="blockComment"> */</span></span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  17
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine"><span class="ppdirec">#endregion</span></span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  18
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine"></span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  19
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine"><span class="keyword">using</span> System;</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  20
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine"><span class="keyword">using</span> System.Collections;</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  21
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine"><span class="keyword">using</span> System.Text;</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  22
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine"></span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  23
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine"><span class="keyword">namespace</span> Seasar.Dao.Dbms</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  24
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine">{</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  25
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine">    <span class="docComment">/// &lt;summary></span></span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  26
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine">    <span class="docComment">/// <span class="docContent">Standard の概要の説明です。</span></span></span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  27
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine">    <span class="docComment">/// &lt;/summary></span></span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  28
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine">    <span class="keyword">public</span> <span class="keyword">class</span> Standard : IDbms</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  29
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine">    {</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  30
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine">        <span class="keyword">private</span> Hashtable autoSelectFromClauseCache = <span class="keyword">new</span> Hashtable();</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  31
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine"></span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  32
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 32: Constructor Standard entered 36 times.">36</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 32: Constructor Standard entered 36 times.">        <span class="keyword">public</span> Standard()</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  33
+                </td>
+                  <td class="coverageCountHilight">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 32: Constructor Standard entered 36 times.">        {</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  34
+                </td>
+                  <td class="coverageCountHilight">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 32: Constructor Standard entered 36 times.">        }</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  35
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine"></span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  36
+                </td>
+                  <td class="coverageCountWarning">
+                          <a title="Line 36: Property Suffix not exercised">0</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLineWarning" title="Line 36: Property Suffix not exercised">        <span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">string</span> Suffix</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  37
+                </td>
+                  <td class="coverageCountWarning">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLineWarning" title="Line 36: Property Suffix not exercised">        {</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  38
+                </td>
+                  <td class="coverageCountWarning">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLineWarning" title="Line 36: Property Suffix not exercised">            get { <span class="keyword">return</span> <span class="string">""</span>; }</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  39
+                </td>
+                  <td class="coverageCountWarning">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLineWarning" title="Line 36: Property Suffix not exercised">        }</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  40
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine"></span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  41
+                </td>
+                  <td class="coverageCountWarning">
+                          <a title="Line 41: Property Dbms not exercised">0</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLineWarning" title="Line 41: Property Dbms not exercised">        <span class="keyword">public</span> <span class="keyword">virtual</span> KindOfDbms Dbms</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  42
+                </td>
+                  <td class="coverageCountWarning">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLineWarning" title="Line 41: Property Dbms not exercised">        {</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  43
+                </td>
+                  <td class="coverageCountWarning">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLineWarning" title="Line 41: Property Dbms not exercised">            get { <span class="keyword">return</span> KindOfDbms.None; }</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  44
+                </td>
+                  <td class="coverageCountWarning">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLineWarning" title="Line 41: Property Dbms not exercised">        }</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  45
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine"></span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  46
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 46: Method GetAutoSelectSql entered 41 times.">41</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 46: Method GetAutoSelectSql entered 41 times.">        <span class="keyword">public</span>  <span class="keyword">string</span> GetAutoSelectSql(IBeanMetaData beanMetaData)</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  47
+                </td>
+                  <td class="coverageCountHilight">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 46: Method GetAutoSelectSql entered 41 times.">        {</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  48
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 48: Statement executed 41 times.">41</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 48: Statement executed 41 times.">            StringBuilder buf = <span class="keyword">new</span> StringBuilder(100);</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  49
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 49: Statement executed 41 times.">41</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 49: Statement executed 41 times.">            buf.Append(beanMetaData.AutoSelectList);</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  50
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 50: Statement executed 41 times.">41</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 50: Statement executed 41 times.">            buf.Append(<span class="string">" "</span>);</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  51
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 51: Statement executed 41 times.">41</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 51: Statement executed 41 times.">            <span class="keyword">string</span> beanName = beanMetaData.BeanType.Name;</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  52
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 52: Statement executed 41 times.">41</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 52: Statement executed 41 times.">            <span class="keyword">lock</span>(autoSelectFromClauseCache)</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  53
+                </td>
+                  <td class="coverageCountHilight">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 52: Statement executed 41 times.">            {</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  54
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 54: Statement executed 41 times.">41</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 54: Statement executed 41 times.">                <span class="keyword">string</span> fromClause = (<span class="keyword">string</span>) autoSelectFromClauseCache[beanName];</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  55
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 55: Expression evaluated to true 15 times, false 26 times.">41</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 55: Expression evaluated to true 15 times, false 26 times.">                <span class="keyword">if</span>(fromClause == <span class="keyword">null</span>)</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  56
+                </td>
+                  <td class="coverageCountHilight">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 55: Statement executed 41 times.">                {</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  57
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 57: Statement executed 15 times.">15</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 57: Statement executed 15 times.">                    fromClause = <span class="keyword">this</span>.CreateAutoSelectFromClause(beanMetaData);</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  58
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 58: Statement executed 15 times.">15</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 58: Statement executed 15 times.">                    autoSelectFromClauseCache[beanName] = fromClause;</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  59
+                </td>
+                  <td class="coverageCountHilight">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 55: Statement executed 41 times.">                }</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  60
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 60: Statement executed 41 times.">41</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 60: Statement executed 41 times.">                buf.Append(fromClause);</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  61
+                </td>
+                  <td class="coverageCountHilight">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 52: Statement executed 41 times.">            }</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  62
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 62: Statement executed 41 times.">41</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 62: Statement executed 41 times.">            <span class="keyword">return</span> buf.ToString();</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  63
+                </td>
+                  <td class="coverageCountHilight">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 46: Method GetAutoSelectSql entered 41 times.">        }</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  64
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine"></span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  65
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 65: Method CreateAutoSelectFromClause entered 13 times.">13</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 65: Method CreateAutoSelectFromClause entered 13 times.">        <span class="keyword">protected</span> <span class="keyword">virtual</span> <span class="keyword">string</span> CreateAutoSelectFromClause(IBeanMetaData beanMetaData)</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  66
+                </td>
+                  <td class="coverageCountHilight">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 65: Method CreateAutoSelectFromClause entered 13 times.">        {</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  67
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 67: Statement executed 13 times.">13</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 67: Statement executed 13 times.">            StringBuilder buf = <span class="keyword">new</span> StringBuilder(100);</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  68
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 68: Statement executed 13 times.">13</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 68: Statement executed 13 times.">            buf.Append(<span class="string">"FROM "</span>);</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  69
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 69: Statement executed 13 times.">13</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 69: Statement executed 13 times.">            <span class="keyword">string</span> myTableName = beanMetaData.TableName;</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  70
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 70: Statement executed 13 times.">13</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 70: Statement executed 13 times.">            buf.Append(myTableName);</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  71
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 71: Expression evaluated to true 7 times, false 13 times.">20</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 71: Expression evaluated to true 7 times, false 13 times.">            <span class="keyword">for</span>(<span class="keyword">int</span> i = 0; i &lt; beanMetaData.RelationPropertyTypeSize; ++i)</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  72
+                </td>
+                  <td class="coverageCountHilight">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 71: Statement executed 13 times.">            {</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  73
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 73: Statement executed 7 times.">7</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 73: Statement executed 7 times.">                IRelationPropertyType rpt = beanMetaData.GetRelationPropertyType(i);</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  74
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 74: Statement executed 7 times.">7</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 74: Statement executed 7 times.">                IBeanMetaData bmd = rpt.BeanMetaData;</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  75
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 75: Statement executed 7 times.">7</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 75: Statement executed 7 times.">                buf.Append(<span class="string">" LEFT OUTER JOIN "</span>);</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  76
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 76: Statement executed 7 times.">7</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 76: Statement executed 7 times.">                buf.Append(bmd.TableName);</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  77
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 77: Statement executed 7 times.">7</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 77: Statement executed 7 times.">                buf.Append(<span class="string">" "</span>);</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  78
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 78: Statement executed 7 times.">7</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 78: Statement executed 7 times.">                <span class="keyword">string</span> yourAliasName = rpt.PropertyName;</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  79
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 79: Statement executed 7 times.">7</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 79: Statement executed 7 times.">                buf.Append(yourAliasName);</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  80
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 80: Statement executed 7 times.">7</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 80: Statement executed 7 times.">                buf.Append(<span class="string">" ON "</span>);</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  81
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 81: Expression evaluated to true 7 times, false 7 times.">14</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 81: Expression evaluated to true 7 times, false 7 times.">                <span class="keyword">for</span>(<span class="keyword">int</span> j = 0; j &lt; rpt.KeySize; ++j)</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  82
+                </td>
+                  <td class="coverageCountHilight">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 81: Statement executed 7 times.">                {</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  83
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 83: Statement executed 7 times.">7</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 83: Statement executed 7 times.">                    buf.Append(myTableName);</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  84
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 84: Statement executed 7 times.">7</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 84: Statement executed 7 times.">                    buf.Append(<span class="string">"."</span>);</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  85
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 85: Statement executed 7 times.">7</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 85: Statement executed 7 times.">                    buf.Append(rpt.GetMyKey(j));</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  86
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 86: Statement executed 7 times.">7</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 86: Statement executed 7 times.">                    buf.Append(<span class="string">" = "</span>);</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  87
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 87: Statement executed 7 times.">7</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 87: Statement executed 7 times.">                    buf.Append(yourAliasName);</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  88
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 88: Statement executed 7 times.">7</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 88: Statement executed 7 times.">                    buf.Append(<span class="string">"."</span>);</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  89
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 89: Statement executed 7 times.">7</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 89: Statement executed 7 times.">                    buf.Append(rpt.GetYourKey(j));</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  90
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 90: Statement executed 7 times.">7</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 90: Statement executed 7 times.">                    buf.Append(<span class="string">" AND "</span>);</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  91
+                </td>
+                  <td class="coverageCountHilight">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 81: Statement executed 7 times.">                }</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  92
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 92: Statement executed 7 times.">7</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 92: Statement executed 7 times.">                buf.Length = buf.Length - 5;</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  93
+                </td>
+                  <td class="coverageCountHilight">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 71: Statement executed 13 times.">            }</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  94
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 94: Statement executed 13 times.">13</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 94: Statement executed 13 times.">            <span class="keyword">return</span> buf.ToString();</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  95
+                </td>
+                  <td class="coverageCountHilight">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 65: Method CreateAutoSelectFromClause entered 13 times.">        }</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  96
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine"></span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  97
+                </td>
+                  <td class="coverageCountWarning">
+                          <a title="Line 97: Property IdentitySelectString not exercised">0</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLineWarning" title="Line 97: Property IdentitySelectString not exercised">        <span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">string</span> IdentitySelectString</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  98
+                </td>
+                  <td class="coverageCountWarning">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLineWarning" title="Line 97: Property IdentitySelectString not exercised">        {</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  99
+                </td>
+                  <td class="coverageCountWarning">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLineWarning" title="Line 97: Property IdentitySelectString not exercised">            get { <span class="keyword">return</span> <span class="keyword">null</span>; }</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  100
+                </td>
+                  <td class="coverageCountWarning">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLineWarning" title="Line 97: Property IdentitySelectString not exercised">        }</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  101
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine"></span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  102
+                </td>
+                  <td class="coverageCountWarning">
+                          <a title="Line 102: Method GetSequenceNextValString not entered.">0</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLineWarning" title="Line 102: Method GetSequenceNextValString not entered.">        <span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">string</span> GetSequenceNextValString(<span class="keyword">string</span> sequenceName)</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  103
+                </td>
+                  <td class="coverageCountWarning">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLineWarning" title="Line 102: Method GetSequenceNextValString not entered.">        {</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  104
+                </td>
+                  <td class="coverageCountWarning">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLineWarning" title="Line 102: Method GetSequenceNextValString not entered.">            <span class="keyword">return</span> <span class="keyword">null</span>;</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  105
+                </td>
+                  <td class="coverageCountWarning">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLineWarning" title="Line 102: Method GetSequenceNextValString not entered.">        }</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  106
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine">    }</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  107
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine">}</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  108
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine"></span>
+                  </td>
+      </tr>        
+        </table>
+
+    <table class="coverageTable" cellspacing="0" cellpadding="2">
+      <tr><td class="hbreak" colspan="6">&nbsp;</td></tr>
+      <tr>
+  <td class="footer" colspan="6">
+    <table>
+      <tr>
+        <td><a target="_new" href="http://cenqua.com/clover.net/">
+          <img class="linkImage" alt="Clover.NET" src="../../img/logo.gif"/></a>
+        </td>
+        <td>Report generated by 
+          <a class="footerLink" target="_new" href="http://cenqua.com/clover.net/">Clover.NET v2.0.2284</a>
+          <br />2006年5月18日 15:09:54.
+        </td>
+        <td class="footerMessage">Open Source License registered to the s2container.net Project. This license of Clover.NET is provided to support the development of s2container.net only.<br /></td>
+      </tr>
+    </table>
+  </td>
+</tr>    </table>
+  </body>
+</html>
