@@ -109,6 +109,11 @@
                     AssemblyName = "Seasar"
                     HintPath = "..\..\lib\Seasar.dll"
                 />
+                <Reference
+                    Name = "Nullables"
+                    AssemblyName = "Nullables"
+                    HintPath = "..\..\lib\Nullables.dll"
+                />
             </References>
         </Build>
         <Files>
@@ -267,6 +272,11 @@
                 />
                 <File
                     RelPath = "Seasar.Dao.Tests.Interceptors\Employee.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Tests.Interceptors\Hoge.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

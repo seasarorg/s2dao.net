@@ -61,6 +61,17 @@ namespace Seasar.Dao.Context
             } 
             else 
             {
+                string[] array = name.Split('.');
+                string baseName = array[0];
+                string propertyName = null;
+                if (array.Length > 1) propertyName = array[1];
+
+                if(propertyName != null && this.GetArgType(baseName) != null)
+                {
+                    PropertyInfo pi = this.GetArgType(baseName).GetProperty(propertyName);
+                    if (pi != null) return pi.GetValue(this.GetArg(baseName), null);
+                }
+
                 if (this.args.Count == 1) 
                 {
                     return this.args[0];

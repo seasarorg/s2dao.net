@@ -84,5 +84,16 @@ namespace Seasar.Dao.Tests.Interceptors
 	        Assert.AreEqual(1, _employeeDao.Insert(9999, "hoge"));
         }
 
+        [Test, S2()]
+        public void TestSelectNullables()
+        {
+            Employee emp = new Employee();
+            emp.Ename = "SCOTT";
+            Assert.AreEqual(7788, _employeeDao.GetEmpnoByHoge(emp).Value);
+            Assert.IsTrue(_employeeDao.GetEmpnoByHoge(null).HasValue);
+            emp.Ename = "Kazuya";
+            Assert.IsFalse(_employeeDao.GetEmpnoByHoge(emp).HasValue);
+        }
+
     }
 }
