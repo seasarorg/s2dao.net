@@ -61,7 +61,7 @@ namespace Seasar.Dao.Tests.Impl
             return this.Deptno;
         }
     
-        public String toString() 
+        public override string ToString() 
         {
             StringBuilder buf = new StringBuilder();
             buf.Append(deptno).Append(", ");
