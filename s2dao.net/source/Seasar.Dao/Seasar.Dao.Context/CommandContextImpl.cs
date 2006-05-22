@@ -59,18 +59,20 @@ namespace Seasar.Dao.Context
             {
                 return this.parent.GetArg(name);
             } 
-            else 
+            else
             {
-                string[] array = name.Split('.');
-                string baseName = array[0];
-                string propertyName = null;
-                if (array.Length > 1) propertyName = array[1];
-
-                if(propertyName != null && this.GetArgType(baseName) != null)
+                string[] names = name.Split('.');
+                object value = this.args[names[0]];;
+                Type type = this.GetArgType(names[0]);
+                
+                for(int pos = 1; pos < names.Length; pos++)
                 {
-                    PropertyInfo pi = this.GetArgType(baseName).GetProperty(propertyName);
-                    if (pi != null) return pi.GetValue(this.GetArg(baseName), null);
+                    if(value == null || type == null) break;
+                    PropertyInfo pi = type.GetProperty(names[pos]);
+                    value = pi.GetValue(value, null);
+                    type = pi.PropertyType;
                 }
+                if(value != null) return value;
 
                 if (this.args.Count == 1) 
                 {

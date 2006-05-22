@@ -89,10 +89,25 @@ namespace Seasar.Dao.Tests.Interceptors
         {
             Employee emp = new Employee();
             emp.Ename = "SCOTT";
-            Assert.AreEqual(7788, _employeeDao.GetEmpnoByHoge(emp).Value);
-            Assert.IsTrue(_employeeDao.GetEmpnoByHoge(null).HasValue);
+            Assert.AreEqual(7788, _employeeDao.GetEmpnoByEmp(emp).Value);
+            Assert.IsTrue(_employeeDao.GetEmpnoByEmp(null).HasValue);
             emp.Ename = "Kazuya";
-            Assert.IsFalse(_employeeDao.GetEmpnoByHoge(emp).HasValue);
+            Assert.IsFalse(_employeeDao.GetEmpnoByEmp(emp).HasValue);
+        }
+
+        [Test, S2()]
+        public void TestSelectSqlTypes()
+        {
+            Hoge hoge = new Hoge();
+            Hoge hoge2 = new Hoge();
+            hoge2.Val = "SCOTT";
+            hoge.Parent = hoge2;
+            Assert.AreEqual(7788, _employeeDao.GetEmpnoByHoge(hoge).Value);
+            Assert.IsFalse(_employeeDao.GetEmpnoByHoge(null).IsNull);
+            hoge2.Val = "Kazuya";
+            Assert.IsTrue(_employeeDao.GetEmpnoByHoge(hoge).IsNull);
+            hoge2.Val = null;
+            Assert.IsTrue(_employeeDao.GetEmpnoByHoge2(hoge).IsNull);
         }
 
     }

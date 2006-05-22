@@ -24,15 +24,10 @@ namespace Seasar.Dao.Node
     public class BindVariableNode : AbstractNode
     {
         private string expression;
-        private string baseName;
-        private string propertyName;
 
         public BindVariableNode(string expression)
         {
             this.expression = expression;
-            string[] array = expression.Split('.');
-            baseName = array[0];
-            if (array.Length > 1) propertyName = array[1];
         }
 
         public string Expression
@@ -42,24 +37,10 @@ namespace Seasar.Dao.Node
 
         public override void Accept(ICommandContext ctx)
         {
-			string name = null;
-			object value = null;
-			Type type = null;
-            
-			if(propertyName == null)
-            {
-            	name = baseName;
-				value = ctx.GetArg(baseName);
-				type = ctx.GetArgType(baseName);
-            }
-			else
-            {
-				PropertyInfo pi = ctx.GetArgType(baseName).GetProperty(propertyName);
-				name = propertyName;
-				value = pi.GetValue(ctx.GetArg(baseName), null);
-				type = pi.PropertyType;
-            }
-            ctx.AddSql(value, type, name);
+            object value = ctx.GetArg(expression);
+            Type type = null;
+            if(type != null) type = value.GetType();
+            ctx.AddSql(value, type, expression.Replace('.','_'));
         }
     }
 }
