@@ -22,7 +22,7 @@ using Seasar.Dao;
 using Seasar.Dao.Parser;
 using Seasar.Dao.Node;
 using Seasar.Dao.Context;
-using NUnit.Framework;
+using MbUnit.Framework;
 
 namespace Seasar.Dao.Tests.Parser
 {
