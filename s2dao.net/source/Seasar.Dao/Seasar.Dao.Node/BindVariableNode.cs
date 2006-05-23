@@ -39,7 +39,7 @@ namespace Seasar.Dao.Node
         {
             object value = ctx.GetArg(expression);
             Type type = null;
-            if(type != null) type = value.GetType();
+            if(value != null) type = value.GetType();
             ctx.AddSql(value, type, expression.Replace('.','_'));
         }
     }
