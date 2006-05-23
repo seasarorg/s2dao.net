@@ -365,15 +365,15 @@ namespace Seasar.Dao.Impl
                 cmd = CreateSelectDynamicCommand(handler);
                 string sql = null;
                 
-                if(argTypes.Length == 1 && (argTypes[0].IsPrimitive ||
-                    argTypes[0].Equals(typeof(decimal)) || argTypes[0].Equals(typeof(DateTime))
-                    || argTypes[0].Equals(typeof(string))))
+                if(argNames.Length == 0 && mi.GetParameters().Length == 1)
                 {
                     argNames = new string[] { "dto" };
                     sql = CreateAutoSelectSqlByDto(argTypes[0]);
                 }
                 else
+                {
                     sql = CreateAutoSelectSql(argNames);
+                }
                 if(query != null) sql += " " + query;
                 cmd.Sql = sql;
             }
