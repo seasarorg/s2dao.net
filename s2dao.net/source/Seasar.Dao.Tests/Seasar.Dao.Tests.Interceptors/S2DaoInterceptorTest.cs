@@ -33,8 +33,6 @@ namespace Seasar.Dao.Tests.Interceptors
     [TestFixture]
     public class S2DaoInterceptorTest : S2TestCase
 	{
-
-        private const string PATH = "Seasar.Dao.Tests.Interceptors/IEmployeeDao.dicon";
         private IEmployeeDao _employeeDao = null;
         private ILog _log= LogManager.GetLogger(typeof(S2DaoInterceptorTest));
 

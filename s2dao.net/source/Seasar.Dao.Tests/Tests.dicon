@@ -6,6 +6,10 @@
     <component class="Seasar.Dao.Tests.Interceptors.IEmployeeDao">
         <aspect>Tests.DaoInterceptor</aspect>
     </component>
+    
+    <component class="Seasar.Dao.Tests.Interceptors.IEmployeeAutoDao">
+        <aspect>Tests.DaoInterceptor</aspect>
+    </component>
 
     <!-- データプロバイダ -->
     <component name="SqlClient" class="Seasar.Extension.ADO.DataProvider">

@@ -291,6 +291,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Tests.Interceptors\IEmployeeAutoDao.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Seasar.Dao.Tests.Interceptors\IEmployeeDao.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -298,6 +303,11 @@
                 <File
                     RelPath = "Seasar.Dao.Tests.Interceptors\IEmployeeDao_Insert.sql"
                     BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Tests.Interceptors\S2DaoInterceptor2Test.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
                 />
                 <File
                     RelPath = "Seasar.Dao.Tests.Interceptors\S2DaoInterceptorTest.cs"
