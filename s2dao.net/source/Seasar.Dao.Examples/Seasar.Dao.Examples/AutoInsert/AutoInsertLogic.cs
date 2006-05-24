@@ -48,7 +48,7 @@ namespace Seasar.Dao.Examples.AutoInsert
             // ]‹Æˆõ”Ô†9999‚Ì]‹Æˆõ‚ğ’Ç‰Á
             Employee emp2 = new Employee();
             emp2.Empno = empno;
-            emp2.Ename = "Kazuya";
+            emp2.Ename = "‡@`‡I™–{¶½ŞÔ";
             emp2.Deptnum = 12;
             int ret = employeeDao.InsertEmployee(emp2);
             Console.WriteLine("InsertEmployeeƒƒ\ƒbƒh‚Ì–ß‚è’l:" + ret);

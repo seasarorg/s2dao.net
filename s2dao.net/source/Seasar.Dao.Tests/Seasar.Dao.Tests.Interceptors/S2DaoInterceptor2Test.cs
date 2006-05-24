@@ -60,5 +60,23 @@ namespace Seasar.Dao.Tests.Interceptors
             Assert.AreEqual(7788, emp.Empno);
         }
 
+        [Test,S2]
+        public void TestSelectQuery()
+        {
+            IList employees = _dao.GetEmployeesBySal(0, 1000);
+            _log.Debug(employees);
+            Assert.AreEqual( 2, employees.Count);
+        }
+
+        [Test, S2(Tx.Rollback)]
+        public void TestFullWidthTilda()
+        {
+            Employee emp = new Employee();
+            emp.Empno = 99;
+            emp.Ename = "Å`";
+            _dao.Insert(emp);
+            Employee emp2 = _dao.GetEmployee(99);
+            Assert.AreEqual(emp.Ename, emp2.Ename);
+        }
     }
 }
