@@ -21,14 +21,14 @@
       <p class="navBar">
                   <a class="navBarModeLink" href="../../overview.html">Overview</a>
           &nbsp;&nbsp;
-          <a class="navBarModeLink" href="../../namespaces/Seasar.Dao.Tests.Impl/ns-summary.html">Namespace</a>
+          <a class="navBarModeLink" href="../../namespaces/Seasar.Dao.Tests.Interceptors/ns-summary.html">Namespace</a>
           &nbsp;&nbsp;
           <span class="navBarCurrent">File</span>
               </p>
       <p class="navBar">
         &nbsp;&nbsp;&nbsp;
                   <a class="navBarLink" href="../../index.html" target="_top">FRAMES</a>&nbsp;&nbsp;
-          <a class="navBarLink" href="../../files/Seasar.Dao.Tests.Impl/SelectDynamicCommandTest.html" target="_top">NO FRAMES</a>&nbsp;&nbsp;
+          <a class="navBarLink" href="../../files/Seasar.Dao.Tests.Interceptors/S2DaoInterceptor2Test.html" target="_top">NO FRAMES</a>&nbsp;&nbsp;
               </p>
       
     </td><td align="right" valign="top" class="stats">
@@ -36,14 +36,14 @@
         <tr>
                       <td  rowspan="3" valign="top">File Stats:</td>
                     <td align="right">LOC:</td>
-          <td align="right">66</td>
+          <td align="right">83</td>
           <td rowspan="3">&nbsp;</td>
           <td align="right">Methods:</td>
-          <td align="right">1</td>
+          <td align="right">5</td>
         </tr>
         <tr>
           <td align="right">NCLOC:</td>
-          <td align="right">39</td>
+          <td align="right">60</td>
           <td align="right">Classes:</td>
           <td align="right">1</td>
         </tr>
@@ -64,7 +64,7 @@
   </tr>   
   <tr>
     <td class="graphItem">
-                        Seasar.Dao.Tests.Impl\SelectDynamicCommandTest.cs
+                        Seasar.Dao.Tests.Interceptors\S2DaoInterceptor2Test.cs
                   </td>
     
     <td class="graphPercent">-</td>
@@ -258,7 +258,7 @@
                 </td>
                   <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine"><span class="keyword">using</span> System.Data;</span>
+                              <span class="srcLine"><span class="keyword">using</span> System.Collections;</span>
                   </td>
       </tr>        
           <tr>
@@ -267,7 +267,7 @@
                 </td>
                   <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine"><span class="keyword">using</span> Seasar.Dao.Dbms;</span>
+                              <span class="srcLine"><span class="keyword">using</span> System.IO;</span>
                   </td>
       </tr>        
           <tr>
@@ -276,7 +276,7 @@
                 </td>
                   <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine"><span class="keyword">using</span> Seasar.Dao.Impl;</span>
+                              <span class="srcLine"><span class="keyword">using</span> System.Reflection;</span>
                   </td>
       </tr>        
           <tr>
@@ -285,7 +285,7 @@
                 </td>
                   <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine"><span class="keyword">using</span> Seasar.Extension.ADO;</span>
+                              <span class="srcLine"><span class="keyword">using</span> Seasar.Framework.Container;</span>
                   </td>
       </tr>        
           <tr>
@@ -294,7 +294,7 @@
                 </td>
                   <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine"><span class="keyword">using</span> Seasar.Extension.ADO.Impl;</span>
+                              <span class="srcLine"><span class="keyword">using</span> Seasar.Framework.Container.Factory;</span>
                   </td>
       </tr>        
           <tr>
@@ -303,7 +303,7 @@
                 </td>
                   <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine"><span class="keyword">using</span> Seasar.Extension.ADO.Types;</span>
+                              <span class="srcLine"><span class="keyword">using</span> Seasar.Extension.Unit;</span>
                   </td>
       </tr>        
           <tr>
@@ -312,7 +312,7 @@
                 </td>
                   <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine"><span class="keyword">using</span> Seasar.Framework.Container;</span>
+                              <span class="srcLine"><span class="keyword">using</span> MbUnit.Framework;</span>
                   </td>
       </tr>        
           <tr>
@@ -321,7 +321,7 @@
                 </td>
                   <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine"><span class="keyword">using</span> Seasar.Framework.Container.Factory;</span>
+                              <span class="srcLine"><span class="keyword">using</span> log4net;</span>
                   </td>
       </tr>        
           <tr>
@@ -330,7 +330,7 @@
                 </td>
                   <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine"><span class="keyword">using</span> Seasar.Framework.Util;</span>
+                              <span class="srcLine"><span class="keyword">using</span> log4net.Config;</span>
                   </td>
       </tr>        
           <tr>
@@ -339,7 +339,7 @@
                 </td>
                   <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine"><span class="keyword">using</span> NUnit.Framework;</span>
+                              <span class="srcLine"><span class="keyword">using</span> log4net.Util;</span>
                   </td>
       </tr>        
           <tr>
@@ -357,7 +357,7 @@
                 </td>
                   <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine"><span class="keyword">namespace</span> Seasar.Dao.Tests.Impl</span>
+                              <span class="srcLine"><span class="keyword">namespace</span> Seasar.Dao.Tests.Interceptors</span>
                   </td>
       </tr>        
           <tr>
@@ -375,7 +375,7 @@
                 </td>
                   <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine">    <span class="docComment">/// &lt;summary></span></span>
+                              <span class="srcLine">    [TestFixture]</span>
                   </td>
       </tr>        
           <tr>
@@ -384,7 +384,7 @@
                 </td>
                   <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine">    <span class="docComment">/// <span class="docContent">SelectDynamicCommandTest の概要の説明です。</span></span></span>
+                              <span class="srcLine">    <span class="keyword">public</span> <span class="keyword">class</span> S2DaoInterceptor2Test : S2TestCase</span>
                   </td>
       </tr>        
           <tr>
@@ -393,7 +393,7 @@
                 </td>
                   <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine">    <span class="docComment">/// &lt;/summary></span></span>
+                              <span class="srcLine">    {</span>
                   </td>
       </tr>        
           <tr>
@@ -402,7 +402,7 @@
                 </td>
                   <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine">    [TestFixture]</span>
+                              <span class="srcLine">        <span class="keyword">private</span> IEmployeeAutoDao _dao = <span class="keyword">null</span>;</span>
                   </td>
       </tr>        
           <tr>
@@ -411,7 +411,7 @@
                 </td>
                   <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine">    <span class="keyword">public</span> <span class="keyword">class</span> SelectDynamicCommandTest</span>
+                              <span class="srcLine">        <span class="keyword">private</span> ILog _log= LogManager.GetLogger(<span class="keyword">typeof</span>(S2DaoInterceptor2Test));</span>
                   </td>
       </tr>        
           <tr>
@@ -420,25 +420,27 @@
                 </td>
                   <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine">    {</span>
+                              <span class="srcLine"></span>
                   </td>
       </tr>        
           <tr>
-        <td class="lineNumber">
+        <td class="lineNumberHilight">
                   39
                 </td>
-                  <td class="coverageCount">&nbsp;</td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 39: Constructor S2DaoInterceptor2Test entered 1 time.">1</a>
+                      </td>
                           <td class="srcCell">
-                              <span class="srcLine">        <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">string</span> PATH = <span class="string">"Tests.dicon"</span>;</span>
+                              <span class="srcLine" title="Line 39: Constructor S2DaoInterceptor2Test entered 1 time.">        <span class="keyword">public</span> S2DaoInterceptor2Test()</span>
                   </td>
       </tr>        
           <tr>
-        <td class="lineNumber">
+        <td class="lineNumberHilight">
                   40
                 </td>
-                  <td class="coverageCount">&nbsp;</td>
+                  <td class="coverageCountHilight">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine"></span>
+                              <span class="srcLine" title="Line 39: Constructor S2DaoInterceptor2Test entered 1 time.">        {</span>
                   </td>
       </tr>        
           <tr>
@@ -446,10 +448,10 @@
                   41
                 </td>
                   <td class="coverageCountHilight">
-                          <a title="Line 41: Method TestExecuteTx entered 1 time.">1</a>
+                          <a title="Line 41: Statement executed 1 time.">1</a>
                       </td>
                           <td class="srcCell">
-                              <span class="srcLine" title="Line 41: Method TestExecuteTx entered 1 time.">        [Test]</span>
+                              <span class="srcLine" title="Line 41: Statement executed 1 time.">            FileInfo info = <span class="keyword">new</span> FileInfo(SystemInfo.AssemblyShortName(</span>
                   </td>
       </tr>        
           <tr>
@@ -458,78 +460,76 @@
                 </td>
                   <td class="coverageCountHilight">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine" title="Line 41: Method TestExecuteTx entered 1 time.">        <span class="keyword">public</span> <span class="keyword">void</span> TestExecuteTx()</span>
+                              <span class="srcLine" title="Line 41: Statement executed 1 time.">                Assembly.GetExecutingAssembly()) + <span class="string">".dll.config"</span>);</span>
                   </td>
       </tr>        
           <tr>
         <td class="lineNumberHilight">
                   43
                 </td>
-                  <td class="coverageCountHilight">&nbsp;</td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 43: Statement executed 1 time.">1</a>
+                      </td>
                           <td class="srcCell">
-                              <span class="srcLine" title="Line 41: Method TestExecuteTx entered 1 time.">        {</span>
+                              <span class="srcLine" title="Line 43: Statement executed 1 time.">            XmlConfigurator.Configure(LogManager.GetRepository(), info);</span>
                   </td>
       </tr>        
           <tr>
         <td class="lineNumberHilight">
                   44
                 </td>
-                  <td class="coverageCountHilight">
-                          <a title="Line 44: Statement executed 1 time.">1</a>
-                      </td>
+                  <td class="coverageCountHilight">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine" title="Line 44: Statement executed 1 time.">            IS2Container container = S2ContainerFactory.Create(PATH);</span>
+                              <span class="srcLine" title="Line 39: Constructor S2DaoInterceptor2Test entered 1 time.">        }</span>
                   </td>
       </tr>        
           <tr>
-        <td class="lineNumberHilight">
+        <td class="lineNumber">
                   45
                 </td>
-                  <td class="coverageCountHilight">
-                          <a title="Line 45: Statement executed 1 time.">1</a>
-                      </td>
+                  <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine" title="Line 45: Statement executed 1 time.">            IDataSource dataSource = (IDataSource) container.GetComponent(<span class="keyword">typeof</span>(IDataSource));</span>
+                              <span class="srcLine"></span>
                   </td>
       </tr>        
           <tr>
         <td class="lineNumberHilight">
                   46
                 </td>
-                  <td class="coverageCountHilight">&nbsp;</td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 46: Method TestInsert entered 1 time.">1</a>
+                      </td>
                           <td class="srcCell">
-                              <span class="srcLine" title="Line 41: Method TestExecuteTx entered 1 time."></span>
+                              <span class="srcLine" title="Line 46: Method TestInsert entered 1 time.">        [Test, S2(Tx.Rollback)]</span>
                   </td>
       </tr>        
           <tr>
         <td class="lineNumberHilight">
                   47
                 </td>
-                  <td class="coverageCountHilight">
-                          <a title="Line 47: Statement executed 1 time.">1</a>
-                      </td>
+                  <td class="coverageCountHilight">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine" title="Line 47: Statement executed 1 time.">            IDbConnection cn = DataSourceUtil.GetConnection(dataSource);</span>
+                              <span class="srcLine" title="Line 46: Method TestInsert entered 1 time.">        <span class="keyword">public</span> <span class="keyword">void</span> TestInsert()</span>
                   </td>
       </tr>        
           <tr>
         <td class="lineNumberHilight">
                   48
                 </td>
-                  <td class="coverageCountHilight">
-                          <a title="Line 48: Statement executed 1 time.">1</a>
-                      </td>
+                  <td class="coverageCountHilight">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine" title="Line 48: Statement executed 1 time.">            IDbms dbms = <span class="keyword">new</span> MSSQLServer();</span>
+                              <span class="srcLine" title="Line 46: Method TestInsert entered 1 time.">        {</span>
                   </td>
       </tr>        
           <tr>
         <td class="lineNumberHilight">
                   49
                 </td>
-                  <td class="coverageCountHilight">&nbsp;</td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 49: Statement executed 1 time.">1</a>
+                      </td>
                           <td class="srcCell">
-                              <span class="srcLine" title="Line 41: Method TestExecuteTx entered 1 time."></span>
+                              <span class="srcLine" title="Line 49: Statement executed 1 time.">            Employee emp = <span class="keyword">new</span> Employee();</span>
                   </td>
       </tr>        
           <tr>
@@ -540,25 +540,29 @@
                           <a title="Line 50: Statement executed 1 time.">1</a>
                       </td>
                           <td class="srcCell">
-                              <span class="srcLine" title="Line 50: Statement executed 1 time.">            SelectDynamicCommand cmd = <span class="keyword">new</span> SelectDynamicCommand(dataSource,</span>
+                              <span class="srcLine" title="Line 50: Statement executed 1 time.">            emp.Empno = 99;</span>
                   </td>
       </tr>        
           <tr>
         <td class="lineNumberHilight">
                   51
                 </td>
-                  <td class="coverageCountHilight">&nbsp;</td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 51: Statement executed 1 time.">1</a>
+                      </td>
                           <td class="srcCell">
-                              <span class="srcLine" title="Line 50: Statement executed 1 time.">                BasicCommandFactory.INSTANCE,</span>
+                              <span class="srcLine" title="Line 51: Statement executed 1 time.">            emp.Ename = <span class="string">"hoge"</span>;</span>
                   </td>
       </tr>        
           <tr>
         <td class="lineNumberHilight">
                   52
                 </td>
-                  <td class="coverageCountHilight">&nbsp;</td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 52: Statement executed 1 time.">1</a>
+                      </td>
                           <td class="srcCell">
-                              <span class="srcLine" title="Line 50: Statement executed 1 time.">                <span class="keyword">new</span> BeanMetaDataDataReaderHandler(<span class="keyword">new</span> BeanMetaDataImpl(</span>
+                              <span class="srcLine" title="Line 52: Statement executed 1 time.">            Assert.AreEqual(1, _dao.Insert(emp));</span>
                   </td>
       </tr>        
           <tr>
@@ -567,36 +571,36 @@
                 </td>
                   <td class="coverageCountHilight">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine" title="Line 50: Statement executed 1 time.">                        <span class="keyword">typeof</span>(Employee), <span class="keyword">new</span> DatabaseMetaDataImpl(dataSource), dbms)),</span>
+                              <span class="srcLine" title="Line 46: Method TestInsert entered 1 time.">        }</span>
                   </td>
       </tr>        
           <tr>
-        <td class="lineNumberHilight">
+        <td class="lineNumber">
                   54
                 </td>
-                  <td class="coverageCountHilight">&nbsp;</td>
+                  <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine" title="Line 50: Statement executed 1 time.">                        BasicDataReaderFactory.INSTANCE);</span>
+                              <span class="srcLine"></span>
                   </td>
       </tr>        
           <tr>
         <td class="lineNumberHilight">
                   55
                 </td>
-                  <td class="coverageCountHilight">&nbsp;</td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 55: Method TestSelect entered 1 time.">1</a>
+                      </td>
                           <td class="srcCell">
-                              <span class="srcLine" title="Line 41: Method TestExecuteTx entered 1 time."></span>
+                              <span class="srcLine" title="Line 55: Method TestSelect entered 1 time.">        [Test, S2()]</span>
                   </td>
       </tr>        
           <tr>
         <td class="lineNumberHilight">
                   56
                 </td>
-                  <td class="coverageCountHilight">
-                          <a title="Line 56: Statement executed 1 time.">1</a>
-                      </td>
+                  <td class="coverageCountHilight">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine" title="Line 56: Statement executed 1 time.">            cmd.Sql = <span class="string">"SELECT * FROM emp WHERE empno = /*empno*/1234"</span>;</span>
+                              <span class="srcLine" title="Line 55: Method TestSelect entered 1 time.">        <span class="keyword">public</span> <span class="keyword">void</span> TestSelect()</span>
                   </td>
       </tr>        
           <tr>
@@ -605,7 +609,7 @@
                 </td>
                   <td class="coverageCountHilight">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine" title="Line 41: Method TestExecuteTx entered 1 time.">            </span>
+                              <span class="srcLine" title="Line 55: Method TestSelect entered 1 time.">        {</span>
                   </td>
       </tr>        
           <tr>
@@ -616,7 +620,7 @@
                           <a title="Line 58: Statement executed 1 time.">1</a>
                       </td>
                           <td class="srcCell">
-                              <span class="srcLine" title="Line 58: Statement executed 1 time.">            cmd.ArgNames = <span class="keyword">new</span> <span class="keyword">string</span>[] { <span class="string">"empno"</span> };</span>
+                              <span class="srcLine" title="Line 58: Statement executed 1 time.">            Employee emp = _dao.GetEmployee(7788);</span>
                   </td>
       </tr>        
           <tr>
@@ -627,7 +631,7 @@
                           <a title="Line 59: Statement executed 1 time.">1</a>
                       </td>
                           <td class="srcCell">
-                              <span class="srcLine" title="Line 59: Statement executed 1 time.">            cmd.ArgTypes = <span class="keyword">new</span> Type[] { <span class="keyword">typeof</span>(<span class="keyword">int</span>) };</span>
+                              <span class="srcLine" title="Line 59: Statement executed 1 time.">            _log.Debug(emp);</span>
                   </td>
       </tr>        
           <tr>
@@ -638,7 +642,7 @@
                           <a title="Line 60: Statement executed 1 time.">1</a>
                       </td>
                           <td class="srcCell">
-                              <span class="srcLine" title="Line 60: Statement executed 1 time.">            Employee emp = (Employee) cmd.Execute(<span class="keyword">new</span> Object[] { 7788 });</span>
+                              <span class="srcLine" title="Line 60: Statement executed 1 time.">            Assert.AreEqual(7788, emp.Empno);</span>
                   </td>
       </tr>        
           <tr>
@@ -647,32 +651,205 @@
                 </td>
                   <td class="coverageCountHilight">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine" title="Line 41: Method TestExecuteTx entered 1 time."></span>
+                              <span class="srcLine" title="Line 55: Method TestSelect entered 1 time.">        }</span>
                   </td>
       </tr>        
           <tr>
-        <td class="lineNumberHilight">
+        <td class="lineNumber">
                   62
                 </td>
-                  <td class="coverageCountHilight">
-                          <a title="Line 62: Statement executed 1 time.">1</a>
-                      </td>
+                  <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine" title="Line 62: Statement executed 1 time.">            Assert.IsNotNull(emp, <span class="string">"1"</span>);</span>
+                              <span class="srcLine"></span>
                   </td>
       </tr>        
           <tr>
         <td class="lineNumberHilight">
                   63
                 </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 63: Method TestSelectQuery entered 1 time.">1</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 63: Method TestSelectQuery entered 1 time.">        [Test,S2]</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  64
+                </td>
                   <td class="coverageCountHilight">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine" title="Line 41: Method TestExecuteTx entered 1 time.">        }</span>
+                              <span class="srcLine" title="Line 63: Method TestSelectQuery entered 1 time.">        <span class="keyword">public</span> <span class="keyword">void</span> TestSelectQuery()</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  65
+                </td>
+                  <td class="coverageCountHilight">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 63: Method TestSelectQuery entered 1 time.">        {</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  66
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 66: Statement executed 1 time.">1</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 66: Statement executed 1 time.">            IList employees = _dao.GetEmployeesBySal(0, 1000);</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  67
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 67: Statement executed 1 time.">1</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 67: Statement executed 1 time.">            _log.Debug(employees);</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  68
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 68: Statement executed 1 time.">1</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 68: Statement executed 1 time.">            Assert.AreEqual( 2, employees.Count);</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  69
+                </td>
+                  <td class="coverageCountHilight">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 63: Method TestSelectQuery entered 1 time.">        }</span>
                   </td>
       </tr>        
           <tr>
         <td class="lineNumber">
-                  64
+                  70
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine"></span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  71
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 71: Method TestFullWidthTilda entered 1 time.">1</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 71: Method TestFullWidthTilda entered 1 time.">        [Test, S2(Tx.Rollback)]</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  72
+                </td>
+                  <td class="coverageCountHilight">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 71: Method TestFullWidthTilda entered 1 time.">        <span class="keyword">public</span> <span class="keyword">void</span> TestFullWidthTilda()</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  73
+                </td>
+                  <td class="coverageCountHilight">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 71: Method TestFullWidthTilda entered 1 time.">        {</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  74
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 74: Statement executed 1 time.">1</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 74: Statement executed 1 time.">            Employee emp = <span class="keyword">new</span> Employee();</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  75
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 75: Statement executed 1 time.">1</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 75: Statement executed 1 time.">            emp.Empno = 99;</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  76
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 76: Statement executed 1 time.">1</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 76: Statement executed 1 time.">            emp.Ename = <span class="string">"～"</span>;</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  77
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 77: Statement executed 1 time.">1</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 77: Statement executed 1 time.">            _dao.Insert(emp);</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  78
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 78: Statement executed 1 time.">1</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 78: Statement executed 1 time.">            Employee emp2 = _dao.GetEmployee(99);</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  79
+                </td>
+                  <td class="coverageCountHilight">
+                          <a title="Line 79: Statement executed 1 time.">1</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 79: Statement executed 1 time.">            Assert.AreEqual(emp.Ename, emp2.Ename);</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  80
+                </td>
+                  <td class="coverageCountHilight">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine" title="Line 71: Method TestFullWidthTilda entered 1 time.">        }</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  81
                 </td>
                   <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
@@ -681,7 +858,7 @@
       </tr>        
           <tr>
         <td class="lineNumber">
-                  65
+                  82
                 </td>
                   <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
@@ -690,7 +867,7 @@
       </tr>        
           <tr>
         <td class="lineNumber">
-                  66
+                  83
                 </td>
                   <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">

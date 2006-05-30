@@ -21,14 +21,14 @@
       <p class="navBar">
                   <a class="navBarModeLink" href="../../overview.html">Overview</a>
           &nbsp;&nbsp;
-          <a class="navBarModeLink" href="../../namespaces/Seasar.Dao.Dbms/ns-summary.html">Namespace</a>
+          <a class="navBarModeLink" href="../../namespaces/Seasar.Dao.Tests.Impl/ns-summary.html">Namespace</a>
           &nbsp;&nbsp;
           <span class="navBarCurrent">File</span>
               </p>
       <p class="navBar">
         &nbsp;&nbsp;&nbsp;
                   <a class="navBarLink" href="../../index.html" target="_top">FRAMES</a>&nbsp;&nbsp;
-          <a class="navBarLink" href="../../files/Seasar.Dao.Dbms/Oracle.html" target="_top">NO FRAMES</a>&nbsp;&nbsp;
+          <a class="navBarLink" href="../../files/Seasar.Dao.Tests.Impl/Employee4.html" target="_top">NO FRAMES</a>&nbsp;&nbsp;
               </p>
       
     </td><td align="right" valign="top" class="stats">
@@ -36,14 +36,14 @@
         <tr>
                       <td  rowspan="3" valign="top">File Stats:</td>
                     <td align="right">LOC:</td>
-          <td align="right">90</td>
+          <td align="right">106</td>
           <td rowspan="3">&nbsp;</td>
           <td align="right">Methods:</td>
-          <td align="right">4</td>
+          <td align="right">19</td>
         </tr>
         <tr>
           <td align="right">NCLOC:</td>
-          <td align="right">63</td>
+          <td align="right">70</td>
           <td align="right">Classes:</td>
           <td align="right">1</td>
         </tr>
@@ -64,20 +64,17 @@
   </tr>   
   <tr>
     <td class="graphItem">
-                        Seasar.Dao.Dbms\Oracle.cs
+                        Seasar.Dao.Tests.Impl\Employee4.cs
                   </td>
     
-    <td class="graphPercent">33.3%</td>
-    <td class="graphPercent">25.8%</td>
-    <td class="graphPercent">25.0%</td>
-    <td class="graphBarLeft">26.8%</td>
+    <td class="graphPercent">-</td>
+    <td class="graphPercent">0.0%</td>
+    <td class="graphPercent">0.0%</td>
+    <td class="graphBarLeft">0.0%</td>
     <td class="graphBar">
               <table cellspacing="0" cellpadding="0">
           <tr>
-                          <td class="covered"><img alt="coverage" src="../../img/green.gif"
-                  width="53" height="12"/></td>
-              <td class="uncovered"><img alt="coverage" src="../../img/red.gif"
-                  width="147" height="12"/></td>
+                          <td class="uncovered"><img alt="coverage" src="../../img/red.gif" width="201" height="12"/></td> 
                       </tr>
         </table>
           </td>
@@ -261,7 +258,7 @@
                 </td>
                   <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine"><span class="keyword">using</span> System.Text;</span>
+                              <span class="srcLine"><span class="keyword">using</span> System.Data.SqlTypes;</span>
                   </td>
       </tr>        
           <tr>
@@ -270,7 +267,7 @@
                 </td>
                   <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine"></span>
+                              <span class="srcLine"><span class="keyword">using</span> Seasar.Dao.Attrs;</span>
                   </td>
       </tr>        
           <tr>
@@ -279,7 +276,7 @@
                 </td>
                   <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine"><span class="keyword">namespace</span> Seasar.Dao.Dbms</span>
+                              <span class="srcLine"></span>
                   </td>
       </tr>        
           <tr>
@@ -288,7 +285,7 @@
                 </td>
                   <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine">{</span>
+                              <span class="srcLine"><span class="keyword">namespace</span> Seasar.Dao.Tests.Impl</span>
                   </td>
       </tr>        
           <tr>
@@ -297,7 +294,7 @@
                 </td>
                   <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine">    <span class="docComment">/// &lt;summary></span></span>
+                              <span class="srcLine">{</span>
                   </td>
       </tr>        
           <tr>
@@ -306,7 +303,7 @@
                 </td>
                   <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine">    <span class="docComment">/// <span class="docContent">Oracle</span></span></span>
+                              <span class="srcLine">    [Table(<span class="string">"EMP"</span>)]</span>
                   </td>
       </tr>        
           <tr>
@@ -315,7 +312,7 @@
                 </td>
                   <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine">    <span class="docComment">/// &lt;/summary></span></span>
+                              <span class="srcLine">    <span class="keyword">public</span> <span class="keyword">class</span> Employee4</span>
                   </td>
       </tr>        
           <tr>
@@ -324,7 +321,7 @@
                 </td>
                   <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine">    <span class="keyword">public</span> <span class="keyword">class</span> Oracle : Standard</span>
+                              <span class="srcLine">    {</span>
                   </td>
       </tr>        
           <tr>
@@ -333,72 +330,70 @@
                 </td>
                   <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine">    {</span>
+                              <span class="srcLine">        <span class="keyword">private</span> <span class="keyword">long</span> empno;</span>
                   </td>
       </tr>        
           <tr>
-        <td class="lineNumberHilight">
+        <td class="lineNumber">
                   29
                 </td>
-                  <td class="coverageCountWarning">
-                          <a title="Line 29: Property Suffix not exercised">0</a>
-                      </td>
+                  <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 29: Property Suffix not exercised">        <span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">string</span> Suffix</span>
+                              <span class="srcLine">        <span class="keyword">private</span> <span class="keyword">string</span> ename;</span>
                   </td>
       </tr>        
           <tr>
-        <td class="lineNumberHilight">
+        <td class="lineNumber">
                   30
                 </td>
-                  <td class="coverageCountWarning">&nbsp;</td>
+                  <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 29: Property Suffix not exercised">        {</span>
+                              <span class="srcLine"></span>
                   </td>
       </tr>        
           <tr>
-        <td class="lineNumberHilight">
+        <td class="lineNumber">
                   31
                 </td>
-                  <td class="coverageCountWarning">&nbsp;</td>
+                  <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 29: Property Suffix not exercised">            get</span>
+                              <span class="srcLine">        <span class="keyword">private</span> <span class="keyword">string</span> job;</span>
                   </td>
       </tr>        
           <tr>
-        <td class="lineNumberHilight">
+        <td class="lineNumber">
                   32
                 </td>
-                  <td class="coverageCountWarning">&nbsp;</td>
+                  <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 29: Property Suffix not exercised">            {</span>
+                              <span class="srcLine"></span>
                   </td>
       </tr>        
           <tr>
-        <td class="lineNumberHilight">
+        <td class="lineNumber">
                   33
                 </td>
-                  <td class="coverageCountWarning">&nbsp;</td>
+                  <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 29: Property Suffix not exercised">                <span class="keyword">return</span> <span class="string">"_oracle"</span>;</span>
+                              <span class="srcLine">        <span class="keyword">private</span> SqlInt16 mgr;</span>
                   </td>
       </tr>        
           <tr>
-        <td class="lineNumberHilight">
+        <td class="lineNumber">
                   34
                 </td>
-                  <td class="coverageCountWarning">&nbsp;</td>
+                  <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 29: Property Suffix not exercised">            }</span>
+                              <span class="srcLine"></span>
                   </td>
       </tr>        
           <tr>
-        <td class="lineNumberHilight">
+        <td class="lineNumber">
                   35
                 </td>
-                  <td class="coverageCountWarning">&nbsp;</td>
+                  <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 29: Property Suffix not exercised">        }</span>
+                              <span class="srcLine">        <span class="keyword">private</span> DateTime hiredate;</span>
                   </td>
       </tr>        
           <tr>
@@ -411,41 +406,39 @@
                   </td>
       </tr>        
           <tr>
-        <td class="lineNumberHilight">
+        <td class="lineNumber">
                   37
                 </td>
-                  <td class="coverageCountWarning">
-                          <a title="Line 37: Method GetSequenceNextValString not entered.">0</a>
-                      </td>
+                  <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 37: Method GetSequenceNextValString not entered.">        <span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">string</span> GetSequenceNextValString(<span class="keyword">string</span> sequenceName)</span>
+                              <span class="srcLine">        <span class="keyword">private</span> <span class="keyword">float</span> sal;</span>
                   </td>
       </tr>        
           <tr>
-        <td class="lineNumberHilight">
+        <td class="lineNumber">
                   38
                 </td>
-                  <td class="coverageCountWarning">&nbsp;</td>
+                  <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 37: Method GetSequenceNextValString not entered.">        {</span>
+                              <span class="srcLine"></span>
                   </td>
       </tr>        
           <tr>
-        <td class="lineNumberHilight">
+        <td class="lineNumber">
                   39
                 </td>
-                  <td class="coverageCountWarning">&nbsp;</td>
+                  <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 37: Method GetSequenceNextValString not entered.">            <span class="keyword">return</span> <span class="string">"select "</span> + sequenceName + <span class="string">".nextval from dual"</span>;</span>
+                              <span class="srcLine">        <span class="keyword">private</span> <span class="keyword">float</span> comm;</span>
                   </td>
       </tr>        
           <tr>
-        <td class="lineNumberHilight">
+        <td class="lineNumber">
                   40
                 </td>
-                  <td class="coverageCountWarning">&nbsp;</td>
+                  <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 37: Method GetSequenceNextValString not entered.">        }</span>
+                              <span class="srcLine"></span>
                   </td>
       </tr>        
           <tr>
@@ -454,45 +447,45 @@
                 </td>
                   <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine"></span>
+                              <span class="srcLine">        <span class="keyword">private</span> <span class="keyword">int</span> deptno;</span>
                   </td>
       </tr>        
           <tr>
-        <td class="lineNumberHilight">
+        <td class="lineNumber">
                   42
                 </td>
-                  <td class="coverageCountWarning">
-                          <a title="Line 42: Property Dbms not exercised">0</a>
-                      </td>
+                  <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 42: Property Dbms not exercised">        <span class="keyword">public</span> <span class="keyword">override</span> KindOfDbms Dbms</span>
+                              <span class="srcLine">    </span>
                   </td>
       </tr>        
           <tr>
-        <td class="lineNumberHilight">
+        <td class="lineNumber">
                   43
                 </td>
-                  <td class="coverageCountWarning">&nbsp;</td>
+                  <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 42: Property Dbms not exercised">        {</span>
+                              <span class="srcLine">        <span class="keyword">private</span> Employee4 parent;</span>
                   </td>
       </tr>        
           <tr>
-        <td class="lineNumberHilight">
+        <td class="lineNumber">
                   44
                 </td>
-                  <td class="coverageCountWarning">&nbsp;</td>
+                  <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 42: Property Dbms not exercised">            get</span>
+                              <span class="srcLine"></span>
                   </td>
       </tr>        
           <tr>
         <td class="lineNumberHilight">
                   45
                 </td>
-                  <td class="coverageCountWarning">&nbsp;</td>
+                  <td class="coverageCountWarning">
+                          <a title="Line 45: Constructor Employee4 not entered.">0</a>
+                      </td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 42: Property Dbms not exercised">            {</span>
+                              <span class="srcLineWarning" title="Line 45: Constructor Employee4 not entered.">        <span class="keyword">public</span> Employee4()</span>
                   </td>
       </tr>        
           <tr>
@@ -501,7 +494,7 @@
                 </td>
                   <td class="coverageCountWarning">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 42: Property Dbms not exercised">                <span class="keyword">return</span> KindOfDbms.Oracle;</span>
+                              <span class="srcLineWarning" title="Line 45: Constructor Employee4 not entered.">        {</span>
                   </td>
       </tr>        
           <tr>
@@ -510,140 +503,128 @@
                 </td>
                   <td class="coverageCountWarning">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 42: Property Dbms not exercised">            }</span>
+                              <span class="srcLineWarning" title="Line 45: Constructor Employee4 not entered.">        }</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  48
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine"></span>
                   </td>
       </tr>        
           <tr>
         <td class="lineNumberHilight">
-                  48
+                  49
+                </td>
+                  <td class="coverageCountWarning">
+                          <a title="Line 49: Property Empno not exercised">0</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLineWarning" title="Line 49: Property Empno not exercised">        <span class="keyword">public</span> <span class="keyword">long</span> Empno</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  50
                 </td>
                   <td class="coverageCountWarning">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 42: Property Dbms not exercised">        }</span>
-                  </td>
-      </tr>        
-          <tr>
-        <td class="lineNumber">
-                  49
-                </td>
-                  <td class="coverageCount">&nbsp;</td>
-                          <td class="srcCell">
-                              <span class="srcLine"></span>
-                  </td>
-      </tr>        
-          <tr>
-        <td class="lineNumber">
-                  50
-                </td>
-                  <td class="coverageCount">&nbsp;</td>
-                          <td class="srcCell">
-                              <span class="srcLine"></span>
+                              <span class="srcLineWarning" title="Line 49: Property Empno not exercised">        {</span>
                   </td>
       </tr>        
           <tr>
         <td class="lineNumberHilight">
                   51
                 </td>
-                  <td class="coverageCountHilight">
-                          <a title="Line 51: Method CreateAutoSelectFromClause entered 2 times.">2</a>
-                      </td>
+                  <td class="coverageCountWarning">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine" title="Line 51: Method CreateAutoSelectFromClause entered 2 times.">        <span class="keyword">protected</span> <span class="keyword">override</span> <span class="keyword">string</span> CreateAutoSelectFromClause(IBeanMetaData beanMetaData)</span>
+                              <span class="srcLineWarning" title="Line 49: Property Empno not exercised">            set { empno = value; }</span>
                   </td>
       </tr>        
           <tr>
         <td class="lineNumberHilight">
                   52
                 </td>
-                  <td class="coverageCountHilight">&nbsp;</td>
+                  <td class="coverageCountWarning">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine" title="Line 51: Method CreateAutoSelectFromClause entered 2 times.">        {</span>
+                              <span class="srcLineWarning" title="Line 49: Property Empno not exercised">            get { <span class="keyword">return</span> empno; }</span>
                   </td>
       </tr>        
           <tr>
         <td class="lineNumberHilight">
                   53
                 </td>
-                  <td class="coverageCountHilight">
-                          <a title="Line 53: Statement executed 2 times.">2</a>
-                      </td>
+                  <td class="coverageCountWarning">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine" title="Line 53: Statement executed 2 times.">            StringBuilder buf = <span class="keyword">new</span> StringBuilder(100);</span>
+                              <span class="srcLineWarning" title="Line 49: Property Empno not exercised">        }</span>
                   </td>
       </tr>        
           <tr>
-        <td class="lineNumberHilight">
+        <td class="lineNumber">
                   54
                 </td>
-                  <td class="coverageCountHilight">
-                          <a title="Line 54: Statement executed 2 times.">2</a>
-                      </td>
+                  <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine" title="Line 54: Statement executed 2 times.">            buf.Append(<span class="string">"FROM "</span>);</span>
+                              <span class="srcLine"></span>
                   </td>
       </tr>        
           <tr>
         <td class="lineNumberHilight">
                   55
                 </td>
-                  <td class="coverageCountHilight">
-                          <a title="Line 55: Statement executed 2 times.">2</a>
+                  <td class="coverageCountWarning">
+                          <a title="Line 55: Property Ename not exercised">0</a>
                       </td>
                           <td class="srcCell">
-                              <span class="srcLine" title="Line 55: Statement executed 2 times.">            <span class="keyword">string</span> myTableName = beanMetaData.TableName;</span>
+                              <span class="srcLineWarning" title="Line 55: Property Ename not exercised">        <span class="keyword">public</span> <span class="keyword">string</span> Ename</span>
                   </td>
       </tr>        
           <tr>
         <td class="lineNumberHilight">
                   56
                 </td>
-                  <td class="coverageCountHilight">
-                          <a title="Line 56: Statement executed 2 times.">2</a>
-                      </td>
+                  <td class="coverageCountWarning">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine" title="Line 56: Statement executed 2 times.">            buf.Append(myTableName);</span>
+                              <span class="srcLineWarning" title="Line 55: Property Ename not exercised">        {</span>
                   </td>
       </tr>        
           <tr>
         <td class="lineNumberHilight">
                   57
                 </td>
-                  <td class="coverageCountHilight">
-                          <a title="Line 57: Statement executed 2 times.">2</a>
-                      </td>
+                  <td class="coverageCountWarning">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine" title="Line 57: Statement executed 2 times.">            StringBuilder whereBuf = <span class="keyword">new</span> StringBuilder(100);</span>
+                              <span class="srcLineWarning" title="Line 55: Property Ename not exercised">            set { ename = value; }</span>
                   </td>
       </tr>        
           <tr>
         <td class="lineNumberHilight">
                   58
                 </td>
-                  <td class="coverageCountWarning">
-                          <a title="Line 58: Expression evaluated to true 0 times, false 2 times.">2</a>
-                      </td>
+                  <td class="coverageCountWarning">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 58: Expression evaluated to true 0 times, false 2 times.">            <span class="keyword">for</span>(<span class="keyword">int</span> i = 0; i &lt; beanMetaData.RelationPropertyTypeSize; ++i)</span>
+                              <span class="srcLineWarning" title="Line 55: Property Ename not exercised">            get { <span class="keyword">return</span> ename; }</span>
                   </td>
       </tr>        
           <tr>
         <td class="lineNumberHilight">
                   59
                 </td>
-                  <td class="coverageCountHilight">&nbsp;</td>
+                  <td class="coverageCountWarning">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine" title="Line 58: Statement executed 2 times.">            {</span>
+                              <span class="srcLineWarning" title="Line 55: Property Ename not exercised">        }</span>
                   </td>
       </tr>        
           <tr>
-        <td class="lineNumberHilight">
+        <td class="lineNumber">
                   60
                 </td>
-                  <td class="coverageCountWarning">
-                          <a title="Line 60: Statement not executed.">0</a>
-                      </td>
+                  <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 60: Statement not executed.">                IRelationPropertyType rpt = beanMetaData.GetRelationPropertyType(i);</span>
+                              <span class="srcLine"></span>
                   </td>
       </tr>        
           <tr>
@@ -651,65 +632,55 @@
                   61
                 </td>
                   <td class="coverageCountWarning">
-                          <a title="Line 61: Statement not executed.">0</a>
+                          <a title="Line 61: Property Job not exercised">0</a>
                       </td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 61: Statement not executed.">                IBeanMetaData bmd = rpt.BeanMetaData;</span>
+                              <span class="srcLineWarning" title="Line 61: Property Job not exercised">        <span class="keyword">public</span> <span class="keyword">string</span> Job</span>
                   </td>
       </tr>        
           <tr>
         <td class="lineNumberHilight">
                   62
                 </td>
-                  <td class="coverageCountWarning">
-                          <a title="Line 62: Statement not executed.">0</a>
-                      </td>
+                  <td class="coverageCountWarning">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 62: Statement not executed.">                buf.Append(<span class="string">", "</span>);</span>
+                              <span class="srcLineWarning" title="Line 61: Property Job not exercised">        {</span>
                   </td>
       </tr>        
           <tr>
         <td class="lineNumberHilight">
                   63
                 </td>
-                  <td class="coverageCountWarning">
-                          <a title="Line 63: Statement not executed.">0</a>
-                      </td>
+                  <td class="coverageCountWarning">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 63: Statement not executed.">                buf.Append(bmd.TableName);</span>
+                              <span class="srcLineWarning" title="Line 61: Property Job not exercised">            set { job = value; }</span>
                   </td>
       </tr>        
           <tr>
         <td class="lineNumberHilight">
                   64
                 </td>
-                  <td class="coverageCountWarning">
-                          <a title="Line 64: Statement not executed.">0</a>
-                      </td>
+                  <td class="coverageCountWarning">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 64: Statement not executed.">                buf.Append(<span class="string">" "</span>);</span>
+                              <span class="srcLineWarning" title="Line 61: Property Job not exercised">            get { <span class="keyword">return</span> job; }</span>
                   </td>
       </tr>        
           <tr>
         <td class="lineNumberHilight">
                   65
                 </td>
-                  <td class="coverageCountWarning">
-                          <a title="Line 65: Statement not executed.">0</a>
-                      </td>
+                  <td class="coverageCountWarning">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 65: Statement not executed.">                <span class="keyword">string</span> yourAliasName = rpt.PropertyName;</span>
+                              <span class="srcLineWarning" title="Line 61: Property Job not exercised">        }</span>
                   </td>
       </tr>        
           <tr>
-        <td class="lineNumberHilight">
+        <td class="lineNumber">
                   66
                 </td>
-                  <td class="coverageCountWarning">
-                          <a title="Line 66: Statement not executed.">0</a>
-                      </td>
+                  <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 66: Statement not executed.">                buf.Append(yourAliasName);</span>
+                              <span class="srcLine"></span>
                   </td>
       </tr>        
           <tr>
@@ -717,10 +688,10 @@
                   67
                 </td>
                   <td class="coverageCountWarning">
-                          <a title="Line 67: Statement not executed.">0</a>
+                          <a title="Line 67: Property Mgr not exercised">0</a>
                       </td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 67: Statement not executed.">                <span class="keyword">for</span>(<span class="keyword">int</span> j = 0; j &lt; rpt.KeySize; ++j)</span>
+                              <span class="srcLineWarning" title="Line 67: Property Mgr not exercised">        <span class="keyword">public</span> SqlInt16 Mgr</span>
                   </td>
       </tr>        
           <tr>
@@ -729,7 +700,7 @@
                 </td>
                   <td class="coverageCountWarning">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 67: Statement not executed.">                {</span>
+                              <span class="srcLineWarning" title="Line 67: Property Mgr not exercised">        {</span>
                   </td>
       </tr>        
           <tr>
@@ -738,7 +709,7 @@
                 </td>
                   <td class="coverageCountWarning">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 67: Statement not executed.">                    whereBuf.Append(myTableName);</span>
+                              <span class="srcLineWarning" title="Line 67: Property Mgr not exercised">            set { mgr = value; }</span>
                   </td>
       </tr>        
           <tr>
@@ -747,7 +718,7 @@
                 </td>
                   <td class="coverageCountWarning">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 67: Statement not executed.">                    whereBuf.Append(<span class="string">"."</span>);</span>
+                              <span class="srcLineWarning" title="Line 67: Property Mgr not exercised">            get { <span class="keyword">return</span> mgr; }</span>
                   </td>
       </tr>        
           <tr>
@@ -756,25 +727,27 @@
                 </td>
                   <td class="coverageCountWarning">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 67: Statement not executed.">                    whereBuf.Append(rpt.GetMyKey(j));</span>
+                              <span class="srcLineWarning" title="Line 67: Property Mgr not exercised">        }</span>
                   </td>
       </tr>        
           <tr>
-        <td class="lineNumberHilight">
+        <td class="lineNumber">
                   72
                 </td>
-                  <td class="coverageCountWarning">&nbsp;</td>
+                  <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 67: Statement not executed.">                    whereBuf.Append(<span class="string">"="</span>);</span>
+                              <span class="srcLine"></span>
                   </td>
       </tr>        
           <tr>
         <td class="lineNumberHilight">
                   73
                 </td>
-                  <td class="coverageCountWarning">&nbsp;</td>
+                  <td class="coverageCountWarning">
+                          <a title="Line 73: Property Hiredate not exercised">0</a>
+                      </td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 67: Statement not executed.">                    whereBuf.Append(yourAliasName);</span>
+                              <span class="srcLineWarning" title="Line 73: Property Hiredate not exercised">        <span class="keyword">public</span> DateTime Hiredate</span>
                   </td>
       </tr>        
           <tr>
@@ -783,7 +756,7 @@
                 </td>
                   <td class="coverageCountWarning">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 67: Statement not executed.">                    whereBuf.Append(<span class="string">"."</span>);</span>
+                              <span class="srcLineWarning" title="Line 73: Property Hiredate not exercised">        {</span>
                   </td>
       </tr>        
           <tr>
@@ -792,7 +765,7 @@
                 </td>
                   <td class="coverageCountWarning">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 67: Statement not executed.">                    whereBuf.Append(rpt.GetYourKey(j));</span>
+                              <span class="srcLineWarning" title="Line 73: Property Hiredate not exercised">            set { hiredate = value; }</span>
                   </td>
       </tr>        
           <tr>
@@ -801,7 +774,7 @@
                 </td>
                   <td class="coverageCountWarning">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 67: Statement not executed.">                    whereBuf.Append(<span class="string">"(+)"</span>);</span>
+                              <span class="srcLineWarning" title="Line 73: Property Hiredate not exercised">            get { <span class="keyword">return</span> hiredate; }</span>
                   </td>
       </tr>        
           <tr>
@@ -810,112 +783,254 @@
                 </td>
                   <td class="coverageCountWarning">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 67: Statement not executed.">                    whereBuf.Append(<span class="string">" AND "</span>);</span>
+                              <span class="srcLineWarning" title="Line 73: Property Hiredate not exercised">        }</span>
                   </td>
       </tr>        
           <tr>
-        <td class="lineNumberHilight">
+        <td class="lineNumber">
                   78
                 </td>
-                  <td class="coverageCountWarning">&nbsp;</td>
+                  <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 67: Statement not executed.">                }</span>
+                              <span class="srcLine"></span>
                   </td>
       </tr>        
           <tr>
         <td class="lineNumberHilight">
                   79
                 </td>
-                  <td class="coverageCountHilight">&nbsp;</td>
+                  <td class="coverageCountWarning">
+                          <a title="Line 79: Property Sal not exercised">0</a>
+                      </td>
                           <td class="srcCell">
-                              <span class="srcLine" title="Line 58: Statement executed 2 times.">            }</span>
+                              <span class="srcLineWarning" title="Line 79: Property Sal not exercised">        <span class="keyword">public</span> <span class="keyword">float</span> Sal</span>
                   </td>
       </tr>        
           <tr>
         <td class="lineNumberHilight">
                   80
                 </td>
-                  <td class="coverageCountWarning">
-                          <a title="Line 80: Expression evaluated to true 0 times, false 2 times.">2</a>
-                      </td>
+                  <td class="coverageCountWarning">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 80: Expression evaluated to true 0 times, false 2 times.">            <span class="keyword">if</span>(whereBuf.Length > 0)</span>
+                              <span class="srcLineWarning" title="Line 79: Property Sal not exercised">        {</span>
                   </td>
       </tr>        
           <tr>
         <td class="lineNumberHilight">
                   81
                 </td>
-                  <td class="coverageCountHilight">&nbsp;</td>
+                  <td class="coverageCountWarning">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine" title="Line 80: Statement executed 2 times.">            {</span>
+                              <span class="srcLineWarning" title="Line 79: Property Sal not exercised">            set { sal = value; }</span>
                   </td>
       </tr>        
           <tr>
         <td class="lineNumberHilight">
                   82
                 </td>
-                  <td class="coverageCountWarning">
-                          <a title="Line 82: Statement not executed.">0</a>
-                      </td>
+                  <td class="coverageCountWarning">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 82: Statement not executed.">                whereBuf.Length = whereBuf.Length - 5;</span>
+                              <span class="srcLineWarning" title="Line 79: Property Sal not exercised">            get { <span class="keyword">return</span> sal; }</span>
                   </td>
       </tr>        
           <tr>
         <td class="lineNumberHilight">
                   83
                 </td>
-                  <td class="coverageCountWarning">
-                          <a title="Line 83: Statement not executed.">0</a>
-                      </td>
+                  <td class="coverageCountWarning">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 83: Statement not executed.">                buf.Append(<span class="string">" WHERE "</span>);</span>
+                              <span class="srcLineWarning" title="Line 79: Property Sal not exercised">        }</span>
                   </td>
       </tr>        
           <tr>
-        <td class="lineNumberHilight">
+        <td class="lineNumber">
                   84
                 </td>
-                  <td class="coverageCountWarning">
-                          <a title="Line 84: Statement not executed.">0</a>
-                      </td>
+                  <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLineWarning" title="Line 84: Statement not executed.">                buf.Append(whereBuf);</span>
+                              <span class="srcLine"></span>
                   </td>
       </tr>        
           <tr>
         <td class="lineNumberHilight">
                   85
                 </td>
-                  <td class="coverageCountHilight">&nbsp;</td>
+                  <td class="coverageCountWarning">
+                          <a title="Line 85: Property Comm not exercised">0</a>
+                      </td>
                           <td class="srcCell">
-                              <span class="srcLine" title="Line 80: Statement executed 2 times.">            }</span>
+                              <span class="srcLineWarning" title="Line 85: Property Comm not exercised">        <span class="keyword">public</span> <span class="keyword">float</span> Comm</span>
                   </td>
       </tr>        
           <tr>
         <td class="lineNumberHilight">
                   86
                 </td>
-                  <td class="coverageCountHilight">
-                          <a title="Line 86: Statement executed 2 times.">2</a>
-                      </td>
+                  <td class="coverageCountWarning">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine" title="Line 86: Statement executed 2 times.">            <span class="keyword">return</span> buf.ToString();</span>
+                              <span class="srcLineWarning" title="Line 85: Property Comm not exercised">        {</span>
                   </td>
       </tr>        
           <tr>
         <td class="lineNumberHilight">
                   87
                 </td>
-                  <td class="coverageCountHilight">&nbsp;</td>
+                  <td class="coverageCountWarning">&nbsp;</td>
                           <td class="srcCell">
-                              <span class="srcLine" title="Line 51: Method CreateAutoSelectFromClause entered 2 times.">        }</span>
+                              <span class="srcLineWarning" title="Line 85: Property Comm not exercised">            set { comm = value; }</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  88
+                </td>
+                  <td class="coverageCountWarning">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLineWarning" title="Line 85: Property Comm not exercised">            get { <span class="keyword">return</span> comm; }</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  89
+                </td>
+                  <td class="coverageCountWarning">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLineWarning" title="Line 85: Property Comm not exercised">        }</span>
                   </td>
       </tr>        
           <tr>
         <td class="lineNumber">
-                  88
+                  90
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine"></span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  91
+                </td>
+                  <td class="coverageCountWarning">
+                          <a title="Line 91: Property Deptno not exercised">0</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLineWarning" title="Line 91: Property Deptno not exercised">        <span class="keyword">public</span> <span class="keyword">int</span> Deptno</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  92
+                </td>
+                  <td class="coverageCountWarning">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLineWarning" title="Line 91: Property Deptno not exercised">        {</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  93
+                </td>
+                  <td class="coverageCountWarning">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLineWarning" title="Line 91: Property Deptno not exercised">            set { deptno = value; }</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  94
+                </td>
+                  <td class="coverageCountWarning">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLineWarning" title="Line 91: Property Deptno not exercised">            get { <span class="keyword">return</span> deptno; }</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  95
+                </td>
+                  <td class="coverageCountWarning">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLineWarning" title="Line 91: Property Deptno not exercised">        }</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  96
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine"></span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  97
+                </td>
+                  <td class="coverageCountWarning">
+                          <a title="Line 97: Property Parent not exercised">0</a>
+                      </td>
+                          <td class="srcCell">
+                              <span class="srcLineWarning" title="Line 97: Property Parent not exercised">        [Relno(0), Relkeys(<span class="string">"mgr:empno"</span>)]</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  98
+                </td>
+                  <td class="coverageCountWarning">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLineWarning" title="Line 97: Property Parent not exercised">        <span class="keyword">public</span> Employee4 Parent</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  99
+                </td>
+                  <td class="coverageCountWarning">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLineWarning" title="Line 97: Property Parent not exercised">        {</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  100
+                </td>
+                  <td class="coverageCountWarning">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLineWarning" title="Line 97: Property Parent not exercised">            set { parent = value; }</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  101
+                </td>
+                  <td class="coverageCountWarning">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLineWarning" title="Line 97: Property Parent not exercised">            get { <span class="keyword">return</span> parent; }</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumberHilight">
+                  102
+                </td>
+                  <td class="coverageCountWarning">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLineWarning" title="Line 97: Property Parent not exercised">        }</span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  103
+                </td>
+                  <td class="coverageCount">&nbsp;</td>
+                          <td class="srcCell">
+                              <span class="srcLine"></span>
+                  </td>
+      </tr>        
+          <tr>
+        <td class="lineNumber">
+                  104
                 </td>
                   <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
@@ -924,7 +1039,7 @@
       </tr>        
           <tr>
         <td class="lineNumber">
-                  89
+                  105
                 </td>
                   <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
@@ -933,7 +1048,7 @@
       </tr>        
           <tr>
         <td class="lineNumber">
-                  90
+                  106
                 </td>
                   <td class="coverageCount">&nbsp;</td>
                           <td class="srcCell">
