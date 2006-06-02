@@ -58,16 +58,6 @@ namespace Seasar.Dao.Tests.Dbms
             set { versionNo = value; }
             get { return versionNo; }
 	    }
-
-//	    public boolean equals(Object other) {
-//	        if ( !(other instanceof Department) ) return false;
-//	        Department castOther = (Department) other;
-//	        return this.getDeptno() == castOther.getDeptno();
-//	    }
-//
-//	    public int hashCode() {
-//	        return this.getDeptno();
-//	    }
 	    
 	    public String toString()
         {

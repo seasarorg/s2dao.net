@@ -281,12 +281,22 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Tests.Interceptors\Department.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Seasar.Dao.Tests.Interceptors\Employee.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
                     RelPath = "Seasar.Dao.Tests.Interceptors\Hoge.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Tests.Interceptors\IDepartmentAutoDao.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -306,6 +316,11 @@
                 />
                 <File
                     RelPath = "Seasar.Dao.Tests.Interceptors\S2DaoInterceptor2Test.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Tests.Interceptors\S2DaoInterceptor3Test.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
