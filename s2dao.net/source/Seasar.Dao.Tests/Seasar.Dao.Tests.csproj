@@ -17,7 +17,7 @@
                 DelaySign = "false"
                 OutputType = "Library"
                 PreBuildEvent = ""
-                PostBuildEvent = 'copy "$(ProjectDir)App.config" "$(TargetDir)Seasar.Dao.Tests.dll.config" /Y &#xd;&#xa;xcopy "$(ProjectDir)Seasar.Dao.Tests.Interceptors" "$(TargetDir)Seasar.Dao.Tests.Interceptors" /S /I /Y /D'
+                PostBuildEvent = 'copy "$(ProjectDir)App.config" "$(TargetDir)Seasar.Dao.Tests.dll.config" /Y copy "$(ProjectDir)App.config" "$(TargetDir)Seasar.Dao.Tests.dll.config" /Y &#xd;&#xa;xcopy "$(ProjectDir)Seasar.Dao.Tests.Interceptors" "$(TargetDir)Seasar.Dao.Tests.Interceptors" /S /I /Y /D&#xd;&#xa;xcopy "$(ProjectDir)Seasar.Dao.Tests.Impl" "$(TargetDir)Seasar.Dao.Tests.Impl" /S /I /Y /D'
                 RootNamespace = ""
                 RunPostBuildEvent = "OnBuildSuccess"
                 StartupObject = ""
@@ -201,12 +201,22 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Tests.Impl\DaoMetaDataImplTest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Seasar.Dao.Tests.Impl\DeleteAutoStaticCommandTest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
                     RelPath = "Seasar.Dao.Tests.Impl\Department.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Tests.Impl\Department2.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -221,6 +231,16 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Tests.Impl\Employee2.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Tests.Impl\Employee2Dao.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Seasar.Dao.Tests.Impl\Employee4.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -229,6 +249,15 @@
                     RelPath = "Seasar.Dao.Tests.Impl\EmployeeAutoDao.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Tests.Impl\EmployeeDao.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Tests.Impl\EmployeeDao_GetAllEmployees.sql"
+                    BuildAction = "Content"
                 />
                 <File
                     RelPath = "Seasar.Dao.Tests.Impl\EmployeeSearchCondition.cs"
@@ -247,6 +276,11 @@
                 />
                 <File
                     RelPath = "Seasar.Dao.Tests.Impl\InsertAutoStaticCommandTest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Tests.Impl\RelationKeyTest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

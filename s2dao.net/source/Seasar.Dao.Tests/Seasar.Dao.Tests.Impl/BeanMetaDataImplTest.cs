@@ -30,9 +30,6 @@ using MbUnit.Framework;
 
 namespace Seasar.Dao.Tests.Impl
 {
-	/// <summary>
-	/// BeanMetaDataImplTest ‚ÌŠT—v‚Ìà–¾‚Å‚·B
-	/// </summary>
 	[TestFixture]
 	public class BeanMetaDataImplTest
 	{

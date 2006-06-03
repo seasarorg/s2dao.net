@@ -17,61 +17,34 @@
 #endregion
 
 using System;
+using Seasar.Dao.Attrs;
 
 namespace Seasar.Dao.Tests.Impl
 {
-	/// <summary>
-	/// EmployeeSearchCondition ÇÃäTóvÇÃê‡ñæÇ≈Ç∑ÅB
-	/// </summary>
 	public class EmployeeSearchCondition
 	{
-        public const String dname_COLUMN = "dname_0";
         private String job;
         private String dname;
         private String orderByString;
-	
-        /**
-         * @return Returns the dname.
-         */
-        public String getDname() 
+	        
+        [Column("dname_0")]
+        public string Dname
         {
-            return dname;
+            set { dname = value; }
+            get { return dname; }
         }
-        /**
-         * @param dname The dname to set.
-         */
-        public void setDname(String dname) 
+
+        public string Job
         {
-            this.dname = dname;
+            set { job = value; }
+            get { return job; }
         }
-        /**
-         * @return Returns the job.
-         */
-        public String getJob() 
+
+        public string OrderByString
         {
-            return job;
-        }
-        /**
-         * @param job The job to set.
-         */
-        public void setJob(String job) 
-        {
-            this.job = job;
+            set { orderByString = value; }
+            get { return orderByString; }
         }
 	
-        /**
-         * @return Returns the orderByString.
-         */
-        public String getOrderByString() 
-        {
-            return orderByString;
-        }
-        /**
-         * @param orderByString The orderByString to set.
-         */
-        public void setOrderByString(String orderByString) 
-        {
-            this.orderByString = orderByString;
-        }
 	}
 }

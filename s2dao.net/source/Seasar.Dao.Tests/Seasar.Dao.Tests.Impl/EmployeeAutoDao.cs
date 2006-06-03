@@ -46,7 +46,7 @@ namespace Seasar.Dao.Tests.Impl
         [Query("ename IN /*enames*/('SCOTT','MARY') AND job IN /*jobs*/('ANALYST', 'FREE')")]
         IList GetEmployeesByEnameJob(IList enames, IList jobs);
 
-        //TODO:
+        //TODO:これがあると「テーブル(EMP)のカラム(dto)が見つかりません」になってしまう
         //IList GetEmployeesBySearchCondition(EmployeeSearchCondition dto);
 
         //IList GetEmployeesByEmployee(Employee dto);
