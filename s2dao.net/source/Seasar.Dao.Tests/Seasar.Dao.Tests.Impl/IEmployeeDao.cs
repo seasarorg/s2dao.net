@@ -17,30 +17,27 @@
 #endregion
 
 using System;
+using System.Collections;
 using Seasar.Dao.Attrs;
 
 namespace Seasar.Dao.Tests.Impl
 {
-	/// <summary>
-	/// DepartmentAutoDao の概要の説明です。
-	/// </summary>
-    [Bean(typeof(Department))]
-    public interface DepartmentAutoDao
+
+    [Bean(typeof(Employee))]
+    public interface IEmployeeDao
 	{
-        void Insert(Department department);
 
-        //対象外
-        //void InsertBatch(Department[] departents);
+        IList GetAllEmployees();
 
-        void Update(Department department);
+        Employee[] GetAllEmployeeArray();
 
-        //対象外
-        //void UpdateBatch(Department[] departents);
+        [Query("empno=/*empno*/")]
+        Employee GetEmployee(int empno);
 
-        void Delete(Department department);
+        int GetCount();
 
-        //対象外
-        //void DeleteBatch(Department[] departents);
+        void Update(Employee employee);
 
+        Employee[] GetEmployeesByDeptno(int deptno);
 	}
 }

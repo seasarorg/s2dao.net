@@ -49,7 +49,7 @@ namespace Seasar.Dao.Tests.Impl
         [Test, S2(Tx.Rollback)]
         public void TestExecuteTx() 
         {
-            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeAutoDao),
+            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
                 dataSource, BasicCommandFactory.INSTANCE,
                 BasicDataReaderFactory.INSTANCE, new DatabaseMetaDataImpl(dataSource));
 
@@ -64,7 +64,7 @@ namespace Seasar.Dao.Tests.Impl
         [Test, S2(Tx.Rollback)]
         public void TestExecute2Tx() 
         {
-            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(DepartmentAutoDao),
+            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IDepartmentAutoDao),
                 dataSource, BasicCommandFactory.INSTANCE,
                 BasicDataReaderFactory.INSTANCE, new DatabaseMetaDataImpl(dataSource));
             
@@ -88,7 +88,7 @@ namespace Seasar.Dao.Tests.Impl
         [ExpectedException(typeof(NotSingleRowUpdatedRuntimeException))]
         public void TestExecute3Tx() 
         {
-            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(DepartmentAutoDao),
+            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IDepartmentAutoDao),
                 dataSource, BasicCommandFactory.INSTANCE,
                 BasicDataReaderFactory.INSTANCE, new DatabaseMetaDataImpl(dataSource));
             
@@ -110,7 +110,7 @@ namespace Seasar.Dao.Tests.Impl
         [Test, S2(Tx.Rollback)]
         public void TestExecute4Tx() 
         {
-            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeAutoDao),
+            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
                 dataSource, BasicCommandFactory.INSTANCE,
                 BasicDataReaderFactory.INSTANCE, new DatabaseMetaDataImpl(dataSource));
             
@@ -124,7 +124,7 @@ namespace Seasar.Dao.Tests.Impl
         [Test, S2(Tx.Rollback)]
         public void TestExecute5Tx() 
         {
-            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeAutoDao),
+            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
                 dataSource, BasicCommandFactory.INSTANCE,
                 BasicDataReaderFactory.INSTANCE, new DatabaseMetaDataImpl(dataSource));
 

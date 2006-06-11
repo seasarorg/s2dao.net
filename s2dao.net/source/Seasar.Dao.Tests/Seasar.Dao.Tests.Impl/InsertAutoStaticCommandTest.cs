@@ -44,7 +44,7 @@ namespace Seasar.Dao.Tests.Impl
         [Test]
         public void TestExecuteTx() 
         {
-            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeAutoDao),
+            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
                 dataSource, BasicCommandFactory.INSTANCE,
                 BasicDataReaderFactory.INSTANCE,new DatabaseMetaDataImpl(dataSource));
 
@@ -66,7 +66,7 @@ namespace Seasar.Dao.Tests.Impl
         [Test]
         public void TestExecute2Tx() 
         {
-            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IdentityTableAutoDao),
+            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IIdentityTableAutoDao),
                 dataSource, BasicCommandFactory.INSTANCE,
                 BasicDataReaderFactory.INSTANCE,new DatabaseMetaDataImpl(dataSource));
 
@@ -103,7 +103,7 @@ namespace Seasar.Dao.Tests.Impl
         [Test]
         public void TestExecute4Tx() 
         {
-            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeAutoDao),
+            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
                 dataSource, BasicCommandFactory.INSTANCE,
                 BasicDataReaderFactory.INSTANCE, new DatabaseMetaDataImpl(dataSource));
 
@@ -124,7 +124,7 @@ namespace Seasar.Dao.Tests.Impl
         [Test]
         public void TestExecute5Tx() 
         {
-            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeAutoDao),
+            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
                 dataSource, BasicCommandFactory.INSTANCE,
                 BasicDataReaderFactory.INSTANCE, new DatabaseMetaDataImpl(dataSource));
             ISqlCommand cmd = dmd.GetSqlCommand("Insert3");

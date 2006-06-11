@@ -24,6 +24,7 @@ using Seasar.Dao.Dbms;
 using Seasar.Dao.Impl;
 using Seasar.Extension.ADO;
 using Seasar.Extension.ADO.Impl;
+using Seasar.Extension.Unit;
 using Seasar.Framework.Container;
 using Seasar.Framework.Container.Factory;
 using Seasar.Framework.Util;
@@ -52,7 +53,7 @@ namespace Seasar.Dao.Tests.Impl
         [Test]
         public void TestSelectBeanList() 
         {
-            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeDao),
+            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeDao),
                 dataSource, BasicCommandFactory.INSTANCE,
                 BasicDataReaderFactory.INSTANCE, dbMetaData);
 
@@ -67,7 +68,7 @@ namespace Seasar.Dao.Tests.Impl
         [Test]
         public void TestSelectBeanArray() 
         {
-            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeDao),
+            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeDao),
                 dataSource, BasicCommandFactory.INSTANCE,
                 BasicDataReaderFactory.INSTANCE, dbMetaData);
 
@@ -80,7 +81,7 @@ namespace Seasar.Dao.Tests.Impl
         [Test]
         public void TestSelectBean() 
         {
-            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeDao),
+            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeDao),
                 dataSource, BasicCommandFactory.INSTANCE,
                 BasicDataReaderFactory.INSTANCE, dbMetaData);
 
@@ -90,57 +91,72 @@ namespace Seasar.Dao.Tests.Impl
             Assert.AreEqual("empno", cmd.ArgNames[0], "3");
         }
 
-//        [Test]
-//        public void TestSelectObject() 
-//        {
-//            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeDao),
-//                getDataSource(), BasicStatementFactory.INSTANCE,
-//                BasicResultSetFactory.INSTANCE);
-//            SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.GetSqlCommand("getCount");
-//            Assert.IsNotNull("1", cmd);
-//            assertEquals("2", tpeof(ObjectResultSetHandler), cmd.getResultSetHandler().GetType());
-//            Assert.AreEqual("SELECT COUNT(*) FROM emp", cmd.Sql, "3");
-//        }
-//
-//        [Test]
-//        public void TestUpdate() 
-//        {
-//            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeDao),
-//                getDataSource(), BasicStatementFactory.INSTANCE,
-//                BasicResultSetFactory.INSTANCE);
-//            UpdateDynamicCommand cmd = (UpdateDynamicCommand) dmd.GetSqlCommand("update");
-//            Assert.IsNotNull("1", cmd);
-//            Assert.AreEqual("employee", cmd.getArgNames()[0], "2");
-//        }
-//
-//        [Test]
-//        public void TestInsertAutoTx() 
-//        {
-//            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeAutoDao),
-//                getDataSource(), BasicStatementFactory.INSTANCE,
-//                BasicResultSetFactory.INSTANCE);
-//            InsertAutoStaticCommand cmd = (InsertAutoStaticCommand) dmd.GetSqlCommand("insert");
-//            Assert.IsNotNull("1", cmd);
-//            Employee emp = new Employee();
-//            emp.setEmpno(99);
-//            emp.setEname("hoge");
-//            cmd.Execute(new Object[] { emp });
-//        }
-//
+        [Test]
+        public void TestSelectObject() 
+        {
+            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeDao),
+                dataSource, BasicCommandFactory.INSTANCE,
+                BasicDataReaderFactory.INSTANCE, dbMetaData);
+
+            SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.GetSqlCommand("GetCount");
+            Assert.IsNotNull(cmd, "1");
+            Assert.AreEqual(typeof(ObjectDataReaderHandler), cmd.DataReaderHandler.GetType(), "2");
+            Assert.Ignore("SetupMethodのdbmsPath・standardPath両方とも、Namespaceが付いているので、sqlファイルを取得できていない？");
+            Assert.AreEqual("SELECT count(*) FROM emp", cmd.Sql, "3");
+        }
+
+        [Test]
+        public void TestUpdate() 
+        {
+            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeDao),
+                dataSource, BasicCommandFactory.INSTANCE,
+                BasicDataReaderFactory.INSTANCE, dbMetaData);
+
+            Assert.Ignore("sqlファイルを取得できていないので、UpdateAutoStaticCommandが返っている");
+            UpdateDynamicCommand cmd = (UpdateDynamicCommand) dmd.GetSqlCommand("Update");
+            Assert.IsNotNull(cmd, "1");
+            Assert.AreEqual("employee", cmd.ArgNames[0], "2");
+        }
+
+//        [Test, S2(Tx.Rollback)]
+        [Test]
+        public void TestInsertAutoTx() 
+        {
+            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
+                dataSource, BasicCommandFactory.INSTANCE,
+                BasicDataReaderFactory.INSTANCE, dbMetaData);
+
+            InsertAutoStaticCommand cmd = (InsertAutoStaticCommand) dmd.GetSqlCommand("Insert");
+            Assert.IsNotNull(cmd, "1");
+            Employee emp = new Employee();
+            emp.Empno= 99;
+            emp.Ename = "hoge";
+            cmd.Execute(new Object[] { emp });
+
+            //TODO:本当はTx.Rollbackしたい
+            //更新したVersionNoを戻しておく
+            string cmdText = "DELETE [dbo].[EMP] WHERE EMPNO = 99";
+            System.Data.IDbConnection cn = DataSourceUtil.GetConnection(dataSource);
+            System.Data.IDbCommand dbcmd = dataSource.GetCommand(cmdText,cn);
+            CommandUtil.ExecuteNonQuery(dataSource,dbcmd);
+
+        }
+
 //        [Test]
 //        public void TestInsertAuto() 
 //        {
-//            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(FormUseHistoryDao),
-//                getDataSource(), BasicStatementFactory.INSTANCE,
-//                BasicResultSetFactory.INSTANCE);
-//            InsertAutoStaticCommand cmd = (InsertAutoStaticCommand) dmd.GetSqlCommand("insert");
-//            Assert.IsNotNull("1", cmd);
-//        }
+//            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IFormUseHistoryDao),
+//                dataSource, BasicCommandFactory.INSTANCE,
+//                BasicDataReaderFactory.INSTANCE, dbMetaData);
 //
+//            InsertAutoStaticCommand cmd = (InsertAutoStaticCommand) dmd.GetSqlCommand("Insert");
+//            Assert.IsNotNull(cmd, "1");
+//        }
+
 //        [Test]
 //        public void TestUpdateAutoTx() 
 //        {
-//            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeAutoDao),
+//            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
 //            getDataSource(), BasicStatementFactory.INSTANCE,
 //            BasicResultSetFactory.INSTANCE);
 //            SqlCommand cmd = dmd.GetSqlCommand("update");
@@ -156,7 +172,7 @@ namespace Seasar.Dao.Tests.Impl
 //        [Test]
 //    public void TestDeleteAutoTx() 
 //        {
-//            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeAutoDao),
+//            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
 //                                getDataSource(), BasicStatementFactory.INSTANCE,
 //                                BasicResultSetFactory.INSTANCE);
 //                                SqlCommand cmd = dmd.GetSqlCommand("delete");
@@ -166,27 +182,33 @@ namespace Seasar.Dao.Tests.Impl
 //                                cmd.Execute(new Object[] { emp });
 //            }
 //
-//    [Test]
-//    public void TestIllegalAutoUpdateMethod() 
-//        {
-//            try 
-//{
-//    new DaoMetaDataImpl(Illegaltypeof(EmployeeAutoDao), getDataSource(),
-//            BasicStatementFactory.INSTANCE,
-//            BasicResultSetFactory.INSTANCE);
-//            fail("1");
-//        } 
-//    catch (IllegalSignatureRuntimeException ex) 
-//{
-//    //System.out.println(ex.getSignature());
-//    //System.out.println(ex);
-//}
-//    }
+    [Test]
+    public void TestIllegalAutoUpdateMethod() 
+    {
+        try 
+        {
+//            new DaoMetaDataImpl(Illegaltypeof(IEmployeeAutoDao), getDataSource(),
+//                    BasicStatementFactory.INSTANCE,
+//                    BasicResultSetFactory.INSTANCE);
+            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IIllegalEmployeeAutoDao),
+                dataSource, BasicCommandFactory.INSTANCE,
+                BasicDataReaderFactory.INSTANCE, dbMetaData);
+
+            Assert.Ignore("例外発生しない");
+            Assert.Fail("1");
+        } 
+        catch (IllegalSignatureRuntimeException ex) 
+        {
+            //System.out.println(ex.getSignature());
+            //System.out.println(ex);
+            Assert.IsNotNull(ex);
+        }
+    }
 //
 //    [Test]
 //    public void TestSelectAuto() 
 //    {
-//    IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeAutoDao),
+//    IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
 //        getDataSource(), BasicStatementFactory.INSTANCE,
 //        BasicResultSetFactory.INSTANCE);
 //        SelectDynamicCommand cmd = (SelectDynamicCommand) dmd
@@ -197,7 +219,7 @@ namespace Seasar.Dao.Tests.Impl
 //    [Test]
 //    public void TestInsertBatchAuto() 
 //    {
-//        IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeAutoDao),
+//        IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
 //            dataSource, BasicCommandFactory.INSTANCE,
 //            BasicDataReaderFactory.INSTANCE, dbMetaData);
 //
@@ -209,7 +231,7 @@ namespace Seasar.Dao.Tests.Impl
 //    [Test]
 //    public void TestUpdateBatchAuto() 
 //    {
-//    IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeAutoDao),
+//    IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
 //        getDataSource(), BasicStatementFactory.INSTANCE,
 //        BasicResultSetFactory.INSTANCE);
 //        UpdateBatchAutoStaticCommand cmd = (UpdateBatchAutoStaticCommand) dmd
@@ -220,7 +242,7 @@ namespace Seasar.Dao.Tests.Impl
 //    [Test]
 //    public void TestDeleteBatchAuto() 
 //    {
-//    IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeAutoDao),
+//    IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
 //        getDataSource(), BasicStatementFactory.INSTANCE,
 //        BasicResultSetFactory.INSTANCE);
 //        DeleteBatchAutoStaticCommand cmd = (DeleteBatchAutoStaticCommand) dmd
@@ -231,7 +253,7 @@ namespace Seasar.Dao.Tests.Impl
     [Test]
     public void TestCreateFindCommand() 
     {
-        IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeAutoDao),
+        IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
             dataSource, BasicCommandFactory.INSTANCE,
             BasicDataReaderFactory.INSTANCE, dbMetaData);
 
@@ -244,7 +266,7 @@ namespace Seasar.Dao.Tests.Impl
     [Test]
     public void TestCreateFindCommand2() 
     {
-        IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeAutoDao),
+        IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
             dataSource, BasicCommandFactory.INSTANCE,
             BasicDataReaderFactory.INSTANCE, dbMetaData);
 
@@ -257,7 +279,7 @@ namespace Seasar.Dao.Tests.Impl
     [Test]
     public void TestCreateFindCommand3() 
     {
-        IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeAutoDao),
+        IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
             dataSource, BasicCommandFactory.INSTANCE,
             BasicDataReaderFactory.INSTANCE, dbMetaData);
 
@@ -270,7 +292,7 @@ namespace Seasar.Dao.Tests.Impl
     [Test]
     public void TestCreateFindCommand4() 
     {
-        IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeAutoDao),
+        IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
             dataSource, BasicCommandFactory.INSTANCE,
             BasicDataReaderFactory.INSTANCE, dbMetaData);
 
@@ -283,7 +305,7 @@ namespace Seasar.Dao.Tests.Impl
 //    [Test]
 //    public void TestCreateFindCommand5() 
 //    {
-//        IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeAutoDao),
+//        IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
 //            dataSource, BasicCommandFactory.INSTANCE,
 //            BasicDataReaderFactory.INSTANCE, dbMetaData);
 //
@@ -297,7 +319,7 @@ namespace Seasar.Dao.Tests.Impl
     [Test]
     public void TestCreateFindBeanCommand() 
     {
-        IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeAutoDao),
+        IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
             dataSource, BasicCommandFactory.INSTANCE,
             BasicDataReaderFactory.INSTANCE, dbMetaData);
 
@@ -310,7 +332,7 @@ namespace Seasar.Dao.Tests.Impl
     [Test]
     public void TestCreateObjectBeanCommand() 
     {
-        IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeAutoDao),
+        IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
             dataSource, BasicCommandFactory.INSTANCE,
             BasicDataReaderFactory.INSTANCE, dbMetaData);
 
@@ -322,7 +344,7 @@ namespace Seasar.Dao.Tests.Impl
 //    [Test]
 //    public void TestSelectAutoByQuery() 
 //    {
-//    IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeAutoDao),
+//    IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
 //        getDataSource(), BasicStatementFactory.INSTANCE,
 //        BasicResultSetFactory.INSTANCE);
 //        SqlCommand cmd = dmd.GetSqlCommand("getEmployeesBySal");
@@ -335,7 +357,7 @@ namespace Seasar.Dao.Tests.Impl
 //    [Test]
 //    public void TestSelectAutoByQueryMultiIn() 
 //    {
-//    IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeAutoDao),
+//    IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
 //        getDataSource(), BasicStatementFactory.INSTANCE,
 //        BasicResultSetFactory.INSTANCE);
 //        SelectDynamicCommand cmd = (SelectDynamicCommand) dmd
@@ -355,7 +377,7 @@ namespace Seasar.Dao.Tests.Impl
         [Test]
         public void TestRelation() 
         {
-            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(Employee2Dao),
+            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployee2Dao),
                 dataSource, BasicCommandFactory.INSTANCE,
                 BasicDataReaderFactory.INSTANCE, dbMetaData);
 
@@ -368,8 +390,8 @@ namespace Seasar.Dao.Tests.Impl
         [Test]
         public void TestGetDaoInterface() 
         {
-            Assert.AreEqual(typeof(EmployeeDao), DaoMetaDataImpl.GetDaoInterface(typeof(EmployeeDao)), "1");
-            //Assert.AreEqual(typeof(EmployeeDao), DaoMetaDataImpl.getDaoInterface(typeof(EmployeeDaoImpl)), "2");
+            Assert.AreEqual(typeof(IEmployeeDao), DaoMetaDataImpl.GetDaoInterface(typeof(IEmployeeDao)), "1");
+            //Assert.AreEqual(typeof(IEmployeeDao), DaoMetaDataImpl.getDaoInterface(typeof(EmployeeDaoImpl)), "2");
         }
 
         [Test]
@@ -378,7 +400,7 @@ namespace Seasar.Dao.Tests.Impl
             //TODO
             Assert.Ignore("この書き方ではSetupSelectMethodByAutoの条件判断でargNamesに「dto」がセットされていると判断されてしまう");
 
-            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeAutoDao),
+            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
                 dataSource, BasicCommandFactory.INSTANCE,
                 BasicDataReaderFactory.INSTANCE, dbMetaData);
 
@@ -397,7 +419,7 @@ namespace Seasar.Dao.Tests.Impl
             //TODO
             Assert.Ignore("この書き方ではSetupSelectMethodByAutoの条件判断でargNamesに「dto」がセットされていると判断されてしまう");
 
-            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeAutoDao),
+            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
                 dataSource, BasicCommandFactory.INSTANCE,
                 BasicDataReaderFactory.INSTANCE, dbMetaData);
 
@@ -441,20 +463,18 @@ namespace Seasar.Dao.Tests.Impl
 //                                    Assert.IsTrue("2", cmd.Sql.endsWith(" ORDER BY empno"));
 //                                }
 //
-//                    [Test]
-//    public void TestSelfReference() 
-//            {
-//                IDaoMetaData dmd = new DaoMetaDataImpl(typeof(Employee4Dao),
-//                            getDataSource(), BasicStatementFactory.INSTANCE,
-//                            BasicResultSetFactory.INSTANCE);
-//                            SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.GetSqlCommand("getEmployee");
-//                            Assert.IsNotNull("1", cmd);
-//                            //System.out.println(cmd.Sql);
-//                            Employee4 employee = (Employee4) cmd
-//                                .execute(new Object[] { new Int32(7788) });
-//                            //System.out.println(employee);
-//                            Assert.AreEqual(new Long(7566), employee.getParent().getEmpno(), "2");
-//                        }
+//        [Test]
+//        public void TestSelfReference() 
+//        {
+//            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(Employee4Dao),
+//                dataSource, BasicCommandFactory.INSTANCE,
+//                BasicDataReaderFactory.INSTANCE, dbMetaData);
+//
+//            SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.GetSqlCommand("getEmployee");
+//            Assert.IsNotNull("1", cmd);
+//            Employee4 employee = (Employee4) cmd.execute(new Object[] { new Int32(7788) });
+//            Assert.AreEqual(new Long(7566), employee.getParent().getEmpno(), "2");
+//        }
 //
 //                    [Test]
 //    public void TestSelfMultiPk() 
@@ -483,7 +503,7 @@ namespace Seasar.Dao.Tests.Impl
 //                    [Test]
 //    public void TestSelectAutoFullColumnName() 
 //                    {
-//                        IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeAutoDao),
+//                        IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
 //    getDataSource(), BasicStatementFactory.INSTANCE,
 //    BasicResultSetFactory.INSTANCE);
 //    SelectDynamicCommand cmd = (SelectDynamicCommand) dmd

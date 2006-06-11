@@ -26,7 +26,7 @@ namespace Seasar.Dao.Tests.Impl
 	/// EmployeeAutoDao ‚ÌŠT—v‚Ìà–¾‚Å‚·B
 	/// </summary>
     [Bean(typeof(Employee))]
-    public interface EmployeeAutoDao
+    public interface IEmployeeAutoDao
 	{
         //public object BEAN = typeof(Employee);
 	

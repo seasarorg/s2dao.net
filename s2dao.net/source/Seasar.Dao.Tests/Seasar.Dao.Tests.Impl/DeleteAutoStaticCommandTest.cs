@@ -43,7 +43,7 @@ namespace Seasar.Dao.Tests.Impl
             IS2Container container = S2ContainerFactory.Create(PATH);
             IDataSource dataSource = (IDataSource) container.GetComponent(typeof(IDataSource));
 
-            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(EmployeeAutoDao),
+            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
                 dataSource, BasicCommandFactory.INSTANCE,
                 BasicDataReaderFactory.INSTANCE,new DatabaseMetaDataImpl(dataSource));
             ISqlCommand cmd = dmd.GetSqlCommand("Delete");
@@ -67,7 +67,7 @@ namespace Seasar.Dao.Tests.Impl
             IS2Container container = S2ContainerFactory.Create(PATH);
             IDataSource dataSource = (IDataSource) container.GetComponent(typeof(IDataSource));
 
-            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(DepartmentAutoDao),
+            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IDepartmentAutoDao),
                 dataSource, BasicCommandFactory.INSTANCE,
                 BasicDataReaderFactory.INSTANCE, new DatabaseMetaDataImpl(dataSource));
             ISqlCommand cmd = dmd.GetSqlCommand("Delete");
@@ -91,7 +91,7 @@ namespace Seasar.Dao.Tests.Impl
             IS2Container container = S2ContainerFactory.Create(PATH);
             IDataSource dataSource = (IDataSource) container.GetComponent(typeof(IDataSource));
 
-            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(DepartmentAutoDao),
+            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IDepartmentAutoDao),
                 dataSource, BasicCommandFactory.INSTANCE,
                 BasicDataReaderFactory.INSTANCE, new DatabaseMetaDataImpl(dataSource));
             DeleteAutoStaticCommand cmd = (DeleteAutoStaticCommand) dmd

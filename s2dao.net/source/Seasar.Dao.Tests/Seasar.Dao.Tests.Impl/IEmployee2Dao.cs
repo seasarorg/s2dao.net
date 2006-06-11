@@ -23,21 +23,11 @@ using Seasar.Dao.Attrs;
 namespace Seasar.Dao.Tests.Impl
 {
 
-    [Bean(typeof(Employee))]
-    public interface EmployeeDao
+    [Bean(typeof(Employee2))]
+    public interface IEmployee2Dao
 	{
 
         IList GetAllEmployees();
 
-        Employee[] GetAllEmployeeArray();
-
-        [Query("empno=/*empno*/")]
-        Employee GetEmployee(int empno);
-
-        int GetCount();
-
-        void Update(Employee employee);
-
-        Employee[] GetEmployeesByDeptno(int deptno);
 	}
 }
