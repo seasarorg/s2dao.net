@@ -202,12 +202,12 @@ namespace Seasar.Dao.Impl
             return cmd;
         }
 
-        protected virtual static bool StartsWithSelect(string query)
+        protected static bool StartsWithSelect(string query)
         {
             return StringUtil.StartWith(query, "select");
         }
 
-        protected virtual static bool StartsWithOrderBy(string query)
+        protected static bool StartsWithOrderBy(string query)
         {
             if(query != null)
             {
