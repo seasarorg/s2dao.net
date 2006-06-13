@@ -48,7 +48,7 @@ namespace Seasar.Dao.Examples.AutoInsert
             // 従業員番号9999の従業員を追加
             Employee emp2 = new Employee();
             emp2.Empno = empno;
-            emp2.Ename = "①～⑩杉本ｶｽﾞﾔ";
+            emp2.Ename = "テスト";
             emp2.Deptnum = 12;
             int ret = employeeDao.InsertEmployee(emp2);
             Console.WriteLine("InsertEmployeeメソッドの戻り値:" + ret);
