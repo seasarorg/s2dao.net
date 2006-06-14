@@ -1,4 +1,9 @@
-﻿S2Dao.NET 0.4.2
+﻿S2Dao.NET 0.4.3
+- 引数がDTOの場合の自動SQL生成機能が動かない問題を修正する
+- 自動WHERE句作成でNHibernateのNullablesとSystem.Data.SqlTypesに対応する
+- DaoMetaDataImplのprotectedメソッドにvirtualキーワードを付ける
+
+S2Dao.NET 0.4.2
 
 - IFコメントの条件式でDTOが利用できない問題を修正する
 - 自動SELECTコマンド生成機能で、メソッドのシグネチャから自動的にWHERE句以降を生成する機能が動作しない不具合を修正する
