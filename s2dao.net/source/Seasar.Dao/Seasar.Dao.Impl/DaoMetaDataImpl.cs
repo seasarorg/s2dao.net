@@ -358,20 +358,23 @@ namespace Seasar.Dao.Impl
             string[] argNames = MethodUtil.GetParameterNames(mi);
             Type[] argTypes = MethodUtil.GetParameterTypes(mi);
             if(query != null && !StartsWithOrderBy(query))
+            {
                 cmd = CreateSelectDynamicCommand(handler, query);
+            }
             else
             {
                 cmd = CreateSelectDynamicCommand(handler);
                 string sql = null;
                 
-                if(argNames.Length == 0 && mi.GetParameters().Length == 1)
+                if(argTypes.Length == 1 
+                    && ValueTypes.GetValueType(argTypes[0]) == ValueTypes.OBJECT)
                 {
                     argNames = new string[] { "dto" };
                     sql = CreateAutoSelectSqlByDto(argTypes[0]);
                 }
                 else
                 {
-                    sql = CreateAutoSelectSql(argNames);
+                    sql = CreateAutoSelectSql(argNames, argTypes);
                 }
                 if(query != null) sql += " " + query;
                 cmd.Sql = sql;
@@ -397,27 +400,24 @@ namespace Seasar.Dao.Impl
                 IPropertyType pt = dmd.GetPropertyType(i);
                 string aliasName = pt.ColumnName;
                 if(!beanMetaData.HasPropertyTypeByAliasName(aliasName))
+                {
                     continue;
+                }
                 if(!beanMetaData.GetPropertyTypeByAliasName(aliasName).IsPersistent)
+                {
                     continue;
+                }
                 string columnName = beanMetaData.ConvertFullColumnName(aliasName);
                 string propertyName = "dto." + pt.PropertyName;
-                buf.Append("/*IF ");
-                buf.Append(propertyName);
-                buf.Append(" != null*/");
-                buf.Append(" ");
-                if(!began || i != 0) buf.Append("AND ");
-                buf.Append(columnName);
-                buf.Append(" = /*");
-                buf.Append(propertyName);
-                buf.Append("*/null");
-                buf.Append("/*END*/");
+
+                // IFコメントを作成する
+                CreateAutoIFComment(buf, columnName, propertyName, pt.PropertyType, i == 0, began);
             }
             if(began) buf.Append("/*END*/");
             return buf.ToString();
         }
 
-        protected virtual string CreateAutoSelectSql(string[] argNames)
+        protected virtual string CreateAutoSelectSql(string[] argNames, Type[] argTypes)
         {
             string sql = dbms.GetAutoSelectSql(BeanMetaData);
             StringBuilder buf = new StringBuilder(sql);
@@ -432,20 +432,69 @@ namespace Seasar.Dao.Impl
                 for(int i = 0; i < argNames.Length; ++i)
                 {
                     string columnName = beanMetaData.ConvertFullColumnName(argNames[i]);
-                    buf.Append("/*IF ");
-                    buf.Append(argNames[i]);
-                    buf.Append(" != null*/");
-                    buf.Append(" ");
-                    if(!began || i != 0) buf.Append("AND ");
-                    buf.Append(columnName);
-                    buf.Append(" = /*");
-                    buf.Append(argNames[i]);
-                    buf.Append("*/null");
-                    buf.Append("/*END*/");
+
+                    // IFコメントを作成する
+                    CreateAutoIFComment(buf, columnName, argNames[i], argTypes[i], i == 0, began);
                 }
                 if(began) buf.Append("/*END*/");
             }
             return buf.ToString();
+        }
+
+        /// <summary>
+        /// IFコメントを作成する
+        /// </summary>
+        /// <param name="buf">SQLを格納する</param>
+        /// <param name="columnName">テーブルの列名</param>
+        /// <param name="propertyName">プロパティの名前</param>
+        /// <param name="propertyType">プロパティの型</param>
+        /// <param name="first">1つめのプロパティかどうか</param>
+        /// <param name="began">BEGINコメントが開始されているかどうか</param>
+        protected virtual void CreateAutoIFComment(StringBuilder buf, string columnName, 
+            string propertyName, Type propertyType, bool first, bool began)
+        {
+            buf.Append("/*IF ");
+
+            // 評価式を作成する
+            CreateIFExpression(buf, propertyName, propertyType);
+
+            buf.Append("*/");
+            buf.Append(" ");
+            if(!began || !first)
+            {
+                buf.Append("AND ");
+            }
+            buf.Append(columnName);
+            buf.Append(" = /*");
+            buf.Append(propertyName);
+            buf.Append("*/null");
+            buf.Append("/*END*/");
+        }
+
+        /// <summary>
+        /// 評価式を作成する
+        /// </summary>
+        /// <param name="buf">SQL</param>
+        /// <param name="propertyName">プロパティの名前</param>
+        /// <param name="propertyType">プロパティの型</param>
+        protected virtual void CreateIFExpression(StringBuilder buf, string propertyName, Type propertyType)
+        {
+            IValueType valueType = ValueTypes.GetValueType(propertyType);
+
+            buf.Append(propertyName);
+
+            if(valueType is NHibernateNullableBaseType)
+            {
+                buf.Append(".HasValue == true");
+            }
+            else if(valueType is SqlBaseType)
+            {
+                buf.Append(".IsNull == false");
+            }
+            else
+            {
+                buf.Append(" != null");
+            }
         }
 
         protected virtual void CheckAutoUpdateMethod(MethodInfo mi)
