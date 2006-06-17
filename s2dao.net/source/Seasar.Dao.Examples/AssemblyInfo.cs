@@ -29,7 +29,7 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("S2Dao.NET.Examples")]
-[assembly: AssemblyCopyright("Copyright (c) 2003-2004 The Seasar Project. All rights reserved.")]
+[assembly: AssemblyCopyright("Copyright (c) 2005-2006 The Seasar Project. All rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]           
 
@@ -44,7 +44,7 @@ using System.Runtime.CompilerServices;
 // 下にあるように、'*' を使って、すべての値を指定するか、
 // ビルドおよびリビジョン番号を既定値にすることができます。
 
-[assembly: AssemblyVersion("0.4.1")]
+[assembly: AssemblyVersion("0.4.3")]
 
 //
 // アセンブリに署名するには、使用するキーを指定しなければなりません。 
