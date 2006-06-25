@@ -101,7 +101,7 @@ namespace Seasar.Dao.Tests.Impl
             SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.GetSqlCommand("GetCount");
             Assert.IsNotNull(cmd, "1");
             Assert.AreEqual(typeof(ObjectDataReaderHandler), cmd.DataReaderHandler.GetType(), "2");
-            Assert.Ignore("SetupMethodのdbmsPath・standardPath両方とも、Namespaceが付いているので、sqlファイルを取得できていない？");
+            Assert.Ignore("SetupMethodのdbmsPath・standardPath両方とも、IsExistと判断されない");
             Assert.AreEqual("SELECT count(*) FROM emp", cmd.Sql, "3");
         }
 
@@ -153,69 +153,82 @@ namespace Seasar.Dao.Tests.Impl
 //            Assert.IsNotNull(cmd, "1");
 //        }
 
-//        [Test]
-//        public void TestUpdateAutoTx() 
-//        {
-//            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
-//            getDataSource(), BasicStatementFactory.INSTANCE,
-//            BasicResultSetFactory.INSTANCE);
-//            SqlCommand cmd = dmd.GetSqlCommand("update");
-//            Assert.IsNotNull("1", cmd);
-//            SelectDynamicCommand cmd2 = (SelectDynamicCommand) dmd
-//            .GetSqlCommand("getEmployee");
-//            Employee emp = (Employee) cmd2
-//            .execute(new Object[] { new Int32(7788) });
-//            emp.setEname("hoge2");
-//            cmd.Execute(new Object[] { emp });
-//        }
-//
-//        [Test]
-//    public void TestDeleteAutoTx() 
-//        {
-//            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
-//                                getDataSource(), BasicStatementFactory.INSTANCE,
-//                                BasicResultSetFactory.INSTANCE);
-//                                SqlCommand cmd = dmd.GetSqlCommand("delete");
-//                                Assert.IsNotNull("1", cmd);
-//                                SelectDynamicCommand cmd2 = (SelectDynamicCommand) dmd.GetSqlCommand("getEmployee");
-//                                Employee emp = (Employee) cmd2.execute(new Object[] { new Int32(7788) });
-//                                cmd.Execute(new Object[] { emp });
-//            }
-//
-    [Test]
-    public void TestIllegalAutoUpdateMethod() 
-    {
-        try 
+        [Test]
+        public void TestUpdateAutoTx() 
         {
-//            new DaoMetaDataImpl(Illegaltypeof(IEmployeeAutoDao), getDataSource(),
-//                    BasicStatementFactory.INSTANCE,
-//                    BasicResultSetFactory.INSTANCE);
-            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IIllegalEmployeeAutoDao),
+            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
                 dataSource, BasicCommandFactory.INSTANCE,
                 BasicDataReaderFactory.INSTANCE, dbMetaData);
 
-            Assert.Ignore("例外発生しない");
-            Assert.Fail("1");
-        } 
-        catch (IllegalSignatureRuntimeException ex) 
-        {
-            //System.out.println(ex.getSignature());
-            //System.out.println(ex);
-            Assert.IsNotNull(ex);
+            ISqlCommand cmd = dmd.GetSqlCommand("Update");
+            Assert.IsNotNull(cmd, "1");
+            SelectDynamicCommand cmd2 = (SelectDynamicCommand) dmd.GetSqlCommand("GetEmployee");
+            Employee emp = (Employee) cmd2.Execute(new Object[] { 7788 });
+            emp.Ename = "hoge2";
+            cmd.Execute(new Object[] { emp });
+
+            //TODO:本当はTx.Rollbackしたい
+            string cmdText = "UPDATE [dbo].[EMP] SET ENAME = 'ANALYST' WHERE EMPNO = 7788";
+            System.Data.IDbConnection cn = DataSourceUtil.GetConnection(dataSource);
+            System.Data.IDbCommand dbcmd = dataSource.GetCommand(cmdText,cn);
+            CommandUtil.ExecuteNonQuery(dataSource,dbcmd);
+
         }
-    }
-//
-//    [Test]
-//    public void TestSelectAuto() 
-//    {
-//    IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
-//        getDataSource(), BasicStatementFactory.INSTANCE,
-//        BasicResultSetFactory.INSTANCE);
-//        SelectDynamicCommand cmd = (SelectDynamicCommand) dmd
-//            .GetSqlCommand("getEmployeeByDeptno");
-//        //System.out.println(cmd.Sql);
-//    }
-//
+
+        [Test]
+        public void TestDeleteAutoTx() 
+        {
+            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
+                dataSource, BasicCommandFactory.INSTANCE,
+                BasicDataReaderFactory.INSTANCE, dbMetaData);
+
+            ISqlCommand cmd = dmd.GetSqlCommand("Delete");
+            Assert.IsNotNull(cmd, "1");
+            SelectDynamicCommand cmd2 = (SelectDynamicCommand) dmd.GetSqlCommand("GetEmployee");
+            Employee emp = (Employee) cmd2.Execute(new Object[] { 7788 });
+            cmd.Execute(new Object[] { emp });
+
+            //TODO:本当はTx.Rollbackしたい
+            string cmdText = "INSERT INTO [dbo].[EMP] VALUES(7788,'SCOTT','ANALYST',7566,CONVERT(datetime,'1982-12-09'),3000.0,NULL,20,CONVERT(datetime,'2005-01-18 13:09:32.213'))";
+            System.Data.IDbConnection cn = DataSourceUtil.GetConnection(dataSource);
+            System.Data.IDbCommand dbcmd = dataSource.GetCommand(cmdText,cn);
+            CommandUtil.ExecuteNonQuery(dataSource,dbcmd);
+        }
+
+        [Test]
+        public void TestIllegalAutoUpdateMethod() 
+        {
+            try 
+            {
+    //            new DaoMetaDataImpl(Illegaltypeof(IEmployeeAutoDao), getDataSource(),
+    //                    BasicStatementFactory.INSTANCE,
+    //                    BasicResultSetFactory.INSTANCE);
+                IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IIllegalEmployeeAutoDao),
+                    dataSource, BasicCommandFactory.INSTANCE,
+                    BasicDataReaderFactory.INSTANCE, dbMetaData);
+
+                Assert.Ignore("例外発生しない");
+                Assert.Fail("1");
+            } 
+            catch (IllegalSignatureRuntimeException ex) 
+            {
+                //System.out.println(ex.getSignature());
+                //System.out.println(ex);
+                Assert.IsNotNull(ex);
+            }
+        }
+
+        [Test]
+        public void TestSelectAuto() 
+        {
+            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
+                dataSource, BasicCommandFactory.INSTANCE,
+                BasicDataReaderFactory.INSTANCE, dbMetaData);
+
+            SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.GetSqlCommand("GetEmployeeByDeptno");
+            //System.out.println(cmd.Sql);
+        }
+
 //    [Test]
 //    public void TestInsertBatchAuto() 
 //    {
@@ -250,130 +263,130 @@ namespace Seasar.Dao.Tests.Impl
 //        Assert.IsNotNull("1", cmd);
 //    }
 //
-    [Test]
-    public void TestCreateFindCommand() 
-    {
-        IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
-            dataSource, BasicCommandFactory.INSTANCE,
-            BasicDataReaderFactory.INSTANCE, dbMetaData);
+        [Test]
+        public void TestCreateFindCommand() 
+        {
+            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
+                dataSource, BasicCommandFactory.INSTANCE,
+                BasicDataReaderFactory.INSTANCE, dbMetaData);
 
-        ISqlCommand cmd = dmd.CreateFindCommand(null);
-        IList employees = (IList) cmd.Execute(null);
-        //System.out.println(employees);
-        Assert.IsTrue(employees.Count > 0, "1");
-    }
+            ISqlCommand cmd = dmd.CreateFindCommand(null);
+            IList employees = (IList) cmd.Execute(null);
+            //System.out.println(employees);
+            Assert.IsTrue(employees.Count > 0, "1");
+        }
 
-    [Test]
-    public void TestCreateFindCommand2() 
-    {
-        IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
-            dataSource, BasicCommandFactory.INSTANCE,
-            BasicDataReaderFactory.INSTANCE, dbMetaData);
+        [Test]
+        public void TestCreateFindCommand2() 
+        {
+            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
+                dataSource, BasicCommandFactory.INSTANCE,
+                BasicDataReaderFactory.INSTANCE, dbMetaData);
 
-        ISqlCommand cmd = dmd.CreateFindCommand(null);
-        IList employees = (IList) cmd.Execute(null);
-        //System.out.println(employees);
-        Assert.IsTrue(employees.Count > 0, "1");
-    }
+            ISqlCommand cmd = dmd.CreateFindCommand(null);
+            IList employees = (IList) cmd.Execute(null);
+            //System.out.println(employees);
+            Assert.IsTrue(employees.Count > 0, "1");
+        }
 
-    [Test]
-    public void TestCreateFindCommand3() 
-    {
-        IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
-            dataSource, BasicCommandFactory.INSTANCE,
-            BasicDataReaderFactory.INSTANCE, dbMetaData);
+        [Test]
+        public void TestCreateFindCommand3() 
+        {
+            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
+                dataSource, BasicCommandFactory.INSTANCE,
+                BasicDataReaderFactory.INSTANCE, dbMetaData);
 
-        ISqlCommand cmd = dmd.CreateFindCommand("select * from emp");
-        IList employees = (IList) cmd.Execute(null);
-        //System.out.println(employees);
-        Assert.IsTrue(employees.Count > 0, "1");
-    }
+            ISqlCommand cmd = dmd.CreateFindCommand("select * from emp");
+            IList employees = (IList) cmd.Execute(null);
+            //System.out.println(employees);
+            Assert.IsTrue(employees.Count > 0, "1");
+        }
 
-    [Test]
-    public void TestCreateFindCommand4() 
-    {
-        IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
-            dataSource, BasicCommandFactory.INSTANCE,
-            BasicDataReaderFactory.INSTANCE, dbMetaData);
+        [Test]
+        public void TestCreateFindCommand4() 
+        {
+            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
+                dataSource, BasicCommandFactory.INSTANCE,
+                BasicDataReaderFactory.INSTANCE, dbMetaData);
 
-        ISqlCommand cmd = dmd.CreateFindCommand("order by empno");
-        IList employees = (IList) cmd.Execute(null);
-        //System.out.println(employees);
-        Assert.IsTrue(employees.Count > 0, "1");
-    }
+            ISqlCommand cmd = dmd.CreateFindCommand("order by empno");
+            IList employees = (IList) cmd.Execute(null);
+            //System.out.println(employees);
+            Assert.IsTrue(employees.Count > 0, "1");
+        }
 
-//    [Test]
-//    public void TestCreateFindCommand5() 
-//    {
-//        IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
-//            dataSource, BasicCommandFactory.INSTANCE,
-//            BasicDataReaderFactory.INSTANCE, dbMetaData);
-//
-//            dmd.setDbms(new Oracle());
-//            SelectDynamicCommand cmd = (SelectDynamicCommand) dmd
-//                .createFindCommand("empno = ?");
-//            //System.out.println(cmd.Sql);
-//            Assert.IsTrue("1", cmd.Sql.endsWith(" AND empno = ?"));
-//        }
+        [Test]
+        public void TestCreateFindCommand5() 
+        {
+            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
+                dataSource, BasicCommandFactory.INSTANCE,
+                BasicDataReaderFactory.INSTANCE, dbMetaData);
 
-    [Test]
-    public void TestCreateFindBeanCommand() 
-    {
-        IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
-            dataSource, BasicCommandFactory.INSTANCE,
-            BasicDataReaderFactory.INSTANCE, dbMetaData);
+            //dmd.setDbms(new Oracle());
+            SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.CreateFindCommand("EMPNO = ?");
+            //System.out.println(cmd.Sql);
+            Assert.IsTrue(cmd.Sql.EndsWith(" EMPNO = ?"), "1");
+        }
 
-        ISqlCommand cmd = dmd.CreateFindBeanCommand("empno = ?");
-        Employee employee = (Employee) cmd.Execute(new Object[] { 7788});
-        //System.out.println(employee);
-        Assert.IsNotNull(employee, "1");
-    }
+        [Test]
+        public void TestCreateFindBeanCommand() 
+        {
+            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
+                dataSource, BasicCommandFactory.INSTANCE,
+                BasicDataReaderFactory.INSTANCE, dbMetaData);
 
-    [Test]
-    public void TestCreateObjectBeanCommand() 
-    {
-        IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
-            dataSource, BasicCommandFactory.INSTANCE,
-            BasicDataReaderFactory.INSTANCE, dbMetaData);
+            ISqlCommand cmd = dmd.CreateFindBeanCommand("empno = ?");
+            Employee employee = (Employee) cmd.Execute(new Object[] { 7788});
+            //System.out.println(employee);
+            Assert.IsNotNull(employee, "1");
+        }
 
-        ISqlCommand cmd = dmd.CreateFindObjectCommand("select count(*) from emp");
-        Int32 count = (Int32) cmd.Execute(null);
-        Assert.AreEqual(14, count, "1");
-    }
-//
-//    [Test]
-//    public void TestSelectAutoByQuery() 
-//    {
-//    IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
-//        getDataSource(), BasicStatementFactory.INSTANCE,
-//        BasicResultSetFactory.INSTANCE);
-//        SqlCommand cmd = dmd.GetSqlCommand("getEmployeesBySal");
-//        List employees = (List) cmd.Execute(new Object[] { 0,
-//                    1000 });
-//        //System.out.println(employees);
-//        Assert.AreEqual(2, employees.size(), "1");
-//    }
-//
-//    [Test]
-//    public void TestSelectAutoByQueryMultiIn() 
-//    {
-//    IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
-//        getDataSource(), BasicStatementFactory.INSTANCE,
-//        BasicResultSetFactory.INSTANCE);
-//        SelectDynamicCommand cmd = (SelectDynamicCommand) dmd
-//            .GetSqlCommand("getEmployeesByEnameJob");
-//        //System.out.println(cmd.Sql);
-//        List enames = new ArrayList();
-//        enames.add("SCOTT");
-//        enames.add("MARY");
-//        List jobs = new ArrayList();
-//        jobs.add("ANALYST");
-//        jobs.add("FREE");
-//        List employees = (List) cmd.Execute(new Object[] { enames, jobs });
-//        //System.out.println(employees);
-//        //Assert.AreEqual(2, employees.size(), "1");
-//    }
-//
+        [Test]
+        public void TestCreateObjectBeanCommand() 
+        {
+            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
+                dataSource, BasicCommandFactory.INSTANCE,
+                BasicDataReaderFactory.INSTANCE, dbMetaData);
+
+            ISqlCommand cmd = dmd.CreateFindObjectCommand("select count(*) from emp");
+            Int32 count = (Int32) cmd.Execute(null);
+            Assert.AreEqual(14, count, "1");
+        }
+
+        [Test]
+        public void TestSelectAutoByQuery() 
+        {
+            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
+                dataSource, BasicCommandFactory.INSTANCE,
+                BasicDataReaderFactory.INSTANCE, dbMetaData);
+
+            ISqlCommand cmd = dmd.GetSqlCommand("GetEmployeesBySal");
+            IList employees = (IList) cmd.Execute(new Object[] { 0,1000 });
+            Assert.Ignore("BindVariablesに入っていない");
+            Assert.AreEqual(2, employees.Count, "1");
+        }
+
+        [Test]
+        public void TestSelectAutoByQueryMultiIn() 
+        {
+            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
+                dataSource, BasicCommandFactory.INSTANCE,
+                BasicDataReaderFactory.INSTANCE, dbMetaData);
+
+            SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.GetSqlCommand("GetEmployeesByEnameJob");
+            //System.out.println(cmd.Sql);
+            IList enames = new ArrayList();
+            enames.Add("SCOTT");
+            enames.Add("MARY");
+            IList jobs = new ArrayList();
+            jobs.Add("ANALYST");
+            jobs.Add("FREE");
+            IList employees = (IList) cmd.Execute(new Object[] { enames, jobs });
+            //System.out.println(employees);
+            //MARYはいないので
+            Assert.AreEqual(1, employees.Count, "1");
+        }
+
         [Test]
         public void TestRelation() 
         {
@@ -433,35 +446,36 @@ namespace Seasar.Dao.Tests.Impl
             //System.out.println(employees);
             Assert.IsTrue(employees.Count > 0, "2");
         }
+
+//        [Test]
+//        public void TestAutoSelectSqlByDto3() 
+//        {
+//            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(Employee3Dao),
+//                            getDataSource(), BasicStatementFactory.INSTANCE,
+//                            BasicResultSetFactory.INSTANCE);
 //
-//                    [Test]
-//    public void TestAutoSelectSqlByDto3() 
-//                {
-//                    IDaoMetaData dmd = new DaoMetaDataImpl(typeof(Employee3Dao),
-//                                    getDataSource(), BasicStatementFactory.INSTANCE,
-//                                    BasicResultSetFactory.INSTANCE);
-//                                    SelectDynamicCommand cmd = (SelectDynamicCommand) dmd
-//.GetSqlCommand("getEmployees");
-//                                    Assert.IsNotNull("1", cmd);
-//                                    //System.out.println(cmd.Sql);
-//                                    Employee3 dto = new Employee3();
-//                                    dto.setManager(new Short((short) 7902));
-//                                    List employees = (List) cmd.Execute(new Object[] { dto });
-//                                    //System.out.println(employees);
-//                                    Assert.IsTrue("2", employees.size() > 0);
-//                                }
+//            SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.GetSqlCommand("getEmployees");
+//            Assert.IsNotNull("1", cmd);
+//            //System.out.println(cmd.Sql);
+//            Employee3 dto = new Employee3();
+//            dto.setManager(new Short((short) 7902));
+//            List employees = (List) cmd.Execute(new Object[] { dto });
+//            //System.out.println(employees);
+//            Assert.IsTrue("2", employees.size() > 0);
+//        }
 //
-//                    [Test]
-//    public void TestAutoSelectSqlByDto4() 
-//                {
-//                    IDaoMetaData dmd = new DaoMetaDataImpl(typeof(Employee3Dao),
-//                                    getDataSource(), BasicStatementFactory.INSTANCE,
-//                                    BasicResultSetFactory.INSTANCE);
-//                                    SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.GetSqlCommand("getEmployees2");
-//                                    Assert.IsNotNull("1", cmd);
-//                                    //System.out.println(cmd.Sql);
-//                                    Assert.IsTrue("2", cmd.Sql.endsWith(" ORDER BY empno"));
-//                                }
+//        [Test]
+//        public void TestAutoSelectSqlByDto4() 
+//        {
+//            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(Employee3Dao),
+//                        getDataSource(), BasicStatementFactory.INSTANCE,
+//                        BasicResultSetFactory.INSTANCE);
+//
+//            SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.GetSqlCommand("getEmployees2");
+//            Assert.IsNotNull("1", cmd);
+//            //System.out.println(cmd.Sql);
+//            Assert.IsTrue("2", cmd.Sql.endsWith(" ORDER BY empno"));
+//        }
 //
 //        [Test]
 //        public void TestSelfReference() 
@@ -476,71 +490,72 @@ namespace Seasar.Dao.Tests.Impl
 //            Assert.AreEqual(new Long(7566), employee.getParent().getEmpno(), "2");
 //        }
 //
-//                    [Test]
-//    public void TestSelfMultiPk() 
+//        [Test]
+//        public void TestSelfMultiPk() 
 //        {
 //            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(Employee5Dao),
-//                            getDataSource(), BasicStatementFactory.INSTANCE,
-//                            BasicResultSetFactory.INSTANCE);
-//                            SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.GetSqlCommand("getEmployee");
-//                            Assert.IsNotNull("1", cmd);
-//                            //System.out.println(cmd.Sql);
-//                        }
+//                getDataSource(), BasicStatementFactory.INSTANCE,
+//                BasicResultSetFactory.INSTANCE);
+//            SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.GetSqlCommand("getEmployee");
+//            Assert.IsNotNull("1", cmd);
+//            //System.out.println(cmd.Sql);
+//        }
 //
-//                    [Test]
-//    public void TestNotHavePrimaryKey() 
-//                {
-//                    IDaoMetaData dmd = new DaoMetaDataImpl(typeof(DepartmentTotalSalaryDao),
-//    getDataSource(), BasicStatementFactory.INSTANCE,
-//    BasicResultSetFactory.INSTANCE);
-//    SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.GetSqlCommand("getTotalSalaries");
-//    Assert.IsNotNull("1", cmd);
-//    //System.out.println(cmd.Sql);
-//    List result = (List) cmd.Execute(null);
-//    //System.out.println(result);
-//}
+//        [Test]
+//        public void TestNotHavePrimaryKey() 
+//        {
+//            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(DepartmentTotalSalaryDao),
+//            getDataSource(), BasicStatementFactory.INSTANCE,
+//            BasicResultSetFactory.INSTANCE);
 //
-//                    [Test]
-//    public void TestSelectAutoFullColumnName() 
-//                    {
-//                        IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
-//    getDataSource(), BasicStatementFactory.INSTANCE,
-//    BasicResultSetFactory.INSTANCE);
-//    SelectDynamicCommand cmd = (SelectDynamicCommand) dmd
-//        .GetSqlCommand("getEmployee");
-//    //System.out.println(cmd.Sql);
-//}
-//                    [Test]
-//    public void TestStartsWithOrderBy() 
-//                {
-//                    DaoMetaDataImpl dmd = new DaoMetaDataImpl(typeof(Employee6Dao),
-//                                    getDataSource(), BasicStatementFactory.INSTANCE,
-//                                    BasicResultSetFactory.INSTANCE);
-//                                    EmployeeSearchCondition condition = new EmployeeSearchCondition();
-//                                    condition.setDname("RESEARCH");
-//                                    SelectDynamicCommand cmd = (SelectDynamicCommand) dmd
-//.GetSqlCommand("getEmployees");
-//                                    //System.out.println(cmd.Sql);
-//                                    Employee[] results = (Employee[]) cmd.Execute(new Object[]{condition});
-//                                    condition.setOrderByString("ENAME");
-//                                    results = (Employee[]) cmd.Execute(new Object[]{condition});
-//                }
-//                        [Test]
-//    public void TestQueryAnnotationTx() 
-//                    {
-//                        DaoMetaDataImpl dmd = new DaoMetaDataImpl(typeof(Employee7Dao),
-//    getDataSource(), BasicStatementFactory.INSTANCE,
-//    BasicResultSetFactory.INSTANCE);
-//    SelectDynamicCommand cmd1 = (SelectDynamicCommand) dmd
-//        .GetSqlCommand("getCount");
-//    UpdateDynamicCommand cmd2 = (UpdateDynamicCommand) dmd
-//        .GetSqlCommand("deleteEmployee");
-//    //System.out.println(cmd1.Sql);
-//    //System.out.println(cmd2.Sql);
-//    assertEquals(new Int32(14),cmd1.execute(null));
-//    assertEquals(1,cmd2.execute(new Object[]{new Int32(7369)}));
-//                        assertEquals(new Int32(13),cmd1.execute(null));
-//                    }
+//            SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.GetSqlCommand("getTotalSalaries");
+//            Assert.IsNotNull("1", cmd);
+//            //System.out.println(cmd.Sql);
+//            List result = (List) cmd.Execute(null);
+//            //System.out.println(result);
+//        }
 //
+//        [Test]
+//        public void TestSelectAutoFullColumnName() 
+//        {
+//            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
+//            getDataSource(), BasicStatementFactory.INSTANCE,
+//            BasicResultSetFactory.INSTANCE);
+//
+//            SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.GetSqlCommand("getEmployee");
+//            //System.out.println(cmd.Sql);
+//        }
+//
+//        [Test]
+//        public void TestStartsWithOrderBy() 
+//        {
+//        DaoMetaDataImpl dmd = new DaoMetaDataImpl(typeof(Employee6Dao),
+//                        getDataSource(), BasicStatementFactory.INSTANCE,
+//                        BasicResultSetFactory.INSTANCE);
+//
+//            EmployeeSearchCondition condition = new EmployeeSearchCondition();
+//            condition.setDname("RESEARCH");
+//            SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.GetSqlCommand("getEmployees");
+//            //System.out.println(cmd.Sql);
+//            Employee[] results = (Employee[]) cmd.Execute(new Object[]{condition});
+//            condition.setOrderByString("ENAME");
+//            results = (Employee[]) cmd.Execute(new Object[]{condition});
+//        }
+//        [Test]
+//        public void TestQueryAnnotationTx() 
+//        {
+//            DaoMetaDataImpl dmd = new DaoMetaDataImpl(typeof(Employee7Dao),
+//            getDataSource(), BasicStatementFactory.INSTANCE,
+//            BasicResultSetFactory.INSTANCE);
+//
+//            SelectDynamicCommand cmd1 = (SelectDynamicCommand) dmd.GetSqlCommand("getCount");
+//            UpdateDynamicCommand cmd2 = (UpdateDynamicCommand) dmd.GetSqlCommand("deleteEmployee");
+//            //System.out.println(cmd1.Sql);
+//            //System.out.println(cmd2.Sql);
+//            assertEquals(new Int32(14),cmd1.execute(null));
+//            assertEquals(1,cmd2.execute(new Object[]{new Int32(7369)}));
+//            assertEquals(new Int32(13),cmd1.execute(null));
+//        }
+
     }
 }
