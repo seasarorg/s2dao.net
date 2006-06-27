@@ -294,9 +294,14 @@ namespace Seasar.Dao.Impl
         {
             TableAttribute attr = AttributeUtil.GetTableAttribute(beanType);
             if(attr != null)
+            {
                 tableName = attr.TableName;
+
+            }
             else
+            {
                 tableName = beanType.Name;
+            }
         }
 
         protected void SetupVersionNoPropertyName(Type beanType)
@@ -379,7 +384,7 @@ namespace Seasar.Dao.Impl
                 for(int i = 0; i < PropertyTypeSize; ++i)
                 {
                     IPropertyType pt = GetPropertyType(i);
-                    if(primaryKeySet.Contains(pt.ColumnName))
+                    if(primaryKeySet != null && primaryKeySet.Contains(pt.ColumnName))
                     {
                         pt.IsPrimaryKey = true;
                         pkeyList.Add(pt.ColumnName);
@@ -402,7 +407,9 @@ namespace Seasar.Dao.Impl
             if(columnSet == null || columnSet.Count == 0)
             {
                 logger.Log("WDAO0002", new object[] { tableName });
-            } else {
+            }
+            else
+            {
                 for(IEnumerator enu = columnSet.GetEnumerator(); enu.MoveNext();)
                 {
                     string columnName = (string) enu.Current;
@@ -433,8 +440,10 @@ namespace Seasar.Dao.Impl
                 for(int i = 0; i < PropertyTypeSize; ++i)
                 {
                     IPropertyType pt = GetPropertyType(i);
-                    if(!columnSet.Contains(pt.ColumnName))
+                    if(columnSet == null || !columnSet.Contains(pt.ColumnName))
+                    {
                         pt.IsPersistent = false;
+                    }
                 }
             }
         }
