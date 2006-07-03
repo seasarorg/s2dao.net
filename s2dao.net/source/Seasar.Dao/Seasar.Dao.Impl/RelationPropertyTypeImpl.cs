@@ -44,7 +44,7 @@ namespace Seasar.Dao.Impl
             this.myKeys = myKeys;
             this.yourKeys = yourKeys;
             Type beanType = propertyInfo.PropertyType;
-            beanMetaData = new BeanMetaDataImpl(beanType, dbMetaData, dbms);
+            beanMetaData = new BeanMetaDataImpl(beanType, dbMetaData, dbms, true);
         }
 
         #region IRelationPropertyType ƒƒ“ƒo
