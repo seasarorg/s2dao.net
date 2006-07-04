@@ -14,7 +14,7 @@
     <!-- データソース -->
     <component name="SqlDataSource" class="Seasar.Extension.Tx.Impl.TxDataSource">
         <property name="DataProvider">Ex.SqlClient</property>
-        <property name="ConnectionString">"Server=DIMENSION9100;database=s2dotnetdemo;Integrated Security=SSPI"</property>
+        <property name="ConnectionString">"Server=(local);database=s2dotnetdemo;Integrated Security=SSPI"</property>
     </component>
     
     <!-- S2Dao.NETのDaoInterceptorとそれに必要なコンポーネント -->
