@@ -32,6 +32,11 @@ namespace Seasar.Dao.Tests.Id
 	[TestFixture]
 	public class IdentityIdentifierGeneratorTest : S2TestCase {
 
+        public void SetUpTestGetGeneratedValue() 
+        {
+            Include("Tests.dicon");
+        }
+
 		[Test, S2(Tx.Rollback)]
 		public void TestGetGeneratedValue() {
             

@@ -48,8 +48,7 @@ namespace Seasar.Dao.Impl
             ISelectHandler selectHandler = new BasicSelectHandler(DataSource,
                 ctx.Sql, dataReaderHandler, CommandFactory,
                 dataReaderFactory);
-            return selectHandler.Execute(ctx.BindVariables, ctx.BindVariableTypes
-                , ctx.BindVariableNames);
+            return selectHandler.Execute(ctx.BindVariables, ctx.BindVariableTypes);
         }
     }
 }

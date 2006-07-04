@@ -33,7 +33,6 @@ namespace Seasar.Dao.Impl
         private IBeanMetaData beanMetaData;
         private object[] bindVariables;
         private Type[] bindVariableTypes;
-        private string[] bindVariableNames;
         private DateTime timestamp = DateTime.MinValue;
         private Int32 versionNo = Int32.MinValue;
         private IPropertyType[] propertyTypes;
@@ -67,12 +66,6 @@ namespace Seasar.Dao.Impl
         {
             get { return bindVariableTypes; }
             set { bindVariableTypes = value; }
-        }
-
-        protected string[] BindVariableNames
-        {
-            get { return bindVariableNames; }
-            set { bindVariableNames = value; }
         }
 
         protected DateTime Timestamp
@@ -131,7 +124,7 @@ namespace Seasar.Dao.Impl
             int ret = -1;
             try
             {
-                BindArgs(cmd, bindVariables, bindVariableTypes, bindVariableNames);
+                BindArgs(cmd, bindVariables, bindVariableTypes);
                 ret = CommandUtil.ExecuteNonQuery(this.DataSource, cmd);
             }
             finally
@@ -156,7 +149,6 @@ namespace Seasar.Dao.Impl
         {
             ArrayList varList = new ArrayList();
             ArrayList varTypeList = new ArrayList();
-            ArrayList varNameList = new ArrayList();
             for(int i = 0; i < propertyTypes.Length; ++i)
             {
                 IPropertyType pt = propertyTypes[i];
@@ -175,18 +167,15 @@ namespace Seasar.Dao.Impl
                     varList.Add(pt.PropertyInfo.GetValue(bean, null));
                 }
                 varTypeList.Add(pt.PropertyInfo.PropertyType);
-                varNameList.Add(pt.ColumnName);
             }
             BindVariables = varList.ToArray();
             BindVariableTypes = (Type[]) varTypeList.ToArray(typeof(Type));
-            BindVariableNames = (string[]) varNameList.ToArray(typeof(string));
         }
 
         protected void SetupUpdateBindVariables(object bean)
         {
             ArrayList varList = new ArrayList();
             ArrayList varTypeList = new ArrayList();
-            ArrayList varNameList = new ArrayList();
             for(int i = 0; i < propertyTypes.Length; ++i)
             {
                 IPropertyType pt = propertyTypes[i];
@@ -207,27 +196,23 @@ namespace Seasar.Dao.Impl
                     varList.Add(pt.PropertyInfo.GetValue(bean, null));
                 }
                 varTypeList.Add(pt.PropertyInfo.PropertyType);
-                varNameList.Add(pt.ColumnName);
             }
-            AddAutoUpdateWhereBindVariables(varList, varTypeList, varNameList, bean);
+            AddAutoUpdateWhereBindVariables(varList, varTypeList, bean);
             BindVariables = varList.ToArray();
             BindVariableTypes = (Type[]) varTypeList.ToArray(typeof(Type));
-            BindVariableNames = (string[]) varNameList.ToArray(typeof(string));
         }
 
         protected void SetupDeleteBindVariables(object bean)
         {
             ArrayList varList = new ArrayList();
             ArrayList varTypeList = new ArrayList();
-            ArrayList varNameList = new ArrayList();
-            AddAutoUpdateWhereBindVariables(varList, varTypeList, varNameList, bean);
+            AddAutoUpdateWhereBindVariables(varList, varTypeList, bean);
             BindVariables = varList.ToArray();
             BindVariableTypes = (Type[]) varTypeList.ToArray(typeof(Type));
-            BindVariableNames = (string[]) varNameList.ToArray(typeof(string));
         }
 
         protected void AddAutoUpdateWhereBindVariables(ArrayList varList, ArrayList varTypeList,
-            ArrayList varNameList, object bean)
+            object bean)
         {
             IBeanMetaData bmd = this.BeanMetaData;
             for(int i = 0; i < bmd.PrimaryKeySize; ++i)
@@ -236,7 +221,6 @@ namespace Seasar.Dao.Impl
                 PropertyInfo pi = pt.PropertyInfo;
                 varList.Add(pi.GetValue(bean, null));
                 varTypeList.Add(pi.PropertyType);
-                varNameList.Add(pt.ColumnName);
             }
             if(bmd.HasVersionNoPropertyType)
             {
@@ -244,7 +228,6 @@ namespace Seasar.Dao.Impl
                 PropertyInfo pi = pt.PropertyInfo;
                 varList.Add(pi.GetValue(bean, null));
                 varTypeList.Add(pi.PropertyType);
-                varNameList.Add(BeanMetaData.VersionNoBindingName);
             }
             if(bmd.HasTimestampPropertyType)
             {
@@ -252,7 +235,6 @@ namespace Seasar.Dao.Impl
                 PropertyInfo pi = pt.PropertyInfo;
                 varList.Add(pi.GetValue(bean, null));
                 varTypeList.Add(pi.PropertyType);
-                varNameList.Add(BeanMetaData.TimestampBindingName);
             }
         }
 
