@@ -69,6 +69,11 @@ namespace Seasar.Dao.Context
                 {
                     if(value == null || type == null) break;
                     PropertyInfo pi = type.GetProperty(names[pos]);
+                    if(pi == null)
+                    {
+                        logger.Log("WDAO0001", new object[] { name });
+                        return null;
+                    }
                     value = pi.GetValue(value, null);
                     type = pi.PropertyType;
                 }
