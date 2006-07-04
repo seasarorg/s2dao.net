@@ -123,10 +123,6 @@
                     BuildAction = "None"
                 />
                 <File
-                    RelPath = "app.dicon"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
                     RelPath = "AssemblyInfo.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
