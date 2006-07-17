@@ -19,6 +19,7 @@
 using System;
 using System.Collections;
 using System.Data;
+using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -36,16 +37,16 @@ namespace Seasar.Dao.Impl
         private static readonly Regex startWithOrderByPattern = 
             new Regex("(/\\[^*]+\\*/)*order by",RegexOptions.IgnoreCase);
 
-        private static readonly string[] INSERT_NAMES = new string[]
+        private const string NOT_SINGLE_ROW_UPDATED = "NotSingleRowUpdated";
+
+        protected string[] insertPrefixes = new string[]
             { "Insert", "Create", "Add" };
 
-        private static readonly string[] UPDATE_NAMES = new string[]
+        protected string[] updatePrefixes = new string[]
             { "Update", "Modify", "Store" };
 
-        private static readonly string[] DELETE_NAMES = new string[]
+        protected string[] deletePrefixes = new string[]
             { "Delete", "Remove" };
-
-        private const string NOT_SINGLE_ROW_UPDATED = "NotSingleRowUpdated";
 
         protected Type daoType;
         protected Type daoInterface;
@@ -53,28 +54,33 @@ namespace Seasar.Dao.Impl
         protected IDaoAnnotationReader annotationReader;
         protected ICommandFactory commandFactory;
         protected IDataReaderFactory dataReaderFactory;
+        protected string sqlFileEncoding = Encoding.Default.WebName;
         protected IDbms dbms;
         protected Type beanType;
         protected IBeanMetaData beanMetaData;
+        protected IDatabaseMetaData dbMetaData;
         protected Hashtable sqlCommands = new Hashtable();
+
+        public DaoMetaDataImpl() 
+        {
+        }
 
         public DaoMetaDataImpl(Type daoType, IDataSource dataSource,ICommandFactory commandFactory,
             IDataReaderFactory dataReaderFactory, IDatabaseMetaData dbMetaData)
         {
-            this.Initialize(daoType, dataSource, commandFactory, dataReaderFactory, dbMetaData);
+            DaoType = daoType;
+            DataSource = dataSource;
+            CommandFactory = commandFactory;
+            DataReaderFactory = dataReaderFactory;
+            DatabaseMetaData = dbMetaData;
+            Initialize();
         }
 
-        protected virtual void Initialize(Type daoType, IDataSource dataSource,ICommandFactory commandFactory,
-            IDataReaderFactory dataReaderFactory, IDatabaseMetaData dbMetaData)
+        public virtual void Initialize()
         {
-            this.daoType = daoType;
             daoInterface = GetDaoInterface(daoType);
             annotationReader = new FieldAnnotationReader(daoType);
             beanType = annotationReader.GetBeanType();
-            this.dataSource = dataSource;
-
-            this.commandFactory = commandFactory;
-            this.dataReaderFactory = dataReaderFactory;
             dbms = DbmsManager.GetDbms(dataSource);
             beanMetaData = new BeanMetaDataImpl(beanType, dbMetaData, dbms);
             SetupSqlCommand();
@@ -100,6 +106,17 @@ namespace Seasar.Dao.Impl
             }
         }
 
+        protected virtual string ReadText(string path, Assembly asm) 
+        {
+            using (Stream stream = ResourceUtil.GetResourceAsStream(path, asm)) 
+            {
+                using (TextReader reader = new StreamReader(stream, Encoding.GetEncoding(SqlFileEncoding))) 
+                {
+                    return reader.ReadToEnd();
+                }
+            }
+        }
+
         protected virtual void SetupMethod(MethodInfo mi)
         {
             string sql = null;
@@ -116,12 +133,12 @@ namespace Seasar.Dao.Impl
             
             if(ResourceUtil.IsExist(dbmsPath, asm))
             {
-                sql = TextUtil.ReadText(dbmsPath, asm);
+                sql = ReadText(dbmsPath, asm);
                 SetupMethodByManual(mi, sql);
             }
             else if(ResourceUtil.IsExist(standardPath, asm))
             {
-                sql = TextUtil.ReadText(standardPath, asm);
+                sql = ReadText(standardPath, asm);
                 SetupMethodByManual(mi, sql);
             }
             else
@@ -211,7 +228,7 @@ namespace Seasar.Dao.Impl
         {
             if(query != null)
             {
-				if(query.Trim().ToLower().StartsWith("order by")) return true;
+                if(query.Trim().ToLower().StartsWith("order by")) return true;
             }
             return false;
         }
@@ -225,7 +242,7 @@ namespace Seasar.Dao.Impl
             else if(IsBeanTypeAssignable(mi.ReturnType))
                 return new BeanMetaDataDataReaderHandler(beanMetaData);
             else if(Array.CreateInstance(beanType, 0).GetType()
-                    .IsAssignableFrom(mi.ReturnType))
+                .IsAssignableFrom(mi.ReturnType))
                 return new BeanArrayMetaDataDataReaderHandler(beanMetaData);
             else
                 return new ObjectDataReaderHandler();
@@ -519,7 +536,7 @@ namespace Seasar.Dao.Impl
 
         protected virtual bool IsInsert(string methodName)
         {
-            foreach(string insertName in INSERT_NAMES)
+            foreach(string insertName in insertPrefixes)
             {
                 if(methodName.StartsWith(insertName)) return true;
             }
@@ -528,7 +545,7 @@ namespace Seasar.Dao.Impl
 
         protected virtual bool IsUpdate(string methodName)
         {
-            foreach(string updateName in UPDATE_NAMES)
+            foreach(string updateName in updatePrefixes)
             {
                 if(methodName.StartsWith(updateName)) return true;
             }
@@ -537,7 +554,7 @@ namespace Seasar.Dao.Impl
 
         protected virtual bool IsDelete(string methodName)
         {
-            foreach(string deleteName in DELETE_NAMES)
+            foreach(string deleteName in deletePrefixes)
             {
                 if(methodName.StartsWith(deleteName)) return true;
             }
@@ -603,13 +620,63 @@ namespace Seasar.Dao.Impl
 
         public static Type GetDaoInterface(Type type)
         {
-            if(type.IsInterface) return type;
+            if(type.IsInterface) 
+            {
+                return type;
+            }
             throw new DaoNotFoundRuntimeException(type);
         }
 
         public IDbms Dbms
         {
             set { dbms = value; }
+        }
+
+        public IDataSource DataSource 
+        {
+            set { dataSource = value; }
+        }
+
+        public IDataReaderFactory DataReaderFactory
+        {
+            set { dataReaderFactory = value; }
+        }
+
+        public ICommandFactory CommandFactory
+        {
+            set { commandFactory = value; }
+        }
+
+        public string[] InsertPrefixes 
+        {
+            set { insertPrefixes = value; }
+        }
+
+        public string[] UpdatePrefixes 
+        {
+            set { updatePrefixes = value; }
+        }
+
+        public string[] DeletePrefixes 
+        {
+            set { deletePrefixes = value; }
+        }
+
+        public string SqlFileEncoding 
+        {
+            get { return sqlFileEncoding; }
+            set { sqlFileEncoding = value; }
+        }
+
+        public Type DaoType
+        {
+            get { return daoType; }
+            set { daoType = value; }
+        }
+
+        public IDatabaseMetaData DatabaseMetaData
+        {
+            set { dbMetaData = value; }
         }
     }
 }
