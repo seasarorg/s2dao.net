@@ -17,6 +17,7 @@
 #endregion
 
 using System;
+using System.Text;
 using System.Collections;
 using Seasar.Extension.ADO;
 using Seasar.Extension.ADO.Impl;
@@ -30,6 +31,10 @@ namespace Seasar.Dao.Impl
         private ICommandFactory commandFactory;
         private IDataReaderFactory dataReaderFactory;
         private IDatabaseMetaData dbMetaData;
+        protected string sqlFileEncoding = Encoding.Default.WebName;
+        protected string[] insertPrefixes;
+        protected string[] updatePrefixes;
+        protected string[] deletePrefixes;
 
         public DaoMetaDataFactoryImpl(IDataSource dataSource,
             ICommandFactory commandFactory, IDataReaderFactory dataReaderFactory)
@@ -40,6 +45,26 @@ namespace Seasar.Dao.Impl
             this.dbMetaData = new DatabaseMetaDataImpl(dataSource);
         }
 
+        public string[] InsertPrefixes 
+        {
+            set { insertPrefixes = value; }
+        }
+
+        public string[] UpdatePrefixes 
+        {
+            set { updatePrefixes = value; }
+        }
+
+        public string[] DeletePrefixes 
+        {
+            set { deletePrefixes = value; }
+        }
+
+        public string SqlFileEncoding 
+        {
+            set { sqlFileEncoding = value; }
+        }
+
         #region IDaoMetaDataFactory ÉÅÉìÉo
 
         public IDaoMetaData GetDaoMetaData(Type daoType)
@@ -48,14 +73,44 @@ namespace Seasar.Dao.Impl
             {
                 string key = daoType.FullName;
                 IDaoMetaData dmd = (IDaoMetaData) daoMetaDataCache[key];
-                if(dmd != null) return dmd;
-                dmd = new DaoMetaDataImpl(daoType, dataSource, commandFactory,
-                    dataReaderFactory, dbMetaData);
+                if(dmd != null) 
+                {
+                    return dmd;
+                }
+                dmd = CreateDaoMetaData(daoType);
                 daoMetaDataCache[key] = dmd;
                 return dmd;
             }
         }
 
         #endregion
+
+        protected virtual IDaoMetaData CreateDaoMetaData(Type daoType) 
+        {
+            DaoMetaDataImpl dmd = new DaoMetaDataImpl();
+            dmd.DaoType = daoType;
+            dmd.DataSource = dataSource;
+            dmd.CommandFactory = commandFactory;
+            dmd.DataReaderFactory = dataReaderFactory;
+            dmd.DatabaseMetaData = dbMetaData;
+            if (sqlFileEncoding != null) 
+            {
+                dmd.SqlFileEncoding = sqlFileEncoding;
+            }
+            if (insertPrefixes != null) 
+            {
+                dmd.InsertPrefixes = insertPrefixes;
+            }
+            if (updatePrefixes != null) 
+            {
+                dmd.UpdatePrefixes = updatePrefixes;
+            }
+            if (deletePrefixes != null) 
+            {
+                dmd.DeletePrefixes = deletePrefixes;
+            }
+            dmd.Initialize();
+            return dmd;
+        }
     }
 }
