@@ -221,6 +221,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Tests.Impl\DepartmentTotalSalary.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Seasar.Dao.Tests.Impl\Employee.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -231,7 +236,17 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Tests.Impl\Employee3.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Seasar.Dao.Tests.Impl\Employee4.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Tests.Impl\Employee5.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -256,7 +271,32 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Tests.Impl\IDepartmentTotalSalaryDao.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Seasar.Dao.Tests.Impl\IEmployee2Dao.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Tests.Impl\IEmployee3Dao.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Tests.Impl\IEmployee4Dao.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Tests.Impl\IEmployee5Dao.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Tests.Impl\IEmployee6Dao.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -272,15 +312,23 @@
                 />
                 <File
                     RelPath = "Seasar.Dao.Tests.Impl\IEmployeeDao_GetAllEmployees.sql"
-                    BuildAction = "Content"
+                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "Seasar.Dao.Tests.Impl\IEmployeeDao_GetCount.sql"
-                    BuildAction = "Content"
+                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "Seasar.Dao.Tests.Impl\IEmployeeDao_Update.sql"
-                    BuildAction = "Content"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Tests.Impl\IEmployeeDao_UpdateSqlFileEncodingDefault.sql"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Tests.Impl\IEmployeeDao_UpdateSqlFileEncodingUTF8.sql"
+                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "Seasar.Dao.Tests.Impl\IFormUseHistoryDao.cs"

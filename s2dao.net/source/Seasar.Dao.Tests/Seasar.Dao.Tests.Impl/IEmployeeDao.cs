@@ -16,17 +16,14 @@
  */
 #endregion
 
-using System;
 using System.Collections;
 using Seasar.Dao.Attrs;
 
 namespace Seasar.Dao.Tests.Impl
 {
-
     [Bean(typeof(Employee))]
     public interface IEmployeeDao
 	{
-
         IList GetAllEmployees();
 
         Employee[] GetAllEmployeeArray();
@@ -37,6 +34,10 @@ namespace Seasar.Dao.Tests.Impl
         int GetCount();
 
         void Update(Employee employee);
+
+        void UpdateSqlFileEncodingDefault(Employee employee);
+
+        void UpdateSqlFileEncodingUTF8(Employee employee);
 
         Employee[] GetEmployeesByDeptno(int deptno);
 	}

@@ -21,12 +21,12 @@ using Seasar.Dao.Attrs;
 
 namespace Seasar.Dao.Tests.Impl
 {
-    [Bean(typeof(Employee2))]
-    public interface IEmployee2Dao
+    [Bean(typeof(Employee3))]
+    public interface IEmployee3Dao
 	{
-        IList GetAllEmployees();
+        IList GetEmployees(Employee3 dto);
 
-        [Sql("SELECT ename, deptnum, empno FROM EMP2")]
-        IList GetAllEmployeesOnly();
+        [Query("ORDER BY empno")]
+        IList GetEmployees2(Employee3 dto);
     }
 }

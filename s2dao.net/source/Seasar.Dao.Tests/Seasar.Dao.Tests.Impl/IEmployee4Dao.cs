@@ -16,17 +16,13 @@
  */
 #endregion
 
-using System.Collections;
 using Seasar.Dao.Attrs;
 
 namespace Seasar.Dao.Tests.Impl
 {
-    [Bean(typeof(Employee2))]
-    public interface IEmployee2Dao
+    [Bean(typeof(Employee4))]
+    public interface IEmployee4Dao
 	{
-        IList GetAllEmployees();
-
-        [Sql("SELECT ename, deptnum, empno FROM EMP2")]
-        IList GetAllEmployeesOnly();
+        Employee4 GetEmployee(int empno);
     }
 }

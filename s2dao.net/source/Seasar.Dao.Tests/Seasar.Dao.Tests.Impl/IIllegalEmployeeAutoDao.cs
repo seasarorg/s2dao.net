@@ -21,10 +21,9 @@ using Seasar.Dao.Attrs;
 
 namespace Seasar.Dao.Tests.Impl
 {
-
     [Bean(typeof(Employee))]
     public interface IIllegalEmployeeAutoDao
 	{
-        void insertIllegal(int empno);
+        void InsertIllegal(int empno);
     }
 }

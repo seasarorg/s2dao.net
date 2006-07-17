@@ -28,8 +28,6 @@ namespace Seasar.Dao.Tests.Impl
     [Bean(typeof(Employee))]
     public interface IEmployeeAutoDao
 	{
-        //public object BEAN = typeof(Employee);
-	
 //        public String GetEmployeeByDeptno_ARGS = "deptno";
 //        public String GetEmployeeByDeptno_ORDER = "deptno asc, empno desc";
         //TODO:QueryAttributeはAllowMultiple = trueにすべき？
@@ -37,53 +35,38 @@ namespace Seasar.Dao.Tests.Impl
         [Query("deptno=/*deptno*/")]
         IList GetEmployeeByDeptno(int deptno);
 
-//        String GetEmployeesBySal_QUERY = "sal BETWEEN ? AND ? ORDER BY empno";
-        [Query("sal BETWEEN ? AND ? ORDER BY empno")]
+        [Query("sal BETWEEN /*minSal*/ AND /*maxSal*/ ORDER BY empno")]
         IList GetEmployeesBySal(float minSal, float maxSal);
 
-//        String GetEmployeesByEnameJob_ARGS = "enames, jobs";
-//        String GetEmployeesByEnameJob_QUERY = "ename IN /*enames*/('SCOTT','MARY') AND job IN /*jobs*/('ANALYST', 'FREE')";
         [Query("ename IN /*enames*/('SCOTT','MARY') AND job IN /*jobs*/('ANALYST', 'FREE')")]
         IList GetEmployeesByEnameJob(IList enames, IList jobs);
 
-        //TODO:これがあると「テーブル(EMP)のカラム(dto)が見つかりません」になってしまう
-        //IList GetEmployeesBySearchCondition(EmployeeSearchCondition dto);
+        IList GetEmployeesBySearchCondition(EmployeeSearchCondition dto);
 
-        //IList GetEmployeesByEmployee(Employee dto);
+        [Query("department.dname = /*dto.Department.Dname*/'RESEARCH'")]
+        IList GetEmployeesBySearchCondition2(EmployeeSearchCondition dto);
 
-//        String GetEmployee_ARGS = "empno";
+        IList GetEmployeesByEmployee(Employee dto);
+
         [Query("empno=/*empno*/")]
         Employee GetEmployee(int empno);
 
         void Insert(Employee employee);
 
-//        String Insert2_NO_PERSISTENT_PROPS = "job, mgr, hiredate, sal, comm, deptno";
         [NoPersistentProps("job, mgr, hiredate, sal, comm, deptno")]
         void Insert2(Employee employee);
 
-//        String Insert3_PERSISTENT_PROPS = "deptno";
         [PersistentProps("deptno")]
         void Insert3(Employee employee);
 
-        //NotSupported
-        //void InsertBatch(Employee[] employees);
-
         void Update(Employee employee);
 
-//        String Update2_NO_PERSISTENT_PROPS = "job, mgr, hiredate, sal, comm, deptno";
         [NoPersistentProps("job, mgr, hiredate, sal, comm, deptno")]
         void Update2(Employee employee);
 
-//        String Update3_PERSISTENT_PROPS = "deptno";
         [PersistentProps("deptno")]
         void Update3(Employee employee);
 
-        //NotSupported
-        //void UpdateBatch(Employee[] employees);
-
         void Delete(Employee employee);
-
-        //NotSupported
-        //void DeleteBatch(Employee[] employees);
     }
 }

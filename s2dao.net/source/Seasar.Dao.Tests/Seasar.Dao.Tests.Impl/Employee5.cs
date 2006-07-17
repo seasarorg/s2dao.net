@@ -17,15 +17,14 @@
 #endregion
 
 using System;
-using System.Text;
 using System.Data.SqlTypes;
 using Seasar.Dao.Attrs;
 
 namespace Seasar.Dao.Tests.Impl
 {
     [Table("EMP")]
-    public class Employee
-    {
+    public class Employee5
+	{
         private long empno;
 
         private string ename;
@@ -34,22 +33,29 @@ namespace Seasar.Dao.Tests.Impl
 
         private SqlInt16 mgr;
 
+        private DateTime hiredate;
+
         private SqlSingle sal;
 
-//        private float comm;
+        private SqlSingle comm;
 
         private int deptno;
-    
+
         private byte[] password;
     
         private string dummy;
-    
-        private Department department;
-    
-        //private Timestamp timestamp;
 
-        public Employee()
+        private Department department;
+
+        private DateTime timestamp;
+       
+        public Employee5()
+		{
+		}
+
+        public Employee5(long empno)
         {
+            this.empno = empno;
         }
 
         public long Empno
@@ -76,12 +82,11 @@ namespace Seasar.Dao.Tests.Impl
             get { return mgr; }
         }
 
-        //範囲外例外
-//        public DateTime Hiredate
-//        {
-//            set { hiredate = value; }
-//            get { return hiredate; }
-//        }
+        public DateTime Hiredate
+        {
+            set { hiredate = value; }
+            get { return hiredate; }
+        }
 
         public SqlSingle Sal
         {
@@ -89,12 +94,11 @@ namespace Seasar.Dao.Tests.Impl
             get { return sal; }
         }
 
-        //Null例外
-//        public float Comm
-//        {
-//            set { comm = value; }
-//            get { return comm; }
-//        }
+        public SqlSingle Comm
+        {
+            set { comm = value; }
+            get { return comm; }
+        }
 
         public int Deptno
         {
@@ -114,31 +118,18 @@ namespace Seasar.Dao.Tests.Impl
             get { return dummy; }
         }
 
-        [Relno(0)]
+        [Column("tstamp")]
+        public DateTime Timestamp
+        {
+            set { timestamp = value; }
+            get { return timestamp; }
+        }
+
+        [Relno(0), Relkeys("deptno:deptno, ename:dname")]
         public Department Department
         {
             set { department = value; }
             get { return department; }
         }
-
-        //範囲外例外
-//        public DateTime Timestamp
-//        {
-//            set { timestamp = value; }
-//            get { return timestamp; }
-//        }
-
-        public override string ToString()
-        {
-            StringBuilder buf = new StringBuilder(50);
-            buf.Append("Empno=");
-            buf.Append(Empno);
-            buf.Append(", Ename=");
-            buf.Append(Ename);
-            buf.Append(", Deptno=");
-            buf.Append(Deptno);
-            return buf.ToString();
-        }
-
-    }
+	}
 }

@@ -21,12 +21,9 @@ using Seasar.Dao.Attrs;
 
 namespace Seasar.Dao.Tests.Impl
 {
-    [Bean(typeof(Employee2))]
-    public interface IEmployee2Dao
+    [Bean(typeof(DepartmentTotalSalary))]
+    public interface IDepartmentTotalSalaryDao
 	{
-        IList GetAllEmployees();
-
-        [Sql("SELECT ename, deptnum, empno FROM EMP2")]
-        IList GetAllEmployeesOnly();
-    }
+        IList GetTotalSalaries();
+	}
 }

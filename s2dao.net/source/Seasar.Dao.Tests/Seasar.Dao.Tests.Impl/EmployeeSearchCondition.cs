@@ -23,10 +23,20 @@ namespace Seasar.Dao.Tests.Impl
 {
 	public class EmployeeSearchCondition
 	{
-        private String job;
-        private String dname;
-        private String orderByString;
+        private Department department;
+
+        private string job;
+
+        private string dname;
+
+        private string orderByString;
 	        
+        public Department Department
+        {
+            set { department = value; }
+            get { return department; }
+        }
+
         [Column("dname_0")]
         public string Dname
         {
@@ -44,7 +54,6 @@ namespace Seasar.Dao.Tests.Impl
         {
             set { orderByString = value; }
             get { return orderByString; }
-        }
-	
+        }	
 	}
 }

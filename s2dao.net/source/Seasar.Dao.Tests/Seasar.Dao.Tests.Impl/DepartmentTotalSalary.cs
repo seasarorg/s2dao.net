@@ -16,17 +16,31 @@
  */
 #endregion
 
-using System.Collections;
+using System.Data.SqlTypes;
 using Seasar.Dao.Attrs;
 
 namespace Seasar.Dao.Tests.Impl
 {
-    [Bean(typeof(Employee2))]
-    public interface IEmployee2Dao
+    public class DepartmentTotalSalary
 	{
-        IList GetAllEmployees();
+        private SqlInt32 deptno;
 
-        [Sql("SELECT ename, deptnum, empno FROM EMP2")]
-        IList GetAllEmployeesOnly();
+        private decimal totalSalary;
+
+        public DepartmentTotalSalary() 
+        {
+        }
+
+        public SqlInt32 Deptno
+        {
+            set { deptno = value; }
+            get { return deptno; }
+        }
+
+        public decimal TotalSalary
+        {
+            set { totalSalary = value; }
+            get { return totalSalary; }
+        }
     }
 }

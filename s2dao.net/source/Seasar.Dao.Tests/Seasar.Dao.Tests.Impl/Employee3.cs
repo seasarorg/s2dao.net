@@ -17,16 +17,16 @@
 #endregion
 
 using System;
-using System.Text;
 using System.Data.SqlTypes;
+using System.Text;
 using Seasar.Dao.Attrs;
 
 namespace Seasar.Dao.Tests.Impl
 {
     [Table("EMP")]
-    public class Employee
+    public class Employee3
     {
-        private long empno;
+        private SqlInt64 empno;
 
         private string ename;
 
@@ -34,25 +34,26 @@ namespace Seasar.Dao.Tests.Impl
 
         private SqlInt16 mgr;
 
+        private SqlDateTime hiredate;
+
         private SqlSingle sal;
 
-//        private float comm;
+        private SqlSingle comm;
 
-        private int deptno;
-    
-        private byte[] password;
-    
-        private string dummy;
-    
+        private SqlInt32 deptno;
+
         private Department department;
-    
-        //private Timestamp timestamp;
 
-        public Employee()
+        public Employee3()
         {
         }
 
-        public long Empno
+        public Employee3(SqlInt64 empno)
+        {
+            this.empno = empno;
+        }
+
+        public SqlInt64 Empno
         {
             set { empno = value; }
             get { return empno; }
@@ -76,12 +77,11 @@ namespace Seasar.Dao.Tests.Impl
             get { return mgr; }
         }
 
-        //範囲外例外
-//        public DateTime Hiredate
-//        {
-//            set { hiredate = value; }
-//            get { return hiredate; }
-//        }
+        public SqlDateTime Hiredate
+        {
+            set { hiredate = value; }
+            get { return hiredate; }
+        }
 
         public SqlSingle Sal
         {
@@ -89,56 +89,37 @@ namespace Seasar.Dao.Tests.Impl
             get { return sal; }
         }
 
-        //Null例外
-//        public float Comm
-//        {
-//            set { comm = value; }
-//            get { return comm; }
-//        }
+        public SqlSingle Comm
+        {
+            set { comm = value; }
+            get { return comm; }
+        }
 
-        public int Deptno
+        public SqlInt32 Deptno
         {
             set { deptno = value; }
             get { return deptno; }
         }
 
-        public byte[] Password
-        {
-            set { password = value; }
-            get { return password; }
-        }
-
-        public string Dummy
-        {
-            set { dummy = value; }
-            get { return dummy; }
-        }
-
-        [Relno(0)]
         public Department Department
         {
             set { department = value; }
             get { return department; }
         }
 
-        //範囲外例外
-//        public DateTime Timestamp
-//        {
-//            set { timestamp = value; }
-//            get { return timestamp; }
-//        }
-
         public override string ToString()
         {
-            StringBuilder buf = new StringBuilder(50);
-            buf.Append("Empno=");
-            buf.Append(Empno);
-            buf.Append(", Ename=");
-            buf.Append(Ename);
-            buf.Append(", Deptno=");
-            buf.Append(Deptno);
+            StringBuilder buf = new StringBuilder();
+            buf.Append(empno).Append(", ");
+            buf.Append(ename).Append(", ");
+            buf.Append(job).Append(", ");
+            buf.Append(mgr).Append(", ");
+            buf.Append(hiredate).Append(", ");
+            buf.Append(sal).Append(", ");
+            buf.Append(comm).Append(", ");
+            buf.Append(deptno).Append(", {");
+            buf.Append(department).Append("}");
             return buf.ToString();
         }
-
     }
 }
