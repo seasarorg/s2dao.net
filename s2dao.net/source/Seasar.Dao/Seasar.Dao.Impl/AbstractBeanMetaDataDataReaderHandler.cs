@@ -53,6 +53,13 @@ namespace Seasar.Dao.Impl
                     object value = valueType.GetValue(reader, pt.ColumnName);
                     pi.SetValue(row, value, null);
                 }
+                else if(columnNames.Contains(pt.PropertyName))
+                {
+                    IValueType valueType = pt.ValueType;
+                    PropertyInfo pi = pt.PropertyInfo;
+                    object value = valueType.GetValue(reader, pt.PropertyName);
+                    pi.SetValue(row, value, null);
+                }
                 else if(!pt.IsPersistent)
                 {
                     for(IEnumerator enu = columnNames.GetEnumerator(); enu.MoveNext();)

@@ -64,7 +64,8 @@ namespace Seasar.Dao.Tests.Impl
             get { return ename; }
         }
 
-        public string Job
+        [Column("Job")]
+        public string JobName
         {
             set { job = value; }
             get { return job; }

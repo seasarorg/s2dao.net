@@ -325,7 +325,7 @@ namespace Seasar.Dao.Tests.Impl
             Assert.IsNotNull(cmd, "1");
             Console.Out.WriteLine(cmd.Sql);
             Employee dto = new Employee();
-            dto.Job = "MANAGER";            
+            dto.JobName = "MANAGER";            
             IList employees = (IList) cmd.Execute(new object[] { dto });
             Console.Out.WriteLine(employees);
             //Assert.IsTrue(employees.Count > 0, "2");

@@ -1,6 +1,8 @@
 ﻿S2Dao.NET 0.4.5
+準備中
 
-- SQLファイルの文字コードをSqlFileEncodingプロパティで指定できるようにする。
+- SQLファイルの文字コードをSqlFileEncodingプロパティで指定できるようにする
+- Select句にプロパティ名を指定した場合もマッピングする
 
 S2Dao.NET 0.4.4
 2006/7/4

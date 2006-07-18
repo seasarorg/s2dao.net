@@ -51,14 +51,14 @@ namespace Seasar.Dao.Tests.Impl
         {
 		    IDataReaderHandler handler = new BeanMetaDataDataReaderHandler(
 				    CreateBeanMetaData());
-		    String sql = "select emp.*, dept.deptno as deptno_0, dept.dname as dname_0 " +
+		    string sql = "select emp.*, dept.deptno as deptno_0, dept.dname as dname_0 " +
                 "from emp, dept where empno = 7788 and emp.deptno = dept.deptno";
             Employee ret = null;
             using(IDbCommand cmd = DataSource.GetCommand(sql,Connection))
             {
-                using(IDataReader rs = cmd.ExecuteReader())
+                using(IDataReader reader = cmd.ExecuteReader())
 			    {
-                    ret = (Employee) handler.Handle(rs);
+                    ret = (Employee) handler.Handle(reader);
 			    }
 		    }
 		    Assert.IsNotNull(ret, "1");
@@ -72,13 +72,13 @@ namespace Seasar.Dao.Tests.Impl
         public void TestHandle2() {
 		    IDataReaderHandler handler = new BeanMetaDataDataReaderHandler(
 				    CreateBeanMetaData());
-		    String sql = "select ename, job from emp where empno = 7788";
+		    string sql = "select ename, job from emp where empno = 7788";
             Employee ret = null;
             using(IDbCommand cmd = DataSource.GetCommand(sql,Connection))
             {
-                using(IDataReader rs = cmd.ExecuteReader())
+                using(IDataReader reader = cmd.ExecuteReader())
                 {
-                    ret = (Employee) handler.Handle(rs);
+                    ret = (Employee) handler.Handle(reader);
 			    }
 		    }
 		    Assert.IsNotNull(ret, "1");
@@ -90,14 +90,14 @@ namespace Seasar.Dao.Tests.Impl
         public void TestHandle3() {
 		    IDataReaderHandler handler = new BeanMetaDataDataReaderHandler(
 				    CreateBeanMetaData());
-		    String sql = "select ename, dept.dname as dname_0 " +
+		    string sql = "select ename, dept.dname as dname_0 " +
                 "from emp, dept where empno = 7788 and emp.deptno = dept.deptno";
             Employee ret = null;
             using(IDbCommand cmd = DataSource.GetCommand(sql,Connection))
 		    {
-                using(IDataReader rs = cmd.ExecuteReader())
+                using(IDataReader reader = cmd.ExecuteReader())
                 {
-                    ret = (Employee) handler.Handle(rs);
+                    ret = (Employee) handler.Handle(reader);
 			    }
 		    }
             Assert.IsNotNull(ret, "1");
@@ -105,5 +105,25 @@ namespace Seasar.Dao.Tests.Impl
             Assert.IsNotNull(dept, "2");
             Assert.AreEqual("RESEARCH", dept.Dname, "3");
 	    }
+
+        /// <summary>
+        /// https://www.seasar.org/issues/browse/DAONET-24
+        /// </summary>
+        [Test, S2]
+        public void TestMappingByPropertyName()
+        {
+            IDataReaderHandler handler = new BeanMetaDataDataReaderHandler(
+                CreateBeanMetaData());
+            string sql = "select job as jobname from emp where empno=7788";
+            Employee ret = null;
+            using(IDbCommand cmd = DataSource.GetCommand(sql, Connection))
+            {
+                using(IDataReader reader = cmd.ExecuteReader())
+                {
+                    ret = (Employee) handler.Handle(reader);
+                }
+            }
+            Assert.AreEqual("ANALYST", ret.JobName);
+        }
 	}
 }
