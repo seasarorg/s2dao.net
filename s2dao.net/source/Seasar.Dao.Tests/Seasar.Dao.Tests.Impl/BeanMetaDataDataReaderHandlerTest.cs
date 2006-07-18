@@ -24,6 +24,7 @@ using Seasar.Dao.Impl;
 using Seasar.Extension.ADO;
 using Seasar.Extension.ADO.Impl;
 using Seasar.Extension.ADO.Types;
+using Seasar.Extension.Unit;
 using Seasar.Framework.Container;
 using Seasar.Framework.Container.Factory;
 using Seasar.Framework.Util;
@@ -32,102 +33,74 @@ using MbUnit.Framework;
 namespace Seasar.Dao.Tests.Impl
 {
     [TestFixture]
-    public class BeanMetaDataDataReaderHandlerTest
+    public class BeanMetaDataDataReaderHandlerTest : S2TestCase
 	{
-        private const string PATH = "Tests.dicon";
-        private IBeanMetaData beanMetaData_;
-        private IDataSource dataSource;
 
-        [SetUp]
-        public void SetUp()
+        public IBeanMetaData CreateBeanMetaData()
         {
-            IS2Container container = S2ContainerFactory.Create(PATH);
-            dataSource = (IDataSource) container.GetComponent(typeof(IDataSource));
-
-            IDbConnection cn = DataSourceUtil.GetConnection(dataSource);
             IDbms dbms = new MSSQLServer();
-            beanMetaData_ = new BeanMetaDataImpl(typeof(Employee), new DatabaseMetaDataImpl(dataSource), dbms);
+            
+            IBeanMetaData beanMetaData = new BeanMetaDataImpl(typeof(Employee), 
+                new DatabaseMetaDataImpl(DataSource), dbms);
+
+            return beanMetaData;
         }
 
-	    [Test]
+	    [Test, S2]
         public void TestHandle() 
         {
 		    IDataReaderHandler handler = new BeanMetaDataDataReaderHandler(
-				    beanMetaData_);
-		    String sql = "select emp.*, dept.deptno as deptno_0, dept.dname as dname_0 from emp, dept where empno = 7788 and emp.deptno = dept.deptno";
-            IDbConnection cn = DataSourceUtil.GetConnection(dataSource);
-            //PreparedStatement ps = con.prepareStatement(sql);
-            IDbCommand cmd = dataSource.GetCommand(sql,cn);
-		    Employee ret = null;
-		    try {
-			    //ResultSet rs = ps.executeQuery();
-                IDataReader rs = cmd.ExecuteReader();
-			    try {
+				    CreateBeanMetaData());
+		    String sql = "select emp.*, dept.deptno as deptno_0, dept.dname as dname_0 " +
+                "from emp, dept where empno = 7788 and emp.deptno = dept.deptno";
+            Employee ret = null;
+            using(IDbCommand cmd = DataSource.GetCommand(sql,Connection))
+            {
+                using(IDataReader rs = cmd.ExecuteReader())
+			    {
                     ret = (Employee) handler.Handle(rs);
-			    } finally {
-				    //rs.Close();
 			    }
-		    } finally {
-			    //ps.close();
 		    }
 		    Assert.IsNotNull(ret, "1");
-		    //System.out.println(ret.getEmpno() + "," + ret.getEname());
 		    Department dept = ret.Department;
 		    Assert.IsNotNull(dept, "2");
 		    Assert.AreEqual(20, dept.Deptno, "3");
 		    Assert.AreEqual("RESEARCH", dept.Dname, "4");
 	    }
 
-	    [Test]
+	    [Test, S2]
         public void TestHandle2() {
 		    IDataReaderHandler handler = new BeanMetaDataDataReaderHandler(
-				    beanMetaData_);
+				    CreateBeanMetaData());
 		    String sql = "select ename, job from emp where empno = 7788";
-            IDbConnection cn = DataSourceUtil.GetConnection(dataSource);
-            //PreparedStatement ps = con.prepareStatement(sql);
-            IDbCommand cmd = dataSource.GetCommand(sql,cn);
             Employee ret = null;
-		    try {
-                //ResultSet rs = ps.executeQuery();
-                IDataReader rs = cmd.ExecuteReader();
-                try 
+            using(IDbCommand cmd = DataSource.GetCommand(sql,Connection))
+            {
+                using(IDataReader rs = cmd.ExecuteReader())
                 {
                     ret = (Employee) handler.Handle(rs);
-			    } finally {
-				    //rs.Close();
 			    }
-		    } finally {
-			    //ps.close();
 		    }
 		    Assert.IsNotNull(ret, "1");
-		    //System.out.println(ret.getEmpno() + "," + ret.getEname());
 		    Department dept = ret.Department;
 		    Assert.IsNull(dept, "2");
 	    }
 
-	    [Test]
+	    [Test, S2]
         public void TestHandle3() {
 		    IDataReaderHandler handler = new BeanMetaDataDataReaderHandler(
-				    beanMetaData_);
-		    String sql = "select ename, dept.dname as dname_0 from emp, dept where empno = 7788 and emp.deptno = dept.deptno";
-            IDbConnection cn = DataSourceUtil.GetConnection(dataSource);
-            //PreparedStatement ps = con.prepareStatement(sql);
-            IDbCommand cmd = dataSource.GetCommand(sql,cn);
+				    CreateBeanMetaData());
+		    String sql = "select ename, dept.dname as dname_0 " +
+                "from emp, dept where empno = 7788 and emp.deptno = dept.deptno";
             Employee ret = null;
-		    try {
-                //ResultSet rs = ps.executeQuery();
-                IDataReader rs = cmd.ExecuteReader();
-                try 
+            using(IDbCommand cmd = DataSource.GetCommand(sql,Connection))
+		    {
+                using(IDataReader rs = cmd.ExecuteReader())
                 {
                     ret = (Employee) handler.Handle(rs);
-			    } finally {
-				    //rs.Close();
 			    }
-		    } finally {
-			    //ps.close();
 		    }
             Assert.IsNotNull(ret, "1");
-            //System.out.println(ret.getEname());
 		    Department dept = ret.Department;
             Assert.IsNotNull(dept, "2");
             Assert.AreEqual("RESEARCH", dept.Dname, "3");
