@@ -79,10 +79,6 @@ namespace Seasar.Dao.Context
                 }
                 if(value != null) return value;
 
-                if (this.args.Count == 1) 
-                {
-                    return this.args[0];
-                }
                 logger.Log("WDAO0001", new object[] { name });
                 return null;
             }
@@ -100,10 +96,6 @@ namespace Seasar.Dao.Context
             } 
             else 
             {
-                if (this.argTypes.Count == 1) 
-                {
-                    return (Type) this.argTypes[0];
-                }
                 logger.Log("WDAO0001", new object[] { name });
                 return null;
             }
