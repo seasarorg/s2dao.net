@@ -18,56 +18,45 @@
 
 using System;
 using System.Data;
-using System.Data.SqlClient;
-using Seasar.Dao;
-using Seasar.Dao.Dbms;
 using Seasar.Dao.Impl;
+using Seasar.Dao.Unit;
 using Seasar.Extension.ADO;
-using Seasar.Extension.ADO.Impl;
-using Seasar.Extension.ADO.Types;
 using Seasar.Extension.Unit;
-using Seasar.Framework.Container;
-using Seasar.Framework.Container.Factory;
-using Seasar.Framework.Util;
 using MbUnit.Framework;
 
 namespace Seasar.Dao.Tests.Impl
 {
-
     [TestFixture]
-    public class BeanArrayMetaDataDataReaderHandlerTest : S2TestCase
-	{
-        private IBeanMetaData beanMetaData_;
-
-        [Test, S2()]
+    public class BeanArrayMetaDataDataReaderHandlerTest : S2DaoTestCase
+    {
+        [Test, S2]
         public void TestHandle() 
         {
-            IDataSource dataSource = (IDataSource) GetComponent(typeof(IDataSource));
-            IDbms dbms = new MSSQLServer();
-            beanMetaData_ = new BeanMetaDataImpl(typeof(Employee), new DatabaseMetaDataImpl(dataSource), dbms);
+            IDataReaderHandler handler = new BeanArrayMetaDataDataReaderHandler(
+                CreateBeanMetaData(typeof(Employee)));
 
-			IDataReaderHandler handler = new BeanArrayMetaDataDataReaderHandler(beanMetaData_);
+            string sql = "select * from emp";
+            using (IDbConnection con = Connection) 
+            {
+                using (IDbCommand cmd = con.CreateCommand()) 
+                {
+                    cmd.CommandText = sql;
 
-			String sql = "select * from emp";
-            SqlCommand cmd = new SqlCommand(sql, this.Connection as SqlConnection);
+                    Employee[] ret = null;
 
-			Employee[] ret = null;
+                    using (IDataReader reader = cmd.ExecuteReader()) 
+                    {
+                        ret = (Employee[]) handler.Handle(reader);
+                    }
 
-			SqlDataReader reader = cmd.ExecuteReader();
-			try {
-				ret = (Employee[]) handler.Handle(reader);
-			} finally {
-				reader.Close();
-			}
-
-			Assert.IsNotNull(ret, "1");
-			for (int i = 0; i < ret.Length; ++i) {
-				Employee emp = ret[i];
-                Console.WriteLine(emp.Empno + "," + emp.Ename);
-			}
-
-		}
-
-
-	}
+                    Assert.IsNotNull(ret, "1");
+                    for (int i = 0; i < ret.Length; ++i) 
+                    {
+                        Employee emp = ret[i];
+                        Console.WriteLine(emp.Empno + "," + emp.Ename);
+                    }
+                }
+            }
+        }
+    }
 }
