@@ -177,7 +177,9 @@ namespace Seasar.Dao.Parser
             int elseCommentLength = -1;
 
             if(bindVariableStartPos < 0)
-                bindVariableStartPos = sql.IndexOf("@", position);
+            {
+                bindVariableStartPos = sql.IndexOf("?", position);
+            }
             if(lineCommentStartPos >= 0)
             {
                 int skipPos = SkipWhitespace(lineCommentStartPos + 2);

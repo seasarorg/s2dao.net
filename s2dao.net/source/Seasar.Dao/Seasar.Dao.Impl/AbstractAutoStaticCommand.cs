@@ -102,10 +102,7 @@ namespace Seasar.Dao.Impl
             buf.Append(") VALUES (");
             for(int i = 0; i < propertyTypes.Length; ++i)
             {
-                // Adapter‚É‚æ‚èØ‚è‘Ö‚¦‚é•K—v‚ ‚è
-                buf.Append("@");
-                buf.Append(propertyTypes[i].ColumnName);
-                buf.Append(", ");
+                buf.Append("?, ");
             }
             buf.Length = buf.Length - 2;
             buf.Append(")");
@@ -123,9 +120,7 @@ namespace Seasar.Dao.Impl
             {
                 IPropertyType pt = propertyTypes[i];
                 buf.Append(pt.ColumnName);
-                buf.Append(" = @");
-                buf.Append(pt.ColumnName);
-                buf.Append(", ");
+                buf.Append(" = ?, ");
             }
             buf.Length = buf.Length - 2;
             SetupUpdateWhere(buf);
@@ -156,9 +151,7 @@ namespace Seasar.Dao.Impl
             for(int i = 0; i < bmd.PrimaryKeySize; ++i)
             {
                 buf.Append(bmd.GetPrimaryKey(i));
-                buf.Append(" = @");
-                buf.Append(bmd.GetPrimaryKey(i));
-                buf.Append(" AND ");
+                buf.Append(" = ? AND ");
             }
             buf.Length = buf.Length - 5;
             if(bmd.HasVersionNoPropertyType)
@@ -166,16 +159,14 @@ namespace Seasar.Dao.Impl
                 IPropertyType pt = bmd.VersionNoPropertyType;
                 buf.Append(" AND ");
                 buf.Append(pt.ColumnName);
-                buf.Append(" = @");
-                buf.Append(bmd.VersionNoBindingName);
+                buf.Append(" = ?");
             }
             if(bmd.HasTimestampPropertyType)
             {
                 IPropertyType pt = bmd.TimestampPropertyType;
                 buf.Append(" AND ");
                 buf.Append(pt.ColumnName);
-                buf.Append(" = @");
-                buf.Append(bmd.TimestampBindingName);
+                buf.Append(" = ?");
             }
         }
 

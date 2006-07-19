@@ -176,7 +176,7 @@ namespace Seasar.Dao.Context
 
         public ICommandContext AddSql(object bindVariable, Type bindVariableType, string bindVariableName)
         {
-            AddSql("@" + bindVariableName, bindVariable, bindVariableType, bindVariableName);
+            AddSql("?", bindVariable, bindVariableType, bindVariableName);
             return this;
         }
 
@@ -196,7 +196,7 @@ namespace Seasar.Dao.Context
 
         public ICommandContext AppendSql(object bindVariable, Type bindVariableType, string bindVariableName)
         {
-            AddSql(", @" + bindVariableName, bindVariable, bindVariableType, bindVariableName);
+            AddSql(", ?", bindVariable, bindVariableType, bindVariableName);
             return this;
         }
 
