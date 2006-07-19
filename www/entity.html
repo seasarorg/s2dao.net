@@ -42,11 +42,11 @@
 </p>
 
 <ul>
-	<li><a href="#table">テーブルとの関連付けを行うTable属性</a></li>
-	<li><a href="#column">カラムとの関連付けを行うColumn属性</a></li>
-	<li><a href="#n1">別テーブルとの結合を指定するRelno属性, Relkeys属性(N:1マッピング)</a></li>
-	<li><a href="#id">IDの自動生成を指定するID属性</a></li>
-	<li><a href="#noPersistent">永続化されないカラムを指定するNoPersistentProps属性</a></li>
+	<li><a href="#table">Table属性 - テーブルとの関連付けを行う</a></li>
+	<li><a href="#column">Column属性 - カラムとの関連付けを行う</a></li>
+	<li><a href="#n1">Relno属性, Relkeys属性 - 別テーブルとの結合を指定する(N:1マッピング)</a></li>
+	<li><a href="#id">ID属性 - IDの自動生成を指定する</a></li>
+	<li><a href="#noPersistent">NoPersistentProps属性 - 永続化されないカラムを指定する</a></li>
 	<li><a href="#versionNo">VersionNoによる排他制御とVersionNoProperty属性</a></li>
 	<li><a href="#timestamp">Timestampによる排他制御とTimestampProperty属性</a></li>
 </ul>
@@ -201,12 +201,15 @@ VB.NET
 <h2><a name="n1">別テーブルとの結合を指定するRelno属性, Relkeys属性(N:1マッピング)</a></h2>
 
 <p>N:1マッピングとは、複数の従業員の行に1つの部署の行が関連付けられるような場合のマッピングです。
-N:1マッピングを利用するには、Relno属性とRelkeys属性をそれぞれ指定する必要があります。</p>
+N:1マッピングを利用するには、Relno属性とRelkeys属性をそれぞれ指定する必要があります。
+Relno属性とRelkeys属性を指定すると、
+検索SQLの自動生成を行う場合に左外部結合(LEFT OUTER JOIN)を自動的に行います。</p>
 <p>Relno属性とRelkeys属性は結合先となるEntityクラス型で作成したプロパティに指定します。</p>
 <p>Relno属性はN:1マッピングの0(ゼロ)から始まる連番を指定します。</p>
 <p>例えば、AAAのテーブルにBBB, CCCのテーブルがN:1マッピングされるとするとBBBのRelno属性には0を、
 CCCのRelno属性には1を指定します。</p>
-<p>また、Relno属性は結果セットに含まれているカラムが、どのテーブルに属しているのかを判定することにも使われます。</p>
+<p>また、Relno属性は結果セットに含まれているカラムが、どのテーブルに属しているのかを判定することにも使われます。
+これはSQL属性やSQLファイルを用いて手動でSQLを記述する際に利用します。</p>
 <p>例えば、SELECT ..., BBB.HOGE AS HOGE_0, ... FROM AAA, BBB ...のようなSELECT文があった場合、
 HOGE_0はBBBテーブルに含まれているHOGEカラムであると認識され、結果が結合先のEntityクラスの対応するプロパティにセットされます。</p>
 <p>N:1マッピングのキーはRelkeys属性で指定します。キーが複数ある場合には、カンマ(,)で区切ります。
@@ -259,7 +262,7 @@ Relkeys属性を省略することが出来ます。</p>
 そのために使うのが、ID属性です。ID属性を指定してS2Dao.NETにInsert文を作成させた場合、
 引数で渡したEntityのID属性が指定されたプロパティに、RDBMSによって自動生成された値がセットされます。
 <span style="color:red;">ただしID属性を指定した場合は<a href="http://s2container.net.seasar.org/tx.html#LocalTx">
-ローカルトランザクション</a>を使用する必要があります。</a></p>
+ローカルトランザクション</a>を使用する必要があります。</a></span></p>
 <p>ID属性はプロパティに指定します。</p>
 
 C#
