@@ -24,7 +24,7 @@ namespace Seasar.Dao.Tests.Impl
 {
     [Table("EMP")]
     public class Employee5
-	{
+    {
         private long empno;
 
         private string ename;
@@ -42,16 +42,16 @@ namespace Seasar.Dao.Tests.Impl
         private int deptno;
 
         private byte[] password;
-    
+
         private string dummy;
 
         private Department department;
 
         private DateTime timestamp;
-       
+
         public Employee5()
-		{
-		}
+        {
+        }
 
         public Employee5(long empno)
         {
@@ -131,5 +131,5 @@ namespace Seasar.Dao.Tests.Impl
             set { department = value; }
             get { return department; }
         }
-	}
+    }
 }

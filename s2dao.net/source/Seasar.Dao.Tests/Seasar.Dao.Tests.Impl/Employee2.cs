@@ -16,9 +16,7 @@
  */
 #endregion
 
-using System;
 using System.Text;
-using System.Data.SqlTypes;
 using Seasar.Dao.Attrs;
 
 namespace Seasar.Dao.Tests.Impl
@@ -27,12 +25,13 @@ namespace Seasar.Dao.Tests.Impl
     public class Employee2
     {
         private long empno;
+        
         private string ename;
 
         private int deptnum;
-    
+
         private Department2 department2;
-    
+
         public Employee2()
         {
         }
@@ -71,6 +70,5 @@ namespace Seasar.Dao.Tests.Impl
             buf.Append(department2).Append("}");
             return buf.ToString();
         }
-
     }
 }

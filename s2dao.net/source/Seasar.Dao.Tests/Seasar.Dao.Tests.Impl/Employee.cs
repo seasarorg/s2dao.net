@@ -34,9 +34,11 @@ namespace Seasar.Dao.Tests.Impl
 
         private SqlInt16 mgr;
 
+//        private SqlDateTime hiredate;
+
         private SqlSingle sal;
 
-//        private float comm;
+        private SqlSingle comm;
 
         private int deptno;
     
@@ -46,7 +48,7 @@ namespace Seasar.Dao.Tests.Impl
     
         private Department department;
     
-        //private Timestamp timestamp;
+//        private SqlDateTime timestamp;
 
         public Employee()
         {
@@ -77,8 +79,7 @@ namespace Seasar.Dao.Tests.Impl
             get { return mgr; }
         }
 
-        //範囲外例外
-//        public DateTime Hiredate
+//        public SqlDateTime Hiredate
 //        {
 //            set { hiredate = value; }
 //            get { return hiredate; }
@@ -90,12 +91,11 @@ namespace Seasar.Dao.Tests.Impl
             get { return sal; }
         }
 
-        //Null例外
-//        public float Comm
-//        {
-//            set { comm = value; }
-//            get { return comm; }
-//        }
+        public SqlSingle Comm
+        {
+            set { comm = value; }
+            get { return comm; }
+        }
 
         public int Deptno
         {
@@ -122,24 +122,39 @@ namespace Seasar.Dao.Tests.Impl
             get { return department; }
         }
 
-        //範囲外例外
-//        public DateTime Timestamp
+//        [Column("tstamp")]
+//        public SqlDateTime Timestamp
 //        {
 //            set { timestamp = value; }
 //            get { return timestamp; }
 //        }
 
+        public bool equals(object other) 
+        {
+            if ( !(other.GetType() == typeof(Employee)) ) return false;
+            Employee castOther = (Employee) other;
+            return this.Empno == castOther.Empno;
+        }
+
+        public int hashCode() 
+        {
+            return (int) this.Empno;
+        }
+
         public override string ToString()
         {
             StringBuilder buf = new StringBuilder(50);
-            buf.Append("Empno=");
-            buf.Append(Empno);
-            buf.Append(", Ename=");
-            buf.Append(Ename);
-            buf.Append(", Deptno=");
-            buf.Append(Deptno);
+            buf.Append(empno).Append(", ");
+            buf.Append(ename).Append(", ");
+            buf.Append(job).Append(", ");
+            buf.Append(mgr).Append(", ");
+//            buf.Append(hiredate).Append(", ");
+            buf.Append(sal).Append(", ");
+            buf.Append(comm).Append(", ");
+            buf.Append(deptno).Append(", ");
+//            buf.Append(timestamp).Append(", ");
+            buf.Append(department);
             return buf.ToString();
         }
-
     }
 }

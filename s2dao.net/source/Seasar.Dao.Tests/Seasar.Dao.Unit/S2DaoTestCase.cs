@@ -38,7 +38,7 @@ namespace Seasar.Dao.Unit
             }
         }
 
-        protected IBeanMetaData CreateBeanMetaData(Type beanType) 
+        protected BeanMetaDataImpl CreateBeanMetaData(Type beanType) 
         {
             BeanMetaDataImpl beanMetaData = new BeanMetaDataImpl(
                 beanType,
@@ -48,7 +48,7 @@ namespace Seasar.Dao.Unit
             return beanMetaData;
         }
 
-        protected IDaoMetaData CreateDaoMetaData(Type daoType, string sqlFileEncoding) 
+        protected DaoMetaDataImpl CreateDaoMetaData(Type daoType) 
         {
             DaoMetaDataImpl dmd = new DaoMetaDataImpl();
             dmd.DaoType = daoType;
@@ -56,10 +56,6 @@ namespace Seasar.Dao.Unit
             dmd.CommandFactory = BasicCommandFactory.INSTANCE;
             dmd.DataReaderFactory = BasicDataReaderFactory.INSTANCE;
             dmd.DatabaseMetaData = new DatabaseMetaDataImpl(DataSource);
-            if (sqlFileEncoding != null) 
-            {
-                dmd.SqlFileEncoding = sqlFileEncoding;
-            }
             dmd.Initialize();
             return dmd;
         }

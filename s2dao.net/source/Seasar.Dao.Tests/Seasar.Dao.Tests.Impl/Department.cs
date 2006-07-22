@@ -1,25 +1,38 @@
-using System;
+#region Copyright
+/*
+ * Copyright 2005 the Seasar Foundation and the Others.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
+#endregion
+
 using System.Text;
 using Seasar.Dao.Attrs;
 
 namespace Seasar.Dao.Tests.Impl
 {
-	/// <summary>
-	/// Department ÇÃäTóvÇÃê‡ñæÇ≈Ç∑ÅB
-	/// </summary>
     [Table("DEPT")]
     public class Department
 	{
-
         private int deptno;
 
-        private String dname;
+        private string dname;
 
-        private String loc;
-    
+        private string loc;
+
         private int versionNo;
-    
-        private String dummy;
+
+        private string dummy;
 
         public Department() 
         {
@@ -31,12 +44,13 @@ namespace Seasar.Dao.Tests.Impl
             get { return deptno; }
         }
 
-        public String Dname
+        public string Dname
         {
             set { dname = value; }
             get { return dname; }
         }
-        public String Loc
+        
+        public string Loc
         {
             set { loc = value; }
             get { return loc; }
@@ -48,9 +62,8 @@ namespace Seasar.Dao.Tests.Impl
             get { return versionNo; }
         }
    
-        public Boolean equals(Object other) 
+        public bool equals(object other) 
         {
-            //if ( !(other instanceof Department) ) return false;
             if ( !(other.GetType() == typeof(Department)) ) return false;
             Department castOther = (Department) other;
             return this.Deptno == castOther.Deptno;
@@ -71,12 +84,10 @@ namespace Seasar.Dao.Tests.Impl
             return buf.ToString();
         }
 
-        public String Dummy
+        public string Dummy
         {
             set { dummy = value; }
             get { return dummy; }
         }
-
-
     }
 }

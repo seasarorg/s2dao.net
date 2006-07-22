@@ -23,7 +23,7 @@ namespace Seasar.Dao.Tests.Impl
 {
     [Bean(typeof(Employee2))]
     public interface IEmployee2Dao
-	{
+    {
         IList GetAllEmployees();
 
         [Sql("SELECT ename, deptnum, empno FROM EMP2")]

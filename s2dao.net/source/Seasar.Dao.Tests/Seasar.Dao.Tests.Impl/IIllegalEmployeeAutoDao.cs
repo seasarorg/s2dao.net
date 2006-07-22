@@ -16,14 +16,13 @@
  */
 #endregion
 
-using System;
 using Seasar.Dao.Attrs;
 
 namespace Seasar.Dao.Tests.Impl
 {
     [Bean(typeof(Employee))]
     public interface IIllegalEmployeeAutoDao
-	{
+    {
         void InsertIllegal(int empno);
     }
 }

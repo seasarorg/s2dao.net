@@ -16,8 +16,8 @@
  */
 #endregion
 
-using System;
 using System.Data;
+using System.Diagnostics;
 using Seasar.Dao.Impl;
 using Seasar.Dao.Unit;
 using Seasar.Extension.ADO;
@@ -53,7 +53,7 @@ namespace Seasar.Dao.Tests.Impl
                     for (int i = 0; i < ret.Length; ++i) 
                     {
                         Employee emp = ret[i];
-                        Console.WriteLine(emp.Empno + "," + emp.Ename);
+                        Trace.WriteLine(emp.Empno + "," + emp.Ename);
                     }
                 }
             }

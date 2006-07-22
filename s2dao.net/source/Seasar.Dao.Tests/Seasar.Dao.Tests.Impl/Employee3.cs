@@ -16,7 +16,6 @@
  */
 #endregion
 
-using System;
 using System.Data.SqlTypes;
 using System.Text;
 using Seasar.Dao.Attrs;

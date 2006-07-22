@@ -22,7 +22,7 @@ namespace Seasar.Dao.Tests.Impl
 {
     [Bean(typeof(Employee))]
     public interface IEmployee6Dao
-	{
+    {
         [Query("/*IF dto.OrderByString != null*/order by /*$dto.OrderByString*/ENAME /*END*/")]
         Employee[] GetEmployees(EmployeeSearchCondition dto);
     }

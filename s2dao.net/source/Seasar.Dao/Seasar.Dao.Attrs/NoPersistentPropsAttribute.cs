@@ -32,7 +32,14 @@ namespace Seasar.Dao.Attrs
 
         public string[] Props
         {
-            get { return props; }
+            get 
+            {
+                if (props != null && props.Length == 1 && props[0] == string.Empty) 
+                {
+                    return new string[0];
+                }
+                return props;
+            }
         }
     }
 }

@@ -16,131 +16,122 @@
  */
 #endregion
 
-using System;
+using System.Diagnostics;
 using Seasar.Dao;
-using Seasar.Dao.Impl;
-using Seasar.Extension.ADO;
-using Seasar.Extension.ADO.Impl;
-using Seasar.Framework.Container;
-using Seasar.Framework.Container.Factory;
-using Seasar.Framework.Util;
+using Seasar.Dao.Dbms;
+using Seasar.Dao.Unit;
+using Seasar.Extension.Unit;
 using MbUnit.Framework;
 
 namespace Seasar.Dao.Tests.Impl
 {
     [TestFixture]
-    public class InsertAutoStaticCommandTest
-	{
-        private const string PATH = "Tests.dicon";
-        private IDataSource dataSource;
-
-        [SetUp]
-        public void SetUp()
-        {
-            IS2Container container = S2ContainerFactory.Create(PATH);
-            dataSource = (IDataSource) container.GetComponent(typeof(IDataSource));
-        }
-
-        [Test]
+    public class InsertAutoStaticCommandTest : S2DaoTestCase
+    {
+        [Test, S2(Tx.Rollback)]
         public void TestExecuteTx() 
         {
-            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
-                dataSource, BasicCommandFactory.INSTANCE,
-                BasicDataReaderFactory.INSTANCE,new DatabaseMetaDataImpl(dataSource));
-
+            IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeAutoDao));
             ISqlCommand cmd = dmd.GetSqlCommand("Insert");
             Employee emp = new Employee();
-            emp.Empno =99;
+            emp.Empno = 99;
             emp.Ename = "hoge";
-            Int32 count = (Int32) cmd.Execute(new Object[] { emp });
+            int count = (int) cmd.Execute(new object[] { emp });
             Assert.AreEqual(1, count, "1");
-
-            //挿入したデータを消しておく
-            string cmdText = "DELETE [dbo].[EMP] WHERE Empno = 99";
-            System.Data.IDbConnection cn = DataSourceUtil.GetConnection(dataSource);
-            System.Data.IDbCommand dbcmd = dataSource.GetCommand(cmdText,cn);
-            CommandUtil.ExecuteNonQuery(dataSource,dbcmd);
-
         }
 
-        [Test]
+        [Test, S2(Tx.Rollback)]
         public void TestExecute2Tx() 
         {
-            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IIdentityTableAutoDao),
-                dataSource, BasicCommandFactory.INSTANCE,
-                BasicDataReaderFactory.INSTANCE,new DatabaseMetaDataImpl(dataSource));
+            if (Dbms.IdentitySelectString == null) 
+            {
+                Assert.Ignore("IDENTITYをサポートしていないDBMS。");
+            }
+
+            IDaoMetaData dmd = CreateDaoMetaData(typeof(IIdentityTableAutoDao));
 
             Assert.Ignore("IDENTITYTABLEのIDテーブルをIdentityにすればInsertは可能になるが、@@IDENTITYを取得できていない");
             //AbstractAutoHandler#ExecuteでCommandUtil.Close(cmd)の後にPostUpdateBean(bean)をしているので、別セッションになってしまう
 
             ISqlCommand cmd = dmd.GetSqlCommand("Insert");
             IdentityTable table = new IdentityTable();
-            table.Name = "hoge";
-            Int32 count = (Int32) cmd.Execute(new Object[] { table });
-            Assert.AreEqual(1, count, "1");
-            //System.out.println(table.getMyid());
-            Assert.IsTrue(table.Myid > 0,"2");
+            table.IdName = "hoge";
+            int count1 = (int) cmd.Execute(new object[] { table });
+            Assert.AreEqual(1, count1, "1");
+            int id1 = table.Myid;
+            Trace.WriteLine(id1);
+            int count2 = (int) cmd.Execute(new object[] { table });
+            Assert.AreEqual(2, count2, "2");
+            int id2 = table.Myid;
+            Trace.WriteLine(id2);
+            Assert.AreEqual(1, id2 - id1, "2");
         }
 
-        [Test]
-        public void TestExecute3Tx() 
+        [Test, S2(Tx.Rollback)]
+        public void TestExecute3_1Tx() 
         {
-            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(SeqTableAutoDao),
-                dataSource, BasicCommandFactory.INSTANCE,
-                BasicDataReaderFactory.INSTANCE, new DatabaseMetaDataImpl(dataSource));
+            if (Dbms.GetSequenceNextValString("dummy") == null) 
+            {
+                Assert.Ignore("SEQUENCEをサポートしていないDBMS。");
+            }
 
-//            Assert.Ignore("SQL Serverでは使用不可");
-//
-//            ISqlCommand cmd = dmd.GetSqlCommand("Insert");
-//            SeqTable table = new SeqTable();
-//            table.Name ="hoge";
-//            Int32 count = (Int32) cmd.Execute(new Object[] { table });
-//            Assert.AreEqual(1, count, "1");
-//            //System.out.println(table.getId());
-//            Assert.IsTrue(table.ID > 0,"2");
+            IDaoMetaData dmd = CreateDaoMetaData(typeof(SeqTableAutoDao));
+            ISqlCommand cmd = dmd.GetSqlCommand("Insert");
+            SeqTable table = new SeqTable();
+            table.Name ="hoge";
+            int count = (int) cmd.Execute(new object[] { table });
+            Assert.AreEqual(1, count, "1");
+            Trace.WriteLine(table.Id);
+            Assert.IsTrue(table.Id > 0, "2");
         }
 
-        [Test]
+        [Test, S2(Tx.Rollback)]
+        public void TestExecute3_2Tx() 
+        {
+            if (Dbms.GetSequenceNextValString("dummy") == null) 
+            {
+                Assert.Ignore("SEQUENCEをサポートしていないDBMS。");
+            }
+
+            IDaoMetaData dmd = CreateDaoMetaData(typeof(SeqTableAuto2Dao));
+            ISqlCommand cmd = dmd.GetSqlCommand("Insert");
+            SeqTable2 table1 = new SeqTable2();
+            table1.Name ="hoge";
+            int count = (int) cmd.Execute(new object[] { table1 });
+            Assert.AreEqual(1, count, "1");
+            Trace.WriteLine(table1.Id);
+            Assert.IsTrue(table1.Id > 0, "2");
+
+            SeqTable2 table2 = new SeqTable2();
+            table2.Name ="foo";
+            cmd.Execute(new object[] { table2 });
+            Trace.WriteLine(table2.Id);
+            Assert.IsTrue(table2.Id > table1.Id, "3");
+        }
+
+        [Test, S2(Tx.Rollback)]
         public void TestExecute4Tx() 
         {
-            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
-                dataSource, BasicCommandFactory.INSTANCE,
-                BasicDataReaderFactory.INSTANCE, new DatabaseMetaDataImpl(dataSource));
-
+            IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeAutoDao));
             ISqlCommand cmd = dmd.GetSqlCommand("Insert2");
             Employee emp = new Employee();
-            emp.Empno =99;
+            emp.Empno = 99;
             emp.Ename = "hoge";
-            Int32 count = (Int32) cmd.Execute(new Object[] { emp });
+            int count = (int) cmd.Execute(new object[] { emp });
             Assert.AreEqual(1, count, "1");
-
-            //挿入したデータを消しておく
-            string cmdText = "DELETE [dbo].[EMP] WHERE Empno = 99";
-            System.Data.IDbConnection cn = DataSourceUtil.GetConnection(dataSource);
-            System.Data.IDbCommand dbcmd = dataSource.GetCommand(cmdText,cn);
-            CommandUtil.ExecuteNonQuery(dataSource,dbcmd);
         }
 
-        [Test]
+        [Test, S2(Tx.Rollback)]
         public void TestExecute5Tx() 
         {
-            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
-                dataSource, BasicCommandFactory.INSTANCE,
-                BasicDataReaderFactory.INSTANCE, new DatabaseMetaDataImpl(dataSource));
+            IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeAutoDao));
             ISqlCommand cmd = dmd.GetSqlCommand("Insert3");
             Employee emp = new Employee();
-            emp.Empno =99;
+            emp.Empno = 99;
             emp.Ename = "hoge";
             emp.Deptno =10;
-            Int32 count = (Int32) cmd.Execute(new Object[] { emp });
+            int count = (int) cmd.Execute(new object[] { emp });
             Assert.AreEqual(1, count, "1");
-        
-            //挿入したデータを消しておく
-            string cmdText = "DELETE [dbo].[EMP] WHERE Empno = 99";
-            System.Data.IDbConnection cn = DataSourceUtil.GetConnection(dataSource);
-            System.Data.IDbCommand dbcmd = dataSource.GetCommand(cmdText,cn);
-            CommandUtil.ExecuteNonQuery(dataSource,dbcmd);
         }
-
     }
 }

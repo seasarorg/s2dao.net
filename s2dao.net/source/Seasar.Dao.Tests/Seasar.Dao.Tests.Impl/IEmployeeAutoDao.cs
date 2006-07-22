@@ -22,16 +22,9 @@ using Seasar.Dao.Attrs;
 
 namespace Seasar.Dao.Tests.Impl
 {
-	/// <summary>
-	/// EmployeeAutoDao ‚ÌŠT—v‚Ìà–¾‚Å‚·B
-	/// </summary>
     [Bean(typeof(Employee))]
     public interface IEmployeeAutoDao
-	{
-//        public String GetEmployeeByDeptno_ARGS = "deptno";
-//        public String GetEmployeeByDeptno_ORDER = "deptno asc, empno desc";
-        //TODO:QueryAttribute‚ÍAllowMultiple = true‚É‚·‚×‚«H
-        //[Query("order by deptno asc, empno desc")]
+    {
         [Query("deptno=/*deptno*/")]
         IList GetEmployeeByDeptno(int deptno);
 

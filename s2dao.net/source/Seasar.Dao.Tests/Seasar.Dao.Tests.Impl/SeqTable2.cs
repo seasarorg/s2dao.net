@@ -16,14 +16,28 @@
  */
 #endregion
 
-using System.Collections;
 using Seasar.Dao.Attrs;
 
 namespace Seasar.Dao.Tests.Impl
 {
-    [Bean(typeof(DepartmentTotalSalary))]
-    public interface IDepartmentTotalSalaryDao
+    [Table("SEQTABLE")]
+    public class SeqTable2
     {
-        IList GetTotalSalaries();
+        private int id;
+
+        private string name;
+
+        [ID("sequence", "SEQ_SEQTABLE")]
+        public int Id
+        {
+            set { id = value; }
+            get { return id; }
+        }
+
+        public string Name
+        {
+            set { name = value; }
+            get { return name; }
+        }
     }
 }

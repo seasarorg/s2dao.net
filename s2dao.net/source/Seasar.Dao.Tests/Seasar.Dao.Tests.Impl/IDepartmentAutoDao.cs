@@ -16,17 +16,13 @@
  */
 #endregion
 
-using System;
 using Seasar.Dao.Attrs;
 
 namespace Seasar.Dao.Tests.Impl
 {
-	/// <summary>
-	/// DepartmentAutoDao の概要の説明です。
-	/// </summary>
     [Bean(typeof(Department))]
     public interface IDepartmentAutoDao
-	{
+    {
         void Insert(Department department);
 
         //対象外
@@ -41,6 +37,5 @@ namespace Seasar.Dao.Tests.Impl
 
         //対象外
         //void DeleteBatch(Department[] departents);
-
-	}
+    }
 }

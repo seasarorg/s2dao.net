@@ -366,17 +366,22 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Tests.Impl\SeqTable2.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Tests.Impl\SeqTableAuto2Dao.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Seasar.Dao.Tests.Impl\SeqTableAutoDao.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
                     RelPath = "Seasar.Dao.Tests.Impl\UpdateAutoStaticCommandTest.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\UpdateBatchAutoStaticCommandTest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

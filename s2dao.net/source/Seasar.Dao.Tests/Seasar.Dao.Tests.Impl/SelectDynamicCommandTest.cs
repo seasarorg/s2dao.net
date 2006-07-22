@@ -17,49 +17,32 @@
 #endregion
 
 using System;
-using System.Data;
-using Seasar.Dao.Dbms;
+using System.Diagnostics;
+using Seasar.Dao;
 using Seasar.Dao.Impl;
-using Seasar.Extension.ADO;
+using Seasar.Dao.Unit;
 using Seasar.Extension.ADO.Impl;
-using Seasar.Extension.ADO.Types;
-using Seasar.Framework.Container;
-using Seasar.Framework.Container.Factory;
-using Seasar.Framework.Util;
-using NUnit.Framework;
+using Seasar.Extension.Unit;
+using MbUnit.Framework;
 
 namespace Seasar.Dao.Tests.Impl
 {
-    /// <summary>
-	/// SelectDynamicCommandTest ÇÃäTóvÇÃê‡ñæÇ≈Ç∑ÅB
-	/// </summary>
     [TestFixture]
-    public class SelectDynamicCommandTest
-	{
-        private const string PATH = "Tests.dicon";
-
-        [Test]
+    public class SelectDynamicCommandTest : S2DaoTestCase
+    {
+        [Test, S2]
         public void TestExecuteTx()
         {
-            IS2Container container = S2ContainerFactory.Create(PATH);
-            IDataSource dataSource = (IDataSource) container.GetComponent(typeof(IDataSource));
-
-            IDbConnection cn = DataSourceUtil.GetConnection(dataSource);
-            IDbms dbms = new MSSQLServer();
-
-            SelectDynamicCommand cmd = new SelectDynamicCommand(dataSource,
+            SelectDynamicCommand cmd = new SelectDynamicCommand(DataSource,
                 BasicCommandFactory.INSTANCE,
-                new BeanMetaDataDataReaderHandler(new BeanMetaDataImpl(
-						typeof(Employee), new DatabaseMetaDataImpl(dataSource), dbms)),
-						BasicDataReaderFactory.INSTANCE);
-
+                new BeanMetaDataDataReaderHandler(CreateBeanMetaData(typeof(Employee))),
+                BasicDataReaderFactory.INSTANCE);
             cmd.Sql = "SELECT * FROM emp WHERE empno = /*empno*/1234";
-            
-			cmd.ArgNames = new string[] { "empno" };
-			cmd.ArgTypes = new Type[] { typeof(int) };
-            Employee emp = (Employee) cmd.Execute(new Object[] { 7788 });
-
-			Assert.IsNotNull(emp, "1");
+            cmd.ArgNames = new string[] { "empno" };
+            cmd.ArgTypes = new Type[] { typeof(int) };
+            Employee emp = (Employee) cmd.Execute(new object[] { 7788 });
+            Trace.WriteLine(emp);
+            Assert.IsNotNull(emp, "1");
         }
     }
 }

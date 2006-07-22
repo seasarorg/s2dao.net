@@ -22,7 +22,7 @@ namespace Seasar.Dao.Tests.Impl
 {
     [Bean(typeof(Employee5))]
     public interface IEmployee5Dao
-	{
+    {
         Employee5 GetEmployee(int empno);
     }
 }

@@ -16,23 +16,18 @@
  */
 #endregion
 
-using System;
 using Seasar.Dao.Attrs;
 
 namespace Seasar.Dao.Tests.Impl
 {
-	/// <summary>
-	/// SeqTable ‚ÌŠT—v‚Ìà–¾‚Å‚·B
-	/// </summary>
-	public class SeqTable
-	{
+    public class SeqTable
+    {
         private int id;
-	
-        private String name;
 
-        //[ID("sequence, sequenceName=myseq")]
-        [ID("sequence", "myseq")]
-        public int ID
+        private string name;
+
+        [ID("sequence", "SEQ_SEQTABLE")]
+        public int Id
         {
             set { id = value; }
             get { return id; }

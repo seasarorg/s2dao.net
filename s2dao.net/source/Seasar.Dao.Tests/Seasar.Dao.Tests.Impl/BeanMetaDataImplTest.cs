@@ -17,225 +17,189 @@
 #endregion
 
 using System;
-using System.Data;
+using System.Data.SqlTypes;
+using System.Diagnostics;
 using Seasar.Dao.Attrs;
-using Seasar.Dao.Dbms;
 using Seasar.Dao.Impl;
+using Seasar.Dao.Unit;
 using Seasar.Extension.ADO;
-using Seasar.Extension.ADO.Impl;
-using Seasar.Framework.Container;
-using Seasar.Framework.Container.Factory;
-using Seasar.Framework.Util;
+using Seasar.Extension.Unit;
 using MbUnit.Framework;
 
 namespace Seasar.Dao.Tests.Impl
 {
-	[TestFixture]
-	public class BeanMetaDataImplTest
-	{
-        private const string PATH = "Tests.dicon";
-//        private IBeanMetaData beanMetaData_;
-        private IDataSource dataSource;
-    
-        [SetUp]
-        public void SetUp()
+    [TestFixture]
+    public class BeanMetaDataImplTest : S2DaoTestCase
+    {
+        [Test, S2]
+        public void TestSetup()
         {
-            IS2Container container = S2ContainerFactory.Create(PATH);
-            dataSource = (IDataSource) container.GetComponent(typeof(IDataSource));
-
-//            IDbConnection cn = DataSourceUtil.GetConnection(dataSource);
-//            IDbms dbms = new MSSQLServer();
-//            beanMetaData_ = new BeanMetaDataImpl(typeof(Employee), new DatabaseMetaDataImpl(dataSource), dbms);
+            // Java版だとプロパティ名の先頭1文字は、英小文字。.NET版は、英小文字。
+            IBeanMetaData bmd = CreateBeanMetaData(typeof(MyBean));
+            Assert.AreEqual("MyBean", bmd.TableName, "1");
+            Assert.AreEqual(3, bmd.PropertyTypeSize, "2");
+            IPropertyType aaa = bmd.GetPropertyType("aaa");
+            Assert.AreEqual("Aaa", aaa.ColumnName, "3");    // Java : aaa
+            IPropertyType bbb = bmd.GetPropertyType("bbb");
+            Assert.AreEqual("myBbb", bbb.ColumnName, "4");
+            Assert.AreEqual(1, bmd.RelationPropertyTypeSize, "5");
+            IRelationPropertyType rpt = bmd.GetRelationPropertyType(0);
+            Assert.AreEqual(1, rpt.KeySize, "6");
+            Assert.AreEqual("ddd", rpt.GetMyKey(0), "7");
+            Assert.AreEqual("id", rpt.GetYourKey(0), "8");
+            Assert.IsNotNull(bmd.IdentifierGenerator ,"9");
+            Assert.AreEqual(1, bmd.PrimaryKeySize, "10");
+            Assert.AreEqual("Aaa", bmd.GetPrimaryKey(0), "11");
         }
-
-//	    [Test]
-//	    public void TestSetup() {
-//		    IBeanMetaData bmd = new BeanMetaDataImpl(typeof(MyBean), new DatabaseMetaDataImpl(dataSource), new MSSQLServer());
-//		    Assert.AreEqual("MyBean", bmd.TableName, "1");
-//		    Assert.AreEqual(3, bmd.PropertyTypeSize, "2");
-//		    IPropertyType aaa = bmd.GetPropertyType("aaa");
-//		    Assert.AreEqual("aaa", aaa.ColumnName, "3");
-//		    IPropertyType bbb = bmd.GetRelationPropertyType("bbb");
-//		    Assert.AreEqual("myBbb", bbb.ColumnName, "4");
-//		    Assert.AreEqual(1, bmd.RelationPropertyTypeSize, "5");
-//		    IRelationPropertyType rpt = bmd.GetRelationPropertyType(0);
-//		    Assert.AreEqual(1, rpt.KeySize, "6");
-//		    Assert.AreEqual("ddd", rpt.GetMyKey(0), "7");
-//		    Assert.AreEqual("id", rpt.GetYourKey(0), "8");
-//		    Assert.IsNotNull(bmd.IdentifierGenerator ,"9");
-//		    Assert.AreEqual(1, bmd.PrimaryKeySize, "10");
-//		    Assert.AreEqual("aaa", bmd.GetPrimaryKey(0), "11");
-//	    }
-    	
-	    [Test]
-	    public void TestSetupDatabaseMetaData() {
-		    IBeanMetaData bmd = new BeanMetaDataImpl(typeof(Employee), new DatabaseMetaDataImpl(dataSource), new MSSQLServer());
-		    IPropertyType empno = bmd.GetPropertyType("empno");
-		    Assert.AreEqual(true, empno.IsPrimaryKey, "1");
-		    Assert.AreEqual(true, empno.IsPersistent, "2");
-		    IPropertyType ename = bmd.GetPropertyType("ename");
-		    Assert.AreEqual(false, ename.IsPrimaryKey, "3");
-		    IPropertyType dummy = bmd.GetPropertyType("dummy");
-		    Assert.AreEqual(false, dummy.IsPersistent, "4");
-	    }
-    	
-	    [Test]
-	    public void TestSetupAutoSelectList() {
-		    IBeanMetaData bmd = new BeanMetaDataImpl(typeof(Department), new DatabaseMetaDataImpl(dataSource), new MSSQLServer());
-		    IBeanMetaData bmd2 = new BeanMetaDataImpl(typeof(Employee), new DatabaseMetaDataImpl(dataSource), new MSSQLServer());
-		    string sql = bmd.AutoSelectList;
-		    string sql2 = bmd2.AutoSelectList;
-		    //System.out.println(sql);
-		    //System.out.println(sql2);
-    		
-		    Assert.IsTrue(sql2.IndexOf("EMP.DEPTNO") > 0, "1");
-		    Assert.IsTrue(sql2.IndexOf("Department.DEPTNO AS DEPTNO_0") > 0, "2");
-		    Assert.IsTrue(sql2.IndexOf("dummy_0") < 0, "3");
-	    }
-    	
-	    [Test]
-	    public void TestConvertFullColumnName() {
-		    IBeanMetaData bmd = new BeanMetaDataImpl(typeof(Employee), new DatabaseMetaDataImpl(dataSource), new MSSQLServer());
-		    Assert.AreEqual("EMP.empno", bmd.ConvertFullColumnName("empno"), "1");
-		    Assert.AreEqual("Department.dname", bmd.ConvertFullColumnName("dname_0"), "2");
-	    }
-    	
-	    [Test]
-	    public void TestHasPropertyTypeByAliasName() {
-		    IBeanMetaData bmd = new BeanMetaDataImpl(typeof(Employee), new DatabaseMetaDataImpl(dataSource), new MSSQLServer());
-		    Assert.AreEqual(true, bmd.HasPropertyTypeByAliasName("empno"), "1");
-		    Assert.AreEqual(true, bmd.HasPropertyTypeByAliasName("dname_0"), "2");
-		    Assert.AreEqual(false, bmd.HasPropertyTypeByAliasName("xxx"), "3");
-		    Assert.AreEqual(false, bmd.HasPropertyTypeByAliasName("xxx_10"), "4");
-		    Assert.AreEqual(false, bmd.HasPropertyTypeByAliasName("xxx_0"), "5");
-	    }
-    	
-	    [Test]
-	    public void TestGetPropertyTypeByAliasName() {
-		    IBeanMetaData bmd = new BeanMetaDataImpl(typeof(Employee), new DatabaseMetaDataImpl(dataSource), new MSSQLServer());
-		    Assert.IsNotNull(bmd.GetPropertyTypeByAliasName("empno"), "1");
-		    Assert.IsNotNull(bmd.GetPropertyTypeByAliasName("dname_0"), "2");
-	    }
-    	
-//	    [Test]
-//	    public void TestSelfReference() {
-//		    IBeanMetaData bmd = new BeanMetaDataImpl(typeof(Employee4), new DatabaseMetaDataImpl(dataSource), new MSSQLServer());
-//		    IRelationPropertyType rpt = bmd.GetRelationPropertyType("parent");
-//		    Assert.AreEqual(typeof(Employee4), rpt.BeanMetaData.BeanType, "1");
-//	    }
-    	
-//	    [Test]
-//	    public void TestNoPersistentPropsEmpty() {
-//		    IBeanMetaData bmd = new BeanMetaDataImpl(typeof(Ddd), new DatabaseMetaDataImpl(dataSource), new MSSQLServer());
-//		    IPropertyType pt = bmd.GetPropertyType("name");
-//		    Assert.AreEqual(true, pt.IsPersistent, "1");
-//	    }
-	
-//	    [Test]
-//	    public void TestNoPersistentPropsDefined() {
-//		    IBeanMetaData bmd = new BeanMetaDataImpl(typeof(Eee), new DatabaseMetaDataImpl(dataSource), new MSSQLServer());
-//		    IPropertyType pt = bmd.GetPropertyType("name");
-//		    Assert.AreEqual(false, pt.IsPersistent, "1");
-//	    }
-    	
-	    [Test]
-	    public void TestPrimaryKeyForIdentifier() {
-		    IBeanMetaData bmd = new BeanMetaDataImpl(typeof(IdentityTable), new DatabaseMetaDataImpl(dataSource), new MSSQLServer());
-		    Assert.AreEqual("ID", bmd.GetPrimaryKey(0), "1");
-	    }
-    	
-//	    [Test]
-//	    public void TestGetVersionNoPropertyName() {
-//		    IBeanMetaData bmd = new BeanMetaDataImpl(typeof(Fff), new DatabaseMetaDataImpl(dataSource), new MSSQLServer());
-//		    Assert.AreEqual("version", bmd.VersionNoPropertyName, "1");
-//	    }
-//    	
-//	    [Test]
-//	    public void TestGetTimestampPropertyName() {
-//		    IBeanMetaData bmd = new BeanMetaDataImpl(typeof(Fff), new DatabaseMetaDataImpl(dataSource), new MSSQLServer());
-//		    Assert.AreEqual("updated", bmd.TimestampPropertyName, "1");
-//	    }
-	
+        
+        [Test, S2]
+        public void TestSetupDatabaseMetaData()
+        {
+            IBeanMetaData bmd = CreateBeanMetaData(typeof(Employee));
+            IPropertyType empno = bmd.GetPropertyType("Empno");
+            Assert.AreEqual(true, empno.IsPrimaryKey, "1");
+            Assert.AreEqual(true, empno.IsPersistent, "2");
+            IPropertyType ename = bmd.GetPropertyType("ename");
+            Assert.AreEqual(false, ename.IsPrimaryKey, "3");
+            IPropertyType dummy = bmd.GetPropertyType("dummy");
+            Assert.AreEqual(false, dummy.IsPersistent, "4");
+        }
+        
+        [Test, S2]
+        public void TestSetupAutoSelectList()
+        {
+            IBeanMetaData bmd = CreateBeanMetaData(typeof(Department));
+            IBeanMetaData bmd2 = CreateBeanMetaData(typeof(Employee));
+            string sql = bmd.AutoSelectList;
+            string sql2 = bmd2.AutoSelectList;
+            Trace.WriteLine(sql);
+            Trace.WriteLine(sql2);
+            
+            Assert.IsTrue(sql2.IndexOf("EMP.DEPTNO") > 0, "1");
+            Assert.IsTrue(sql2.IndexOf("Department.DEPTNO AS DEPTNO_0") > 0, "2");
+            Assert.IsTrue(sql2.IndexOf("dummy_0") < 0, "3");
+        }
+        
+        [Test, S2]
+        public void TestConvertFullColumnName()
+        {
+            IBeanMetaData bmd = CreateBeanMetaData(typeof(Employee));
+            Assert.AreEqual("EMP.empno", bmd.ConvertFullColumnName("empno"), "1");
+            Assert.AreEqual("Department.dname", bmd.ConvertFullColumnName("dname_0"), "2");
+        }
+        
+        [Test, S2]
+        public void TestHasPropertyTypeByAliasName()
+        {
+            IBeanMetaData bmd = CreateBeanMetaData(typeof(Employee));
+            Assert.AreEqual(true, bmd.HasPropertyTypeByAliasName("empno"), "1");
+            Assert.AreEqual(true, bmd.HasPropertyTypeByAliasName("dname_0"), "2");
+            Assert.AreEqual(false, bmd.HasPropertyTypeByAliasName("xxx"), "3");
+            Assert.AreEqual(false, bmd.HasPropertyTypeByAliasName("xxx_10"), "4");
+            Assert.AreEqual(false, bmd.HasPropertyTypeByAliasName("xxx_0"), "5");
+        }
+        
+        [Test, S2]
+        public void TestGetPropertyTypeByAliasName()
+        {
+            IBeanMetaData bmd = CreateBeanMetaData(typeof(Employee));
+            Assert.IsNotNull(bmd.GetPropertyTypeByAliasName("empno"), "1");
+            Assert.IsNotNull(bmd.GetPropertyTypeByAliasName("dname_0"), "2");
+        }
+        
+        [Test, S2]
+        public void TestSelfReference()
+        {
+            IBeanMetaData bmd = CreateBeanMetaData(typeof(Employee4));
+            IRelationPropertyType rpt = bmd.GetRelationPropertyType("parent");
+            Assert.AreEqual(typeof(Employee4), rpt.BeanMetaData.BeanType, "1");
+        }
+        
+        [Test, S2]
+        public void TestNoPersistentPropsEmpty()
+        {
+            IBeanMetaData bmd = CreateBeanMetaData(typeof(Ddd));
+            IPropertyType pt = bmd.GetPropertyType("Name");
+            Assert.AreEqual(false, pt.IsPersistent, "1");
+        }
+    
+        [Test, S2]
+        public void TestNoPersistentPropsDefined()
+        {
+            IBeanMetaData bmd = CreateBeanMetaData(typeof(Eee));
+            IPropertyType pt = bmd.GetPropertyType("name");
+            Assert.AreEqual(false, pt.IsPersistent, "1");
+        }
+        
+        [Test, S2]
+        public void TestPrimaryKeyForIdentifier()
+        {
+            IBeanMetaData bmd = CreateBeanMetaData(typeof(IdentityTable));
+            Assert.AreEqual("ID", bmd.GetPrimaryKey(0), "1");
+        }
+        
+        [Test, S2]
+        public void TestGetVersionNoPropertyName()
+        {
+            IBeanMetaData bmd = CreateBeanMetaData(typeof(Fff));
+            Assert.AreEqual("Version", bmd.VersionNoPropertyName, "1");
+        }
+      
+        [Test, S2]
+        public void TestGetTimestampPropertyName()
+        {
+            IBeanMetaData bmd = CreateBeanMetaData(typeof(Fff));
+            Assert.AreEqual("Updated", bmd.TimestampPropertyName, "1");
+        }
+    
         [Table("MyBean")]
         public class MyBean 
-        {
-    		
-		    private Int32 aaa_;
-		    private string bbb_;
-		    private Ccc ccc_;
-		    private Int32 ddd_;
-    		
+        {            
+            private SqlInt32 aaa_;
+            private string bbb_;
+            private Ccc ccc_;
+            private SqlInt32 ddd_;
+            
             [ID("assigned")]
-		    public Int32 Aaa {
-                get
-                {
-                    return aaa_;
-                }
-                set
-                {
-                    aaa_ = value;
-                }
-		    }
-    		
+            public SqlInt32 Aaa
+            {
+                get { return aaa_; }
+                set { aaa_ = value; }
+            }
+            
             [Column("myBbb")]
             public string Bbb
             {
-                get
-                {
-                    return bbb_;
-                }
-                set
-                {
-                    bbb_ = value;
-                }
+                get { return bbb_; }
+                set { bbb_ = value; }
             }
-    		
 
             [Relno(0), Relkeys("ddd:id")]
             public Ccc Cccc
             {
-                get
-                {
-                    return ccc_;
-                }
-                set
-                {
-                    ccc_ = value;
-                }
+                get { return ccc_; }
+                set { ccc_ = value; }
             }
-
-    		
-		    public Int32 Ddd {
-                get
-                {
-                    return ddd_;
-                }
-                set
-                {
-                    ddd_ = value;
-                }
-		    }
-    		
-	    }
-	
-	    public class Ccc {
-		    private Int32 id_;
+            
+            public SqlInt32 Ddd
+            {
+                get { return ddd_; }
+                set { ddd_ = value; }
+            }
+        }
+    
+        public class Ccc
+        {
+            private SqlInt32 id_;
 
             [ID("assigned")]
-            public Int32 Id
+            public SqlInt32 Id
             {
-                get
-                {
-                    return id_;
-                }
-                set
-                {
-                    id_ = value;
-                }
+                get { return id_; }
+                set { id_ = value; }
             }
-
-	    }
-    	
+        }
+        
         [NoPersistentProps("")]
         public class Ddd : Ccc 
         {
@@ -243,15 +207,8 @@ namespace Seasar.Dao.Tests.Impl
 
             public string Name 
             {
-                get
-                {
-                    return name_;
-                }
-                set
-                {
-                    name_ = value;
-                }
-
+                get { return name_; }
+                set { name_ = value; }
             }
         }
 
@@ -262,58 +219,36 @@ namespace Seasar.Dao.Tests.Impl
 
             public string Name 
             {
-                get
-                {
-                    return name_;
-                }
-                set
-                {
-                    name_ = value;
-                }
-
+                get { return name_; }
+                set { name_ = value; }
             }
-        }
-	
-    	
+        }    
+        
         [VersionNoProperty("Version")]
         [TimestampProperty("Updated")]
         public class Fff 
         {
-		    private int version_;
-		    private Int32 id_;
-		    private DateTime updated_;
+            private int version_;
+            private SqlInt32 id_;
+            private DateTime updated_;
 
-		    public Int32 Id {
-                get
-                {
-                    return id_;
-                }
-                set
-                {
-                    id_ = value;
-                }
-		    }
-		    public int Version {
-                get
-                {
-                    return version_;
-                }
-                set
-                {
-                    version_ = value;
-                }
-		    }
-		    public DateTime Updated {
-                get
-                {
-                    return updated_;
-                }
-                set
-                {
-                    updated_ = value;
-                }
-		    }
-	    }
-    
+            public SqlInt32 Id
+            {
+                get { return id_; }
+                set { id_ = value; }
+            }
+
+            public int Version
+            {
+                get { return version_; }
+                set { version_ = value; }
+            }
+
+            public DateTime Updated
+            {
+                get { return updated_; }
+                set { updated_ = value; }
+            }
+        }    
     }
 }

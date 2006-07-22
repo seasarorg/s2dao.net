@@ -16,13 +16,12 @@
  */
 #endregion
 
-using System;
 using Seasar.Dao.Attrs;
 
 namespace Seasar.Dao.Tests.Impl
 {
-	public class EmployeeSearchCondition
-	{
+    public class EmployeeSearchCondition
+    {
         private Department department;
 
         private string job;
@@ -30,7 +29,7 @@ namespace Seasar.Dao.Tests.Impl
         private string dname;
 
         private string orderByString;
-	        
+            
         public Department Department
         {
             set { department = value; }
@@ -54,6 +53,6 @@ namespace Seasar.Dao.Tests.Impl
         {
             set { orderByString = value; }
             get { return orderByString; }
-        }	
-	}
+        }   
+    }
 }

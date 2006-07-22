@@ -1,41 +1,53 @@
-using System;
+#region Copyright
+/*
+ * Copyright 2005 the Seasar Foundation and the Others.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
+#endregion
+
 using System.Text;
 using Seasar.Dao.Attrs;
 
 namespace Seasar.Dao.Tests.Impl
 {
-	/// <summary>
-	/// Department ÇÃäTóvÇÃê‡ñæÇ≈Ç∑ÅB
-	/// </summary>
     [Table("DEPT2")]
     public class Department2
-	{
-
+    {
         private int deptno;
 
-        private String dname;
+        private string dname;
 
-        private Boolean active;
-    
+        private bool active;
+
         public int Deptno
         {
             set { deptno = value; }
             get { return deptno; }
         }
 
-        public String Dname
+        public string Dname
         {
             set { dname = value; }
             get { return dname; }
         }
-        public Boolean IsActive
+        
+        public bool IsActive
         {
             set { active = value; }
             get { return active; }
         }
-
-   
-   
+        
         public override string ToString() 
         {
             StringBuilder buf = new StringBuilder();
@@ -43,7 +55,5 @@ namespace Seasar.Dao.Tests.Impl
             buf.Append(dname).Append(", ");
             return buf.ToString();
         }
-
-
     }
 }

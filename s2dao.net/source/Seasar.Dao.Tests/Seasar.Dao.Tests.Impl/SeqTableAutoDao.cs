@@ -16,17 +16,13 @@
  */
 #endregion
 
-using System;
 using Seasar.Dao.Attrs;
 
 namespace Seasar.Dao.Tests.Impl
 {
-	/// <summary>
-	/// SeqTableAutoDao ‚ÌŠT—v‚Ìà–¾‚Å‚·B
-	/// </summary>
     [Bean(typeof(SeqTable))]
     public interface SeqTableAutoDao
-	{
+    {
         void Insert(SeqTable seqTable);
     }
 }

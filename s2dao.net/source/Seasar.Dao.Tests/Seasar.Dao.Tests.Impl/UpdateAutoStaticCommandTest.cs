@@ -16,123 +16,73 @@
  */
 #endregion
 
-using System;
+using System.Diagnostics;
 using Seasar.Dao;
-using Seasar.Dao.Impl;
-using Seasar.Extension.ADO;
-using Seasar.Extension.ADO.Impl;
+using Seasar.Dao.Unit;
 using Seasar.Extension.Unit;
-using Seasar.Framework.Container;
-using Seasar.Framework.Container.Factory;
-using Seasar.Framework.Exceptions;
-using Seasar.Framework.Util;
-using NUnit.Framework;
+using MbUnit.Framework;
 
 namespace Seasar.Dao.Tests.Impl
 {
-	/// <summary>
-	/// UpdateAutoStaticCommandTest の概要の説明です。
-	/// </summary>
     [TestFixture]
-    public class UpdateAutoStaticCommandTest : S2TestCase
-	{
-        private const string PATH = "Tests.dicon";
-        private IDataSource dataSource;
-
-        [SetUp]
-        public void SetUp()
-        {
-            IS2Container container = S2ContainerFactory.Create(PATH);
-            dataSource = (IDataSource) container.GetComponent(typeof(IDataSource));
-        }
-
+    public class UpdateAutoStaticCommandTest : S2DaoTestCase
+    {
         [Test, S2(Tx.Rollback)]
         public void TestExecuteTx() 
         {
-            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
-                dataSource, BasicCommandFactory.INSTANCE,
-                BasicDataReaderFactory.INSTANCE, new DatabaseMetaDataImpl(dataSource));
-
+            IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeAutoDao));
             ISqlCommand cmd = dmd.GetSqlCommand("Update");
             ISqlCommand cmd2 = dmd.GetSqlCommand("GetEmployee");
-            Employee emp = (Employee) cmd2.Execute(new Object[] { 7788 });
-            Int32 count = (Int32) cmd.Execute(new Object[] { emp });
+            Employee emp = (Employee) cmd2.Execute(new object[] { 7788 });
+            int count = (int) cmd.Execute(new object[] { emp });
             Assert.AreEqual(1, count, "1");
-
         }
 
         [Test, S2(Tx.Rollback)]
         public void TestExecute2Tx() 
         {
-            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IDepartmentAutoDao),
-                dataSource, BasicCommandFactory.INSTANCE,
-                BasicDataReaderFactory.INSTANCE, new DatabaseMetaDataImpl(dataSource));
-            
+            IDaoMetaData dmd = CreateDaoMetaData(typeof(IDepartmentAutoDao));
             ISqlCommand cmd = dmd.GetSqlCommand("Update");
             Department dept = new Department();
             dept.Deptno =10;
-            Int32 count = (Int32) cmd.Execute(new Object[] { dept });
+            int count = (int) cmd.Execute(new object[] { dept });
             Assert.AreEqual(1, count, "1");
             Assert.AreEqual(1, dept.VersionNo, "2");
-
-            
-            //更新したVersionNoを戻しておく
-            string cmdText = "Update [dbo].[DEPT] SET VERSIONNO = 0 WHERE DEPTNO = 10";
-            System.Data.IDbConnection cn = DataSourceUtil.GetConnection(dataSource);
-            System.Data.IDbCommand dbcmd = dataSource.GetCommand(cmdText,cn);
-            CommandUtil.ExecuteNonQuery(dataSource,dbcmd);
-
         }
 
         [Test, S2(Tx.Rollback)]
         [ExpectedException(typeof(NotSingleRowUpdatedRuntimeException))]
         public void TestExecute3Tx() 
         {
-            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IDepartmentAutoDao),
-                dataSource, BasicCommandFactory.INSTANCE,
-                BasicDataReaderFactory.INSTANCE, new DatabaseMetaDataImpl(dataSource));
-            
+            IDaoMetaData dmd = CreateDaoMetaData(typeof(IDepartmentAutoDao));
             ISqlCommand cmd = dmd.GetSqlCommand("Update");
             Department dept = new Department();
             dept.Deptno = 10;
             dept.VersionNo = -1;
-//            try 
-//            {
-                cmd.Execute(new Object[] { dept });
-//                fail("1");
-//            } 
-//                catch (UpdateFailureRuntimeException ex) 
-//            {
-//                //System.out.println(ex);
-//            }
+
+            cmd.Execute(new object[] { dept });
         }
 
         [Test, S2(Tx.Rollback)]
         public void TestExecute4Tx() 
         {
-            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
-                dataSource, BasicCommandFactory.INSTANCE,
-                BasicDataReaderFactory.INSTANCE, new DatabaseMetaDataImpl(dataSource));
-            
+            IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeAutoDao));
             ISqlCommand cmd = dmd.GetSqlCommand("Update2");
             ISqlCommand cmd2 = dmd.GetSqlCommand("GetEmployee");
-            Employee emp = (Employee) cmd2.Execute(new Object[] { 7788 });
-            Int32 count = (Int32) cmd.Execute(new Object[] { emp });
+            Employee emp = (Employee) cmd2.Execute(new object[] { 7788 });
+            int count = (int) cmd.Execute(new object[] { emp });
             Assert.AreEqual(1, count, "1");
         }
 
         [Test, S2(Tx.Rollback)]
         public void TestExecute5Tx() 
         {
-            IDaoMetaData dmd = new DaoMetaDataImpl(typeof(IEmployeeAutoDao),
-                dataSource, BasicCommandFactory.INSTANCE,
-                BasicDataReaderFactory.INSTANCE, new DatabaseMetaDataImpl(dataSource));
-
+            IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeAutoDao));
             ISqlCommand cmd = dmd.GetSqlCommand("Update3");
             ISqlCommand cmd2 = dmd.GetSqlCommand("GetEmployee");
-            Employee emp = (Employee) cmd2.Execute(new Object[] { 7788 });
-            Int32 count = (Int32) cmd.Execute(new Object[] { emp });
+            Employee emp = (Employee) cmd2.Execute(new object[] { 7788 });
+            int count = (int) cmd.Execute(new object[] { emp });
             Assert.AreEqual(1, count, "1");
         }
-	}
+    }
 }

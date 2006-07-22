@@ -23,7 +23,7 @@ namespace Seasar.Dao.Tests.Impl
 {
     [Bean(typeof(Employee3))]
     public interface IEmployee3Dao
-	{
+    {
         IList GetEmployees(Employee3 dto);
 
         [Query("ORDER BY empno")]

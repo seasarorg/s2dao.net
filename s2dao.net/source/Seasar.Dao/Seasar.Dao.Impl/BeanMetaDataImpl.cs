@@ -431,19 +431,16 @@ namespace Seasar.Dao.Impl
             {
                 foreach(string prop in noPersistentPropsAttr.Props)
                 {
-                    IPropertyType pt = GetPropertyType(prop);
+                    IPropertyType pt = GetPropertyType(prop.Trim());
                     pt.IsPersistent = false;
                 }
             }
-            else
+            for(int i = 0; i < PropertyTypeSize; ++i)
             {
-                for(int i = 0; i < PropertyTypeSize; ++i)
+                IPropertyType pt = GetPropertyType(i);
+                if(columnSet == null || !columnSet.Contains(pt.ColumnName))
                 {
-                    IPropertyType pt = GetPropertyType(i);
-                    if(columnSet == null || !columnSet.Contains(pt.ColumnName))
-                    {
-                        pt.IsPersistent = false;
-                    }
+                    pt.IsPersistent = false;
                 }
             }
         }

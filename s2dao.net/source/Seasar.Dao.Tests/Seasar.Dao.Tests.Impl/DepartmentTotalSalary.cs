@@ -22,7 +22,7 @@ using Seasar.Dao.Attrs;
 namespace Seasar.Dao.Tests.Impl
 {
     public class DepartmentTotalSalary
-	{
+    {
         private SqlInt32 deptno;
 
         private decimal totalSalary;

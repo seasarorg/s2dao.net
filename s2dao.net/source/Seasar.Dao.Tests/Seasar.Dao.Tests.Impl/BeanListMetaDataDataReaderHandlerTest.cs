@@ -16,168 +16,110 @@
  */
 #endregion
 
-using System;
 using System.Collections;
 using System.Data;
-using System.Data.SqlClient;
-using Seasar.Dao;
-using Seasar.Dao.Dbms;
+using System.Diagnostics;
 using Seasar.Dao.Impl;
+using Seasar.Dao.Unit;
 using Seasar.Extension.ADO;
-using Seasar.Extension.ADO.Impl;
-using Seasar.Extension.ADO.Types;
-using Seasar.Framework.Container;
-using Seasar.Framework.Container.Factory;
-using Seasar.Framework.Util;
+using Seasar.Extension.Unit;
 using MbUnit.Framework;
 
 namespace Seasar.Dao.Tests.Impl
 {
-
     [TestFixture]
-    public class BeanListMetaDataDataReaderHandlerTest
-	{
-        private const string PATH = "Tests.dicon";
-        private IBeanMetaData beanMetaData_;
-
-        [SetUp]
-        public void SetUp()
-        {
-            IS2Container container = S2ContainerFactory.Create(PATH);
-            IDataSource dataSource = (IDataSource) container.GetComponent(typeof(IDataSource));
-
-            IDbConnection cn = DataSourceUtil.GetConnection(dataSource);
-            IDbms dbms = new MSSQLServer();
-            beanMetaData_ = new BeanMetaDataImpl(typeof(Employee), new DatabaseMetaDataImpl(dataSource), dbms);
-        }
-
-        [Test]
+    public class BeanListMetaDataDataReaderHandlerTest : S2DaoTestCase
+    {
+        [Test, S2]
         public void TestHandle()
         {
             IDataReaderHandler handler = new BeanListMetaDataDataReaderHandler(
-                beanMetaData_);
-            String sql = "select * from emp";
+                CreateBeanMetaData(typeof(Employee)));
 
-            IS2Container container = S2ContainerFactory.Create(PATH);
-            IDataSource dataSource = (IDataSource) container.GetComponent(typeof(IDataSource));
-
-            //SQLServer—p
-            SqlConnection cn = (SqlConnection)DataSourceUtil.GetConnection(dataSource);
-            SqlCommand cmd = new SqlCommand(sql, cn);
-
-            IList ret = null;
-            try 
+            string sql = "select * from emp";
+            using (IDbConnection con = Connection) 
             {
-                SqlDataReader rs = cmd.ExecuteReader();
-                try 
+                using (IDbCommand cmd = con.CreateCommand()) 
                 {
-                    ret = (IList) handler.Handle(rs);
-                } 
-                finally 
-                {
-                    rs.Close();
+                    cmd.CommandText = sql;
+
+                    IList ret = null;
+
+                    using (IDataReader reader = cmd.ExecuteReader()) 
+                    {
+                        ret = (IList) handler.Handle(reader);
+                    }
+
+                    Assert.IsNotNull(ret, "1");
+                    foreach (Employee emp in ret) 
+                    {
+                        Trace.WriteLine(emp.Empno + "," + emp.Ename);
+                    }
                 }
-            } 
-            finally 
-            {
-                cn.Close();
             }
-            Assert.IsNotNull(ret, "1");
-            //for (int i = 0; i < ret.Count; ++i) 
-            //{
-            //    Employee emp = (Employee) ret.get(i);
-            //    ////System.out.println(emp.getEmpno() + "," + emp.getEname());
-            //}
-            foreach (object itm in ret) 
-            {
-                Employee emp = (Employee) itm;
-                ////System.out.println(emp.getEmpno() + "," + emp.getEname());
-            }
-
         }
 
-        [Test]
+        [Test, S2]
         public void TestHandle2()
         {
             IDataReaderHandler handler = new BeanListMetaDataDataReaderHandler(
-                beanMetaData_);
-            String sql = "select emp.*, dept.dname as dname_0 from emp, dept where emp.deptno = dept.deptno and emp.deptno = 20";
+                CreateBeanMetaData(typeof(Employee)));
 
-            IS2Container container = S2ContainerFactory.Create(PATH);
-            IDataSource dataSource = (IDataSource) container.GetComponent(typeof(IDataSource));
-
-            //SQLServer—p
-            SqlConnection cn = (SqlConnection)DataSourceUtil.GetConnection(dataSource);
-            SqlCommand cmd = new SqlCommand(sql, cn);
-
-            IList ret = null;
-            try 
+            string sql = "select emp.*, dept.dname as dname_0 from emp, dept where emp.deptno = dept.deptno and emp.deptno = 20";
+            using (IDbConnection con = Connection) 
             {
-                SqlDataReader rs = cmd.ExecuteReader();
-                try 
+                using (IDbCommand cmd = con.CreateCommand()) 
                 {
-                    ret = (IList) handler.Handle(rs);
-                } 
-                finally 
-                {
-                    rs.Close();
+                    cmd.CommandText = sql;
+
+                    IList ret = null;
+
+                    using (IDataReader reader = cmd.ExecuteReader()) 
+                    {
+                        ret = (IList) handler.Handle(reader);
+                    }
+
+                    Assert.IsNotNull(ret, "1");
+                    foreach (Employee emp in ret) 
+                    {
+                        Trace.WriteLine(emp);
+                        Department dept = emp.Department;
+                        Assert.IsNotNull(dept, "2");
+                        Assert.AreEqual(emp.Deptno, dept.Deptno, "3");
+                        Assert.IsNotNull(dept.Dname, "4");
+                    }
                 }
-            } 
-            finally 
-            {
-                cn.Close();
             }
-            Assert.IsNotNull(ret, "1");
-            foreach (object itm in ret) 
-            {
-                Employee emp = (Employee) itm;
-                ////System.out.println(emp);
-                Department dept = emp.Department;
-                Assert.IsNotNull(dept,"2");
-                Assert.AreEqual(emp.Deptno, dept.Deptno, "3");
-                Assert.IsNotNull(dept.Dname,"4");
-            }
-
         }
 
-        [Test]
+        [Test, S2]
         public void TestHandle3()
         {
             IDataReaderHandler handler = new BeanListMetaDataDataReaderHandler(
-                beanMetaData_);
-            String sql = "select emp.*, dept.deptno as deptno_0, dept.dname as dname_0 from emp, dept where dept.deptno = 20 and emp.deptno = dept.deptno";
-            IS2Container container = S2ContainerFactory.Create(PATH);
-            IDataSource dataSource = (IDataSource) container.GetComponent(typeof(IDataSource));
+                CreateBeanMetaData(typeof(Employee)));
 
-            //SQLServer—p
-            SqlConnection cn = (SqlConnection)DataSourceUtil.GetConnection(dataSource);
-            SqlCommand cmd = new SqlCommand(sql, cn);
-
-            IList ret = null;
-            try 
+            string sql = "select emp.*, dept.deptno as deptno_0, dept.dname as dname_0 from emp, dept where dept.deptno = 20 and emp.deptno = dept.deptno";
+            using (IDbConnection con = Connection) 
             {
-                SqlDataReader rs = cmd.ExecuteReader();
-                try 
+                using (IDbCommand cmd = con.CreateCommand()) 
                 {
-                    ret = (IList) handler.Handle(rs);
-                } 
-                finally 
-                {
-                    rs.Close();
+                    cmd.CommandText = sql;
+
+                    IList ret = null;
+
+                    using (IDataReader reader = cmd.ExecuteReader()) 
+                    {
+                        ret = (IList) handler.Handle(reader);
+                    }
+
+                    IEnumerator employees = ret.GetEnumerator();
+                    employees.MoveNext();
+                    Employee emp = (Employee) employees.Current;
+                    employees.MoveNext();
+                    Employee emp2 = (Employee) employees.Current;
+                    Assert.AreSame(emp.Department, emp2.Department,"1");
                 }
-            } 
-            finally 
-            {
-                cn.Close();
             }
-
-            IEnumerator employees = ret.GetEnumerator();
-            employees.MoveNext();
-            Employee emp = (Employee) employees.Current;
-            employees.MoveNext();
-            Employee emp2 = (Employee) employees.Current;
-            Assert.AreSame(emp.Department, emp2.Department,"1");
         }
-
-	}
+    }
 }

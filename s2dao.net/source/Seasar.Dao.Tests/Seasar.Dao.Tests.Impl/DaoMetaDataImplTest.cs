@@ -21,6 +21,7 @@ using System.Collections;
 using System.Data;
 using Seasar.Dao.Dbms;
 using Seasar.Dao.Impl;
+using Seasar.Dao.Unit;
 using Seasar.Extension.ADO;
 using Seasar.Extension.ADO.Impl;
 using Seasar.Extension.Unit;
@@ -29,29 +30,8 @@ using MbUnit.Framework;
 namespace Seasar.Dao.Tests.Impl
 {
     [TestFixture]
-    public class DaoMetaDataImplTest : S2TestCase
+    public class DaoMetaDataImplTest : S2DaoTestCase
     {
-        protected IDaoMetaData CreateDaoMetaData(Type daoType) 
-        {
-            return CreateDaoMetaData(daoType, null);
-        }
-
-        protected IDaoMetaData CreateDaoMetaData(Type daoType, string sqlFileEncoding) 
-        {
-            DaoMetaDataImpl dmd = new DaoMetaDataImpl();
-            dmd.DaoType = daoType;
-            dmd.DataSource = DataSource;
-            dmd.CommandFactory = BasicCommandFactory.INSTANCE;
-            dmd.DataReaderFactory = BasicDataReaderFactory.INSTANCE;
-            dmd.DatabaseMetaData = new DatabaseMetaDataImpl(DataSource);
-            if (sqlFileEncoding != null) 
-            {
-                dmd.SqlFileEncoding = sqlFileEncoding;
-            }
-            dmd.Initialize();
-            return dmd;
-        }
-
         [Test, S2]
         public void TestSelectBeanList() 
         {
@@ -216,8 +196,11 @@ namespace Seasar.Dao.Tests.Impl
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeAutoDao));
             ISqlCommand cmd = dmd.CreateFindObjectCommand("select count(*) from emp");
-            Int32 count = (Int32) cmd.Execute(null);
-            Assert.AreEqual(14, count, "1");
+            // Dbms == SQL Server の場合、System.Int32
+            // Dbms == Oracle の場合、System.Decimal
+            // の戻り値の型になる。
+            object count = cmd.Execute(null);
+            Assert.AreEqual("14", count.ToString(), "1");
         }
 
         [Test, S2]
@@ -481,7 +464,8 @@ namespace Seasar.Dao.Tests.Impl
         [Test, S2(Tx.Rollback)]
         public void TestSqlFileEncodingUTF8() 
         {
-            DaoMetaDataImpl dmd = (DaoMetaDataImpl) CreateDaoMetaData(typeof(IEmployeeDao), "utf-8");
+            DaoMetaDataImpl dmd = (DaoMetaDataImpl) CreateDaoMetaData(typeof(IEmployeeDao));
+            dmd.SqlFileEncoding = "utf-8";
             ISqlCommand cmd = dmd.GetSqlCommand("UpdateSqlFileEncodingUTF8");
             Employee emp = new Employee();
             emp.Empno= 7788;

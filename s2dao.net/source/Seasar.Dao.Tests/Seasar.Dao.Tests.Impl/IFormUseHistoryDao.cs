@@ -16,43 +16,34 @@
  */
 #endregion
 
-using System;
 using System.Collections;
 using Seasar.Dao.Attrs;
 
 namespace Seasar.Dao.Tests.Impl
 {
-
     [Bean(typeof(FormUseHistory))]
     public interface IFormUseHistoryDao
     {
-
-        /**
-        * インサート 
-        * @param formUseHistory WEB 画面利用履歴
-        * @return 登録した数
-        */
+        /// <summary>
+        /// インサート
+        /// </summary>
+        /// <param name="formUseHistory">WEB 画面利用履歴</param>
+        /// <returns>登録した数</returns>
         int Insert(FormUseHistory formUseHistory);
 
-
-        /**
-        * エンティティ取得
-        * @param webUserCode
-        * @param webFormId
-        * @return WEB 画面利用履歴
-        */
-        //static final String getEntity_ARGS = "W_USER_CD,W_FORM_ID";
+        /// <summary>
+        /// エンティティ取得
+        /// </summary>
+        /// <param name="webUserCode"></param>
+        /// <param name="webFormId"></param>
+        /// <returns>WEB 画面利用履歴</returns>
         [Query("W_USER_CD=/*webUserCode*/ and W_FORM_ID=/*webFormId*/")]
-        FormUseHistory GetEntity(String webUserCode,String webFormId);
+        FormUseHistory GetEntity(string webUserCode, string webFormId);
 
-        /**
-        * リスト取得
-        * @return WEB 画面利用履歴のリスト
-        */
+        /// <summary>
+        /// リスト取得
+        /// </summary>
+        /// <returns>WEB 画面利用履歴のリスト</returns>
         IList GetList();
-
-        //
-        // 追加メソッド
-        //
     }
 }
