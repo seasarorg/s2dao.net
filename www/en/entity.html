@@ -1,0 +1,380 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- don't edit start -->
+<head><title>Seasar - DI Container with AOP - </title><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="seasar_b.css" type="text/css" rel="stylesheet" media="screen"><script src="seasar_b.js" type="text/JavaScript" language="JavaScript"></script>
+</head><body onload="preload('en')">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" align="left"><tr>
+<td align="left" valign="top" width="780"><table width="780" border="0" cellspacing="0" cellpadding="0" class="white">
+<tr><td colspan="7"><img height="5" width="780" src="images/top01_b.gif" alt=""></td></tr>
+<tr><td><img height="117" width="235" src="images/top02_b.gif" alt="Seasar"></td>
+<td colspan="3"><img height="117" width="289" src="images/top03.gif" alt="DI Container with AOP"></td>
+<td colspan="3"><img height="117" width="256" src="images/spacer.gif" alt=""></td>
+</tr><tr><td rowspan="2"><img src="images/top04.gif" alt="" height="49" width="235"></td>
+<td><a href="http://www.seasar.org/en/index.html"><img src="images/menu01_b_en.gif" height="30" width="78" border="0" alt="" id="menu01" onmouseover="swap(1)" onmouseout="restore(1)"></a></td>
+<td><a href="http://www.seasar.org/en/projects.html"><img src="images/menu02_b_en.gif" height="30" width="101" border="0" alt="" id="menu02" onmouseover="swap(2)" onmouseout="restore(2)"></a></td>
+<td><a href="http://www.seasar.org/en/products.html"><img src="images/menu06_b_en.gif" height="30" width="110" border="0" alt="" id="menu06" onmouseover="swap(6)" onmouseout="restore(6)"></a></td>
+<td><a href="http://www.seasar.org/en/documents.html"><img src="images/menu04_b_en.gif" height="30" width="109" border="0" alt="" id="menu04" onmouseover="swap(4)" onmouseout="restore(4)"></a></td>
+<td><a href="http://www.seasar.org/en/resources.html"><img src="images/menu05_b_en.gif" height="30" width="113" border="0" alt="" id="menu05" onmouseover="swap(5)" onmouseout="restore(5)"></a></td>
+<!--
+<td><img src="images/menu07_b_en.gif" height="30" width="109" border="0" alt=""  id="menu07" onmouseover="swap(7)" onmouseout="restore(7)"></td>
+//-->
+<td><img height="30" width="34" src="images/menu06.gif" alt=""></td></tr><tr>
+
+<td colspan="6"><img height="19" width="545" src="images/spacer.gif" alt=""></td></tr></table>
+<table  width="780" border="0" cellspacing="0" cellpadding="0" class="menu">
+<tr align="left" valign="top"><td width="14"><img height="14" width="14" src="images/spacer.gif" alt=""></td><td width="740" class="main">
+<!-- don't edit end --><!-- document start -->
+
+<a href="index.html">S2Dao.NET TOP page</a>
+
+<h1>S2Dao.NET - Entity Class</h1>
+
+<p>
+	Entity class is used to define relationship to a table.
+	Entity class implements property to map to a table column.
+</p>
+
+<ul>
+	<li><a href="#property">Implementing Properties</a></li>
+</ul>
+
+<p>In some cases, Entity class requires the following attributes. Attributes in S2Dao.NET are defined to be in Seasar.Dao.Attrs namespace.
+</p>
+
+<ul>
+	<li><a href="#table">Table attribute to define a relation to a table</a></li>
+	<li><a href="#column">Column attribute to define a relation to a column.</a></li>
+	<li><a href="#n1">RelNo attribute and Relkeys attribute (N to 1 mapping) to specify concatenation with a different table.</a></li>
+	<li><a href="#id">ID attribute to specify auto-generation of ID's.</a></li>
+	<li><a href="#noPersistent">NoPersistentProps attribute to specify non-persistent columns.</a></li>
+	<li><a href="#versionNo">VersionNoProperty attribute to specify locks using VersionNo.</a></li>
+	<li><a href="#timestamp">TimestampProperty attribute to specify locks using Timestamp.</a></li>
+</ul>
+
+<h2><a name="property">Implementing Properties</a></h2>
+
+<p>Entity class declare and implement fields and properties that shows relations to tables and columns.
+It is recommended to name classes (without the namespace) the same as the name of the table they correspond to, and to name properties to be the same as the name of the column they correspond to.ÅB</p>
+<p>If a column is Null, specifying primitive datatype (e.g. System.Init32) returns 0. To use Null, specify either datatype in the System.Data.SqlTypes namespace or <a href="http://nhibernate.sourceforge.net/nh-docs/html/Nullables.html">NHibernate Nullables</a> datatype. Nullables.dll is included in the distributed S2Dao archive file. System.Nullable introduced in .NET Framework 2.0 is not yet supported.</p>
+<p>Following is an example of an Entity class to represent EMP table.</p>
+
+C#
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode">
+<span class="kwrd">using</span> System;
+<span class="kwrd">using</span> Seasar.Dao.Attrs;
+
+<span class="kwrd">namespace</span> MyNamespace
+{
+    [Table(<span class="str">"EMP"</span>)]
+    <span class="kwrd">public</span> <span class="kwrd">class</span> Employee
+    {
+        <span class="kwrd">private</span> <span class="kwrd">int</span> empno;
+        <span class="kwrd">private</span> <span class="kwrd">string</span> ename;
+        <span class="kwrd">private</span> <span class="kwrd">short</span> deptnum;
+
+        <span class="kwrd">public</span> Employee()
+        {
+        }
+        <span class="kwrd">public</span> <span class="kwrd">int</span> Empno
+        {
+            set { empno = <span class="kwrd">value</span>; }
+            get { <span class="kwrd">return</span> empno; }
+        }
+
+        <span class="kwrd">public</span> <span class="kwrd">string</span> Ename
+        {
+            set { ename = <span class="kwrd">value</span>; }
+            get { <span class="kwrd">return</span> ename; }
+        }
+
+        <span class="kwrd">public</span> <span class="kwrd">short</span> Deptnum
+        {
+            set { deptnum = <span class="kwrd">value</span>; }
+            get { <span class="kwrd">return</span> deptnum; }
+        }
+    }
+}</pre>
+
+VB.NET
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode vb">
+<span class="kwrd">Imports</span> System
+<span class="kwrd">Imports</span> Seasar.Dao.Attrs
+
+<span class="kwrd">Namespace</span> MyNamespace
+   &lt;Table(<span class="str">"EMP"</span>)&gt; _
+   <span class="kwrd">Public</span> <span class="kwrd">Class</span> Employee
+      <span class="kwrd">Private</span> empno <span class="kwrd">As</span> <span class="kwrd">Integer</span>
+      <span class="kwrd">Private</span> ename <span class="kwrd">As</span> <span class="kwrd">String</span>
+      <span class="kwrd">Private</span> deptnum <span class="kwrd">As</span> <span class="kwrd">Short</span>
+      
+      
+      <span class="kwrd">Public</span> <span class="kwrd">Sub</span> <span class="kwrd">New</span>()
+      <span class="kwrd">End</span> <span class="kwrd">Sub</span> <span class="rem">'New</span>
+      
+      <span class="kwrd">Public</span> <span class="kwrd">Property</span> Empno() <span class="kwrd">As</span> <span class="kwrd">Integer</span>
+         <span class="kwrd">Get</span>
+            <span class="kwrd">Return</span> empno
+         <span class="kwrd">End</span> <span class="kwrd">Get</span>
+         <span class="kwrd">Set</span>
+            empno = value
+         <span class="kwrd">End</span> <span class="kwrd">Set</span>
+      <span class="kwrd">End</span> <span class="kwrd">Property</span>
+      
+      
+      <span class="kwrd">Public</span> <span class="kwrd">Property</span> Ename() <span class="kwrd">As</span> <span class="kwrd">String</span>
+         <span class="kwrd">Get</span>
+            <span class="kwrd">Return</span> ename
+         <span class="kwrd">End</span> <span class="kwrd">Get</span>
+         <span class="kwrd">Set</span>
+            ename = value
+         <span class="kwrd">End</span> <span class="kwrd">Set</span>
+      <span class="kwrd">End</span> <span class="kwrd">Property</span>
+      
+      
+      <span class="kwrd">Public</span> <span class="kwrd">Property</span> Deptnum() <span class="kwrd">As</span> <span class="kwrd">Short</span>
+         <span class="kwrd">Get</span>
+            <span class="kwrd">Return</span> deptnum
+         <span class="kwrd">End</span> <span class="kwrd">Get</span>
+         <span class="kwrd">Set</span>
+            deptnum = value
+         <span class="kwrd">End</span> <span class="kwrd">Set</span>
+      <span class="kwrd">End</span> <span class="kwrd">Property</span>
+
+   <span class="kwrd">End</span> <span class="kwrd">Class</span>
+<span class="kwrd">End</span> Namespace</pre>
+
+<h2><a name="table">Table attribute to relate to a table</a></h2>
+
+<p>To relate an Entity class to a table, table name is specified in the Table attribute in an Entity class. Syntax to specify a schema name is <span class="italic">schema name.table name</span>.</p>
+<p>Note: If the class name (without the namespace) is the same as the table name, Table attribute may be omitted.</p>
+<p>Following is an example of specifying an EMP table.</p>
+
+C#
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode">
+[Table(<span class="str">"EMP"</span>)]
+<span class="kwrd">public</span> <span class="kwrd">class</span> Employee</pre>
+
+VB.NET
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode vb">
+&lt;Table(<span class="str">"EMP"</span>)&gt; _
+<span class="kwrd">Public</span> <span class="kwrd">Class</span> Employee</pre>
+
+<h2><a name="column">Column attribute to define a relation to a column</a></h2>
+
+<p>To relate an property to a column, column name is specified in the Column attribute.</p>
+<p>Note: If the property name is the same as the column name, Column attribute may be omitted. Properties that do not exist in a table are disregarded.</p>
+<p>Following is an example to relate EmployeeNo property to EMPNO column.</p>
+
+C#
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode">
+[Column(<span class="str">"EMPNO"</span>)]
+<span class="kwrd">public</span> <span class="kwrd">int</span> EmployeeNo
+{
+   set { _employeeNo = <span class="kwrd">value</span>; }
+   get { <span class="kwrd">return</span> _employeeNo; }
+}</pre>
+
+VB.NET
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode vb">
+&lt;Column(<span class="str">"EMPNO"</span>)&gt; _
+<span class="kwrd">Public</span> <span class="kwrd">Property</span> EmployeeNo() <span class="kwrd">As</span> <span class="kwrd">Integer</span>
+   <span class="kwrd">Get</span>
+      <span class="kwrd">Return</span> _employeeNo
+   <span class="kwrd">End</span> <span class="kwrd">Get</span>
+   <span class="kwrd">Set</span>
+      _employeeNo = value
+   <span class="kwrd">End</span> <span class="kwrd">Set</span>
+<span class="kwrd">End</span> Property</pre>
+
+<h2><a name="n1">RelNo attribute and Relkeys attribute (N to 1 mapping) to specify concatenation with a different table</a></h2>
+
+<p>N:1 mapping is used to map several elements to a single element. Relating several employees to a department is an example of N:1 mapping. RelNo attribute and Relkeys attribute must be specify to establish a N:1 mapping.</p>
+<p>
+Relno attribute and Relkeys attribute are specified in a property of an Entity class that holds a concatenated data.</p>
+<p>Relno attribute is set to consecutive number starting with 0.</p>
+<p>For example, to N:1 map table AAA to table BBB and table CCC, Relno attribute of BBB is set to 0, Relno attribute of CCC is set to 1.</p>
+<p>Relno attribute may also be used to determine which table a column in a result set relates to.</p>
+<p>For example, in SQL statement SELECT ..., BBB.HOGE AS HOGE_0, ... FROM AAA, BBB ..., HOGE_0 relates to column HOGE in table BBB. Result of the query is set to corresponding properties in the Entity class.</p>
+<p>Relkeys attribute specifies keys. Composite key is specified by separating key names with a comma (,). For example, composite key composed from mykey1:yourkey1 and mykey2:yourkey2 is specified by "mykey1:yourkey1,mykey2:yourkey2".</p>
+<p>Following is an example that relates column DEPTNUM in table EMP with column DEPTNO in table DEPT.</p>
+
+C#
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode">
+[Relno(0), Relkeys(<span class="str">"DEPTNUM:DEPTNO"</span>)]
+<span class="kwrd">public</span> Department Department
+{
+   set { _department = <span class="kwrd">value</span>; }
+   get { <span class="kwrd">return</span> _department; }
+}</pre>
+
+VB.NET
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode vb">
+&lt;Relno(0), Relkeys(<span class="str">"DEPTNUM:DEPTNO"</span>)&gt; _
+<span class="kwrd">Public</span> <span class="kwrd">Property</span> Department() <span class="kwrd">As</span> Department
+   <span class="kwrd">Get</span>
+      <span class="kwrd">Return</span> _department
+   <span class="kwrd">End</span> <span class="kwrd">Get</span>
+   <span class="kwrd">Set</span>
+      _department = value
+   <span class="kwrd">End</span> <span class="kwrd">Set</span>
+<span class="kwrd">End</span> Property</pre>
+
+<p>If the name of column with a single row is the same as the name of the column with multiple rows, name of column in a single row may be omitted. Following is an example of such an case:ÅB</p>
+
+C#
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode">
+[Relno(0), Relkeys(<span class="str">"DEPTNO"</span>)]
+</pre>
+
+VB.NET
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode vb">
+&lt;Relno(0), Relkeys(<span class="str">"DEPTNO"</span>)&gt;
+</pre>
+
+<p>If the name of column with a single row is the same as the name of the column with multiple rows and the column with a single row is a primary key, Relkeys attribute may be omitted.</p>
+
+<h2><a name="id">ID attribute to specify auto-generation of ID's</a></h2>
+<p>ID attribute is used to make RDBMS (relational database management system) generate IDs (primary key) and set the generated value to an Entity.
+If 
+ID attribute is specified and an INSERT sql command is generated by S2Dao.NET, property, which is specified by Entity ID attribute that is passed as an argument, is set to the value generated by a RDBMS.
+
+<span style="color:red;">However, if ID attribute is specified, <a href="http://www.seasar.org/en/dotnet/s2dotnet/tx.html#LocalTx">local transaction</a> must be used.</a></span></p>
+<p>ID attribute is specified in a property.</p>
+
+C#
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode">
+[ID(<span class="str">"identity"</span>)]
+<span class="kwrd">public</span> <span class="kwrd">int</span> ID
+{
+   set { _id = <span class="kwrd">value</span>; }
+   get { <span class="kwrd">return</span> _id; }
+}
+</pre>
+
+VB.NET
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode vb">
+&lt;ID(<span class="str">"identity"</span>)&gt; _
+<span class="kwrd">Public</span> <span class="kwrd">Property</span> ID() <span class="kwrd">As</span> <span class="kwrd">Integer</span>
+   <span class="kwrd">Get</span>
+      <span class="kwrd">Return</span> _id
+   <span class="kwrd">End</span> <span class="kwrd">Get</span>
+   <span class="kwrd">Set</span>
+      _id = value
+   <span class="kwrd">End</span> <span class="kwrd">Set</span>
+<span class="kwrd">End</span> Property</pre>
+
+<p>SEQUENCE may also be used. In actual usage, replace "myseq" with SEQUENCE in the following examples:</p>
+
+C#
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode">
+[ID(<span class="str">"sequence"</span>, <span class="str">"myseq"</span>)]</pre>
+
+VB.NET
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode vb">
+&lt;ID(<span class="str">"sequence"</span>, <span class="str">"myseq"</span>)&gt;</pre>
+
+<p>If ID is specified manually, no other specification is necessary. Primary key information is retrieved from the table definition. "assigned" may explicitly be assigned.</p>
+
+C#
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode">
+[ID(<span class="str">"assigned"</span>)]</pre>
+
+VB.NET
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode vb">
+&lt;ID(<span class="str">"assigned"</span>)&gt;</pre>
+
+<h2><a name="noPersistent">NoPersistentProps attribute to specify non-persistent columns</a></h2>
+
+<p>Whether a property in an Entity class should be persistent (table and mapping) or not is retrieved from the table definition. Property may also be explicitly specified not to be persistent by setting NoPersistentProps attribute.</p>
+<p>NoPersistentProps attribute is specified in a class. Names of properties that are non-persistent are specified in a variable length argument (params in C#, ParamArray in VB).</p>
+<p>Following is an example to specify Property1 and Property2 to be non-persistent.</p>
+
+C#
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode">
+[NoPersistentProps(<span class="str">"Property1"</span>, <span class="str">"Property2"</span>)]
+<span class="kwrd">public</span> <span class="kwrd">class</span> Employee</pre>
+
+VB.NET
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode vb">
+&lt;NoPersistentProps(<span class="str">"Property1"</span>, <span class="str">"Property2"</span>)&gt; _
+<span class="kwrd">Public</span> <span class="kwrd">Class</span> Employee</pre>
+
+<h2><a name="#versionNo">VersionNoProperty attribute to specify locks using VersionNo</a></h2>
+
+<p>Locking using VersionNo is activated by specifying in an Entity class a property named VersionNo of datatype System.Int32.</p>
+<p>VersionNo locking is effective on UPDATE and DELETE sql commands generated by S2Dao.NET.
+Entity that is to be passed to an update method in Dao interface, must have a value set to the VersionNo property.</p>
+<p>If two users retrieved a data while VersionNo was 0, only the first user who issued either a UPDATE or a DELETE sql command is able to update the data. When the data is updated, VersionNo property and VersionNo column in the database is incremented to 1. If the other user tries to update the data, S2Dao.NET compares the VersionNo the user has (which is 0) with the current VersionNo (which is now 1), and throws Seasar.Dao.NotSingleRowUpdatedRuntimeException because they are different.</p>
+<p>To use a property name other than the default VersionNo, set the property name to the VersionNoProperty attribute in a class. Following is an example to set the lock property name to "MyVersionNo".</p>
+
+C#
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode">
+[VersionNoProperty(<span class="str">"MyVersionNo"</span>)]
+<span class="kwrd">public</span> <span class="kwrd">class</span> Employee</pre>
+
+VB.NET
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode vb">
+&lt;VersionNoProperty(<span class="str">"MyVersionNo"</span>)&gt; _
+<span class="kwrd">Public</span> <span class="kwrd">Class</span> Employee</pre>
+
+<h2><a name="timestamp">TimestampProperty attribute to specify locks using Timestamp</a></h2>
+
+<p>Locking using Timestamp is activated by specifying in an Entity class a property named VersionNo of datatype System.DateTime.</p>
+<p>VersionNo locking is effective on UPDATE and DELETE sql commands generated by S2Dao.NET.
+Entity that is to be passed to an update method in Dao interface, must have a value set to the Timestamp property.</p>
+<p>If an INSERT sql command is generated by S2Dao.NET, current time is set to the Timestamp property before executing the Insert command.</p>
+<p>When either UPDATE or a DELETE sql command is issued, S2Dao.NET compares the Timestamp property of an Entity with the Timestamp column in the database. If the two values differ, Seasar.Dao.NotSingleRowUpdatedRuntimeException is thrown.</p>
+<p>To use a property name other than the default Timestamp, set the property name to the TimestampProperty attribute in a class. Following is an example to set the lock property name to "MyTimestamp".
+
+C#
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode">
+[TimestampProperty(<span class="str">"MyTimestamp"</span>)]
+<span class="kwrd">public</span> <span class="kwrd">class</span> Employee</pre>
+
+VB.NET
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode vb">
+&lt;TimestampProperty(<span class="str">"MyTimestamp"</span>)&gt; _
+<span class="kwrd">Public</span> <span class="kwrd">Class</span> Employee</pre>
+
+<!-- document end --><!-- don't edit start --></td>
+          <td width=14><img height=14 alt="" src="images/spacer.gif" 
+            width=14></td></tr>
+        <tr>
+          <td width=14><img height=30 alt="" src="images/spacer.gif" 
+            width=14></td>
+          <td width=766><img height=30 alt="" src="images/spacer.gif" 
+            width=592></td></tr>
+        <tr>
+          <td width=14><img height=14 alt="" src="images/spacer.gif" 
+            width=14></td>
+<td class=copyright><table cellSpacing=0 cellPadding=0 width=736><tr><td align="left">Trans. by H.Ozawa</td><td align="right">Copyright&copy; 2004-2006, The Seasar Foundation and the others. All rights reserved.</td></tr></table></td>
+</tr></table>
+    <td class=backright vAlign=top align=left>&nbsp;</td></tr>
+  <tr>
+    <td class=backunder vAlign=top align=left width=780 height=16>&nbsp;</td>
+    <td class=backcorner vAlign=top align=left 
+height=16>&nbsp;</td></tr></tbody></table><!-- don't edit end --></body></html>
