@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html><head><!-- don't edit start --><title>Seasar - DI Container with AOP -</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta http-equiv="Content-Style-Type" content="text/css">
-<link href="seasar_b.css" type="text/css" rel="stylesheet" media="screen"><link href="seasar_p.css" type="text/css" rel="stylesheet" media="print"><script src="http://s2container.net.seasar.org/seasar_b.js" type="text/JavaScript" language="JavaScript"></script></head>
+<link href="seasar_b.css" type="text/css" rel="stylesheet" media="screen"><link href="seasar_p.css" type="text/css" rel="stylesheet" media="print"><script src="seasar_b.js" type="text/JavaScript" language="JavaScript"></script></head>
 <link rel="stylesheet" type="text/css" href="csharp.css" >
 
 <body onload="preload('ja')"><table align="left" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr>
@@ -187,6 +187,114 @@ VB.NET
 <p><a href="entity.html#n1">N:1でマッピング</a>されているカラムを指定する場合には、「カラム名_Relno属性で指定した番号」で指定します。
 N:1でマッピングされているEntityは左外部結合を使って1つのSQL文で取得されます。左外部結合をサポートしていないRDBMSはSELECT文自動生成の対象外です。
 オラクルのように左外部結合が標準と異なる場合も、S2Dao.NETがRDBMSの種類を自動的に判断して適切なSQL文を組み立てます。</p>
+
+<h4>DTOからWHERE句を自動生成する</h4>
+
+<p>引数にDTO(Data Transfer Object)を指定することも出来ます。DTOのプロパティを使って自動的にSQL文を組み立てます。
+プロパティ名とカラム名が異なる場合は、Column属性を使ってカラム名を指定します。N:1マッピングされているカラムを指定する場合には、
+「カラム名_Relno属性で指定した番号」で指定します。テーブルに存在しないプロパティ（カラム）は自動的に無視されます。
+プロパティの値によって、WHERE句が変わるような動的SQL文を自動生成します。
+動的SQL文の自動生成とORDER BY句ではじまるQuery属性は併用することが出来ます。</p>
+
+C#
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode">
+<span class="kwrd">public</span> <span class="kwrd">class</span> EmployeeSearchCondition
+{
+    ・・・省略
+   <span class="kwrd">public</span> <span class="kwrd">string</span> Job
+   {
+      set { _job = <span class="kwrd">value</span>; }
+      get { <span class="kwrd">return</span> _job; }
+   }
+
+   [Column(<span class="str">"dname_0"</span>)]
+   <span class="kwrd">public</span> <span class="kwrd">string</span> Dname
+   {
+      set { _dname = <span class="kwrd">value</span>; }
+      get { <span class="kwrd">return</span> _dname; }
+   }
+   ・・・省略
+}</pre>
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode">
+IList GetEmployeeBySearchCondition(EmployeeSearchCondition dto);</pre>
+
+VB.NET
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode vb">
+<span class="kwrd">Public</span> <span class="kwrd">Class</span> EmployeeSearchCondition
+   ・・・省略
+   <span class="kwrd">Public</span> <span class="kwrd">Property</span> Job() <span class="kwrd">As</span> <span class="kwrd">String</span>
+      <span class="kwrd">Get</span>
+         <span class="kwrd">Return</span> _job
+      <span class="kwrd">End</span> <span class="kwrd">Get</span>
+      <span class="kwrd">Set</span>
+         _job = value
+      <span class="kwrd">End</span> <span class="kwrd">Set</span>
+   <span class="kwrd">End</span> <span class="kwrd">Property</span>
+
+   &lt;Column(<span class="str">"dname_0"</span>)&gt;  _
+   <span class="kwrd">Public</span> <span class="kwrd">Property</span> Dname() <span class="kwrd">As</span> <span class="kwrd">String</span>
+      <span class="kwrd">Get</span>
+         <span class="kwrd">Return</span> _dname
+      <span class="kwrd">End</span> <span class="kwrd">Get</span>
+      <span class="kwrd">Set</span>
+         _dname = value
+      <span class="kwrd">End</span> <span class="kwrd">Set</span>
+   <span class="kwrd">End</span> <span class="kwrd">Property</span>
+   ・・・省略
+<span class="kwrd">End</span> Class</pre>
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode vb">
+<span class="kwrd">Function</span> GetEmployeeBySearchCondition(dto <span class="kwrd">As</span> EmployeeSearchCondition) <span class="kwrd">As</span> IList</pre>
+
+<p>また同様の指定方法で引数にEntityを使用することも出来ます。</p>
+
+<h2><a name="QueryAttr">Query属性 - 自動生成SELECT文にWHERE句やORDER BY句を追加する</a></h2>
+
+<p>自動的に生成されるSELECT文にWHERE句やORDER BY句を追加するには、Query属性を使用します。
+Query属性は以下の形式でメソッドに指定します。</p>
+
+<p>[Query("<span class="italic">WHERE句 ORDER BY句</span>")]</p>
+
+<p>引数で給与の上限と下限を指定し、その間に含まれる従業員を抽出する場合は次のようにします。</p>
+
+C#
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode">
+[Query(<span class="str">"sal BETWEEN /*minSal*/ AND /*maxSal*/ ORDER BY empno"</span>)]
+IList GetEmployeesBySal(<span class="kwrd">float</span> minSal, <span class="kwrd">float</span> maxSal);</pre>
+
+VB.NET
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode vb">
+&lt;Query(<span class="str">"sal BETWEEN /*minSal*/ AND /*maxSal*/ ORDER BY empno"</span>)&gt; _
+<span class="kwrd">Function</span> GetEmployeesBySal(minSal <span class="kwrd">As</span> <span class="kwrd">Single</span>, maxSal <span class="kwrd">As</span> <span class="kwrd">Single</span>) <span class="kwrd">As</span> IList</pre>
+
+<p>上記例の"/*<span class="italic">変数名</span>*/"をバインド変数コメントと言います。
+バインド変数コメントをQuery属性に記述することにより、バインド変数コメントの変数名と同じ引数名の引数の値が、バインド変数コメントの部分に代入されます。
+WHERE句から記述する場合はWHEREは省略できます。ORDER BY句だけを記述する場合はORDER BYで始めて下さい。</p>
+<p>Query属性には他の<a href="sqlcomment.html">SQLコメント</a>も記述することが出来ます。
+また引数にDTOを使用することも出来ます。</p>
+
+C#
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode">
+[Query(<span class="str">"job=/*dto.Job*/'CLERK' /*IF dto.Deptno.IsNull==false*/ AND deptno=/*dto.Deptno*/20/*END*/"</span>)]
+IList GetEmployees(SearchCondition dto);</pre>
+
+VB.NET
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode vb">
+&lt;Query(<span class="str">"job=/*dto.Job*/'CLERK' /*IF dto.Deptno.IsNull==false*/ AND deptno=/*dto.Deptno*/20/*END*/"</span>)&gt; _
+<span class="kwrd">Function</span> GetEmployees(dto <span class="kwrd">As</span> SearchCondition) <span class="kwrd">As</span> IList</pre>
+
+<p>上記サンプルは引数dtoのプロパティDeptnoがnull出ない場合、deptnoがDeptnoプロパティの値と一致するという条件を追加します。
+上記サンプルのDeptnoプロパティはSystem.Data.SqlTypes.SqlInt32型を使用しています。
+SQLコメントについての詳しい説明は、<a href="sqlcomment.html">SQLコメント</a>を参照して下さい。</p>
+
+<h2><a name="SqlAttr">Sql属性 - Sqlを記述する</a></h2>
 
 <p>以下作成中・・・</p>
 
