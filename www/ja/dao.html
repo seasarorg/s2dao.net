@@ -251,7 +251,8 @@ VB.NET
 
 <p>また同様の指定方法で引数にEntityを使用することも出来ます。</p>
 
-<h2><a name="QueryAttr">Query属性 - 自動生成SELECT文にWHERE句やORDER BY句を追加する</a></h2>
+<h2><a name="QueryAttr">Query属性 -
+<span style="font-size:12pt;">自動生成SELECT文にWHERE句やORDER BY句を追加する</span></a></h2>
 
 <p>自動的に生成されるSELECT文にWHERE句やORDER BY句を追加するには、Query属性を使用します。
 Query属性は以下の形式でメソッドに指定します。</p>
@@ -296,7 +297,112 @@ SQLコメントについての詳しい説明は、<a href="sqlcomment.html">SQL
 
 <h2><a name="SqlAttr">Sql属性 - Sqlを記述する</a></h2>
 
-<p>以下作成中・・・</p>
+<p>Sql属性の機能はSQLファイルと同様で、属性にてSQLおよびSQLコメントを使用することが可能です。
+Sql属性は以下の形式でメソッドに指定します。</p>
+
+<p>[Sql("<span class="italic">SQL文</span>")] 
+または [Sql("<span class="italic">SQL文</span>", <span class="italic">Seasar.Dao.KindOfDbms</span>)]</p>
+
+C#
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode">
+[Sql(<span class="str">"SELECT empno,ename from emp where job=/*job*/ order by empno"</span>)]
+Employee[] GetByJob(<span class="kwrd">string</span> job);</pre>
+
+VB.NET
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode vb">
+&lt;Sql(<span class="str">"SELECT empno,ename from emp where job=/*job*/ order by empno"</span>)&gt; _
+<span class="kwrd">Function</span> GetByJob(job <span class="kwrd">As</span> <span class="kwrd">String</span>) <span class="kwrd">As</span> Employee()</pre>
+
+<h3>Sql属性の複数DBMS対応</h3>
+
+<p>DBMS毎に使用するSql属性を指定することができます。どのDBMSを使っているのかは、
+Diconファイルに登録されているデータプロバイダとS2Dao.NETが持っているDbms.resxからS2Dao.NETが自動的に判断しています。
+Dbms毎にSql属性を用意する場合は、Sql属性の第2引数にSeasar.Dao.KindOfDbms列挙型でDbmsを指定します。
+KindOfDbms列挙型は以下の列挙子を持っています。</p>
+
+<table class="main" border="1">
+ 	<tbody>
+ 		<tr align="center" bgcolor="#d1f3f4">
+ 			<th scope="col">列挙子</th>
+ 			<th scope="col">DBMS</th>
+ 		</tr>
+ 		<tr>
+ 			<td>None</td>
+ 			<td>DBMS指定無し</td>
+ 		</tr>
+ 		<tr>
+ 			<td>MSSQLServer</td>
+ 			<td>MSSQLServer</td>
+ 		</tr>
+ 		<tr>
+ 			<td>DB2</td>
+ 			<td>DB2</td>
+ 		</tr>
+ 		<tr>
+ 			<td>MySQL</td>
+ 			<td>MySQL</td>
+ 		</tr>
+ 		<tr>
+ 			<td>Oracle</td>
+ 			<td>Oracle</td>
+ 		</tr>
+ 		<tr>
+ 			<td>PostgreSQL</td>
+ 			<td>PostgreSQL</td>
+ 		</tr>
+ 		<tr>
+ 			<td>Firebird</td>
+ 			<td>Firebird</td>
+ 		</tr>
+ 		<tr>
+ 			<td>MDB</td>
+ 			<td>MDB(Access)</td>
+ 		</tr>
+ 	</tbody>
+</table>
+
+<h2><a name="NoPersistentPropsAttr">NoPersistentProps属性 -
+<span style="font-size:12pt;">自動生成UPDATE文の更新しないプロパティを指定する</span></a></h2>
+
+<p>更新(Insert, Update)するときに、このプロパティはSQLに含めて欲しくないという場合があります。
+そのような場合はNoPersistentProps属性を使います。複数のプロパティを指定する場合はカンマで区切ります。</p>
+
+C#
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode">
+[NoPersistentProps(<span class="str">"Sal, Comm"</span>)]
+<span class="kwrd">int</span> Insert(Employee emp);</pre>
+
+VB.NET
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode vb">
+&lt;NoPersistentProps(<span class="str">"Sal, Comm"</span>)&gt; _
+<span class="kwrd">Function</span> Insert(emp <span class="kwrd">As</span> Employee) <span class="kwrd">As</span> Integer</pre>
+
+<p>上記のように指定すると、InsertメソッドでSalとCommプロパティは永続化の対象になりません。</p>
+
+<h2><a name="PersistentPropsAttr">PersistentProps属性 -
+<span style="font-size:12pt;">自動生成UPDATE文の更新するプロパティを指定する</span></a></h2>
+
+<p>更新するときに、このプロパティだけをSQLに含めたいという場合もあります。
+そのような場合はPersistentProps属性を使います。複数のプロパティを指定する場合はカンマで区切ります。</p>
+
+C#
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode">
+[PersistentProps(<span class="str">"Deptno"</span>)]
+<span class="kwrd">int</span> Insert(Employee emp);</pre>
+
+VB.NET
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode vb">
+&lt;PersistentProps(<span class="str">"Deptno"</span>)&gt; _
+<span class="kwrd">Function</span> Insert(emp <span class="kwrd">As</span> Employee) <span class="kwrd">As</span> Integer</pre>
+
+<p>上記のように指定するとInsertメソッドで、プライマリキー, VersionNo, Timestampのプロパティに加えて、
+PersistentProps属性で指定したプロパティが永続化の対象になります。</p>
 
 <!-- document end -->
 <!-- don't edit start -->
