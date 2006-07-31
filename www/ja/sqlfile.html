@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head><!-- don't edit start --><title>Seasar - DI Container with AOP -</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="seasar_b.css" type="text/css" rel="stylesheet" media="screen"><link href="seasar_p.css" type="text/css" rel="stylesheet" media="print"><script src="seasar_b.js" type="text/JavaScript" language="JavaScript"></script></head>
+<link rel="stylesheet" type="text/css" href="csharp.css" >
+
+<body onload="preload('ja')"><table align="left" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr>
+<td align="left" valign="top" width="780"><table class="white" border="0" cellpadding="0" cellspacing="0" width="780">
+<tbody><tr><td colspan="7"><img src="images/top01_b.gif" alt="" height="5" width="780"></td></tr>
+<tr><td width="235"><img src="images/top02_b.gif" alt="Seasar" height="117" width="235"></td>
+<td colspan="3"><img src="images/top03.gif" alt="DI Container with AOP" height="117" width="289"></td>
+<td colspan="3"><img src="images/spacer.gif" alt="" height="117" width="256"></td>
+</tr><tr><td rowspan="2"><img src="images/top04.gif" alt="" height="49" width="235"></td>
+<td><a href="http://www.seasar.org/index.html"><img src="images/menu01_b_ja.gif" alt="" id="menu01" onmouseover="swap(1)" onmouseout="restore(1)" border="0" height="30" width="78"></a></td>
+<td><a href="http://www.seasar.org/projects.html"><img src="images/menu02_b_ja.gif" alt="" id="menu02" onmouseover="swap(2)" onmouseout="restore(2)" border="0" height="30" width="101"></a></td>
+
+<td><a href="http://www.seasar.org/products.html"><img src="images/menu03_b_ja.gif" alt="" id="menu03" onmouseover="swap(3)" onmouseout="restore(3)" border="0" height="30" width="110"></a></td>
+<td><a href="http://www.seasar.org/resources.html"><img src="images/menu04_b_ja.gif" alt="" id="menu04" onmouseover="swap(4)" onmouseout="restore(4)" border="0" height="30" width="113"></a></td>
+<td><img src="images/menu05_b_ja.gif" alt="" id="menu05" onmouseover="swap(5)" onmouseout="restore(5)" border="0" height="30" width="109"></td>
+<td width="34"><img src="images/menu06.gif" alt="" height="30" width="34"></td></tr><tr>
+<td colspan="6"><img src="images/spacer.gif" alt="" height="19" width="545"></td></tr></tbody></table>
+<table class="white" border="0" cellpadding="0" cellspacing="0" width="780">
+<tbody><tr align="left" valign="top"><td width="18"><img src="images/spacer.gif" alt="" height="14" width="18"></td><td class="main" width="744">
+<!-- don't edit end -->
+<!-- document start -->
+
+<a href="index.html">S2Dao.NET TOPページへ</a>
+
+<h1>S2Dao.NET - SQLファイル</h1>
+
+<p>SQLファイルにはDaoのメソッドに対応した検索、更新処理を行うSQL文を記述します。Daoに定義したメソッドを呼び出すと、
+対応するSQLファイルに記述されているSQL文が発行されます。
+※ S2Dao.NETにはSQLを自動で生成する機能が用意されているので、SQLファイルが無い場合はS2Dao.NETがSQL文を自動生成します。</p>
+
+<h2>SQLファイルの配置場所</h2>
+
+<p>作成したSQLファイルは<span style="color:red;font-weight:bold;">Daoと同じ名前空間</span>に配置して下さい。
+C#プロジェクトの場合は、フォルダを作成すると名前空間が作成されます。
+VB.NETプロジェクトの場合は、フォルダを作成しても名前空間は作成されません。
+例えば、<span class="italic">プロジェクトフォルダ</span>/Sample/Dao/IEmployeeDao_GetAllEmployees.sqlとすると、
+C#プロジェクトの場合の名前空間を含む完全限定名は
+<span class="italic">既定の名前空間</span>/Sample/Dao/IEmployeeDao_GetAllEmployees.sqlになります。 
+VB.NETの場合は、<span class="italic">既定の名前空間</span>/IEmployeeDao_GetAllEmployees.sqlになります。</p>
+ 
+<h2>SQLファイルのビルドアクションプロパティ</h2>
+ 
+<p>SQLファイルのビルドアクションプロパティは、下図のように<span style="color:red;font-weight:bold;">埋め込まれたりソース</span>
+に設定しなくてはいけません。</p>
+<img src="images/sqlProperty.png" />
+
+<h2>SQLファイル名</h2>
+
+<p>S2Dao.NETにはSQLファイルの命名規則があります。</p>
+
+<h3>SQLファイルとDaoに定義したメソッドの関連付け</h3>
+
+<p>作成したSQLファイルとDaoに定義したメソッドの関連付けをするには、SQLファイルのファイル名を以下の形式にする必要があります。</p>
+<p>-  <span class="italic">Daoのクラス名</span>_<span class="italic">メソッド名</span>.sql</p>
+<p>Seasar.Dao.Examples/SqlFile/IEmployeeDao#GetEnameByEmpnoに対応するSQLファイルは以下のようになります。</p>
+
+<pre>Seasar.Dao.Examples/SqlFile/IEmployeeDao_GetEnameByEmpno.sql</pre>
+
+<h3>複数DBMS対応</h3>
+
+<p>DBMS毎に使用するSQLファイルを指定することが出来ます。どのDBMSを使っているのかは、
+Diconファイルに登録されているデータプロバイダとS2Dao.NETが持っているDbms.resxからS2Dao.NETが自動的に判断しています。 
+S2Dao.NETのほうでDBMS毎にサフィックスを決めているので、SQLファイル名にサフィックスを追加します。
+例えばオラクルの場合、サフィックスはoracleなので「IEmployeeDao_GetEnameByEmpno_oracle.sql」というファイル名になります。</p>
+<p>DBMSとサフィックスの関係は以下の通りです。
+<table class="main" border="1">
+ 	<tbody>
+ 		<tr align="center" bgcolor="#d1f3f4">
+ 			<th scope="col">DBMS</th>
+ 			<th scope="col">サフィックス</th>
+ 		</tr>
+ 		<tr>
+ 			<td>MSSQLServer</td>
+ 			<td>mssql</td>
+ 		</tr>
+ 		<tr>
+ 			<td>DB2</td>
+ 			<td>db2</td>
+ 		</tr>
+ 		<tr>
+ 			<td>MySQL</td>
+ 			<td>mysql</td>
+ 		</tr>
+ 		<tr>
+ 			<td>Oracle</td>
+ 			<td>oracle</td>
+ 		</tr>
+ 		<tr>
+ 			<td>PostgreSQL</td>
+ 			<td>postgre</td>
+ 		</tr>
+ 		<tr>
+ 			<td>Firebird</td>
+ 			<td>firebird</td>
+ 		</tr>
+ 		<tr>
+ 			<td>MDB(Access)</td>
+ 			<td>mdb</td>
+ 		</tr>
+ 	</tbody>
+</table>
+</p>
+
+<h2>SQL文の記述</h3>
+<p>SQLファイルには"SELECT * FROM EMP", "DELETE FROM EMP WHERE EMPNO=7788"といった、
+普通のSQL文を記述することが可能です。また、WHERE句の条件の値等を動的に変化させることも可能です。
+詳しくは、<a href="sqlcomment.html">SQLコメントのドキュメント</a>を参照して下さい。</p>
+
+<!-- document end -->
+<!-- don't edit start -->
+</td>
+<td width="14"><img src="images/spacer.gif" alt="" height="14" width="14"></td>
+</tr><tr>
+<td width="14"><img src="images/spacer.gif" alt="" height="30" width="14"></td>
+<td width="766"><img src="images/spacer.gif" alt="" height="30" width="592"></td>
+</tr><tr>
+<td width="14"><img src="images/spacer.gif" alt="" height="14" width="14"></td>
+<td class="copyright" width="766">&#169; Copyright The Seasar Project and the others 2004-2005, all rights reserved.</td>
+
+</tr></tbody></table>
+</td><td class="backright" align="left" valign="top">&nbsp;</td></tr><tr>
+<td class="backunder" align="left" height="16" valign="top" width="780">&nbsp;</td>
+<td class="backcorner" align="left" height="16" valign="top">&nbsp;</td>
+</tr></tbody></table><!-- don't edit end -->
+</body></html>
