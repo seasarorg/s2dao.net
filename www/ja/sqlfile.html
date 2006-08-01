@@ -45,7 +45,8 @@ VB.NETの場合は、<span class="italic">既定の名前空間</span>/IEmployee
 <h2>SQLファイルのビルドアクションプロパティ</h2>
  
 <p>SQLファイルのビルドアクションプロパティは、下図のように<span style="color:red;font-weight:bold;">埋め込まれたりソース</span>
-に設定しなくてはいけません。</p>
+に設定しなくてはいけません。ただしVisual Studio 2005のWebサイトプロジェクトでは埋め込まれたリソースにすることが出来ないので、
+別のクラスライブラリプロジェクト等を作成して、そこにDaoインターフェースとSQLファイルを配置する必要があります。</p>
 <img src="images/sqlProperty.png" />
 
 <h2>SQLファイル名</h2>
