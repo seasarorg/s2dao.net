@@ -285,6 +285,10 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Tests.Impl\IDepartmentTotalSalaryDao_GetTotalSalaries.sql"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Seasar.Dao.Tests.Impl\IEmployee2Dao.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
