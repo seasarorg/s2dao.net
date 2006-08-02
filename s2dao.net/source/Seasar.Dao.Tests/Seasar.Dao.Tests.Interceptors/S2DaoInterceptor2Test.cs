@@ -16,37 +16,22 @@
  */
 #endregion
 
-using System;
 using System.Collections;
-using System.IO;
-using System.Reflection;
-using Seasar.Framework.Container;
-using Seasar.Framework.Container.Factory;
+using System.Diagnostics;
 using Seasar.Extension.Unit;
 using MbUnit.Framework;
-using log4net;
-using log4net.Config;
-using log4net.Util;
 
 namespace Seasar.Dao.Tests.Interceptors
 {
     [TestFixture]
     public class S2DaoInterceptor2Test : S2TestCase
-	{
+    {
         private IEmployeeAutoDao _dao = null;
-        private ILog _log= LogManager.GetLogger(typeof(S2DaoInterceptor2Test));
-
-        public S2DaoInterceptor2Test()
-        {
-            FileInfo info = new FileInfo(SystemInfo.AssemblyShortName(
-                Assembly.GetExecutingAssembly()) + ".dll.config");
-            XmlConfigurator.Configure(LogManager.GetRepository(), info);
-        }
 
         [Test, S2(Tx.Rollback)]
         public void TestInsert()
         {
-	        Employee emp = new Employee();
+            Employee emp = new Employee();
             emp.Empno = 99;
             emp.Ename = "hoge";
             Assert.AreEqual(1, _dao.Insert(emp));
@@ -56,7 +41,7 @@ namespace Seasar.Dao.Tests.Interceptors
         public void TestSelect()
         {
             Employee emp = _dao.GetEmployee(7788);
-            _log.Debug(emp);
+            Trace.WriteLine(emp);
             Assert.AreEqual(7788, emp.Empno);
         }
 
@@ -64,7 +49,7 @@ namespace Seasar.Dao.Tests.Interceptors
         public void TestSelectQuery()
         {
             IList employees = _dao.GetEmployeesBySal(0, 1000);
-            _log.Debug(employees);
+            Trace.WriteLine(employees);
             Assert.AreEqual( 2, employees.Count);
         }
 

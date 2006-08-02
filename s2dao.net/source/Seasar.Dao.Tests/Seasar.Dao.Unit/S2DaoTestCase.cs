@@ -24,11 +24,11 @@ using Seasar.Extension.Unit;
 
 namespace Seasar.Dao.Unit
 {
-	public class S2DaoTestCase : S2TestCase
-	{
-		public S2DaoTestCase()
-		{
-		}
+    public class S2DaoTestCase : S2TestCase
+    {
+        public S2DaoTestCase()
+        {
+        }
 
         protected IDbms Dbms 
         {

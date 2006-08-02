@@ -119,6 +119,10 @@
         <Files>
             <Include>
                 <File
+                    RelPath = "Ado.dicon"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "App.config"
                     BuildAction = "None"
                 />
@@ -130,6 +134,11 @@
                 <File
                     RelPath = "Tests.dicon"
                     BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Tests.Context\CommandContextPropertyAccessorTest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
                 />
                 <File
                     RelPath = "Seasar.Dao.Tests.Dbms\DbmsManagerTest.cs"

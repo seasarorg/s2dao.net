@@ -17,32 +17,35 @@
 #endregion
 
 using System;
-using Seasar.Dao.Impl;
 using Seasar.Dao.Dbms;
-using Seasar.Extension;
-using Seasar.Extension.ADO;
+using Seasar.Dao.Impl;
+using Seasar.Dao.Unit;
 using Seasar.Extension.ADO.Impl;
 using Seasar.Extension.Unit;
 using MbUnit.Framework;
 
 namespace Seasar.Dao.Tests.Dbms
 {
-	[TestFixture]
-	public class StandardTest : S2TestCase {
-
-		[Test, S2]
-		public void TestCreateAutoSelectList() {
-            
-            IDataSource dataSource = (IDataSource) GetComponent(typeof(IDataSource));
-			
+    [TestFixture]
+    public class StandardTest : S2DaoTestCase 
+    {
+        [Test, S2]
+        public void TestCreateAutoSelectList() 
+        {
             IDbms dbms = new Standard();
-			
-            IBeanMetaData bmd = new BeanMetaDataImpl(typeof(Employee),
-					new DatabaseMetaDataImpl(dataSource), dbms);
-			
-            String sql = dbms.GetAutoSelectSql(bmd);
-			
+            IBeanMetaData bmd = CreateBeanMetaData(typeof(Employee), dbms);
+            string sql = dbms.GetAutoSelectSql(bmd);
             Assert.AreEqual("SELECT EMP2.DEPTNUM, EMP2.ENAME, EMP2.EMPNO FROM EMP2", sql);
-		}
-	}
+        }
+
+        private BeanMetaDataImpl CreateBeanMetaData(Type beanType, IDbms dbms) 
+        {
+            BeanMetaDataImpl beanMetaData = new BeanMetaDataImpl(
+                beanType,
+                new DatabaseMetaDataImpl(DataSource),
+                dbms
+                );
+            return beanMetaData;
+        }
+    }
 }

@@ -22,51 +22,66 @@ using Seasar.Dao.Attrs;
 
 namespace Seasar.Dao.Tests.Interceptors
 {
-
     [Table("DEPT")]
-	public class Department {
-		
-	    private int deptno;
-	    private String dname;
-	    private String loc;
-	    private int versionNo;
+    [Serializable]
+    public class Department 
+    {
+        private int deptno;
+        private string dname;
+        private string loc;
+        private int versionNo;
 
-	    public Department()
+        public Department()
         {
-	    }
+        }
 
-	    public int Deptno
+        public int Deptno
         {
             set { deptno = value; }
             get { return deptno; }
-	    }
+        }
 
-	    public string Dname
+        public string Dname
         {
             set { dname = value; }
             get { return dname; }
-	    }
+        }
 
-	    public string Loc
+        public string Loc
         {
             set { loc = value; }
             get { return loc; }
-	    }
-	    
-	    public int VersionNo
+        }
+
+        public int VersionNo
         {
             set { versionNo = value; }
             get { return versionNo; }
-	    }
-	    
-	    public String toString()
+        }
+
+        public override string ToString()
         {
-	    	StringBuilder buf = new StringBuilder();
-	    	buf.Append(deptno).Append(", ");
-			buf.Append(dname).Append(", ");
-			buf.Append(loc).Append(", ");
-			buf.Append(versionNo);
-	    	return buf.ToString();
-	    }
-	}
+            StringBuilder buf = new StringBuilder();
+            buf.Append(deptno).Append(", ");
+            buf.Append(dname).Append(", ");
+            buf.Append(loc).Append(", ");
+            buf.Append(versionNo);
+            return buf.ToString();
+        }
+
+        public override bool Equals(object other)
+        {
+            if (!(other is Department))
+            {
+                return false;
+            }
+            Department castOther = (Department) other;
+            return this.Deptno == castOther.Deptno;
+        }
+
+        public override int GetHashCode()
+        {
+            return Deptno;
+        }
+    }
 }

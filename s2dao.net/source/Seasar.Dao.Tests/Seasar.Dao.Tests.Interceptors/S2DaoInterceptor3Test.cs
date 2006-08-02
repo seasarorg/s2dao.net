@@ -16,37 +16,20 @@
  */
 #endregion
 
-using System;
-using System.Collections;
-using System.IO;
-using System.Reflection;
-using Seasar.Framework.Container;
-using Seasar.Framework.Container.Factory;
 using Seasar.Extension.Unit;
 using MbUnit.Framework;
-using log4net;
-using log4net.Config;
-using log4net.Util;
 
 namespace Seasar.Dao.Tests.Interceptors
 {
     [TestFixture]
     public class S2DaoInterceptor3Test : S2TestCase
-	{
+    {
         private IDepartmentAutoDao _dao = null;
-        private ILog _log= LogManager.GetLogger(typeof(S2DaoInterceptor3Test));
-
-        public S2DaoInterceptor3Test()
-        {
-            FileInfo info = new FileInfo(SystemInfo.AssemblyShortName(
-                Assembly.GetExecutingAssembly()) + ".dll.config");
-            XmlConfigurator.Configure(LogManager.GetRepository(), info);
-        }
 
         [Test, S2(Tx.Rollback)]
         public void TestUpdate()
         {
-	        Department department = new Department();
+            Department department = new Department();
             department.Deptno = 10;
             Assert.AreEqual(1, _dao.Update(department));
         }

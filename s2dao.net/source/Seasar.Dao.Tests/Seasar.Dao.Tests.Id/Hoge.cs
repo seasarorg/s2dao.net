@@ -16,23 +16,20 @@
  */
 #endregion
 
-using System;
-
 namespace Seasar.Dao.Tests.Id
 {
-
-	public class Hoge
-	{
+    public class Hoge
+    {
         private int id = -1;
 
-		public Hoge()
-		{
-		}
+        public Hoge()
+        {
+        }
 
         public int Id
         {
             set { id = value; }
             get { return id; }
         }
-	}
+    }
 }

@@ -23,6 +23,7 @@ using Seasar.Dao.Attrs;
 namespace Seasar.Dao.Tests.Dbms
 {
     [Table("EMP2")]
+    [Serializable]
     public class Employee
     {
         private int empno;
@@ -62,6 +63,5 @@ namespace Seasar.Dao.Tests.Dbms
             buf.Append(Deptnum);
             return buf.ToString();
         }
-
     }
 }

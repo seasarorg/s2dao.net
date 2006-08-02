@@ -16,70 +16,56 @@
  */
 #endregion
 
-using System;
 using System.Collections;
-using System.IO;
-using System.Reflection;
-using Seasar.Framework.Container;
-using Seasar.Framework.Container.Factory;
+using System.Diagnostics;
 using Seasar.Extension.Unit;
 using MbUnit.Framework;
-using log4net;
-using log4net.Config;
-using log4net.Util;
 
 namespace Seasar.Dao.Tests.Interceptors
 {
     [TestFixture]
     public class S2DaoInterceptorTest : S2TestCase
-	{
+    {
         private IEmployeeDao _employeeDao = null;
-        private ILog _log= LogManager.GetLogger(typeof(S2DaoInterceptorTest));
-
-        public S2DaoInterceptorTest()
-        {
-            FileInfo info = new FileInfo(SystemInfo.AssemblyShortName(
-                Assembly.GetExecutingAssembly()) + ".dll.config");
-            XmlConfigurator.Configure(LogManager.GetRepository(), info);
-        }
 
         [Test, S2()]
         public void TestSelectBeanList()
         {
-	        IList employees = _employeeDao.GetAllEmployees();
-	        for (int i = 0; i < employees.Count; ++i) {
-                _log.Debug(employees[i].ToString());
-	        }
-	        Assert.AreEqual(true, employees.Count > 0, "1");
+            IList employees = _employeeDao.GetAllEmployees();
+            for (int i = 0; i < employees.Count; ++i) 
+            {
+                Trace.WriteLine(employees[i].ToString());
+            }
+            Assert.AreEqual(true, employees.Count > 0, "1");
         }
 
         [Test, S2()]
         public void TestSelectBean()
         {
-	        Employee employee = _employeeDao.GetEmployee(7788);
-	        _log.Debug(employee.ToString());
-	        Assert.AreEqual("SCOTT", employee.Ename, "1");
+            Employee employee = _employeeDao.GetEmployee(7788);
+            Trace.WriteLine(employee.ToString());
+            Assert.AreEqual("SCOTT", employee.Ename, "1");
         }
 
         [Test, S2()]
         public void TestSelectObject()
-       {
+        {
             int count = _employeeDao.GetCount();
-            _log.Debug("count:" + count);
-	        Assert.AreEqual(true, count > 0, "1");
+            Trace.WriteLine("count:" + count);
+            Assert.AreEqual(true, count > 0, "1");
         }
 
         [Test, S2(Tx.Rollback)]
         public void TestUpdate()
         {
-	        Employee employee = _employeeDao.GetEmployee(7788);
-	        Assert.AreEqual(1, _employeeDao.Update(employee), "1");
+            Employee employee = _employeeDao.GetEmployee(7788);
+            Assert.AreEqual(1, _employeeDao.Update(employee), "1");
         }
 
         [Test, S2(Tx.Rollback)]
         public void TestInsert()
         {
-	        Assert.AreEqual(1, _employeeDao.Insert(9999, "hoge"));
+            Assert.AreEqual(1, _employeeDao.Insert(9999, "hoge"));
         }
 
         [Test, S2()]
@@ -107,6 +93,5 @@ namespace Seasar.Dao.Tests.Interceptors
             hoge2.Val = null;
             Assert.IsTrue(_employeeDao.GetEmpnoByHoge2(hoge).IsNull);
         }
-
     }
 }

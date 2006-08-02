@@ -16,12 +16,8 @@
  */
 #endregion
 
-using System;
-using Seasar.Dao.Impl;
 using Seasar.Dao.Dbms;
-using Seasar.Extension;
 using Seasar.Extension.ADO;
-using Seasar.Extension.ADO.Impl;
 using Seasar.Extension.Unit;
 using Seasar.Dao.Id;
 using Seasar.Dao.Attrs;
@@ -32,19 +28,17 @@ namespace Seasar.Dao.Tests.Id
     /// <summary>
     /// SequenceIdentifierGeneratorのテストです。PostgreSQLを使用します
     /// </summary>
-	[TestFixture]
-	public class SequenceIdentifierGeneratorTest : S2TestCase
+    [TestFixture]
+    public class SequenceIdentifierGeneratorTest : S2TestCase
     {
-
         public void SetUpGenerate()
         {
             Include("Seasar.Dao.Tests.Id.PostgreSQLEx.dicon");
         }
 
-		[Test, S2(Tx.Rollback)]
-		public void TestGenerate()
+        [Test, S2(Tx.Rollback)]
+        public void TestGenerate()
         {
-            
             IDataSource dataSource = (IDataSource) GetComponent("PostgreSQLEx.DataSource");
 
             SequenceIdentifierGenerator generator = new SequenceIdentifierGenerator("Id", new PostgreSQL());
@@ -52,6 +46,6 @@ namespace Seasar.Dao.Tests.Id
             Hoge hoge = new Hoge();
             generator.SetIdentifier(hoge, dataSource);
             Assert.IsTrue(hoge.Id > 0);
-		}
-	}
+        }
+    }
 }

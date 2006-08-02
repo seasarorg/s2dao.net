@@ -23,6 +23,7 @@ using Seasar.Dao.Attrs;
 namespace Seasar.Dao.Tests.Interceptors
 {
     [Table("EMP")]
+    [Serializable]
     public class Employee
     {
         private int empno;
@@ -63,5 +64,19 @@ namespace Seasar.Dao.Tests.Interceptors
             return buf.ToString();
         }
 
+        public override bool Equals(object other)
+        {
+            if (!(other is Department))
+            {
+                return false;
+            }
+            Employee castOther = (Employee) other;
+            return this.Empno == castOther.Empno;
+        }
+
+        public override int GetHashCode()
+        {
+            return Empno;
+        }
     }
 }

@@ -16,12 +16,7 @@
  */
 #endregion
 
-using System;
-using Seasar.Dao.Impl;
 using Seasar.Dao.Dbms;
-using Seasar.Extension;
-using Seasar.Extension.ADO;
-using Seasar.Extension.ADO.Impl;
 using Seasar.Extension.Unit;
 using Seasar.Dao.Id;
 using Seasar.Dao.Attrs;
@@ -29,27 +24,27 @@ using MbUnit.Framework;
 
 namespace Seasar.Dao.Tests.Id
 {
-	[TestFixture]
-	public class IdentifierGeneratorFactoryTest : S2TestCase {
-
-		[Test, S2]
-		public void TestCreateIdentifierGenerator() {
-            
-            IDataSource dataSource = (IDataSource) GetComponent(typeof(IDataSource));
-
+    [TestFixture]
+    public class IdentifierGeneratorFactoryTest : S2TestCase 
+    {
+        [Test, S2]
+        public void TestCreateIdentifierGenerator() 
+        {
             IDbms dbms = new MSSQLServer();
             Hoge hoge = new Hoge();
             hoge.Id = 1;
             
-            IIdentifierGenerator generator = IdentifierGeneratorFactory.CreateIdentifierGenerator("id", dbms, null);
+            IIdentifierGenerator generator = IdentifierGeneratorFactory.CreateIdentifierGenerator(
+                "id", dbms, null);
             Assert.AreEqual(typeof(AssignedIdentifierGenerator), generator.GetType(), "1");
             
-            generator = IdentifierGeneratorFactory.CreateIdentifierGenerator("id", dbms, new IDAttribute("identity"));
+            generator = IdentifierGeneratorFactory.CreateIdentifierGenerator(
+                "id", dbms, new IDAttribute("identity"));
             Assert.AreEqual(typeof(IdentityIdentifierGenerator), generator.GetType(), "2");
 
             generator = IdentifierGeneratorFactory.CreateIdentifierGenerator(
                 "id", dbms, new IDAttribute("sequence", "myseq"));
             Assert.AreEqual("myseq", ((SequenceIdentifierGenerator) generator).SequenceName, "3");
-		}
-	}
+        }
+    }
 }

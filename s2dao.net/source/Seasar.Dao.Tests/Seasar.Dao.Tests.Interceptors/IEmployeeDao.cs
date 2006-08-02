@@ -16,9 +16,9 @@
  */
 #endregion
 
-using System;
 using System.Collections;
-using System.Data.SqlTypes;using Seasar.Dao.Attrs;
+using System.Data.SqlTypes;
+using Seasar.Dao.Attrs;
 using Nullables;
 
 namespace Seasar.Dao.Tests.Interceptors
@@ -39,18 +39,11 @@ namespace Seasar.Dao.Tests.Interceptors
         /// <returns>]‹Æˆõ</returns>
         [Query("empno=/*empno*/")]
         Employee GetEmployee(int empno);
-//	
-//        /// <summary>
-//        /// 
-//        /// </summary>
-//        /// <param name="deptno"></param>
-//        /// <returns></returns>
-//        Employee[] GetEmployeesByDeptno(int deptno);
 
-	    /// <summary>
-	    /// ]‹Æˆõ‚ÌŒ”‚ğæ“¾‚·‚é
-	    /// </summary>
-	    /// <returns>]‹Æˆõ”</returns>
+        /// <summary>
+        /// ]‹Æˆõ‚ÌŒ”‚ğæ“¾‚·‚é
+        /// </summary>
+        /// <returns>]‹Æˆõ”</returns>
         [Sql("select count(*) from EMP")]
         int GetCount();
 
@@ -60,7 +53,7 @@ namespace Seasar.Dao.Tests.Interceptors
         /// <param name="empno">]‹Æˆõ”Ô†</param>
         /// <param name="ename">]‹Æˆõ–¼</param>
         /// <returns>’Ç‰ÁŒ”</returns>
-        int Insert(int empno, String ename);
+        int Insert(int empno, string ename);
 
         /// <summary>
         /// ]‹Æˆõ‚ğXV‚·‚é
@@ -77,6 +70,5 @@ namespace Seasar.Dao.Tests.Interceptors
 
         [Sql("select empno from EMP where ename=/*hoge.Parent.Val*/'1'")]
         SqlInt32 GetEmpnoByHoge2(Hoge hoge);
-
     }
 }

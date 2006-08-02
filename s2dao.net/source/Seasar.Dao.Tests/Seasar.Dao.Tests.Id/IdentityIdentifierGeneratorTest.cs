@@ -16,11 +16,7 @@
  */
 #endregion
 
-using System;
-using Seasar.Dao.Impl;
 using Seasar.Dao.Dbms;
-using Seasar.Extension;
-using Seasar.Extension.ADO;
 using Seasar.Extension.ADO.Impl;
 using Seasar.Extension.Unit;
 using Seasar.Dao.Id;
@@ -29,22 +25,20 @@ using MbUnit.Framework;
 
 namespace Seasar.Dao.Tests.Id
 {
-	[TestFixture]
-	public class IdentityIdentifierGeneratorTest : S2TestCase {
-
-		[Test, S2(Tx.Rollback)]
-		public void TestGetGeneratedValue() {
-            
-            IDataSource dataSource = (IDataSource) GetComponent(typeof(IDataSource));
+    [TestFixture]
+    public class IdentityIdentifierGeneratorTest : S2TestCase 
+    {
+        [Test, S2(Tx.Rollback)]
+        public void TestGetGeneratedValue() 
+        {
             BasicUpdateHandler updateHandler = new BasicUpdateHandler(
-                   dataSource, "insert into identitytable(name) values('hoge')");
+                DataSource, "insert into identitytable(name) values('hoge')");
             updateHandler.Execute(null);
 
             IdentityIdentifierGenerator generator = new IdentityIdentifierGenerator("Id", new MSSQLServer());
             Hoge hoge = new Hoge();
-            generator.SetIdentifier(hoge, dataSource);
+            generator.SetIdentifier(hoge, DataSource);
             Assert.IsTrue(hoge.Id > 0);
-            
-		}
-	}
+        }
+    }
 }
