@@ -32,7 +32,20 @@
 対応するSQLファイルに記述されているSQL文が発行されます。
 ※ S2Dao.NETにはSQLを自動で生成する機能が用意されているので、SQLファイルが無い場合はS2Dao.NETがSQL文を自動生成します。</p>
 
-<h2>SQLファイルの配置場所</h2>
+<ul>
+	<li><a href="#sqlfile">SQLファイルの設置場所</a></li>
+	<li><a href="#property">SQLファイルのビルドアクションプロパティ</a></li>
+	<li>
+		<a href="#sqlfilename">SQLファイル名</a>
+		<ul>
+			<li><a href="#method">SQLファイルとDaoに定義したメソッドの関連付け</a></li>
+			<li><a href="#dbms">複数DBMS対応</a></li>
+		</ul>
+	</li>
+	<li><a href="#sql">SQL文の記述</a></li>
+</ul>
+
+<h2><a name="sqlfile">SQLファイルの配置場所</a></h2>
 
 <p>作成したSQLファイルは<span style="color:red;font-weight:bold;">Daoと同じ名前空間</span>に配置して下さい。
 C#プロジェクトの場合は、フォルダを作成すると名前空間が作成されます。
@@ -42,18 +55,18 @@ C#プロジェクトの場合の名前空間を含む完全限定名は
 <span class="italic">既定の名前空間</span>/Sample/Dao/IEmployeeDao_GetAllEmployees.sqlになります。 
 VB.NETの場合は、<span class="italic">既定の名前空間</span>/IEmployeeDao_GetAllEmployees.sqlになります。</p>
  
-<h2>SQLファイルのビルドアクションプロパティ</h2>
+<h2><a name="property">SQLファイルのビルドアクションプロパティ</a></h2>
  
 <p>SQLファイルのビルドアクションプロパティは、下図のように<span style="color:red;font-weight:bold;">埋め込まれたりソース</span>
 に設定しなくてはいけません。ただしVisual Studio 2005のWebサイトプロジェクトでは埋め込まれたリソースにすることが出来ないので、
 別のクラスライブラリプロジェクト等を作成して、そこにDaoインターフェースとSQLファイルを配置する必要があります。</p>
 <img src="images/sqlProperty.png" />
 
-<h2>SQLファイル名</h2>
+<h2><a name="sqlfilename">SQLファイル名</a></h2>
 
 <p>S2Dao.NETにはSQLファイルの命名規則があります。</p>
 
-<h3>SQLファイルとDaoに定義したメソッドの関連付け</h3>
+<h3><a name="method">SQLファイルとDaoに定義したメソッドの関連付け</a></h3>
 
 <p>作成したSQLファイルとDaoに定義したメソッドの関連付けをするには、SQLファイルのファイル名を以下の形式にする必要があります。</p>
 <p>-  <span class="italic">Daoのクラス名</span>_<span class="italic">メソッド名</span>.sql</p>
@@ -61,7 +74,7 @@ VB.NETの場合は、<span class="italic">既定の名前空間</span>/IEmployee
 
 <pre>Seasar.Dao.Examples/SqlFile/IEmployeeDao_GetEnameByEmpno.sql</pre>
 
-<h3>複数DBMS対応</h3>
+<h3><a name="dbms">複数DBMS対応</a></h3>
 
 <p>DBMS毎に使用するSQLファイルを指定することが出来ます。どのDBMSを使っているのかは、
 Diconファイルに登録されているデータプロバイダとS2Dao.NETが持っているDbms.resxからS2Dao.NETが自動的に判断しています。 
@@ -106,7 +119,7 @@ S2Dao.NETのほうでDBMS毎にサフィックスを決めているので、SQL�
 </table>
 </p>
 
-<h2>SQL文の記述</h3>
+<h2><a name="sql">SQL文の記述</a></h3>
 <p>SQLファイルには"SELECT * FROM EMP", "DELETE FROM EMP WHERE EMPNO=7788"といった、
 普通のSQL文を記述することが可能です。また、WHERE句の条件の値等を動的に変化させることも可能です。
 詳しくは、<a href="sqlcomment.html">SQLコメントのドキュメント</a>を参照して下さい。</p>
