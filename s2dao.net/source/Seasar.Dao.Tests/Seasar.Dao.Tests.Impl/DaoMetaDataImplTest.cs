@@ -16,10 +16,8 @@
 */
 #endregion
 
-using System;
 using System.Collections;
 using System.Diagnostics;
-using System.Data;
 using Seasar.Dao.Dbms;
 using Seasar.Dao.Impl;
 using Seasar.Dao.Unit;
@@ -422,28 +420,70 @@ namespace Seasar.Dao.Tests.Impl
             results = (Employee[]) cmd.Execute(new object[] { condition });
         }
 
-        // TODO
-        //public void TestStartsWithBeginComment()
+        [Test, S2]
+        public void TestStartsWithBeginComment() 
+        {
+            Assert.Ignore("SQL文の末尾に余計なWHEREが付く。");
 
-        // TODO
-        //public void TestQueryAnnotationTx()
+            IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployee8Dao));
+            SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.GetSqlCommand("GetEmployees");
+            Trace.WriteLine(cmd.Sql);
+            {
+                Employee emp = new Employee();
+                IList results = (IList) cmd.Execute(new object[] { emp });
+                Assert.AreEqual(14, results.Count);
+            }
+            {
+                Employee emp = new Employee();
+                emp.JobName = "SALESMAN";
+                IList results = (IList) cmd.Execute(new object[] { emp });
+                Assert.AreEqual(4, results.Count);
+            }
+            {
+                Employee emp = new Employee();
+                emp.Ename = "SMITH";
+                emp.JobName = "CLERK";
+                IList results = (IList) cmd.Execute(new object[] { emp });
+                Assert.AreEqual(1, results.Count);
+            }
+            {
+                Employee emp = new Employee();
+                emp.Ename = "a";
+                emp.JobName = "b";
+                IList results = (IList) cmd.Execute(new object[] { emp });
+                Assert.AreEqual(0, results.Count);
+            }
+        }
 
-        // TODO
+        [Test, S2(Tx.Rollback)]
+        public void TestQueryAnnotation() 
+        {
+            IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployee7Dao));
+            SelectDynamicCommand cmd1 = (SelectDynamicCommand) dmd.GetSqlCommand("GetCount");
+            UpdateDynamicCommand cmd2 = (UpdateDynamicCommand) dmd.GetSqlCommand("DeleteEmployee");
+            Trace.WriteLine(cmd1.Sql);
+            Trace.WriteLine(cmd2.Sql);
+            Assert.AreEqual(14, cmd1.Execute(null));
+            Assert.AreEqual(1, cmd2.Execute(new object[] { 7369 }));
+            Assert.AreEqual(13, cmd1.Execute(null));
+        }
+
+        // TODO AbstractDaoとEntityManagerが未実装のため、テストケース無し。
         //public void TestDaoExtend1()
 
-        // TODO
+        // TODO AbstractDaoとEntityManagerが未実装のため、テストケース無し。
         //public void TestDaoExtend2()
 
-        // TODO
-        //public void TestUsingColumnAnnotationForSql_Insert()
+        // TODO InsertAutoDynamibCommandが未実装のため、テストケース無し。
+        //public void TestUsingColumnAnnotationForSql_Insert() 
 
-        // TODO
+        // TODO InsertAutoDynamibCommandが未実装のため、テストケース無し。
         //public void TestUsingColumnAnnotationForSql_Update()
 
-        // TODO
+        // TODO InsertAutoDynamibCommandが未実装のため、テストケース無し。
         //public void TestUsingColumnAnnotationForSql_Select()
 
-        // TODO
+        // TODO InsertAutoDynamibCommandが未実装のため、テストケース無し。
         //public void TestUsingColumnAnnotationForSql_SelectDto()
 
         [Test, S2(Tx.Rollback)]
