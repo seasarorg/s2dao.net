@@ -421,8 +421,6 @@ namespace Seasar.Dao.Tests.Impl
         [Test, S2]
         public void TestStartsWithBeginComment() 
         {
-            Assert.Ignore("SQL文の末尾に余計なWHEREが付く。");
-
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployee8Dao));
             SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.GetSqlCommand("GetEmployees");
             Trace.WriteLine(cmd.Sql);

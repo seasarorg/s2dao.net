@@ -28,6 +28,6 @@ namespace Seasar.Dao.Tests.Impl
 /*IF dto.Ename != null*/ ename = /*dto.Ename*/'aaa'/*END*/
 /*IF dto.JobName != null*/ AND job = /*dto.JobName*/'bbb'/*END*/
  /*END*/")]
-        IList GetEmployees(EmployeeSearchCondition dto);
+        IList GetEmployees(Employee dto);
     }
 }

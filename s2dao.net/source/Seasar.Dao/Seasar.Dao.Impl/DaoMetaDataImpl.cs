@@ -37,6 +37,9 @@ namespace Seasar.Dao.Impl
         private static readonly Regex startWithOrderByReplacePattern = 
             new Regex(@"/\*.*?\*/");
 
+        private static readonly Regex startWithBeginCommentPattern = 
+            new Regex(@"/\*BEGIN\*/\s*WHERE .+", RegexOptions.IgnoreCase);
+
         private const string NOT_SINGLE_ROW_UPDATED = "NotSingleRowUpdated";
 
         protected string[] insertPrefixes = new string[]
@@ -198,25 +201,50 @@ namespace Seasar.Dao.Impl
         {
             SelectDynamicCommand cmd = CreateSelectDynamicCommand(dataReaderHandler);
             StringBuilder buf = new StringBuilder(255);
-            if(StartsWithSelect(query))
+            if(StartsWithSelect(query)) 
+            {
                 buf.Append(query);
+            }
             else
             {
                 string sql = dbms.GetAutoSelectSql(BeanMetaData);
                 buf.Append(sql);
                 if(query != null)
                 {
-                    if(StartsWithOrderBy(query))
+                    if(StartsWithOrderBy(query)) 
+                    {
                         buf.Append(" ");
-                    else if(sql.LastIndexOf("WHERE") < 0)
+                    }
+                    else if(StartsWithBeginComment(query)) 
+                    {
+                        buf.Append(" ");
+                    }
+                    else if(sql.LastIndexOf("WHERE") < 0) 
+                    {
                         buf.Append(" WHERE ");
-                    else
+                    }
+                    else 
+                    {
                         buf.Append(" AND ");
+                    }
                     buf.Append(query);
                 }
             }
             cmd.Sql = buf.ToString();
             return cmd;
+        }
+
+        protected static bool StartsWithBeginComment(string query)
+        {
+            if(query != null) 
+            {
+                Match m = startWithBeginCommentPattern.Match(query);
+                if(m.Success) 
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         protected static bool StartsWithSelect(string query)
