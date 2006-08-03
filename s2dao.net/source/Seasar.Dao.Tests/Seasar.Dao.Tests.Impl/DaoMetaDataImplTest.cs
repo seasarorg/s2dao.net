@@ -408,8 +408,6 @@ namespace Seasar.Dao.Tests.Impl
         [Test, S2]
         public void TestStartsWithOrderBy() 
         {
-            Assert.Ignore("SQL文の末尾に余計なWHEREが付く。");
-
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployee6Dao));
             EmployeeSearchCondition condition = new EmployeeSearchCondition();
             condition.Dname = "RESEARCH";

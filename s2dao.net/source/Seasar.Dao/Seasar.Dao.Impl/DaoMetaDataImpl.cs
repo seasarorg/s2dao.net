@@ -34,8 +34,8 @@ namespace Seasar.Dao.Impl
 {
     public class DaoMetaDataImpl : IDaoMetaData
     {
-        private static readonly Regex startWithOrderByPattern = 
-            new Regex("(/\\[^*]+\\*/)*order by",RegexOptions.IgnoreCase);
+        private static readonly Regex startWithOrderByReplacePattern = 
+            new Regex(@"/\*.*?\*/");
 
         private const string NOT_SINGLE_ROW_UPDATED = "NotSingleRowUpdated";
 
@@ -228,7 +228,11 @@ namespace Seasar.Dao.Impl
         {
             if(query != null)
             {
-                if(query.Trim().ToLower().StartsWith("order by")) return true;
+                string replaceQuery = startWithOrderByReplacePattern.Replace(query, string.Empty);
+                if(StringUtil.StartWith(replaceQuery.Trim(), "order by"))
+                {
+                    return true;
+                }
             }
             return false;
         }
