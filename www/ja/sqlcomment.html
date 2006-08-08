@@ -28,7 +28,143 @@
 
 <h1>S2Dao.NET - SQLコメント</h1>
 
-<p>準備中・・・</p>
+<p>S2Dao.NETでは、メソッドの引数とSQL文のバインド変数の対応付けを/**/や--等のコメントを使って行います。
+コメントなので、対応付けをした後でも、SQL Server Management StudioのようなSQLの発行を行えるツールでそのまま実行することが出来ます。
+最初、SQLファイルのツールでSQL文を実行して思い通りの結果を出力するようになったら、それに対してコメントを埋め込んでいくと良いでしょう。</p>
+<p>また、SQL文に対しての説明の意味でのコメントを使用したい場合は、/*の後にスペースを入れることにより、
+普通のコメントを使用することが出来ます。例として、/* hoge*/となります。/*の後にスペースが入っているので、実行時には無視されます。</p>
+
+<ul>
+	<li><a href="#bind">バインド変数コメント</a></li>
+	<li><a href="#var">埋め込み変数コメント</a></li>
+	<li><a href="#if">IFコメント</a></li>
+	<li><a href="#begin">BEGINコメント</a></li>
+</ul>
+
+<h2><a name="bind">バインド変数コメント</a></h2>
+
+<p>Daoに定義したメソッドの引数の値をSQL文で使用する場合は、SQL文にバインド変数コメントを記述します。
+バインド変数コメントとリテラルが引数の値に自動的に置換され実行されます。バインド変数コメントは以下のように記述します。</p>
+<p>/*<span class="italic">引数名</span>*/<span class="italic">リテラル</span></p>
+<p>引数がDTOでそのプロパティの値を使いたい場合は、以下のように記述します。</p>
+<p>/*<span class="italic">引数名.プロパティ名</span>*/<span class="italic">リテラル</span></p>
+
+<p>リテラルの部分には、empno=/*empno*/7788のようにダミーデータを記述することができます。
+ダミーデータを記述しておくことでSQLを発行するツールでダミーデータを用いて簡単にテストを行うことができます。
+/*empno*/の部分はSQLのコメントと認識されるのでSQL発行ツールでは無視される為です。
+リテラル(ダミーデータ)は*/の後にスペースを入れずに連続して入力して下さい。</p>
+
+<p>以下はバインド変数コメントのサンプルです。</p>
+
+C#
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode">
+IEmployee GetEmployee(<span class="kwrd">int</span> empno);</pre>
+
+VB.NET
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode vb">
+<span class="kwrd">Function</span> GetEmployee(empno <span class="kwrd">As</span> <span class="kwrd">Integer</span>) <span class="kwrd">As</span> IEmployee</pre>
+
+<p>Daoに上記のメソッドを定義した場合、SQLファイル(IEmployeeDao_GetEmployee.sql)は次のようにバインド変数を使用することが可能です。
+自動的にGetEmployeeメソッドの引数の値が設定されます。</p>
+
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode">
+<span class="kwrd">SELECT</span> * <span class="kwrd">FROM</span> emp <span class="kwrd">WHERE</span> empno = /*empno*/7788</pre>
+
+<h3>IN句</h3>
+<p>IN句にバインド変数を適用したい場合は以下のようにすることが出来ます。</p>
+<p>IN /*<span class="italic">引数名</span>*/(..)</p>
+<p><span style="color:red;">IN句の場合は引数名の後ろのリテラル（ダミーデータ）は必須となります。</span>
+以下のようにリテラルを記述して下さい。</p>
+<pre>IN /*names*/('aaa','bbb')</pre>
+
+<p>引数はSystem.Collections.IListや配列の引数となります。上記のIN句の場合は、以下のように引数を用意します。</p>
+
+C#
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode">
+<span class="kwrd">string</span>[] names = <span class="kwrd">new</span> <span class="kwrd">string</span>[]{<span class="str">"SCOTT"</span>, <span class="str">"SMITH"</span>, <span class="str">"JAMES"</span>};</pre>
+
+VB.NET
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode">
+<span class="kwrd">Dim</span> names() <span class="kwrd">As</span> <span class="kwrd">String</span> = {<span class="str">"SCOTT"</span>, <span class="str">"SMITH"</span>, <span class="str">"JAMES"</span>}</pre>
+
+<p>string配列namesが自動的にバインド変数の部分に置換されます。</p>
+
+<h3>LIKE</h3>
+
+<p>LIKEを使用する場合は、次のようにします。</p>
+<pre>ename LIKE /*ename*/'hoge'</pre>
+
+<p>ワイルドカードを使いたい場合は、メソッドの引数の値に埋め込みます。「"COT"を含む」という条件を指定する場合は、
+以下のように引数の値にワイルドカードを埋め込みます。</p>
+
+C#
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode">
+employeeDao.FindEmployees(<span class="str">"%COT%"</span>);</pre>
+
+VB.NET
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode">
+employeeDao.FindEmployees(<span class="str">"%COT%"</span>)</pre>
+
+<h2><a name="var">埋め込み変数コメント</a></h2>
+
+<p>Daoに定義したメソッドの引数の値をSQL文に文字列として直接埋め込む場合は、SQL文に埋め込み変数コメントを記述します。
+埋め込み変数コメントとリテラル（ダミーデータ）に引数の値が自動的に置換され実行されます。
+埋め込み変数コメントは以下のように引数名の前にドルマーク($)を記述します。</p>
+<p>/*$<span class="italic">引数名</span>*/<span class="italic">リテラル</span></p>
+
+<p>引数がDTOの場合は以下のように記述します。</p>
+<p>/*$<span class="italic">引数名.プロパティ名</span>*/<span class="italic">リテラル</span></p>
+
+<p>埋め込み変数コメントは、次のようにテーブル名を動的に変えたい場合に使えます。</p>
+<pre>SELECT * FROM sales_/*$year*/</pre>
+
+<h2><a name="if">IFコメント</a></h2>
+
+<p>IFコメントでは、条件に応じて実行するSQL文を変えることが可能です。
+IFコメントは以下の形式で記述します。</p>
+<p>/*IF 条件*/.../*END*/</p>
+<p>サンプルは以下のとおりです。</p>
+
+<pre>/*IF hoge != null*/hoge = /*hoge*/'abc'/*END*/</pre>
+
+<p>IFコメントは、条件が真の場合、/*IF*/と/*END*/に囲まれた部分が評価されます。
+上記の場合、引数hogeがnullでない場合にのみ、IFコメントで囲まれている部分(hoge = /*hoge*/'abc')が使われます。
+また偽の場合の処理としてELSEコメントが用意されています。
+条件が偽となった場合は、"ELSE"の後に記述した部分が使われます。ELSEコメントは以下のように記述します。</p>
+
+<pre>
+/*IF hoge != null*/hoge = /*hoge*/'abc'
+  -- ELSE hoge is null
+/*END*/
+</pre>
+
+<p>条件がfalseになると-- ELSEの後の部分(hoge is null)が使われます。</p>
+
+<h2><a name="begin">BEGINコメント</a></h2>
+
+<p>BEGINコメントは、WHERE句内の全てのELSEを含まないIFコメントがfalseになった場合に、
+WHERE句自体を出力したくない場合に使います。BEGINコメントはIFコメントと併せて使用します。
+BEGINコメントは以下の形式で記述します</p>
+<p>/*BEGIN*/<span class="italic">WHERE句</span>/*END*/</p>
+
+<p>サンプルは以下の通りです。</p>
+<pre>
+/*BEGIN*/WHERE
+  /*IF job != null*/job = /*job*/'CLERK'/*END*/
+  /*IF deptno.HasValue == true*/AND deptno = /*deptno*/20/*END*/
+/*END*/
+</pre>
+
+<p>上記の場合、job, deptnoがnullの場合は、WHERE句は出力されません。job == null, deptno.HasValue == trueの場合は、
+WHERE deptno = ?となります。job != null, deptno.HasValue == trueの場合は、
+WHERE job =? AND deptno=?のようになります。動的SQLも思いのままです。</p>
 
 <!-- document end -->
 <!-- don't edit start -->
