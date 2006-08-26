@@ -16,26 +16,32 @@
  */
 #endregion
 
-using Seasar.Dao.Dbms;
+using MbUnit.Framework;
 using Seasar.Extension.ADO.Impl;
 using Seasar.Extension.Unit;
-using Seasar.Dao.Id;
 using Seasar.Dao.Attrs;
-using MbUnit.Framework;
+using Seasar.Dao.Dbms;
+using Seasar.Dao.Id;
+using Seasar.Dao.Unit;
 
 namespace Seasar.Dao.Tests.Id
 {
     [TestFixture]
-    public class IdentityIdentifierGeneratorTest : S2TestCase 
+    public class IdentityIdentifierGeneratorTest : S2DaoTestCase 
     {
         [Test, S2(Tx.Rollback)]
         public void TestGetGeneratedValue() 
         {
+            if (Dbms.IdentitySelectString == null) 
+            {
+                Assert.Ignore("IDENTITYをサポートしていないDBMS。");
+            }
+
             BasicUpdateHandler updateHandler = new BasicUpdateHandler(
                 DataSource, "insert into identitytable(name) values('hoge')");
             updateHandler.Execute(null);
 
-            IdentityIdentifierGenerator generator = new IdentityIdentifierGenerator("Id", new MSSQLServer());
+            IdentityIdentifierGenerator generator = new IdentityIdentifierGenerator("Id", Dbms);
             Hoge hoge = new Hoge();
             generator.SetIdentifier(hoge, DataSource);
             Assert.IsTrue(hoge.Id > 0);
