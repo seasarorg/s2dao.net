@@ -46,6 +46,22 @@ namespace Seasar.Dao.Impl
             this.propertyTypes = propertyTypes;
         }
 
+        public new IDataSource DataSource
+        {
+            get { return base.DataSource; }
+            set 
+            {
+                if (value is ConnectionHolderDataSource) 
+                {
+                    base.DataSource = value;
+                } 
+                else 
+                {
+                    base.DataSource = new ConnectionHolderDataSource(value);
+                }
+            }
+        }
+
         public IBeanMetaData BeanMetaData
         {
             get { return beanMetaData; }
@@ -91,7 +107,6 @@ namespace Seasar.Dao.Impl
         public int Execute(object[] args)
         {
             IDbConnection connection = this.Connection;
-            if(connection.State != ConnectionState.Open) connection.Open();
 
             try
             {
@@ -99,7 +114,9 @@ namespace Seasar.Dao.Impl
             }
             finally
             {
-                DataSourceUtil.CloseConnection(this.DataSource, connection);
+                ConnectionHolderDataSource holderDataSoure = DataSource as ConnectionHolderDataSource;
+                holderDataSoure.ReleaseConnection();
+                DataSourceUtil.CloseConnection(holderDataSoure, connection);
             }
         }
 

@@ -1,4 +1,8 @@
-﻿S2Dao.NET 1.0.0-beta1
+﻿S2Dao.NET 1.0.0-beta2
+準備中
+- [DAONET-6]トランザクションを指定しない場合でも、identityで自動生成された値をセットするようにする
+
+S2Dao.NET 1.0.0-beta1
 2006/8/14
 
 - QueryアノテーションにSQLコメントと"ORDER BY"句が含まれている場合、SQL文の生成に失敗する問題を修正する

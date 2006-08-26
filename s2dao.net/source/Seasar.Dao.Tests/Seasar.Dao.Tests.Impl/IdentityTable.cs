@@ -24,7 +24,7 @@ namespace Seasar.Dao.Tests.Impl
     {
         private int myid;
 
-        private string idName;
+        private string name;
 
         [ID("identity")]
         [Column("ID")]
@@ -34,10 +34,10 @@ namespace Seasar.Dao.Tests.Impl
             get { return myid; }
         }
 
-        public string IdName
+        public string Name
         {
-            set { idName = value; }
-            get { return idName; }
+            set { name = value; }
+            get { return name; }
         }
     }
 }

@@ -50,18 +50,15 @@ namespace Seasar.Dao.Tests.Impl
 
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IIdentityTableAutoDao));
 
-            Assert.Ignore("IDENTITYTABLEのIDテーブルをIdentityにすればInsertは可能になるが、@@IDENTITYを取得できていない");
-            //AbstractAutoHandler#ExecuteでCommandUtil.Close(cmd)の後にPostUpdateBean(bean)をしているので、別セッションになってしまう
-
             ISqlCommand cmd = dmd.GetSqlCommand("Insert");
             IdentityTable table = new IdentityTable();
-            table.IdName = "hoge";
+            table.Name = "hoge";
             int count1 = (int) cmd.Execute(new object[] { table });
             Assert.AreEqual(1, count1, "1");
             int id1 = table.Myid;
             Trace.WriteLine(id1);
             int count2 = (int) cmd.Execute(new object[] { table });
-            Assert.AreEqual(2, count2, "2");
+            Assert.AreEqual(1, count2, "2");
             int id2 = table.Myid;
             Trace.WriteLine(id2);
             Assert.AreEqual(1, id2 - id1, "2");
