@@ -28,9 +28,18 @@ namespace Seasar.Dao.Context
     {
         private static readonly Logger logger = Logger.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         
-        Hashtable args = new Hashtable( new CaseInsensitiveHashCodeProvider(), new CaseInsensitiveComparer() );
-        Hashtable argTypes = new Hashtable( new CaseInsensitiveHashCodeProvider(), new CaseInsensitiveComparer() );
-        Hashtable argNames = new Hashtable( new CaseInsensitiveHashCodeProvider(), new CaseInsensitiveComparer() );
+#if NET_1_1
+        Hashtable args = new Hashtable( new CaseInsensitiveHashCodeProvider(), 
+            new CaseInsensitiveComparer() );
+        Hashtable argTypes = new Hashtable( new CaseInsensitiveHashCodeProvider(),
+            new CaseInsensitiveComparer() );
+        Hashtable argNames = new Hashtable( new CaseInsensitiveHashCodeProvider(), 
+            new CaseInsensitiveComparer() );
+#else
+        Hashtable args = new Hashtable(StringComparer.OrdinalIgnoreCase);
+        Hashtable argTypes = new Hashtable(StringComparer.OrdinalIgnoreCase);
+        Hashtable argNames = new Hashtable(StringComparer.OrdinalIgnoreCase);
+#endif
 
         private StringBuilder sqlBuf = new StringBuilder(100);
         private IList bindVariables = new ArrayList();

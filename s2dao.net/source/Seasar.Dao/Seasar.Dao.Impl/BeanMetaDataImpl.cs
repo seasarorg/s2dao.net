@@ -33,8 +33,15 @@ namespace Seasar.Dao.Impl
     {
         private static Logger logger = Logger.GetLogger(typeof(BeanMetaDataImpl));
         private string tableName;
+
+#if NET_1_1
         private Hashtable propertyTypesByColumnName = new Hashtable(
             CaseInsensitiveHashCodeProvider.Default, CaseInsensitiveComparer.Default);
+#else
+        private Hashtable propertyTypesByColumnName =
+            new Hashtable(StringComparer.OrdinalIgnoreCase);
+#endif
+
         private ArrayList relationProeprtyTypes = new ArrayList();
         private string[] primaryKeys = new string[0];
         private string autoSelectList;

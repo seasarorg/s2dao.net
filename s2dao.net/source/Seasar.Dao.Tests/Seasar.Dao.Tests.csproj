@@ -1,484 +1,327 @@
-<VisualStudioProject>
-    <CSHARP
-        ProjectType = "Local"
-        ProductVersion = "7.10.3077"
-        SchemaVersion = "2.0"
-        ProjectGuid = "{BEED9F86-B197-4994-A3D3-344AD4E7DB71}"
-    >
-        <Build>
-            <Settings
-                ApplicationIcon = ""
-                AssemblyKeyContainerName = ""
-                AssemblyName = "Seasar.Dao.Tests"
-                AssemblyOriginatorKeyFile = ""
-                DefaultClientScript = "JScript"
-                DefaultHTMLPageLayout = "Grid"
-                DefaultTargetSchema = "IE50"
-                DelaySign = "false"
-                OutputType = "Library"
-                PreBuildEvent = ""
-                PostBuildEvent = 'copy "$(ProjectDir)App.config" "$(TargetDir)Seasar.Dao.Tests.dll.config" /Y&#xd;&#xa;xcopy "$(ProjectDir)Seasar.Dao.Tests.Interceptors" "$(TargetDir)Seasar.Dao.Tests.Interceptors" /S /I /Y /D&#xd;&#xa;xcopy "$(ProjectDir)Seasar.Dao.Tests.Impl" "$(TargetDir)Seasar.Dao.Tests.Impl" /S /I /Y /D'
-                RootNamespace = ""
-                RunPostBuildEvent = "OnBuildSuccess"
-                StartupObject = ""
-            >
-                <Config
-                    Name = "Debug"
-                    AllowUnsafeBlocks = "false"
-                    BaseAddress = "285212672"
-                    CheckForOverflowUnderflow = "false"
-                    ConfigurationOverrideFile = ""
-                    DefineConstants = "DEBUG;TRACE"
-                    DocumentationFile = ""
-                    DebugSymbols = "true"
-                    FileAlignment = "4096"
-                    IncrementalBuild = "false"
-                    NoStdLib = "false"
-                    NoWarn = ""
-                    Optimize = "false"
-                    OutputPath = "bin\Debug\"
-                    RegisterForComInterop = "false"
-                    RemoveIntegerChecks = "false"
-                    TreatWarningsAsErrors = "false"
-                    WarningLevel = "4"
-                />
-                <Config
-                    Name = "Release"
-                    AllowUnsafeBlocks = "false"
-                    BaseAddress = "285212672"
-                    CheckForOverflowUnderflow = "false"
-                    ConfigurationOverrideFile = ""
-                    DefineConstants = "TRACE"
-                    DocumentationFile = ""
-                    DebugSymbols = "false"
-                    FileAlignment = "4096"
-                    IncrementalBuild = "false"
-                    NoStdLib = "false"
-                    NoWarn = ""
-                    Optimize = "true"
-                    OutputPath = "bin\Release\"
-                    RegisterForComInterop = "false"
-                    RemoveIntegerChecks = "false"
-                    TreatWarningsAsErrors = "false"
-                    WarningLevel = "4"
-                />
-            </Settings>
-            <References>
-                <Reference
-                    Name = "System"
-                    AssemblyName = "System"
-                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.dll"
-                />
-                <Reference
-                    Name = "System.Data"
-                    AssemblyName = "System.Data"
-                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Data.dll"
-                />
-                <Reference
-                    Name = "System.XML"
-                    AssemblyName = "System.Xml"
-                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
-                />
-                <Reference
-                    Name = "nunit.framework"
-                    AssemblyName = "nunit.framework"
-                    HintPath = "..\..\lib\nunit.framework.dll"
-                />
-                <Reference
-                    Name = "Seasar.Dao"
-                    Project = "{474715CA-5C99-4C50-ADFA-FB628824DFF0}"
-                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
-                />
-                <Reference
-                    Name = "MbUnit.Framework"
-                    AssemblyName = "MbUnit.Framework"
-                    HintPath = "..\..\lib\MbUnit.Framework.dll"
-                />
-                <Reference
-                    Name = "log4net"
-                    AssemblyName = "log4net"
-                    HintPath = "..\..\lib\log4net.dll"
-                />
-                <Reference
-                    Name = "Seasar.Unit"
-                    AssemblyName = "Seasar.Unit"
-                    HintPath = "..\..\lib\Seasar.Unit.dll"
-                />
-                <Reference
-                    Name = "Seasar"
-                    AssemblyName = "Seasar"
-                    HintPath = "..\..\lib\Seasar.dll"
-                />
-                <Reference
-                    Name = "Nullables"
-                    AssemblyName = "Nullables"
-                    HintPath = "..\..\lib\Nullables.dll"
-                />
-            </References>
-        </Build>
-        <Files>
-            <Include>
-                <File
-                    RelPath = "Ado.dicon"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "App.config"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "AssemblyInfo.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Tests.dicon"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Context\CommandContextPropertyAccessorTest.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Dbms\DbmsManagerTest.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Dbms\Department.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Dbms\Employee.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Dbms\OracleTest.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Dbms\StandardTest.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Id\Hoge.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Id\IdentifierGeneratorFactoryTest.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Id\IdentityIdentifierGeneratorTest.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Id\PostgreSQLEx.dicon"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Id\SequenceIdentifierGeneratorTest.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\BeanArrayMetaDataResultSetHandlerTest.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\BeanListMetaDataDataReaderHandlerTest.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\BeanMetaDataDataReaderHandlerTest.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\BeanMetaDataImplTest.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\DaoMetaDataImplTest.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\DeleteAutoStaticCommandTest.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\Department.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\Department2.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\DepartmentTotalSalary.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\Employee.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\Employee2.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\Employee3.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\Employee4.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\Employee5.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\EmployeeSearchCondition.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\FormUseHistory.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\IdentityTable.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\IDepartmentAutoDao.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\IDepartmentTotalSalaryDao.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\IDepartmentTotalSalaryDao_GetTotalSalaries.sql"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\IEmployee2Dao.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\IEmployee3Dao.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\IEmployee4Dao.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\IEmployee5Dao.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\IEmployee6Dao.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\IEmployee7Dao.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\IEmployee8Dao.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\IEmployeeAutoDao.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\IEmployeeDao.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\IEmployeeDao_GetAllEmployees.sql"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\IEmployeeDao_GetCount.sql"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\IEmployeeDao_Update.sql"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\IEmployeeDao_UpdateSqlFileEncodingDefault.sql"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\IEmployeeDao_UpdateSqlFileEncodingUTF8.sql"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\IFormUseHistoryDao.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\IIdentityTableAutoDao.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\IIllegalEmployeeAutoDao.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\InsertAutoStaticCommandTest.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\RelationKeyTest.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\SelectDynamicCommandTest.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\SeqTable.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\SeqTable2.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\SeqTableAuto2Dao.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\SeqTableAutoDao.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\UpdateAutoStaticCommandTest.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\UpdateDynamicCommandTest.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Interceptors\Department.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Interceptors\Employee.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Interceptors\Hoge.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Interceptors\IDepartmentAutoDao.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Interceptors\IEmployeeAutoDao.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Interceptors\IEmployeeDao.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Interceptors\IEmployeeDao_Insert.sql"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Interceptors\S2DaoInterceptor2Test.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Interceptors\S2DaoInterceptor3Test.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Interceptors\S2DaoInterceptorTest.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Parser\SqlParserTest.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Parser\SqlTokenizerTest.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Unit\S2DaoTestCase.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-            </Include>
-        </Files>
-    </CSHARP>
-</VisualStudioProject>
-
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BEED9F86-B197-4994-A3D3-344AD4E7DB71}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>Seasar.Dao.Tests</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>
+    </RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE;DEBUG;NET_2_0</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\net2.0\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE;NET_2_0</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\net2.0\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="MbUnit.Framework, Version=2.3.0.0, Culture=neutral, PublicKeyToken=5e72ecd30bc408d5">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\net2.0\MbUnit.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Nullables, Version=1.0.0.0, Culture=neutral, PublicKeyToken=154fdcb44c4484fc">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\net2.0\Nullables.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.2.7.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\net2.0\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Seasar, Version=1.2.3.0, Culture=neutral, PublicKeyToken=1d0d0c484d50ca62, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\net2.0\Seasar.dll</HintPath>
+    </Reference>
+    <Reference Include="Seasar.Unit, Version=1.2.3.0, Culture=neutral, PublicKeyToken=1d0d0c484d50ca62, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\net2.0\Seasar.Unit.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+    <ProjectReference Include="..\Seasar.Dao\Seasar.Dao.csproj">
+      <Name>Seasar.Dao</Name>
+      <Project>{474715CA-5C99-4C50-ADFA-FB628824DFF0}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Ado.dicon" />
+    <EmbeddedResource Include="Seasar.Dao.Tests.Id\PostgreSQLEx.dicon" />
+    <EmbeddedResource Include="Seasar.Dao.Tests.Impl\IDepartmentTotalSalaryDao_GetTotalSalaries.sql" />
+    <EmbeddedResource Include="Seasar.Dao.Tests.Impl\IEmployeeDao_GetAllEmployees.sql" />
+    <EmbeddedResource Include="Seasar.Dao.Tests.Impl\IEmployeeDao_GetCount.sql" />
+    <EmbeddedResource Include="Seasar.Dao.Tests.Impl\IEmployeeDao_Update.sql" />
+    <EmbeddedResource Include="Seasar.Dao.Tests.Impl\IEmployeeDao_UpdateSqlFileEncodingDefault.sql" />
+    <EmbeddedResource Include="Seasar.Dao.Tests.Impl\IEmployeeDao_UpdateSqlFileEncodingUTF8.sql" />
+    <EmbeddedResource Include="Seasar.Dao.Tests.Interceptors\IEmployeeDao_Insert.sql" />
+    <EmbeddedResource Include="Tests.dicon" />
+    <None Include="App.config" />
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Context\CommandContextPropertyAccessorTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Dbms\DbmsManagerTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Dbms\Department.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Dbms\Employee.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Dbms\OracleTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Dbms\StandardTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Id\Hoge.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Id\IdentifierGeneratorFactoryTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Id\IdentityIdentifierGeneratorTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Id\SequenceIdentifierGeneratorTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\BeanArrayMetaDataResultSetHandlerTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\BeanListMetaDataDataReaderHandlerTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\BeanMetaDataDataReaderHandlerTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\BeanMetaDataImplTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\DaoMetaDataImplTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\DeleteAutoStaticCommandTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\Department.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\Department2.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\DepartmentTotalSalary.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\Employee.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\Employee2.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\Employee3.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\Employee4.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\Employee5.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\EmployeeSearchCondition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\FormUseHistory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\IdentityTable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\IDepartmentAutoDao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\IDepartmentTotalSalaryDao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\IEmployee2Dao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\IEmployee3Dao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\IEmployee4Dao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\IEmployee5Dao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\IEmployee6Dao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\IEmployee7Dao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\IEmployee8Dao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\IEmployeeAutoDao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\IEmployeeDao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\IFormUseHistoryDao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\IIdentityTableAutoDao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\IIllegalEmployeeAutoDao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\InsertAutoStaticCommandTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\RelationKeyTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\SelectDynamicCommandTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\SeqTable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\SeqTable2.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\SeqTableAuto2Dao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\SeqTableAutoDao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\UpdateAutoStaticCommandTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\UpdateDynamicCommandTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Interceptors\Department.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Interceptors\Employee.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Interceptors\Hoge.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Interceptors\IDepartmentAutoDao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Interceptors\IEmployeeAutoDao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Interceptors\IEmployeeDao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Interceptors\S2DaoInterceptor2Test.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Interceptors\S2DaoInterceptor3Test.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Interceptors\S2DaoInterceptorTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Parser\SqlParserTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Parser\SqlTokenizerTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Unit\S2DaoTestCase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>copy "$(ProjectDir)App.config" "$(TargetDir)Seasar.Dao.Tests.dll.config" /Y
+xcopy "$(ProjectDir)Seasar.Dao.Tests.Interceptors" "$(TargetDir)Seasar.Dao.Tests.Interceptors" /S /I /Y /D
+xcopy "$(ProjectDir)Seasar.Dao.Tests.Impl" "$(TargetDir)Seasar.Dao.Tests.Impl" /S /I /Y /D</PostBuildEvent>
+  </PropertyGroup>
+</Project>

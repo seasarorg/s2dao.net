@@ -30,8 +30,14 @@ namespace Seasar.Dao.Impl
     public class DtoMetaDataImpl : IDtoMetaData
     {
         private Type beanType;
+
+#if NET_1_1
         private Hashtable propertyTypes = new Hashtable(
             CaseInsensitiveHashCodeProvider.Default, CaseInsensitiveComparer.Default);
+#else
+        private Hashtable propertyTypes = new Hashtable(
+            StringComparer.OrdinalIgnoreCase);
+#endif
 
         protected DtoMetaDataImpl()
         {
