@@ -56,10 +56,9 @@
 <p>Entityクラスにはテーブルのカラムに対応したフィールドとプロパティを宣言・実装します。クラス名（名前空間名を除く）は可能であればテーブル名と同じに、
 プロパティ名は可能であればテーブルのカラム名と同じにすると良いでしょう。</p>
 <p>カラムがNull可の場合、プリミティブ型（System.Int32等）を指定するとNullの際、0（ゼロ）が返されます。
-Nullを扱うためにはSystem.Data.SqlTypes名前空間のデータ型、もしくは
+Nullを扱うためには.NET Framework 2.0からのnull許容型（System.Nullable構造体）、System.Data.SqlTypes名前空間のデータ型、もしくは
 <a href="http://nhibernate.sourceforge.net/nh-docs/html/Nullables.html">NHibernateのNullables</a>
-のデータ型を指定して下さい。Nullables.dllは配布物に含まれています。
-.NET Framework 2.0からのnull許容型（System.Nullable構造体）には現在対応しておりません。</p>
+のデータ型を指定して下さい。Nullables.dllは配布物に含まれています。</p>
 <p>例えば、EMPテーブルに関連付くEntityクラスは次のようになります。</p>
 
 C#
@@ -261,8 +260,7 @@ Relkeys属性を省略することが出来ます。</p>
 <p>ID（プライマリキー）をRDBMSに自動生成させて、自動生成させた値をEntityに自動的に設定することが出来ます。
 そのために使うのが、ID属性です。ID属性を指定してS2Dao.NETにInsert文を作成させた場合、
 引数で渡したEntityのID属性が指定されたプロパティに、RDBMSによって自動生成された値がセットされます。
-<span style="color:red;">ただしID属性を指定した場合は<a href="http://s2container.net.seasar.org/tx.html#LocalTx">
-ローカルトランザクション</a>を使用する必要があります。</a></span></p>
+</p>
 <p>ID属性はプロパティに指定します。</p>
 
 C#

@@ -159,7 +159,7 @@ SELECT count(*) FROM empのように1行1カラムの値を返すというよう
 <h4>メソッドのsignature（引数の値や型）からWHERE句を自動生成する</h4>
 
 <p>属性やSQLファイルが用意されていなくてもメソッドのsignature（引数の値や型）から、S2Dao.NETにWHERE句を自動生成させることもできます。
-引数の型には組み込み型の他にSystem.Data.SqlTypes名前空間のデータ型、もしくは
+引数の型には組み込み型の他に、.NET　2.0からのnull許容型（System.Nullable構造体）、System.Data.SqlTypes名前空間のデータ型、もしくは
 <a href="http://nhibernate.sourceforge.net/nh-docs/html/Nullables.html">NHibernateのNullables</a>
 のデータ型を指定することも出来ます。</p>
 
