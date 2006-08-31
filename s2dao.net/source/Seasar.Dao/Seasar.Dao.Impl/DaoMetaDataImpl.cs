@@ -536,7 +536,13 @@ namespace Seasar.Dao.Impl
             {
                 buf.Append(".HasValue == true");
             }
-            else if(valueType is SqlBaseType)
+#if !NET_1_1
+            else if (valueType is NullableBaseType)
+            {
+                buf.Append(".HasValue == true");
+            }
+#endif
+            else if (valueType is SqlBaseType)
             {
                 buf.Append(".IsNull == false");
             }
