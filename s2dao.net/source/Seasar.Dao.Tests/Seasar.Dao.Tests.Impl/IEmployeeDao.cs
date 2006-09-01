@@ -26,6 +26,12 @@ namespace Seasar.Dao.Tests.Impl
     {
         IList GetAllEmployees();
 
+#if !NET_1_1
+        System.Collections.Generic.IList<Employee> GetAllEmployeesToGenericList1();
+
+        System.Collections.Generic.List<Employee> GetAllEmployeesToGenericList2();
+#endif
+
         Employee[] GetAllEmployeeArray();
 
         [Query("empno=/*empno*/")]

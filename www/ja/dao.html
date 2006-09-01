@@ -150,10 +150,17 @@ VB.NET
 
 <h3><a name="Select">検索（SELECT)処理とSELECT文の自動生成</a></h3>
 
-<p>検索処理を行う場合は、上記のケース以外で戻り値の型を指定します。戻り値の型がSystem.Collections.IListの場合は、
-SELECT文でエンティティのリスト(System.Collections.ArrayList)を返します。戻り値がエンティティ型の配列である場合は、
-エンティティ配列を返します。戻り値の型がエンティティの型の場合は、エンティティを返します。それ以外の場合は、
-SELECT count(*) FROM empのように1行1カラムの値を返すというようにS2Dao.NETは想定します。</p>
+<p>検索処理を行う場合は、上記のケース以外で戻り値の型を指定します。
+<ul>
+	<li>戻り値の型がSystem.Collections.IListの場合は、
+		SELECT文でエンティティのリスト(System.Collections.ArrayList)を返します。</li>
+	<li>戻り値の型がSystem.Collections.Generic.IList&lt;<span class="italic">Entity型</span>&gt;の場合は、
+		SELECT文でエンティティのリスト(System.Collections.List&lt;<span class="italic">Entity型</span>&gt;)を返します。</li>
+	<li>戻り値がエンティティ型の配列である場合は、エンティティ配列を返します。</li>
+	<li>戻り値の型がエンティティの型の場合は、エンティティを返します。</li>
+	<li>それ以外の場合は、SELECT count(*) FROM empのように1行1カラムの値を返すというようにS2Dao.NETは想定します。</li>
+</ul>
+</p>
 <p>特に属性やSQLファイルが用意されていない場合は、全てのカラムを全行取得するSELECT文が自動生成され実行されます。</p>
 
 <h4>メソッドのsignature（引数の値や型）からWHERE句を自動生成する</h4>

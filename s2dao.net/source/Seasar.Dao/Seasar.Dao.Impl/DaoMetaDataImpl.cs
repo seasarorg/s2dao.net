@@ -267,17 +267,43 @@ namespace Seasar.Dao.Impl
 
         protected virtual IDataReaderHandler CreateDataReaderHandler(MethodInfo mi)
         {
-            if (mi.ReturnType.IsArray)
+            Type retType = mi.ReturnType;
+
+            if (retType.IsArray)
+            {
                 return new BeanArrayMetaDataDataReaderHandler(beanMetaData);
-            else if(typeof(IList).IsAssignableFrom(mi.ReturnType))
+            }
+#if NET_1_1
+            else if (typeof(IList).IsAssignableFrom(retType))
+#else
+            else if (!retType.IsGenericType && typeof(IList).IsAssignableFrom(retType))
+#endif
+            {
                 return new BeanListMetaDataDataReaderHandler(beanMetaData);
-            else if(IsBeanTypeAssignable(mi.ReturnType))
+            }
+            else if (IsBeanTypeAssignable(retType))
+            {
                 return new BeanMetaDataDataReaderHandler(beanMetaData);
-            else if(Array.CreateInstance(beanType, 0).GetType()
-                .IsAssignableFrom(mi.ReturnType))
+            }
+            else if (Array.CreateInstance(
+                beanType, 0).GetType().IsAssignableFrom(retType))
+            {
                 return new BeanArrayMetaDataDataReaderHandler(beanMetaData);
+            }
+#if !NET_1_1
+            else if(retType.IsGenericType
+                && (retType.GetGenericTypeDefinition().Equals(
+                    typeof(System.Collections.Generic.IList<>))
+                || retType.GetGenericTypeDefinition().Equals(
+                    typeof(System.Collections.Generic.List<>))))
+            {
+                return new BeanGenericListMetaDataDataReaderHandler(beanMetaData);
+            }
+#endif
             else
+            {
                 return new ObjectDataReaderHandler();
+            }
         }
 
         protected virtual bool IsBeanTypeAssignable(Type type)

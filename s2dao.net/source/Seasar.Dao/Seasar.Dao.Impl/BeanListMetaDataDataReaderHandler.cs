@@ -34,33 +34,41 @@ namespace Seasar.Dao.Impl
 
         public override object Handle(IDataReader dataReader)
         {
-            IList columnNames = CreateColumnNames(dataReader.GetSchemaTable());
             ArrayList list = new ArrayList();
+
+            Handle(dataReader, list);
+
+            return list;
+        }
+
+        protected void Handle(IDataReader dataReader, IList list)
+        {
+            IList columnNames = CreateColumnNames(dataReader.GetSchemaTable());
             int relSize = BeanMetaData.RelationPropertyTypeSize;
             RelationRowCache relRowCache = new RelationRowCache(relSize);
-            while(dataReader.Read())
+            while (dataReader.Read())
             {
                 object row = CreateRow(dataReader, columnNames);
-                for(int i = 0; i < relSize; ++i)
+                for (int i = 0; i < relSize; ++i)
                 {
                     IRelationPropertyType rpt = BeanMetaData.GetRelationPropertyType(i);
-                    if(rpt == null) continue;
+                    if (rpt == null) continue;
 
                     object relRow = null;
                     Hashtable relKeyValues = new Hashtable();
                     RelationKey relKey = CreateRelationKey(dataReader, rpt, columnNames,
                         relKeyValues);
-                    if(relKey != null)
+                    if (relKey != null)
                     {
                         relRow = relRowCache.GetRelationRow(i, relKey);
-                        if(relRow == null)
+                        if (relRow == null)
                         {
                             relRow = CreateRelationRow(dataReader, rpt, columnNames,
                                 relKeyValues);
                             relRowCache.AddRelationRow(i, relKey, relRow);
                         }
                     }
-                    if(relRow != null)
+                    if (relRow != null)
                     {
                         PropertyInfo pi = rpt.PropertyInfo;
                         pi.SetValue(row, relRow, null);
@@ -68,7 +76,6 @@ namespace Seasar.Dao.Impl
                 }
                 list.Add(row);
             }
-            return list;
         }
 
         protected RelationKey CreateRelationKey(IDataReader reader,

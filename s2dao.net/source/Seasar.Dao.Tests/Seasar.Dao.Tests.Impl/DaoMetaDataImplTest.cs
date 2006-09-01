@@ -42,6 +42,30 @@ namespace Seasar.Dao.Tests.Impl
             Assert.AreEqual(typeof(Employee), rsh.BeanMetaData.BeanType, "3");
         }
 
+#if !NET_1_1
+        [Test, S2]
+        public void TestSelectGenericList1()
+        {
+            IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeDao));
+            SelectDynamicCommand cmd = (SelectDynamicCommand)dmd.GetSqlCommand("GetAllEmployeesToGenericList1");
+            Assert.IsNotNull(cmd, "1");
+            Assert.AreEqual("SELECT * FROM emp", cmd.Sql, "2");
+            BeanGenericListMetaDataDataReaderHandler rsh = (BeanGenericListMetaDataDataReaderHandler)cmd.DataReaderHandler;
+            Assert.AreEqual(typeof(Employee), rsh.BeanMetaData.BeanType, "3");
+        }
+
+        [Test, S2]
+        public void TestSelectGenericList2()
+        {
+            IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeDao));
+            SelectDynamicCommand cmd = (SelectDynamicCommand)dmd.GetSqlCommand("GetAllEmployeesToGenericList2");
+            Assert.IsNotNull(cmd, "1");
+            Assert.AreEqual("SELECT * FROM emp", cmd.Sql, "2");
+            BeanGenericListMetaDataDataReaderHandler rsh = (BeanGenericListMetaDataDataReaderHandler)cmd.DataReaderHandler;
+            Assert.AreEqual(typeof(Employee), rsh.BeanMetaData.BeanType, "3");
+        }
+#endif
+
         [Test, S2]
         public void TestSelectBeanArray() 
         {

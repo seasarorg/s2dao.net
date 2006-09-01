@@ -50,6 +50,7 @@
     <WarningLevel>4</WarningLevel>
     <DebugType>full</DebugType>
     <ErrorReport>prompt</ErrorReport>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\net2.0\Release\</OutputPath>
@@ -73,6 +74,7 @@
     <WarningLevel>4</WarningLevel>
     <DebugType>none</DebugType>
     <ErrorReport>prompt</ErrorReport>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
@@ -279,6 +281,7 @@
     <Compile Include="Seasar.Dao.Tests.Impl\UpdateDynamicCommandTest.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\BeanGenericListMetaDataDataReaderHandlerTest.cs" />
     <Compile Include="Seasar.Dao.Tests.Interceptors\Department.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -315,6 +318,12 @@
     <Compile Include="Seasar.Dao.Unit\S2DaoTestCase.cs">
       <SubType>Code</SubType>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Seasar.Dao.Tests.Impl\IEmployeeDao_GetAllEmployeesToGenericList1.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Seasar.Dao.Tests.Impl\IEmployeeDao_GetAllEmployeesToGenericList2.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
