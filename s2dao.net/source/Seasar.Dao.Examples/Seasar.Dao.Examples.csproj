@@ -82,7 +82,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\net2.0\Nullables.dll</HintPath>
     </Reference>
-    <Reference Include="Seasar, Version=1.2.3.0, Culture=neutral, PublicKeyToken=1d0d0c484d50ca62, processorArchitecture=MSIL">
+    <Reference Include="Seasar, Version=1.2.4.0, Culture=neutral, PublicKeyToken=1d0d0c484d50ca62, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\net2.0\Seasar.dll</HintPath>
     </Reference>
@@ -101,11 +101,6 @@
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
     </Reference>
-    <ProjectReference Include="..\Seasar.Dao\Seasar.Dao.csproj">
-      <Name>Seasar.Dao</Name>
-      <Project>{474715CA-5C99-4C50-ADFA-FB628824DFF0}</Project>
-      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -511,6 +506,12 @@
     <EmbeddedResource Include="Seasar.Examples\Extension\UI\Forms\SyntaxHighlightingTextBox.resx">
       <DependentUpon>SyntaxHighlightingTextBox.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Seasar.Dao\Seasar.Dao.csproj">
+      <Project>{474715CA-5C99-4C50-ADFA-FB628824DFF0}</Project>
+      <Name>Seasar.Dao</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
