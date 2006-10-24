@@ -154,4 +154,27 @@ namespace Seasar.Dao
             get { return this.sql; }
         }
     }
+
+    public class WrongPropertyTypeOfTimestampException : SRuntimeException
+    {
+        private string propertyName;
+        private string propertyType;
+
+        public WrongPropertyTypeOfTimestampException(string propertyName, string propertyType)
+            : base("EDAO0010", new object[] { propertyName, propertyType })
+        {
+            this.propertyName = propertyName;
+            this.propertyType = propertyType;
+        }
+
+        public string PropertyName
+        {
+            get { return this.propertyName; }
+        }
+
+        public string PropertyType
+        {
+            get { return this.propertyType; }
+        }
+    }
 }

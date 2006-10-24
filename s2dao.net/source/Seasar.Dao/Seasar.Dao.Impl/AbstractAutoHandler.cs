@@ -285,8 +285,7 @@ namespace Seasar.Dao.Impl
             }
             else
             {
-                String msg = "The property type is wrong: name=" + pt.PropertyName + " type=" + pt.PropertyType;
-                throw new SystemException(msg);
+                throw new WrongPropertyTypeOfTimestampException(pt.PropertyName, pt.PropertyType.Name);
             }
         }
 
@@ -302,8 +301,7 @@ namespace Seasar.Dao.Impl
             }
             else
             {
-                String msg = "The property type is wrong: name=" + pi.Name + " type=" + pi.PropertyType;
-                throw new SystemException(msg);
+                throw new WrongPropertyTypeOfTimestampException(pi.Name, pi.PropertyType.Name);
             }
         }
     }
