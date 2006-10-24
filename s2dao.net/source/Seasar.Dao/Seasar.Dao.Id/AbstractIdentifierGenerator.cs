@@ -56,7 +56,15 @@ namespace Seasar.Dao.Id
         {
             if(propertyName == null) throw new EmptyRuntimeException("propertyName");
             PropertyInfo propertyInfo = bean.GetType().GetProperty(propertyName);
-            propertyInfo.SetValue(bean, Convert.ChangeType(value, propertyInfo.PropertyType), null);
+            
+            if (propertyInfo.PropertyType == typeof(Nullables.NullableDecimal))
+            {
+                propertyInfo.SetValue(bean, Nullables.NullableDecimal.Parse(value.ToString()), null);
+            }
+            else
+            {
+                propertyInfo.SetValue(bean, Convert.ChangeType(value, propertyInfo.PropertyType), null);
+            }
         }
 
         #region IIdentifierGenerator ÉÅÉìÉo
