@@ -1,4 +1,9 @@
-﻿S2Dao.NET 1.0.0
+﻿S2Dao.NET 1.0.1
+2006/??/??
+- [DAONET-32]S2Unit.NETが参照しているMbUnitのバージョンを最新版にする。
+             S2Unit.NETを使用する場合、MbUnit 2.3.83以上をインストールする必要がある。
+
+S2Dao.NET 1.0.0
 2006/9/25
 
 変更無し

@@ -1,7 +1,7 @@
 <VisualStudioProject>
     <CSHARP
         ProjectType = "Local"
-        ProductVersion = "7.10.3077"
+        ProductVersion = "7.10.6030"
         SchemaVersion = "2.0"
         ProjectGuid = "{474715CA-5C99-4C50-ADFA-FB628824DFF0}"
     >
@@ -83,6 +83,11 @@
                     Name = "Seasar"
                     AssemblyName = "Seasar"
                     HintPath = "..\..\lib\net1.1\Seasar.dll"
+                />
+                <Reference
+                    Name = "Nullables"
+                    AssemblyName = "Nullables"
+                    HintPath = "..\..\lib\net1.1\Nullables.dll"
                 />
             </References>
         </Build>

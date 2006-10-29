@@ -1,7 +1,7 @@
 <VisualStudioProject>
     <CSHARP
         ProjectType = "Local"
-        ProductVersion = "7.10.3077"
+        ProductVersion = "7.10.6030"
         SchemaVersion = "2.0"
         ProjectGuid = "{BEED9F86-B197-4994-A3D3-344AD4E7DB71}"
     >
@@ -90,11 +90,6 @@
                     HintPath = "..\..\lib\net1.1\log4net.dll"
                 />
                 <Reference
-                    Name = "MbUnit.Framework"
-                    AssemblyName = "MbUnit.Framework"
-                    HintPath = "..\..\lib\net1.1\MbUnit.Framework.dll"
-                />
-                <Reference
                     Name = "Nullables"
                     AssemblyName = "Nullables"
                     HintPath = "..\..\lib\net1.1\Nullables.dll"
@@ -113,6 +108,11 @@
                     Name = "Seasar.Dao.2003"
                     Project = "{474715CA-5C99-4C50-ADFA-FB628824DFF0}"
                     Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
+                <Reference
+                    Name = "MbUnit.Framework"
+                    AssemblyName = "MbUnit.Framework"
+                    HintPath = "..\..\lib\net1.1\MbUnit.Framework.dll"
                 />
             </References>
         </Build>
