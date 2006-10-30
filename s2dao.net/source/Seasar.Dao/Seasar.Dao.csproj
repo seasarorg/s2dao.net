@@ -347,8 +347,12 @@
     <Compile Include="Seasar.Dao\TokenType.cs">
       <SubType>Code</SubType>
     </Compile>
-    <EmbeddedResource Include="DAOMessages.ja-JP.resx" />
-    <EmbeddedResource Include="DAOMessages.resx" />
+    <EmbeddedResource Include="DAOMessages.ja-JP.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DAOMessages.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dbms.resx" />
   </ItemGroup>
   <ItemGroup>

@@ -152,6 +152,7 @@
     <Compile Include="Seasar.Dao.Tests.Id\Hoge.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Seasar.Dao.Tests.Id\HogeNullable.cs" />
     <Compile Include="Seasar.Dao.Tests.Id\IdentifierGeneratorFactoryTest.cs">
       <SubType>Code</SubType>
     </Compile>
