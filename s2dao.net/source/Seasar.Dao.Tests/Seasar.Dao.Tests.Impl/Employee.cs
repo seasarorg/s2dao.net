@@ -23,6 +23,7 @@ using Seasar.Dao.Attrs;
 
 namespace Seasar.Dao.Tests.Impl
 {
+    [TimestampProperty("NullableNextRestDate")]
     [Table("EMP")]
     public class Employee
     {
@@ -49,6 +50,9 @@ namespace Seasar.Dao.Tests.Impl
         private Department department;
     
 //        private SqlDateTime timestamp;
+
+        //  Edit
+        private Nullables.NullableDateTime nullableNextRestDate;
 
         public Employee()
         {
@@ -129,6 +133,12 @@ namespace Seasar.Dao.Tests.Impl
 //            get { return timestamp; }
 //        }
 
+        public Nullables.NullableDateTime NullableNextRestDate
+        {
+            set { nullableNextRestDate = value; }
+            get { return nullableNextRestDate; }
+        }
+
         public bool equals(object other) 
         {
             if ( !(other.GetType() == typeof(Employee)) ) return false;
@@ -154,6 +164,7 @@ namespace Seasar.Dao.Tests.Impl
             buf.Append(deptno).Append(", ");
 //            buf.Append(timestamp).Append(", ");
             buf.Append(department);
+            buf.Append(nullableNextRestDate);
             return buf.ToString();
         }
     }

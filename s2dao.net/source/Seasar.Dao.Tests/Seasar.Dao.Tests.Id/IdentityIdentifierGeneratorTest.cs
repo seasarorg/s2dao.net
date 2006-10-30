@@ -23,6 +23,7 @@ using Seasar.Dao.Attrs;
 using Seasar.Dao.Dbms;
 using Seasar.Dao.Id;
 using Seasar.Dao.Unit;
+using System;
 
 namespace Seasar.Dao.Tests.Id
 {
@@ -45,6 +46,25 @@ namespace Seasar.Dao.Tests.Id
             Hoge hoge = new Hoge();
             generator.SetIdentifier(hoge, DataSource);
             Assert.IsTrue(hoge.Id > 0);
+        }
+
+        [Test, S2(Tx.Rollback)]
+        public void TestGetGeneratedNullableValue()
+        {
+            if (Dbms.IdentitySelectString == null)
+            {
+                Assert.Ignore("IDENTITYをサポートしていないDBMS。");
+            }
+
+            BasicUpdateHandler updateHandler = new BasicUpdateHandler(
+                DataSource, "insert into identitytable(name) values('hoge')");
+            updateHandler.Execute(null);
+
+            IdentityIdentifierGenerator generator = new IdentityIdentifierGenerator("Id", Dbms);
+            HogeNullable hoge = new HogeNullable();
+            generator.SetIdentifier(hoge, DataSource);
+            Assert.IsTrue(hoge.Id.Value > 0);
+            Console.WriteLine(hoge.Id);
         }
     }
 }

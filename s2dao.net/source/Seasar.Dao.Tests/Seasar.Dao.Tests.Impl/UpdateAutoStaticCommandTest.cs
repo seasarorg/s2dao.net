@@ -39,6 +39,27 @@ namespace Seasar.Dao.Tests.Impl
         }
 
         [Test, S2(Tx.Rollback)]
+        public void TestUpdateNullableTx()
+        {
+            IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeAutoDao));
+            ISqlCommand cmd = dmd.GetSqlCommand("Update");
+            ISqlCommand cmd2 = dmd.GetSqlCommand("GetEmployee");
+            {
+                Employee emp = (Employee)cmd2.Execute(new object[] { 7788 });
+                emp.NullableNextRestDate = null;
+                int count = (int)cmd.Execute(new object[] { emp });
+                Assert.AreEqual(1, count, "1");
+            }
+            {
+                Employee emp = (Employee)cmd2.Execute(new object[] { 7788 });
+                emp.NullableNextRestDate = Nullables.NullableDateTime.Parse("2006/01/01");
+                int count = (int)cmd.Execute(new object[] { emp });
+                Assert.AreEqual(1, count, "2");
+            }
+        }
+
+
+        [Test, S2(Tx.Rollback)]
         public void TestExecute2Tx() 
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IDepartmentAutoDao));
