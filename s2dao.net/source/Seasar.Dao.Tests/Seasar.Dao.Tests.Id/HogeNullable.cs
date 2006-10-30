@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Seasar.Dao.Attrs;
 
 namespace Seasar.Dao.Tests.Id
 {
@@ -12,6 +13,7 @@ namespace Seasar.Dao.Tests.Id
         {
         }
 
+        [ID("identity")]
         public Nullables.NullableDecimal Id
         {
             set { id = value; }
