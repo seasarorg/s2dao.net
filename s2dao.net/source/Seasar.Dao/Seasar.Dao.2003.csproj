@@ -121,6 +121,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao\IColumnMetaData.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Seasar.Dao\ICommandContext.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -377,6 +382,11 @@
                 />
                 <File
                     RelPath = "Seasar.Dao.Impl\BeanMetaDataImpl.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Impl\ColumnMetaDataImpl.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

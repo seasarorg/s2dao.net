@@ -40,43 +40,87 @@ namespace Seasar.Dao.Impl
             get { return beanMetaData; }
         }
 
-        protected object CreateRow(IDataReader reader, IList columnNames)
+        /// <summary>
+        /// Columnのメタデータを作成する
+        /// </summary>
+        /// <param name="columnNames">カラム名のリスト</param>
+        /// <returns>Columnのメタデータの配列</returns>
+        protected IColumnMetaData[] CreateColumnMetaData(IList columnNames)
         {
-            object row = ClassUtil.NewInstance(beanMetaData.BeanType);
-            for(int i = 0; i < beanMetaData.PropertyTypeSize; ++i)
+#if NET_1_1
+            IDictionary names = null;
+            ArrayList columnMetaDataList = new ArrayList();
+#else
+            System.Collections.Generic.IDictionary<string, object> names = null;
+            System.Collections.Generic.List<IColumnMetaData> columnMetaDataList =
+                new System.Collections.Generic.List<IColumnMetaData>();
+#endif
+
+            for (int i = 0; i < beanMetaData.PropertyTypeSize; ++i)
             {
                 IPropertyType pt = beanMetaData.GetPropertyType(i);
-                if(columnNames.Contains(pt.ColumnName))
+
+                if (columnNames.Contains(pt.ColumnName))
                 {
-                    IValueType valueType = pt.ValueType;
-                    PropertyInfo pi = pt.PropertyInfo;
-                    object value = valueType.GetValue(reader, pt.ColumnName);
-                    pi.SetValue(row, value, null);
+                    columnMetaDataList.Add(new ColumnMetaDataImpl(pt, pt.ColumnName));
                 }
-                else if(columnNames.Contains(pt.PropertyName))
+                else if (columnNames.Contains(pt.PropertyName))
                 {
-                    IValueType valueType = pt.ValueType;
-                    PropertyInfo pi = pt.PropertyInfo;
-                    object value = valueType.GetValue(reader, pt.PropertyName);
-                    pi.SetValue(row, value, null);
+                    columnMetaDataList.Add(new ColumnMetaDataImpl(pt, pt.PropertyName));
                 }
-                else if(!pt.IsPersistent)
+                else if (!pt.IsPersistent)
                 {
-                    for(IEnumerator enu = columnNames.GetEnumerator(); enu.MoveNext();)
+                    if (names == null)
                     {
-                        string columnName = (string) enu.Current;
-                        string columnName2 = columnName.Replace("_", "");
-                        if(string.Compare(columnName2, pt.ColumnName, true) == 0)
+#if NET_1_1
+                        names = new Hashtable();
+#else
+                        names = new System.Collections.Generic.Dictionary<string, object>();
+#endif          
+                        foreach (string name in columnNames)
                         {
-                            IValueType valueType = pt.ValueType;
-                            PropertyInfo pi = pt.PropertyInfo;
-                            object value = valueType.GetValue(reader, columnName);
-                            pi.SetValue(row, value, null);
-                            break;
+                            names[name.Replace("_", string.Empty).ToUpper()] = null;
                         }
                     }
+#if NET_1_1
+					if (names.Contains(pt.ColumnName.ToUpper()))
+					{
+						columnMetaDataList.Add(new ColumnMetaDataImpl(pt, pt.ColumnName));
+					}
+#else
+                    if (names.ContainsKey(pt.ColumnName.ToUpper()))
+                    {
+                        columnMetaDataList.Add(new ColumnMetaDataImpl(pt, pt.ColumnName));
+                    }
+#endif      
+
                 }
             }
+
+#if NET_1_1
+            return (IColumnMetaData[]) columnMetaDataList.ToArray(typeof(IColumnMetaData));
+#else
+            return columnMetaDataList.ToArray();
+#endif   
+            
+        }
+
+        /// <summary>
+        /// 1行分のオブジェクトを作成する
+        /// </summary>
+        /// <param name="reader">IDataReader</param>
+        /// <param name="columns">Columnのメタデータ</param>
+        /// <returns>1行分のEntity型のオブジェクト</returns>
+        protected object CreateRow(IDataReader reader, IColumnMetaData[] columns)
+        {
+            object row = ClassUtil.NewInstance(beanMetaData.BeanType);
+
+            foreach (IColumnMetaData column in columns)
+            {
+                object value = column.ValueType.GetValue(reader, column.ColumnName);
+                column.PropertyInfo.SetValue(row, value, null);
+            }
+
             return row;
         }
 

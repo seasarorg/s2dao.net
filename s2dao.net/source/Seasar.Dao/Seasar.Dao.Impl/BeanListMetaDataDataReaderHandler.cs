@@ -44,11 +44,14 @@ namespace Seasar.Dao.Impl
         protected void Handle(IDataReader dataReader, IList list)
         {
             IList columnNames = CreateColumnNames(dataReader.GetSchemaTable());
+
+            IColumnMetaData[] columns = CreateColumnMetaData(columnNames);
+
             int relSize = BeanMetaData.RelationPropertyTypeSize;
             RelationRowCache relRowCache = new RelationRowCache(relSize);
             while (dataReader.Read())
             {
-                object row = CreateRow(dataReader, columnNames);
+                object row = CreateRow(dataReader, columns);
                 for (int i = 0; i < relSize; ++i)
                 {
                     IRelationPropertyType rpt = BeanMetaData.GetRelationPropertyType(i);

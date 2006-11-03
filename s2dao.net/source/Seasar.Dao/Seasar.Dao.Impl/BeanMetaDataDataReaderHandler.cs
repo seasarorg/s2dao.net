@@ -36,7 +36,8 @@ namespace Seasar.Dao.Impl
             if(dataReader.Read())
             {
                 IList columnNames = CreateColumnNames(dataReader.GetSchemaTable());
-                object row = CreateRow(dataReader, columnNames);
+                IColumnMetaData[] columns = CreateColumnMetaData(columnNames);
+                object row = CreateRow(dataReader, columns);
                 for(int i = 0; i < BeanMetaData.RelationPropertyTypeSize; ++i)
                 {
                     IRelationPropertyType rpt = BeanMetaData
