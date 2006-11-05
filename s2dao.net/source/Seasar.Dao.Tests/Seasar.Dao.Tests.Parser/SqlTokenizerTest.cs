@@ -17,7 +17,7 @@
 #endregion
 
 using Seasar.Dao.Parser;
-using NUnit.Framework;
+using MbUnit.Framework;
 
 namespace Seasar.Dao.Tests.Parser
 {
