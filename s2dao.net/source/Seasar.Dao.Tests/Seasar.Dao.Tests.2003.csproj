@@ -1,7 +1,7 @@
 <VisualStudioProject>
     <CSHARP
         ProjectType = "Local"
-        ProductVersion = "7.10.6030"
+        ProductVersion = "7.10.3077"
         SchemaVersion = "2.0"
         ProjectGuid = "{BEED9F86-B197-4994-A3D3-344AD4E7DB71}"
     >
@@ -260,6 +260,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Tests.Impl\EmployeeNullable.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Seasar.Dao.Tests.Impl\EmployeeSearchCondition.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -352,6 +357,11 @@
                 <File
                     RelPath = "Seasar.Dao.Tests.Impl\IEmployeeDao_UpdateSqlFileEncodingUTF8.sql"
                     BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Tests.Impl\IEmployeeNullableAutoDao.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
                 />
                 <File
                     RelPath = "Seasar.Dao.Tests.Impl\IFormUseHistoryDao.cs"
