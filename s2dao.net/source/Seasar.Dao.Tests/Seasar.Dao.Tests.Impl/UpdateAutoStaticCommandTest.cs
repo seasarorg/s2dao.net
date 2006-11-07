@@ -21,12 +21,14 @@ using Seasar.Dao;
 using Seasar.Dao.Unit;
 using Seasar.Extension.Unit;
 using MbUnit.Framework;
+using System.Reflection;
 
 namespace Seasar.Dao.Tests.Impl
 {
     [TestFixture]
     public class UpdateAutoStaticCommandTest : S2DaoTestCase
     {
+        private readonly log4net.ILog _log = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         [Test, S2(Tx.Rollback)]
         public void TestExecuteTx() 
         {
@@ -41,17 +43,21 @@ namespace Seasar.Dao.Tests.Impl
         [Test, S2(Tx.Rollback)]
         public void TestUpdateNullableTx()
         {
-            IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeAutoDao));
+            IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeNullableAutoDao));
             ISqlCommand cmd = dmd.GetSqlCommand("Update");
-            ISqlCommand cmd2 = dmd.GetSqlCommand("GetEmployee");
+            ISqlCommand cmd2 = dmd.GetSqlCommand("GetEmployeeNullable");
             {
-                Employee emp = (Employee)cmd2.Execute(new object[] { 7788 });
+                EmployeeNullable emp = (EmployeeNullable)cmd2.Execute(new object[] { 1 });
                 emp.NullableNextRestDate = null;
                 int count = (int)cmd.Execute(new object[] { emp });
                 Assert.AreEqual(1, count, "1");
             }
             {
-                Employee emp = (Employee)cmd2.Execute(new object[] { 7788 });
+                EmployeeNullable emp = (EmployeeNullable)cmd2.Execute(new object[] { 10 });
+                Assert.IsFalse(emp.NullableNextRestDate.HasValue);
+            }
+            {
+                EmployeeNullable emp = (EmployeeNullable)cmd2.Execute(new object[] { 100 });
                 emp.NullableNextRestDate = Nullables.NullableDateTime.Parse("2006/01/01");
                 int count = (int)cmd.Execute(new object[] { emp });
                 Assert.AreEqual(1, count, "2");

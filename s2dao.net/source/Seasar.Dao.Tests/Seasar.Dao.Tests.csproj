@@ -200,6 +200,7 @@
     <Compile Include="Seasar.Dao.Tests.Impl\Employee5.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\EmployeeNullable.cs" />
     <Compile Include="Seasar.Dao.Tests.Impl\EmployeeSearchCondition.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -242,6 +243,7 @@
     <Compile Include="Seasar.Dao.Tests.Impl\IEmployeeDao.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\IEmployeeNullableAutoDao.cs" />
     <Compile Include="Seasar.Dao.Tests.Impl\IFormUseHistoryDao.cs">
       <SubType>Code</SubType>
     </Compile>

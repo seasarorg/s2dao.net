@@ -43,10 +43,10 @@ namespace Seasar.Dao.Tests.Impl
         [Test, S2(Tx.Rollback)]
         public void TestNullableDateInsertTx()
         {
-            IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeAutoDao));
+            IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeNullableAutoDao));
             ISqlCommand cmd = dmd.GetSqlCommand("Insert");
             {
-                Employee emp = new Employee();
+                EmployeeNullable emp = new EmployeeNullable();
                 emp.Empno = 99;
                 emp.Ename = "hoge";
                 emp.Deptno = 1;
@@ -55,7 +55,7 @@ namespace Seasar.Dao.Tests.Impl
                 Assert.AreEqual(1, count, "1");
             }
             {
-                Employee emp = new Employee();
+                EmployeeNullable emp = new EmployeeNullable();
                 emp.Empno = 98;
                 emp.Ename = "hoge";
                 emp.Deptno = 1;
