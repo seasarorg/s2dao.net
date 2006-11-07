@@ -1,5 +1,6 @@
 ﻿S2Dao.NET 1.0.1
-2006/??/??
+2006/11/8
+- [DAONET-19]ID属性とTimestamp属性で指定されたプロパティでNullables型に対応する
 - [DAONET-32]S2Unit.NETが参照しているMbUnitのバージョンを最新版にする。
              S2Unit.NETを使用する場合、MbUnit 2.3.83以上をインストールする必要がある。
 - [DAONET-33]Nunit関連のdllファイルを削除する
