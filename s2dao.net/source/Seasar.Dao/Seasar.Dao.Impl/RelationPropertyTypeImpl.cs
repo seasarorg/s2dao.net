@@ -37,14 +37,13 @@ namespace Seasar.Dao.Impl
         }
 
         public RelationPropertyTypeImpl(PropertyInfo propertyInfo, int relationNo,
-            string[] myKeys, string[] yourKeys, IDatabaseMetaData dbMetaData, IDbms dbms)
+            string[] myKeys, string[] yourKeys, IBeanMetaData beanMetaData)
             : base(propertyInfo)
         {
             this.relationNo = relationNo;
             this.myKeys = myKeys;
             this.yourKeys = yourKeys;
-            Type beanType = propertyInfo.PropertyType;
-            beanMetaData = new BeanMetaDataImpl(beanType, dbMetaData, dbms, true);
+            this.beanMetaData = beanMetaData;
         }
 
         #region IRelationPropertyType ÉÅÉìÉo

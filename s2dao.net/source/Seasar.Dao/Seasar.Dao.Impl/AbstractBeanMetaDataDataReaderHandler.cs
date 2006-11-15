@@ -45,7 +45,7 @@ namespace Seasar.Dao.Impl
         /// </summary>
         /// <param name="columnNames">カラム名のリスト</param>
         /// <returns>Columnのメタデータの配列</returns>
-        protected IColumnMetaData[] CreateColumnMetaData(IList columnNames)
+        protected virtual IColumnMetaData[] CreateColumnMetaData(IList columnNames)
         {
 #if NET_1_1
             IDictionary names = null;
@@ -111,7 +111,7 @@ namespace Seasar.Dao.Impl
         /// <param name="reader">IDataReader</param>
         /// <param name="columns">Columnのメタデータ</param>
         /// <returns>1行分のEntity型のオブジェクト</returns>
-        protected object CreateRow(IDataReader reader, IColumnMetaData[] columns)
+        protected virtual object CreateRow(IDataReader reader, IColumnMetaData[] columns)
         {
             object row = ClassUtil.NewInstance(beanMetaData.BeanType);
 
@@ -124,7 +124,7 @@ namespace Seasar.Dao.Impl
             return row;
         }
 
-        protected object CreateRelationRow(IDataReader reader, IRelationPropertyType rpt,
+        protected virtual object CreateRelationRow(IDataReader reader, IRelationPropertyType rpt,
             IList columnNames, Hashtable relKeyValues)
         {
             object row = null;
@@ -167,12 +167,12 @@ namespace Seasar.Dao.Impl
             return row;
         }
 
-        protected object CreateRelationRow(IRelationPropertyType rpt)
+        protected virtual object CreateRelationRow(IRelationPropertyType rpt)
         {
             return ClassUtil.NewInstance(rpt.PropertyInfo.PropertyType);
         }
 
-        protected IList CreateColumnNames(DataTable dt)
+        protected virtual IList CreateColumnNames(DataTable dt)
         {
             IList columnNames = new CaseInsentiveSet();
             foreach(DataRow row in dt.Rows)

@@ -29,6 +29,7 @@ using Seasar.Extension.ADO.Impl;
 using Seasar.Extension.ADO.Types;
 using Seasar.Framework.Beans;
 using Seasar.Framework.Util;
+using Seasar.Framework.Log;
 
 namespace Seasar.Dao.Impl
 {
@@ -85,8 +86,15 @@ namespace Seasar.Dao.Impl
             annotationReader = new FieldAnnotationReader(daoType);
             beanType = annotationReader.GetBeanType();
             dbms = DbmsManager.GetDbms(dataSource);
-            beanMetaData = new BeanMetaDataImpl(beanType, dbMetaData, dbms);
+            beanMetaData = CreateBeanMetaData(beanType, dbMetaData, dbms);
             SetupSqlCommand();
+        }
+        
+        protected virtual IBeanMetaData CreateBeanMetaData(Type beanType, IDatabaseMetaData dbMetaData, IDbms dbms)
+        {
+            BeanMetaDataImpl bmdImpl = new BeanMetaDataImpl(beanType);
+            bmdImpl.Initialize(dbMetaData, dbms);
+            return bmdImpl;
         }
 
         protected virtual void SetupSqlCommand()
@@ -267,11 +275,16 @@ namespace Seasar.Dao.Impl
 
         protected virtual IDataReaderHandler CreateDataReaderHandler(MethodInfo mi)
         {
+            return CreateDataReaderHandler(mi, beanMetaData);
+        }
+
+        protected virtual IDataReaderHandler CreateDataReaderHandler(MethodInfo mi, IBeanMetaData bmd)
+        {
             Type retType = mi.ReturnType;
 
             if (retType.IsArray)
             {
-                return new BeanArrayMetaDataDataReaderHandler(beanMetaData);
+                return CreateBeanArrayMetaDataDataReaderHandler(bmd);
             }
 #if NET_1_1
             else if (typeof(IList).IsAssignableFrom(retType))
@@ -279,16 +292,16 @@ namespace Seasar.Dao.Impl
             else if (!retType.IsGenericType && typeof(IList).IsAssignableFrom(retType))
 #endif
             {
-                return new BeanListMetaDataDataReaderHandler(beanMetaData);
+                return CreateBeanListMetaDataDataReaderHandler(bmd);
             }
             else if (IsBeanTypeAssignable(retType))
             {
-                return new BeanMetaDataDataReaderHandler(beanMetaData);
+                return CreateBeanMetaDataDataReaderHandler(bmd);
             }
             else if (Array.CreateInstance(
                 beanType, 0).GetType().IsAssignableFrom(retType))
             {
-                return new BeanArrayMetaDataDataReaderHandler(beanMetaData);
+                return CreateBeanArrayMetaDataDataReaderHandler(bmd);
             }
 #if !NET_1_1
             else if(retType.IsGenericType
@@ -297,13 +310,38 @@ namespace Seasar.Dao.Impl
                 || retType.GetGenericTypeDefinition().Equals(
                     typeof(System.Collections.Generic.List<>))))
             {
-                return new BeanGenericListMetaDataDataReaderHandler(beanMetaData);
+                return CreateBeanGenericListMetaDataDataReaderHandler(bmd);
             }
 #endif
             else
             {
-                return new ObjectDataReaderHandler();
+                return CreateObjectDataReaderHandler();
             }
+        }
+
+        protected virtual BeanListMetaDataDataReaderHandler CreateBeanListMetaDataDataReaderHandler(IBeanMetaData bmd)
+        {
+            return new BeanListMetaDataDataReaderHandler(bmd);
+        }
+
+        protected virtual BeanMetaDataDataReaderHandler CreateBeanMetaDataDataReaderHandler(IBeanMetaData bmd)
+        {
+            return new BeanMetaDataDataReaderHandler(bmd);
+        }
+
+        protected virtual BeanArrayMetaDataDataReaderHandler CreateBeanArrayMetaDataDataReaderHandler(IBeanMetaData bmd)
+        {
+            return new BeanArrayMetaDataDataReaderHandler(bmd);
+        }
+
+        protected virtual BeanGenericListMetaDataDataReaderHandler CreateBeanGenericListMetaDataDataReaderHandler(IBeanMetaData bmd)
+        {
+            return new BeanGenericListMetaDataDataReaderHandler(bmd);
+        }
+
+        protected virtual ObjectDataReaderHandler CreateObjectDataReaderHandler()
+        {
+            return new ObjectDataReaderHandler();
         }
 
         protected virtual bool IsBeanTypeAssignable(Type type)

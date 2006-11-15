@@ -32,41 +32,88 @@ namespace Seasar.Dao.Impl
     public class BeanMetaDataImpl : DtoMetaDataImpl, IBeanMetaData
     {
         private static Logger logger = Logger.GetLogger(typeof(BeanMetaDataImpl));
-        private string tableName;
+        protected string tableName;
 
 #if NET_1_1
         private Hashtable propertyTypesByColumnName = new Hashtable(
             CaseInsensitiveHashCodeProvider.Default, CaseInsensitiveComparer.Default);
 #else
-        private Hashtable propertyTypesByColumnName =
+        protected Hashtable propertyTypesByColumnName =
             new Hashtable(StringComparer.OrdinalIgnoreCase);
 #endif
 
-        private ArrayList relationProeprtyTypes = new ArrayList();
-        private string[] primaryKeys = new string[0];
-        private string autoSelectList;
-        private bool relation;
-        private IIdentifierGenerator identifierGenerator;
-        private string versionNoPropertyName = "VersionNo";
-        private string timestampPropertyName = "Timestamp";
-        private string versionNoBindingName;
-        private string timestampBindingName;
+        protected ArrayList relationProeprtyTypes = new ArrayList();
+        protected string[] primaryKeys = new string[0];
+        protected string autoSelectList;
+        protected bool relation;
+        protected IIdentifierGenerator identifierGenerator;
+        protected string versionNoPropertyName = "VersionNo";
+        protected string timestampPropertyName = "Timestamp";
+        protected string versionNoBindingName;
+        protected string timestampBindingName;
 
+        /// <summary>
+        /// Constructor.
+        /// If you use this constructor, you should invoke initialize() after this.
+        /// </summary>
+        /// <param name="beanType"></param>
+        public BeanMetaDataImpl(Type beanType) : this(beanType, false)
+        {
+        }
+
+        /// <summary>
+        /// Constructor.
+        /// If you use this constructor, you should invoke initialize() after this.
+        /// </summary>
+        /// <param name="beanType"></param>
+        /// <param name="relation"></param>
+        public BeanMetaDataImpl(Type beanType, bool relation)
+        {
+            this.BeanType = beanType;
+            this.relation = relation;
+        }
+
+        /// <summary>
+        /// Constructor.
+        /// If you use this constructor, you should NOT invoke initialize() after this.
+        /// </summary>
+        /// <param name="beanType"></param>
+        /// <param name="dbMetaData"></param>
+        /// <param name="dbms"></param>
         public BeanMetaDataImpl(Type beanType, IDatabaseMetaData dbMetaData,
             IDbms dbms) : this(beanType, dbMetaData, dbms, false)
         {
         }
 
+        /// <summary>
+        /// Constructor.
+        /// If you use this constructor, you should NOT invoke initialize() after this.
+        /// </summary>
+        /// <param name="beanType"></param>
+        /// <param name="dbMetaData"></param>
+        /// <param name="dbms"></param>
+        /// <param name="relation"></param>
         public BeanMetaDataImpl(Type beanType, IDatabaseMetaData dbMetaData,
             IDbms dbms, bool relation)
         {
             BeanType = beanType;
             this.relation = relation;
+
             SetupTableName(beanType);
             SetupVersionNoPropertyName(beanType);
             SetupTimestampPropertyName(beanType);
             SetupProperty(beanType, dbMetaData, dbms);
             SetupDatabaseMetaData(beanType, dbMetaData, dbms);
+            SetupPropertiesByColumnName();
+        }
+
+        public void Initialize(IDatabaseMetaData dbMetaData, IDbms dbms)
+        {
+            SetupTableName(this.BeanType);
+            SetupVersionNoPropertyName(this.BeanType);
+            SetupTimestampPropertyName(this.BeanType);
+            SetupProperty(this.BeanType, dbMetaData, dbms);
+            SetupDatabaseMetaData(this.BeanType, dbMetaData, dbms);
             SetupPropertiesByColumnName();
         }
 
@@ -297,7 +344,7 @@ namespace Seasar.Dao.Impl
 
         #endregion
 
-        protected void SetupTableName(Type beanType)
+        protected virtual void SetupTableName(Type beanType)
         {
             TableAttribute attr = AttributeUtil.GetTableAttribute(beanType);
             if(attr != null)
@@ -311,7 +358,7 @@ namespace Seasar.Dao.Impl
             }
         }
 
-        protected void SetupVersionNoPropertyName(Type beanType)
+        protected virtual void SetupVersionNoPropertyName(Type beanType)
         {
             VersionNoPropertyAttribute attr = AttributeUtil.GetVersionNoPropertyAttribute(beanType);
             if(attr != null) versionNoPropertyName = attr.PropertyName;
@@ -325,7 +372,7 @@ namespace Seasar.Dao.Impl
 
         }
 
-        protected void SetupTimestampPropertyName(Type beanType)
+        protected virtual void SetupTimestampPropertyName(Type beanType)
         {
             TimestampPropertyAttribute attr = AttributeUtil.GetTimestampPropertyAttribute(beanType);
             if(attr != null) timestampPropertyName = attr.PropertyName;
@@ -341,7 +388,7 @@ namespace Seasar.Dao.Impl
                 timestampBindingName = timestampPropertyName + i++;
         }
 
-        protected void SetupProperty(Type beanType, IDatabaseMetaData dbMetaData,IDbms dbms)
+        protected virtual void SetupProperty(Type beanType, IDatabaseMetaData dbMetaData, IDbms dbms)
         {
             foreach(PropertyInfo pi in beanType.GetProperties())
             {
@@ -375,14 +422,14 @@ namespace Seasar.Dao.Impl
             }
         }
 
-        protected void SetupDatabaseMetaData(Type beanType,
+        protected virtual void SetupDatabaseMetaData(Type beanType,
             IDatabaseMetaData dbMetaData, IDbms dbms)
         {
             SetupPropertyPersistentAndColumnName(beanType, dbMetaData);
             SetupPrimaryKey(dbMetaData, dbms);
         }
 
-        protected void SetupPrimaryKey(IDatabaseMetaData dbMetaData, IDbms dbms)
+        protected virtual void SetupPrimaryKey(IDatabaseMetaData dbMetaData, IDbms dbms)
         {
             if(IdentifierGenerator == null)
             {
@@ -407,7 +454,7 @@ namespace Seasar.Dao.Impl
             }
         }
 
-        protected void SetupPropertyPersistentAndColumnName(Type beanType,
+        protected virtual void SetupPropertyPersistentAndColumnName(Type beanType,
             IDatabaseMetaData dbMetaData)
         {
             IList columnSet = dbMetaData.GetColumnSet(tableName);
@@ -452,7 +499,7 @@ namespace Seasar.Dao.Impl
             }
         }
 
-        protected void SetupPropertiesByColumnName()
+        protected virtual void SetupPropertiesByColumnName()
         {
             for(int i = 0; i < PropertyTypeSize; ++i)
             {
@@ -461,7 +508,7 @@ namespace Seasar.Dao.Impl
             }
         }
 
-        protected IRelationPropertyType CreateRelationPropertyType(Type beanType,
+        protected virtual IRelationPropertyType CreateRelationPropertyType(Type beanType,
             PropertyInfo propertyInfo, RelnoAttribute relnoAttr,
             IDatabaseMetaData dbMetaData, IDbms dbms)
         {
@@ -491,12 +538,27 @@ namespace Seasar.Dao.Impl
                 myKeys = (string[]) myKeyList.ToArray(typeof(string));
                 yourKeys = (string[]) yourKeyList.ToArray(typeof(string));
             }
-            IRelationPropertyType rpt = new RelationPropertyTypeImpl(propertyInfo,
-                relnoAttr.Relno, myKeys, yourKeys, dbMetaData, dbms);
+            IRelationPropertyType rpt = CreateRelationPropertyType(propertyInfo,
+                                          relnoAttr, myKeys, yourKeys, dbMetaData, dbms);
             return rpt;
         }
 
-        protected void AddRelationPropertyType(IRelationPropertyType rpt)
+        protected virtual IRelationPropertyType CreateRelationPropertyType(PropertyInfo propertyInfo,
+            RelnoAttribute relnoAttr, string[] myKeys, string[] yourKeys,
+            IDatabaseMetaData dbMetaData, IDbms dbms)
+        {
+            IBeanMetaData relationBmd = CreateRelationBeanMetaData(propertyInfo, dbMetaData, dbms);
+            return new RelationPropertyTypeImpl(propertyInfo, relnoAttr.Relno, myKeys, yourKeys, relationBmd);
+        }
+
+        protected virtual IBeanMetaData CreateRelationBeanMetaData(PropertyInfo propertyInfo, IDatabaseMetaData dbMetaData, IDbms dbms)
+        {
+            BeanMetaDataImpl bmdImpl = new BeanMetaDataImpl(propertyInfo.PropertyType, true);
+            bmdImpl.Initialize(dbMetaData, dbms);
+            return bmdImpl;
+        }
+
+        protected virtual void AddRelationPropertyType(IRelationPropertyType rpt)
         {
             for(int i = relationProeprtyTypes.Count; i <= rpt.RelationNo; ++i)
             {
@@ -505,7 +567,7 @@ namespace Seasar.Dao.Impl
             relationProeprtyTypes[rpt.RelationNo] = rpt;
         }
 
-        protected void SetupAutoSelectList()
+        protected virtual void SetupAutoSelectList()
         {
             StringBuilder buf = new StringBuilder(100);
             buf.Append("SELECT ");
