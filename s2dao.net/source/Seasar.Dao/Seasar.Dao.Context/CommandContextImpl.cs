@@ -80,7 +80,6 @@ namespace Seasar.Dao.Context
                     PropertyInfo pi = type.GetProperty(names[pos]);
                     if(pi == null)
                     {
-                        logger.Log("WDAO0001", new object[] { name });
                         return null;
                     }
                     value = pi.GetValue(value, null);
@@ -88,7 +87,6 @@ namespace Seasar.Dao.Context
                 }
                 if(value != null) return value;
 
-                logger.Log("WDAO0001", new object[] { name });
                 return null;
             }
         }

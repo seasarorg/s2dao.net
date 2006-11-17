@@ -18,11 +18,14 @@
 
 using System;
 using System.Reflection;
+using Seasar.Framework.Log;
 
 namespace Seasar.Dao.Node
 {
     public class BindVariableNode : AbstractNode
     {
+        private static readonly Logger logger = Logger.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         private string expression;
 
         public BindVariableNode(string expression)
@@ -39,7 +42,11 @@ namespace Seasar.Dao.Node
         {
             object value = ctx.GetArg(expression);
             Type type = null;
-            if(value != null) type = value.GetType();
+            if(value != null) {
+                type = value.GetType();
+            } else {
+                logger.Log("WDAO0001", new object[] { expression });
+            }
             ctx.AddSql(value, type, expression.Replace('.','_'));
         }
     }

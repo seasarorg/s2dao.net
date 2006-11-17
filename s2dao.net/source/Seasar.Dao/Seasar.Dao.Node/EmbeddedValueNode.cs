@@ -18,21 +18,19 @@
 
 using System;
 using System.Reflection;
+using Seasar.Framework.Log;
 
 namespace Seasar.Dao.Node
 {
     public class EmbeddedValueNode : AbstractNode
     {
+        private static readonly Logger logger = Logger.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         private string expression;
-        private string baseName;
-        private string propertyName;
 
         public EmbeddedValueNode(string expression)
         {
             this.expression = expression;
-            string[] array = expression.Split(new char[] {','});
-            baseName = array[0];
-            if(array.Length > 1) propertyName = array[1];
         }
 
         public string Expression
@@ -42,15 +40,12 @@ namespace Seasar.Dao.Node
 
         public override void Accept(ICommandContext ctx)
         {
-            object value = ctx.GetArg(baseName);
-            Type type = ctx.GetArgType(baseName);
-            if(propertyName != null)
-            {
-                PropertyInfo pi = type.GetProperty(propertyName);
-                value = pi.GetValue(value, null);
-                type = pi.PropertyType;
+            object value = ctx.GetArg(expression);
+            if(value != null) {
+                ctx.AddSql(value.ToString());
+            } else {
+                logger.Log("WDAO0001", new object[] { expression });
             }
-            if(value != null) ctx.AddSql(value.ToString());
         }
 
     }
