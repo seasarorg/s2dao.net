@@ -334,11 +334,12 @@ namespace Seasar.Dao.Impl
             return new BeanArrayMetaDataDataReaderHandler(bmd);
         }
 
+#if !NET_1_1
         protected virtual BeanGenericListMetaDataDataReaderHandler CreateBeanGenericListMetaDataDataReaderHandler(IBeanMetaData bmd)
         {
             return new BeanGenericListMetaDataDataReaderHandler(bmd);
         }
-
+#endif
         protected virtual ObjectDataReaderHandler CreateObjectDataReaderHandler()
         {
             return new ObjectDataReaderHandler();
