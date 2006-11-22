@@ -14,17 +14,17 @@ CREATE TABLE emp2 (
 ALTER TABLE ONLY emp2
     ADD CONSTRAINT emp2_pkey PRIMARY KEY (empno);
 
-CREATE SEQUENCE "sequencetable_seqcol_seq"
+CREATE SEQUENCE "SEQ_SEQTABLE"
   INCREMENT 1
   MINVALUE 1
   MAXVALUE 9223372036854775807
   START 1
   CACHE 1;
-ALTER TABLE "sequencetable_seqcol_seq" OWNER TO s2demouser;
+ALTER TABLE "SEQ_SEQTABLE" OWNER TO s2demouser;
 
 CREATE TABLE "SequenceTable"
 (
-  "SeqCol" int4 NOT NULL DEFAULT nextval('sequencetable_seqcol_seq'::regclass)
+  "SeqCol" int4 NOT NULL DEFAULT nextval('SEQ_SEQTABLE'::regclass)
 ) 
 WITHOUT OIDS;
 ALTER TABLE "SequenceTable" OWNER TO s2demouser;

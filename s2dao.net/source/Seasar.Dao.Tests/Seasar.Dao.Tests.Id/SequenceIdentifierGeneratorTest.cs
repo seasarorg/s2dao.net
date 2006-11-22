@@ -16,35 +16,29 @@
  */
 #endregion
 
-using Seasar.Dao.Dbms;
-using Seasar.Extension.ADO;
 using Seasar.Extension.Unit;
-using Seasar.Dao.Id;
 using Seasar.Dao.Attrs;
+using Seasar.Dao.Id;
+using Seasar.Dao.Unit;
 using MbUnit.Framework;
 
 namespace Seasar.Dao.Tests.Id
 {
-    /// <summary>
-    /// SequenceIdentifierGeneratorのテストです。PostgreSQLを使用します
-    /// </summary>
     [TestFixture]
-    public class SequenceIdentifierGeneratorTest : S2TestCase
+    public class SequenceIdentifierGeneratorTest : S2DaoTestCase
     {
-        public void SetUpGenerate()
-        {
-            Include("Seasar.Dao.Tests.Id.PostgreSQLEx.dicon");
-        }
-
         [Test, S2(Tx.Rollback)]
         public void TestGenerate()
         {
-            IDataSource dataSource = (IDataSource) GetComponent("PostgreSQLEx.DataSource");
+            if (Dbms.GetSequenceNextValString("SEQ_SEQTABLE") == null)
+            {
+                Assert.Ignore("シーケンスをサポートしていないDBMS。");
+            }
 
-            SequenceIdentifierGenerator generator = new SequenceIdentifierGenerator("Id", new PostgreSQL());
-            generator.SequenceName = "\"sequencetable_seqcol_seq\"";
+            SequenceIdentifierGenerator generator = new SequenceIdentifierGenerator("Id", Dbms);
+            generator.SequenceName = "\"SEQ_SEQTABLE\"";
             Hoge hoge = new Hoge();
-            generator.SetIdentifier(hoge, dataSource);
+            generator.SetIdentifier(hoge, DataSource);
             Assert.IsTrue(hoge.Id > 0);
         }
     }

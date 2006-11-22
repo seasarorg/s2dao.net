@@ -114,7 +114,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Ado.dicon" />
-    <EmbeddedResource Include="Seasar.Dao.Tests.Id\PostgreSQLEx.dicon" />
     <EmbeddedResource Include="Seasar.Dao.Tests.Impl\IDepartmentTotalSalaryDao_GetTotalSalaries.sql" />
     <EmbeddedResource Include="Seasar.Dao.Tests.Impl\IEmployeeDao_GetAllEmployees.sql" />
     <EmbeddedResource Include="Seasar.Dao.Tests.Impl\IEmployeeDao_GetCount.sql" />

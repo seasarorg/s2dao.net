@@ -1,4 +1,10 @@
-﻿S2Dao.NET 1.0.1
+﻿S2Dao.NET 1.0.2
+2006/??/??
+- [DAONET-35]DaoMetaDataImplとAbstractBeanMetaDataDataReaderHandlerを拡張できるようにリファクタリングする
+- [DAONET-36]PostgreSQL前提のテストであるSequenceIdentifierGeneratorTestをOracleなどSequence機能があるDBMSでもテストが通るように修正する
+- [DAONET-37]「IF&埋め込み変数」コメントが正常なのにWarnログが発生する
+
+S2Dao.NET 1.0.1
 2006/11/8
 - [DAONET-19]ID属性とTimestamp属性で指定されたプロパティでNullables型に対応する
 - [DAONET-32]S2Unit.NETが参照しているMbUnitのバージョンを最新版にする。

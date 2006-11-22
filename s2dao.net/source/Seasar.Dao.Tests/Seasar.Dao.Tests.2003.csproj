@@ -1,7 +1,7 @@
 <VisualStudioProject>
     <CSHARP
         ProjectType = "Local"
-        ProductVersion = "7.10.3077"
+        ProductVersion = "7.10.6030"
         SchemaVersion = "2.0"
         ProjectGuid = "{BEED9F86-B197-4994-A3D3-344AD4E7DB71}"
     >
@@ -179,10 +179,6 @@
                     RelPath = "Seasar.Dao.Tests.Id\IdentityIdentifierGeneratorTest.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Id\PostgreSQLEx.dicon"
-                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "Seasar.Dao.Tests.Id\SequenceIdentifierGeneratorTest.cs"
