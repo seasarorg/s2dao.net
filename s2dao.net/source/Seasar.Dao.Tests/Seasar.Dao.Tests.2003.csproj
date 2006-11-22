@@ -17,7 +17,7 @@
                 DelaySign = "false"
                 OutputType = "Library"
                 PreBuildEvent = ""
-                PostBuildEvent = 'copy "$(ProjectDir)App.config" "$(TargetDir)Seasar.Dao.Tests.dll.config" /Y&#xd;&#xa;xcopy "$(ProjectDir)Seasar.Dao.Tests.Interceptors" "$(TargetDir)Seasar.Dao.Tests.Interceptors" /S /I /Y /D&#xd;&#xa;xcopy "$(ProjectDir)Seasar.Dao.Tests.Impl" "$(TargetDir)Seasar.Dao.Tests.Impl" /S /I /Y /D'
+                PostBuildEvent = 'copy "$(ProjectDir)App.2003.config" "$(TargetDir)Seasar.Dao.Tests.dll.config" /Y&#xd;&#xa;xcopy "$(ProjectDir)Seasar.Dao.Tests.Interceptors" "$(TargetDir)Seasar.Dao.Tests.Interceptors" /S /I /Y /D&#xd;&#xa;xcopy "$(ProjectDir)Seasar.Dao.Tests.Impl" "$(TargetDir)Seasar.Dao.Tests.Impl" /S /I /Y /D'
                 RootNamespace = ""
                 RunPostBuildEvent = "OnBuildSuccess"
                 StartupObject = ""
@@ -118,7 +118,7 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "App.config"
+                    RelPath = "App.2003.config"
                     BuildAction = "None"
                 />
                 <File

@@ -17,7 +17,7 @@
                 DelaySign = "false"
                 OutputType = "WinExe"
                 PreBuildEvent = ""
-                PostBuildEvent = 'xcopy "$(ProjectDir)Seasar.Dao.Examples" "$(TargetDir)\Seasar.Dao.Examples" /S /I /Y /D&#xd;&#xa;copy "$(ProjectDir)\Seasar.Dao.Examples\s2dotnetdemo.mdb" "$(ProjectDir)$(OutDir)"'
+                PostBuildEvent = 'copy "$(ProjectDir)App.2003.config" "$(TargetPath).config"&#xd;&#xa;xcopy "$(ProjectDir)Seasar.Dao.Examples" "$(TargetDir)\Seasar.Dao.Examples" /S /I /Y /D&#xd;&#xa;copy "$(ProjectDir)\Seasar.Dao.Examples\s2dotnetdemo.mdb" "$(ProjectDir)$(OutDir)"'
                 RootNamespace = ""
                 RunPostBuildEvent = "OnBuildSuccess"
                 StartupObject = ""
@@ -114,7 +114,7 @@
         <Files>
             <Include>
                 <File
-                    RelPath = "App.config"
+                    RelPath = "App.2003.config"
                     BuildAction = "None"
                 />
                 <File
