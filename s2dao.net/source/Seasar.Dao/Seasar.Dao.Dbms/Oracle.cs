@@ -16,16 +16,12 @@
  */
 #endregion
 
-using System;
 using System.Text;
 
 namespace Seasar.Dao.Dbms
 {
-	/// <summary>
-	/// Oracle
-	/// </summary>
-	public class Oracle : Standard
-	{
+    public class Oracle : Standard
+    {
         public override string Suffix
         {
             get
@@ -55,7 +51,7 @@ namespace Seasar.Dao.Dbms
             string myTableName = beanMetaData.TableName;
             buf.Append(myTableName);
             StringBuilder whereBuf = new StringBuilder(100);
-            for(int i = 0; i < beanMetaData.RelationPropertyTypeSize; ++i)
+            for (int i = 0; i < beanMetaData.RelationPropertyTypeSize; ++i)
             {
                 IRelationPropertyType rpt = beanMetaData.GetRelationPropertyType(i);
                 IBeanMetaData bmd = rpt.BeanMetaData;
@@ -64,7 +60,7 @@ namespace Seasar.Dao.Dbms
                 buf.Append(" ");
                 string yourAliasName = rpt.PropertyName;
                 buf.Append(yourAliasName);
-                for(int j = 0; j < rpt.KeySize; ++j)
+                for (int j = 0; j < rpt.KeySize; ++j)
                 {
                     whereBuf.Append(myTableName);
                     whereBuf.Append(".");
@@ -77,7 +73,7 @@ namespace Seasar.Dao.Dbms
                     whereBuf.Append(" AND ");
                 }
             }
-            if(whereBuf.Length > 0)
+            if (whereBuf.Length > 0)
             {
                 whereBuf.Length = whereBuf.Length - 5;
                 buf.Append(" WHERE ");
@@ -85,5 +81,5 @@ namespace Seasar.Dao.Dbms
             }
             return buf.ToString();
         }
-	}
+    }
 }

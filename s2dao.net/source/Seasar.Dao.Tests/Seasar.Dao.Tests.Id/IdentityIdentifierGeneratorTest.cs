@@ -17,13 +17,13 @@
 #endregion
 
 using MbUnit.Framework;
+using System.Diagnostics;
 using Seasar.Extension.ADO.Impl;
 using Seasar.Extension.Unit;
 using Seasar.Dao.Attrs;
 using Seasar.Dao.Dbms;
 using Seasar.Dao.Id;
 using Seasar.Dao.Unit;
-using System;
 
 namespace Seasar.Dao.Tests.Id
 {
@@ -64,7 +64,7 @@ namespace Seasar.Dao.Tests.Id
             HogeNullable hoge = new HogeNullable();
             generator.SetIdentifier(hoge, DataSource);
             Assert.IsTrue(hoge.Id.Value > 0);
-            Console.WriteLine(hoge.Id);
+            Trace.WriteLine(hoge.Id);
         }
     }
 }

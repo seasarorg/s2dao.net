@@ -17,6 +17,7 @@
 #endregion
 
 using System;
+
 namespace Seasar.Dao.Examples.AutoInsert
 {
     public interface IAutoInsertLogic

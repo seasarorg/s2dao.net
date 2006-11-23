@@ -48,13 +48,13 @@ namespace Seasar.Dao.Dbms
             //IDbms‚ÌÀ‘•ƒNƒ‰ƒX‚ğæ“¾‚·‚é‚½‚ß‚ÌKey
             string dbmsKey = null;
 
-            if(cn is OleDbConnection)
+            if (cn is OleDbConnection)
             {
                 // OleDbConnection‚Ìê‡‚ÍKey‚ğType–¼‚ÆProvider–¼‚©‚çì¬‚·‚é
                 OleDbConnection oleDbCn = cn as OleDbConnection;
                 dbmsKey = cn.GetType().Name + "_" + oleDbCn.Provider;
             }
-            else if(cn is OdbcConnection)
+            else if (cn is OdbcConnection)
             {
                 // OdbcConnection‚Ìê‡‚ÍKey‚ğType–¼‚ÆDriver–¼‚©‚çì¬‚·‚é
                 OdbcConnection odbcCn = cn as OdbcConnection;

@@ -16,6 +16,7 @@
  */
 #endregion
 
+using System.Diagnostics;
 using Seasar.Dao;
 using Seasar.Dao.Impl;
 using Seasar.Dao.Unit;
@@ -45,7 +46,7 @@ namespace Seasar.Dao.Tests.Impl
             ISqlCommand cmd = dmd.GetSqlCommand("Delete");
             Department dept = new Department();
             dept.Deptno = 10;
-            System.Console.WriteLine(dept.ToString());
+            Trace.WriteLine(dept.ToString());
             int count = (int) cmd.Execute(new object[] { dept });
             Assert.AreEqual(1, count, "1");
         }

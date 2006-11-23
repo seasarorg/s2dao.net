@@ -22,9 +22,6 @@ using System.Text;
 
 namespace Seasar.Dao.Dbms
 {
-    /// <summary>
-    /// Standard ‚ÌŠT—v‚Ìà–¾‚Å‚·B
-    /// </summary>
     public class Standard : IDbms
     {
         private Hashtable autoSelectFromClauseCache = new Hashtable();
