@@ -22,6 +22,7 @@ using Seasar.Dao.Dbms;
 using Seasar.Dao.Unit;
 using Seasar.Extension.Unit;
 using MbUnit.Framework;
+using System;
 
 namespace Seasar.Dao.Tests.Impl
 {
@@ -64,7 +65,21 @@ namespace Seasar.Dao.Tests.Impl
                 Assert.AreEqual(1, count, "2");
             }
         }
-
+#if !NET_1_1
+        [Test, S2(Tx.Rollback)]
+        public void TestGenericNullableDateInsertTx() {
+            IDaoMetaData dmd = CreateDaoMetaData(typeof(IGenericNullableEntityAutoDao));
+            ISqlCommand cmd = dmd.GetSqlCommand("Insert");
+            {
+                DateTime beforeTime = DateTime.Now; 
+                GenericNullableEntity entity = new GenericNullableEntity();
+                entity.EntityNo = 1;
+                int count = (int)cmd.Execute(new object[] { entity });
+                Assert.AreEqual(1, count, "Inserting");
+                Assert.GreaterEqualThan(entity.Date, beforeTime);
+            }
+        }
+#endif
         [Test, S2(Tx.Rollback)]
         public void TestExecute2Tx() 
         {

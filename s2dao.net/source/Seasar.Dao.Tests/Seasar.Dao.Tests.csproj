@@ -206,6 +206,7 @@
     <Compile Include="Seasar.Dao.Tests.Impl\FormUseHistory.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\GenericNullableEntity.cs" />
     <Compile Include="Seasar.Dao.Tests.Impl\IdentityTable.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -246,6 +247,7 @@
     <Compile Include="Seasar.Dao.Tests.Impl\IFormUseHistoryDao.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\IGenericNullableDao.cs" />
     <Compile Include="Seasar.Dao.Tests.Impl\IIdentityTableAutoDao.cs">
       <SubType>Code</SubType>
     </Compile>

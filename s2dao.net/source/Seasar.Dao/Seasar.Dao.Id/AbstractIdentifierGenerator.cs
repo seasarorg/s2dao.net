@@ -61,8 +61,13 @@ namespace Seasar.Dao.Id
             {
                 propertyInfo.SetValue(bean, Nullables.NullableDecimal.Parse(value.ToString()), null);
             }
-            else
+#if !NET_1_1
+            else if (propertyInfo.PropertyType == typeof(Decimal?)) 
             {
+                propertyInfo.SetValue(bean, new Decimal?((Decimal)value), null);
+            }
+#endif
+            else {
                 propertyInfo.SetValue(bean, Convert.ChangeType(value, propertyInfo.PropertyType), null);
             }
         }

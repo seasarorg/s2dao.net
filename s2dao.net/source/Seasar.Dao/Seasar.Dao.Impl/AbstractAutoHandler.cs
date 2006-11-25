@@ -283,6 +283,11 @@ namespace Seasar.Dao.Impl
             {
                 varList.Add(new Nullables.NullableDateTime(this.Timestamp));
             }
+#if !NET_1_1
+            else if (pt.PropertyType == typeof(DateTime?)) {
+                varList.Add(this.Timestamp);
+            }
+#endif
             else
             {
                 throw new WrongPropertyTypeOfTimestampException(pt.PropertyName, pt.PropertyType.Name);
@@ -299,6 +304,11 @@ namespace Seasar.Dao.Impl
             {
                 pi.SetValue(bean, new Nullables.NullableDateTime(this.Timestamp), null);
             }
+#if !NET_1_1
+            else if (pi.PropertyType == typeof(DateTime?)) {
+                pi.SetValue(bean, new DateTime?(this.Timestamp), null);
+            }
+#endif
             else
             {
                 throw new WrongPropertyTypeOfTimestampException(pi.Name, pi.PropertyType.Name);

@@ -22,6 +22,7 @@ using Seasar.Dao.Unit;
 using Seasar.Extension.Unit;
 using MbUnit.Framework;
 using System.Reflection;
+using System;
 
 namespace Seasar.Dao.Tests.Impl
 {
@@ -63,8 +64,44 @@ namespace Seasar.Dao.Tests.Impl
                 Assert.AreEqual(1, count, "2");
             }
         }
-
-
+#if !NET_1_1
+        [Test, S2(Tx.Rollback)]
+        public void TestUpdateGenericNullableTx() {
+            IDaoMetaData dmd = CreateDaoMetaData(typeof(IGenericNullableEntityAutoDao));
+            ISqlCommand cmdGet = dmd.GetSqlCommand("GetGenericNullableEntityByEntityNo");
+            ISqlCommand cmdUpd = dmd.GetSqlCommand("Update");
+            ISqlCommand cmdProps = dmd.GetSqlCommand("UpdateWithPersistentProps");
+            ISqlCommand cmdNoProps = dmd.GetSqlCommand("UpdateWithNoPersistentProps");
+            {
+                GenericNullableEntity entity = (GenericNullableEntity)cmdGet.Execute(new object[] { 100 });
+                DateTime beforeTime = (DateTime)entity.Date;
+                entity.EntityNo = 1000;
+                int count = (int)cmdNoProps.Execute(new object[] { entity });
+                Assert.AreEqual(1, count, "1");
+                Assert.AreEqual(beforeTime, entity.Date);
+            }
+            {
+                DateTime beforeDate = DateTime.Now;
+                GenericNullableEntity entity = (GenericNullableEntity)cmdGet.Execute(new object[] { 1000 });
+                entity.EntityNo = 1001;
+                int count = (int)cmdUpd.Execute(new object[] { entity });
+                Assert.AreEqual(1, count, "1");
+                Assert.GreaterEqualThan(entity.Date, beforeDate);
+            }
+            {
+                GenericNullableEntity entity = (GenericNullableEntity)cmdGet.Execute(new object[] { 101 });
+                Assert.IsFalse(entity.Date.HasValue);
+            }
+            {
+                DateTime beforeDate = DateTime.Now;
+                GenericNullableEntity entity = (GenericNullableEntity)cmdGet.Execute(new object[] { 1001 });
+                entity.EntityNo = 1002;
+                int count = (int)cmdProps.Execute(new object[] { entity });
+                Assert.AreEqual(1, count, "2");
+                Assert.GreaterEqualThan(entity.Date, beforeDate);
+            }
+        }
+#endif
         [Test, S2(Tx.Rollback)]
         public void TestExecute2Tx() 
         {
