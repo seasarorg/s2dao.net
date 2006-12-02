@@ -257,6 +257,7 @@
     <Compile Include="Seasar.Dao.Tests.Impl\InsertAutoStaticCommandTest.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\IUnderscoreEntityDao.cs" />
     <Compile Include="Seasar.Dao.Tests.Impl\RelationKeyTest.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -275,6 +276,7 @@
     <Compile Include="Seasar.Dao.Tests.Impl\SeqTableAutoDao.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\UnderscoreEntity.cs" />
     <Compile Include="Seasar.Dao.Tests.Impl\UpdateAutoStaticCommandTest.cs">
       <SubType>Code</SubType>
     </Compile>

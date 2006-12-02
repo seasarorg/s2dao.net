@@ -466,12 +466,23 @@ namespace Seasar.Dao.Impl
             {
                 for(IEnumerator enu = columnSet.GetEnumerator(); enu.MoveNext();)
                 {
-                    string columnName = (string) enu.Current;
-                    string columnName2 = columnName.Replace("_", "");
-                    for(int i = 0; i < PropertyTypeSize; ++i)
+                    string columnName = (string)enu.Current;
+                    string noUnderscoreColumnName = columnName.Replace("_", "");
+                    bool hasProperty = false;
+                    for (int i = 0; i < PropertyTypeSize; ++i)
                     {
                         IPropertyType pt = GetPropertyType(i);
-                        if(string.Compare(pt.ColumnName, columnName2, true) == 0)
+                        if (string.Compare(pt.ColumnName, columnName, true) == 0)
+                        {
+                            hasProperty = true;
+                        } else
+                        {
+                            if (string.Compare(pt.ColumnName, noUnderscoreColumnName, true) == 0)
+                            {
+                                hasProperty = true;
+                            }
+                        }
+                        if (hasProperty)
                         {
                             pt.ColumnName = columnName;
                             break;

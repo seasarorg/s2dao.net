@@ -75,7 +75,7 @@ namespace Seasar.Dao.Tests.Impl
             Trace.WriteLine(sql);
             Trace.WriteLine(sql2);
             
-            Assert.IsTrue(sql2.IndexOf("EMP.DEPTNO") > 0, "1");
+            Assert.IsTrue(sql2.IndexOf("EMP.DEPTNO") > 0, sql2);
             Assert.IsTrue(sql2.IndexOf("Department.DEPTNO AS DEPTNO_0") > 0, "2");
             Assert.IsTrue(sql2.IndexOf("dummy_0") < 0, "3");
         }

@@ -42,7 +42,7 @@ namespace Seasar.Dao.Tests.Impl
         }
 
         [Test, S2(Tx.Rollback)]
-        public void TestNullableDateInsertTx()
+        public void TestExecuteNullableDateInsertTx()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeNullableAutoDao));
             ISqlCommand cmd = dmd.GetSqlCommand("Insert");
@@ -67,7 +67,7 @@ namespace Seasar.Dao.Tests.Impl
         }
 #if !NET_1_1
         [Test, S2(Tx.Rollback)]
-        public void TestGenericNullableDateInsertTx() {
+        public void TestExecuteGenericNullableDateInsertTx() {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IGenericNullableEntityAutoDao));
             ISqlCommand cmd = dmd.GetSqlCommand("Insert");
             {
@@ -80,6 +80,28 @@ namespace Seasar.Dao.Tests.Impl
             }
         }
 #endif
+
+        [Test, S2(Tx.Rollback)]
+        public void TestExecuteWithUnderscoreTx()
+        {
+            IDaoMetaData dmd = CreateDaoMetaData(typeof(IUnderscoreEntityDao));
+            ISqlCommand cmd = dmd.GetSqlCommand("Insert");
+            ISqlCommand cmd2 = dmd.GetSqlCommand("GetUnderScoreEntityByUnderScoreNo");
+            UnderscoreEntity entity = new UnderscoreEntity();
+            entity.UnderScoreNo = 100;
+            entity._Table_Name = "1";
+            entity._Table_Name_ = "2";
+            entity.Table_Name_ = "3";
+            entity.TableName = "4";
+            int count = (int)cmd.Execute(new object[] { entity });
+            Assert.AreEqual(1, count, "1");
+            UnderscoreEntity entityLast = (UnderscoreEntity)cmd2.Execute(new object[] { 100 });
+            Assert.AreEqual("1", entityLast._Table_Name);
+            Assert.AreEqual("2", entityLast._Table_Name_);
+            Assert.AreEqual("3", entityLast.Table_Name_);
+            Assert.AreEqual("4", entityLast.TableName);
+        }
+
         [Test, S2(Tx.Rollback)]
         public void TestExecute2Tx() 
         {

@@ -42,6 +42,25 @@ namespace Seasar.Dao.Tests.Impl
         }
 
         [Test, S2(Tx.Rollback)]
+        public void TestExecuteWithUnderscoreTx() {
+            IDaoMetaData dmd = CreateDaoMetaData(typeof(IUnderscoreEntityDao));
+            ISqlCommand cmd = dmd.GetSqlCommand("Update");
+            ISqlCommand cmd2 = dmd.GetSqlCommand("GetUnderScoreEntity");
+            UnderscoreEntity emp = (UnderscoreEntity)cmd2.Execute(new object[] { 1 });
+            emp._Table_Name = "1";
+            emp._Table_Name_ = "2";
+            emp.Table_Name_ = "3";
+            emp.TableName = "4";
+            int count = (int)cmd.Execute(new object[] { emp });
+            Assert.AreEqual(1, count, "1");
+            UnderscoreEntity empLast = (UnderscoreEntity)cmd2.Execute(new object[] { 1 });
+            Assert.AreEqual("1", empLast._Table_Name);
+            Assert.AreEqual("2", empLast._Table_Name_);
+            Assert.AreEqual("3", empLast.Table_Name_);
+            Assert.AreEqual("4", empLast.TableName);
+        }
+
+        [Test, S2(Tx.Rollback)]
         public void TestUpdateNullableTx()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeNullableAutoDao));
