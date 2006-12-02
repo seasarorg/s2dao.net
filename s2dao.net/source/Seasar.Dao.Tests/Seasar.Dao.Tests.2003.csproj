@@ -272,6 +272,7 @@
                 />
                 <File
                     RelPath = "Seasar.Dao.Tests.Impl\GenericNullableEntity.cs"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
@@ -370,6 +371,7 @@
                 />
                 <File
                     RelPath = "Seasar.Dao.Tests.Impl\IGenericNullableDao.cs"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
@@ -384,6 +386,11 @@
                 />
                 <File
                     RelPath = "Seasar.Dao.Tests.Impl\InsertAutoStaticCommandTest.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Tests.Impl\IUnderscoreEntityDao.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -414,6 +421,11 @@
                 />
                 <File
                     RelPath = "Seasar.Dao.Tests.Impl\SeqTableAutoDao.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Tests.Impl\UnderscoreEntity.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
