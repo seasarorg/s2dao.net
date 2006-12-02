@@ -3,6 +3,7 @@
 - [DAONET-35]DaoMetaDataImplとAbstractBeanMetaDataDataReaderHandlerを拡張できるようにリファクタリングする
 - [DAONET-36]PostgreSQL前提のテストであるSequenceIdentifierGeneratorTestをOracleなどSequence機能があるDBMSでもテストが通るように修正する
 - [DAONET-37]「IF&埋め込み変数」コメントが正常なのにWarnログが発生する
+- [DAONET-40] アンダーバーを含むカラム名とアンダーバーを省略したプロパティのマッピングが動作しない問題を修正する
 - [DAONET-41] 列名のアンダーバーを除くと同じ名称になってしまう場合にも、同じ列と見なさずにプロパティをセットできるようにする
 
 S2Dao.NET 1.0.1

@@ -1,4 +1,4 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
     <ProductVersion>8.0.50727</ProductVersion>
@@ -157,6 +157,7 @@
     <Compile Include="Seasar.Dao.Tests.Id\SequenceIdentifierGeneratorTest.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\AbstractBeanMetaDataDataReaderHandlerTest.cs" />
     <Compile Include="Seasar.Dao.Tests.Impl\BeanArrayMetaDataResultSetHandlerTest.cs">
       <SubType>Code</SubType>
     </Compile>

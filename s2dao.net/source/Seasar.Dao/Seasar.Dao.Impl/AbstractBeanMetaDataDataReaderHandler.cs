@@ -51,7 +51,7 @@ namespace Seasar.Dao.Impl
             IDictionary names = null;
             ArrayList columnMetaDataList = new ArrayList();
 #else
-            System.Collections.Generic.IDictionary<string, object> names = null;
+            System.Collections.Generic.IDictionary<string, string> names = null;
             System.Collections.Generic.List<IColumnMetaData> columnMetaDataList =
                 new System.Collections.Generic.List<IColumnMetaData>();
 #endif
@@ -59,40 +59,51 @@ namespace Seasar.Dao.Impl
             for (int i = 0; i < beanMetaData.PropertyTypeSize; ++i)
             {
                 IPropertyType pt = beanMetaData.GetPropertyType(i);
+                string columnName = null;
 
-                if (columnNames.Contains(pt.ColumnName))
+                columnName = FindColumnName(columnNames, pt.ColumnName);
+
+                if (columnName != null)
                 {
-                    columnMetaDataList.Add(new ColumnMetaDataImpl(pt, pt.ColumnName));
+                    columnMetaDataList.Add(new ColumnMetaDataImpl(pt, columnName));
+                    continue;
                 }
-                else if (columnNames.Contains(pt.PropertyName))
+
+                columnName = FindColumnName(columnNames, pt.PropertyName);
+
+                if (columnName != null)
                 {
-                    columnMetaDataList.Add(new ColumnMetaDataImpl(pt, pt.PropertyName));
+                    columnMetaDataList.Add(new ColumnMetaDataImpl(pt, columnName));
+                    continue;
                 }
-                else if (!pt.IsPersistent)
+                
+                if (!pt.IsPersistent)
                 {
                     if (names == null)
                     {
 #if NET_1_1
                         names = new Hashtable();
 #else
-                        names = new System.Collections.Generic.Dictionary<string, object>();
-#endif          
+                        names = new System.Collections.Generic.Dictionary<string, string>();
+#endif
                         foreach (string name in columnNames)
                         {
-                            names[name.Replace("_", string.Empty).ToUpper()] = null;
+                            names[name.Replace("_", string.Empty).ToUpper()] = name;
                         }
                     }
 #if NET_1_1
 					if (names.Contains(pt.ColumnName.ToUpper()))
 					{
-						columnMetaDataList.Add(new ColumnMetaDataImpl(pt, pt.ColumnName));
+						columnMetaDataList.Add(new ColumnMetaDataImpl(
+                            pt, (string) names[pt.ColumnName.ToUpper()]));
 					}
 #else
                     if (names.ContainsKey(pt.ColumnName.ToUpper()))
                     {
-                        columnMetaDataList.Add(new ColumnMetaDataImpl(pt, pt.ColumnName));
+                        columnMetaDataList.Add(new ColumnMetaDataImpl(
+                            pt, names[pt.ColumnName.ToUpper()]));
                     }
-#endif      
+#endif
 
                 }
             }
@@ -103,6 +114,24 @@ namespace Seasar.Dao.Impl
             return columnMetaDataList.ToArray();
 #endif   
             
+        }
+
+        /// <summary>
+        /// カラム名のリストから大文字小文字を区別せずに一致するカラム名を探す
+        /// </summary>
+        /// <param name="columnNames">検索対象のカラム名のリスト</param>
+        /// <param name="columnName">探し出すカラム名</param>
+        /// <returns>見つかったカラム名（カラム名のリストから取得したカラム名）</returns>
+        protected virtual string FindColumnName(IList columnNames, string columnName)
+        {
+            foreach (string realColumnName in columnNames)
+            {
+                if (string.Compare(realColumnName, columnName, true) == 0)
+                {
+                    return realColumnName;
+                }
+            }
+            return null;
         }
 
         /// <summary>
