@@ -137,6 +137,15 @@ namespace Seasar.Dao.Impl
                 SetupMethodByManual(mi, sql);
                 return;
             }
+            if ( sql == null )
+            {
+                sql = annotationReader.GetProcedure(mi.Name);
+                if ( sql != null )
+                {
+                    SetupProcedure(mi, sql);
+                    return;
+                }
+            }
             string baseName = daoInterface.FullName + "_" + mi.Name;
             string dbmsPath = baseName + dbms.Suffix + ".sql";
             string standardPath = baseName + ".sql";
@@ -781,5 +790,23 @@ namespace Seasar.Dao.Impl
         {
             set { dbMetaData = value; }
         }
+
+        /// <summary>
+        /// プロシージャの組み立て
+        /// </summary>
+        /// <param name="mi">メソッド情報</param>
+        /// <param name="sql">ストアドプロシージャ名</param>
+        protected void SetupProcedure( MethodInfo mi, string sql )
+        {
+            ProcedureDynamicCommand cmd = new ProcedureDynamicCommand(dataSource, commandFactory);
+            cmd.Sql = sql;
+            cmd.ArgNames = MethodUtil.GetParameterNames(mi);
+            cmd.ArgTypes = MethodUtil.GetParameterTypes(mi);
+            cmd.ArgDirections = AbstractProcedureHandler.GetParameterDirections(mi);
+            cmd.ReturnType = mi.ReturnType;
+
+            sqlCommands[mi.Name] = cmd;
+        }
+
     }
 }

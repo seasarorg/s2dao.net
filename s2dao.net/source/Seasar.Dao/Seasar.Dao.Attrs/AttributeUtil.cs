@@ -1,4 +1,5 @@
 #region Copyright
+
 /*
  * Copyright 2005-2006 the Seasar Foundation and the Others.
  *
@@ -14,6 +15,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+
 #endregion
 
 using System;
@@ -32,74 +34,79 @@ namespace Seasar.Dao.Attrs
 
         public static ColumnAttribute GetColumnAttribute(PropertyInfo pi)
         {
-            return Attribute.GetCustomAttribute(pi, 
-                typeof(ColumnAttribute)) as ColumnAttribute;
+            return Attribute.GetCustomAttribute(pi,
+                                                typeof (ColumnAttribute)) as ColumnAttribute;
         }
 
         public static TableAttribute GetTableAttribute(Type type)
         {
-            return Attribute.GetCustomAttribute(type, 
-                typeof(TableAttribute)) as TableAttribute;
+            return Attribute.GetCustomAttribute(type,
+                                                typeof (TableAttribute)) as TableAttribute;
         }
 
         public static VersionNoPropertyAttribute GetVersionNoPropertyAttribute(Type type)
         {
             return Attribute.GetCustomAttribute(type,
-                typeof(VersionNoPropertyAttribute)) as VersionNoPropertyAttribute;
+                                                typeof (VersionNoPropertyAttribute)) as VersionNoPropertyAttribute;
         }
 
         public static TimestampPropertyAttribute GetTimestampPropertyAttribute(Type type)
         {
             return Attribute.GetCustomAttribute(type,
-                typeof(TimestampPropertyAttribute)) as TimestampPropertyAttribute;
+                                                typeof (TimestampPropertyAttribute)) as TimestampPropertyAttribute;
         }
 
         public static RelnoAttribute GetRelnoAttribute(PropertyInfo pi)
         {
             return Attribute.GetCustomAttribute(pi,
-                typeof(RelnoAttribute)) as RelnoAttribute;
+                                                typeof (RelnoAttribute)) as RelnoAttribute;
         }
 
         public static IDAttribute GetIDAttribute(PropertyInfo pi)
         {
             return Attribute.GetCustomAttribute(pi,
-                typeof(IDAttribute)) as IDAttribute;
+                                                typeof (IDAttribute)) as IDAttribute;
         }
 
         public static NoPersistentPropsAttribute GetNoPersistentPropsAttribute(MemberInfo mi)
         {
             return Attribute.GetCustomAttribute(mi,
-                typeof(NoPersistentPropsAttribute)) as NoPersistentPropsAttribute;
+                                                typeof (NoPersistentPropsAttribute)) as NoPersistentPropsAttribute;
         }
 
         public static RelkeysAttribute GetRelkeysAttribute(PropertyInfo pi)
         {
             return Attribute.GetCustomAttribute(pi,
-                typeof(RelkeysAttribute)) as RelkeysAttribute;
+                                                typeof (RelkeysAttribute)) as RelkeysAttribute;
         }
 
         public static BeanAttribute GetBeanAttribute(Type type)
         {
             return Attribute.GetCustomAttribute(type,
-                typeof(BeanAttribute)) as BeanAttribute;
+                                                typeof (BeanAttribute)) as BeanAttribute;
         }
 
         public static SqlAttribute[] GetSqlAttributes(MethodInfo mi)
         {
-            return Attribute.GetCustomAttributes(mi, 
-                typeof(SqlAttribute)) as SqlAttribute[];
+            return Attribute.GetCustomAttributes(mi,
+                                                 typeof (SqlAttribute)) as SqlAttribute[];
         }
 
         public static QueryAttribute GetQueryAttribute(MethodInfo mi)
         {
             return Attribute.GetCustomAttribute(mi,
-                typeof(QueryAttribute)) as QueryAttribute;
+                                                typeof (QueryAttribute)) as QueryAttribute;
         }
 
         public static PersistentPropsAttribute GetPersistentPropsAttribute(MethodInfo mi)
         {
             return Attribute.GetCustomAttribute(mi,
-                typeof(PersistentPropsAttribute)) as PersistentPropsAttribute;
+                                                typeof (PersistentPropsAttribute)) as PersistentPropsAttribute;
+        }
+
+        public static ProcedureAttribute GetProcedureAttribute(MethodInfo mi)
+        {
+            return Attribute.GetCustomAttribute(mi, typeof (ProcedureAttribute)) as ProcedureAttribute;
         }
     }
 }

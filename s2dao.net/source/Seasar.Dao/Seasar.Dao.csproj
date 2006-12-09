@@ -115,6 +115,7 @@
     <Compile Include="Seasar.Dao.Attrs\PersistentPropsAttribute.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Seasar.Dao.Attrs\ProcedureAttribute.cs" />
     <Compile Include="Seasar.Dao.Attrs\QueryAttribute.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -193,6 +194,7 @@
     <Compile Include="Seasar.Dao.Impl\AbstractDynamicCommand.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Seasar.Dao.Impl\AbstractProcedureHandler.cs" />
     <Compile Include="Seasar.Dao.Impl\AbstractSqlCommand.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -231,12 +233,15 @@
     <Compile Include="Seasar.Dao.Impl\FieldAnnotationReader.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Seasar.Dao.Impl\HashtableBasicProcedureHandler.cs" />
     <Compile Include="Seasar.Dao.Impl\InsertAutoHandler.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Seasar.Dao.Impl\InsertAutoStaticCommand.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Seasar.Dao.Impl\ObjectBasicProcedureHandler.cs" />
+    <Compile Include="Seasar.Dao.Impl\ProcedureDynamicCommand.cs" />
     <Compile Include="Seasar.Dao.Impl\RelationKey.cs">
       <SubType>Code</SubType>
     </Compile>

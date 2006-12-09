@@ -226,6 +226,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Attrs\ProcedureAttribute.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Seasar.Dao.Attrs\QueryAttribute.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -356,6 +361,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Impl\AbstractProcedureHandler.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Seasar.Dao.Impl\AbstractSqlCommand.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -421,12 +431,27 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Impl\HashtableBasicProcedureHandler.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Seasar.Dao.Impl\InsertAutoHandler.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
                     RelPath = "Seasar.Dao.Impl\InsertAutoStaticCommand.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Impl\ObjectBasicProcedureHandler.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Impl\ProcedureDynamicCommand.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

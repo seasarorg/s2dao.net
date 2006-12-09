@@ -54,6 +54,7 @@
 <ul>
 	<li><a href="#QueryAttr">Query属性 - 自動生成SELECT文にWHERE句やORDER BY句を追加する</a></li>
 	<li><a href="#SqlAttr">Sql属性 - Sqlを記述する</a></li>
+	<li><a href="#ProcedureAttr">Procedure属性 - StoredProcedureを指定する</a></li>
 	<li><a href="#NoPersistentPropsAttr">NoPersistentProps属性 - 自動生成UPDATE文の更新しないプロパティを指定する</a></li>
 	<li><a href="#PersistentPropsAttr">PersistentProps属性 - 自動生成UPDATE文の更新するプロパティを指定する</a></li>
 </ul>
@@ -369,6 +370,71 @@ KindOfDbms列挙型は以下の列挙子を持っています。</p>
  		</tr>
  	</tbody>
 </table>
+
+<h2><a name="ProcedureAttr">Procedure属性 - StoredProcedureを記述する</a></h2>
+
+<p><span class="bold">注：現在はまだ結果セットを返すStoredProcedure、またメソッド引数や返値にDTOクラスを用いることに対応していません。</span></p>
+
+<p>Procedure属性は実行するStoredProcedureやStoredFunctionを指定することです。実際にはProcedure属性を指定するだけではなく、StoredProcedureのパラメータに対応するメソッドの引数が必要です。Procedure属性は以下の形式でメソッドに指定します。</p>
+
+<p>[Procedure("<span class="italic">ストアドプロシージャ名</span>")] または[Procedure("<span class="italic">スキーマ名.ストアドプロシージャ名</span>")]</p>
+
+C#
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode">
+[Procedure(<span class="str">"SP_EMP"</span>)]
+int GetByJob(<span class="kwrd">string</span> job, <span class="kwrd">out string</span> name);</pre>
+
+VB.NET
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode vb">
+&lt;Sql(<span class="str">"SP_EMP"</span>)&gt; _
+<span class="kwrd">Function</span> GetByJob(job <span class="kwrd">As</span> <span class="kwrd">String</span>, <span class="kwrd">ByRef</span> name <span class="kwrd">As</span> <span class="kwrd">String</span>) <span class="kwrd">As</span> Integer</pre>
+
+<p>引数名にはStoredProcedureのパラメータ名を指定します。その引数にC#でいうところのoutを指定するとストアドプロシージャのOutputパラメータに対応し、refであればInput/Outputパラメータに対応します。何も指定しなければInputパラメータに対応します。</p>
+<p>ストアドプロシージャがReturn句による値を返さないときはメソッドの返値にvoidを指定します。値を返すときは対応する型を指定します。Firebirdのように複数の値を返せるときはHashtableを指定します。</p>
+
+<h3>Procedure属性のDBMS対応</h3>
+
+<p>現在、動作を確認しているのは次の通りです。</p>
+
+<table class="main" border="1">
+ 	<tbody>
+ 		<tr align="center" bgcolor="#d1f3f4">
+ 			<th scope="col">DBMS</th>
+ 			<th scope="col">制限事項</th>
+ 		</tr>
+ 		<tr>
+ 			<td>MS SQLServer</td>
+ 			<td>Input, Output, Input/Output, Returnは一つの数値のみ(仕様)</td>
+ 		</tr>
+ 		<tr>
+ 			<td>DB2</td>
+ 			<td>未確認</td>
+ 		</tr>
+ 		<tr>
+ 			<td>MySQL</td>
+ 			<td>未確認</td>
+ 		</tr>
+ 		<tr>
+ 			<td>Oracle</td>
+ 			<td>Input, Output, Input/Output, Returnは一つ</td>
+ 		</tr>
+ 		<tr>
+ 			<td>PostgreSQL</td>
+ 			<td>未確認</td>
+ 		</tr>
+ 		<tr>
+ 			<td>Firebird</td>	
+ 			<td>Input, 複数のReturn(実際にはOutputなのでout指定可能)</td>
+ 		</tr>
+ 		<tr>
+ 			<td>MDB</td>
+ 			<td>未確認</td>
+ 		</tr>
+ 	</tbody>
+</table>
+
 
 <h2><a name="NoPersistentPropsAttr">NoPersistentProps属性 -
 <span style="font-size:12pt;">自動生成UPDATE文の更新しないプロパティを指定する</span></a></h2>

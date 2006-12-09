@@ -97,6 +97,25 @@ namespace Seasar.Dao.Impl
             return defaultSqlAttr == null ? null : defaultSqlAttr.Sql;
         }
 
+        /// <summary>
+        /// プロシージャ名を取得する
+        /// </summary>
+        /// <param name="name">メソッド名</param>
+        /// <returns>プロシージャ名</returns>
+        public string GetProcedure(string name)
+        {
+            MethodInfo mi = daoBeanType.GetMethod(name);
+            ProcedureAttribute procedureAttribute = AttributeUtil.GetProcedureAttribute(mi);
+            if ( procedureAttribute != null )
+            {
+                return procedureAttribute.ProcedureName;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         #endregion
     }
 }
