@@ -1,5 +1,5 @@
 ﻿S2Dao.NET 1.0.2
-2006/??/??
+2007/12/11
 - [DAONET-35]DaoMetaDataImplとAbstractBeanMetaDataDataReaderHandlerを拡張できるようにリファクタリングする
 - [DAONET-36]PostgreSQL前提のテストであるSequenceIdentifierGeneratorTestをOracleなどSequence機能があるDBMSでもテストが通るように修正する
 - [DAONET-37]「IF&埋め込み変数」コメントが正常なのにWarnログが発生する
