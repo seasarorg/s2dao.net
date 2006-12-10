@@ -388,7 +388,7 @@ int GetByJob(<span class="kwrd">string</span> job, <span class="kwrd">out string
 VB.NET
 <!-- code formatted by http://manoli.net/csharpformat/ -->
 <pre class="csharpcode vb">
-&lt;Sql(<span class="str">"SP_EMP"</span>)&gt; _
+&lt;Procedure(<span class="str">"SP_EMP"</span>)&gt; _
 <span class="kwrd">Function</span> GetByJob(job <span class="kwrd">As</span> <span class="kwrd">String</span>, <span class="kwrd">ByRef</span> name <span class="kwrd">As</span> <span class="kwrd">String</span>) <span class="kwrd">As</span> Integer</pre>
 
 <p>引数名にはStoredProcedureのパラメータ名を指定します。その引数にC#でいうところのoutを指定するとストアドプロシージャのOutputパラメータに対応し、refであればInput/Outputパラメータに対応します。何も指定しなければInputパラメータに対応します。</p>
