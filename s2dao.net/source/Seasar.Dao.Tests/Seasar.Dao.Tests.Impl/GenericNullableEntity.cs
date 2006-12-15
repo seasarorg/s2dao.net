@@ -23,12 +23,12 @@ using Seasar.Dao.Attrs;
 namespace Seasar.Dao.Tests.Impl
 {
 #if !NET_1_1
-    [TimestampProperty("Date")]
+    [TimestampProperty("Ddate")]
     [Table("GENERIC_NULLABLE")]
     public class GenericNullableEntity
     {
         private Nullable<Decimal> id;
-        private Nullable<DateTime> date;
+        private Nullable<DateTime> ddate;
         private int entityNo;
 
         [ID("identity")]
@@ -38,9 +38,9 @@ namespace Seasar.Dao.Tests.Impl
             set { id = value; }
         }
 
-        public Nullable<DateTime> Date {
-            get { return date; }
-            set { date = value; }
+        public Nullable<DateTime> Ddate {
+            get { return ddate; }
+            set { ddate = value; }
         }
 
         public int EntityNo {

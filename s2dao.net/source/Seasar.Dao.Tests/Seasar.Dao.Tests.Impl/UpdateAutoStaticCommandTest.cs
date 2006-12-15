@@ -93,11 +93,11 @@ namespace Seasar.Dao.Tests.Impl
             ISqlCommand cmdNoProps = dmd.GetSqlCommand("UpdateWithNoPersistentProps");
             {
                 GenericNullableEntity entity = (GenericNullableEntity)cmdGet.Execute(new object[] { 100 });
-                DateTime beforeTime = (DateTime)entity.Date;
+                DateTime beforeTime = (DateTime)entity.Ddate;
                 entity.EntityNo = 1000;
                 int count = (int)cmdNoProps.Execute(new object[] { entity });
                 Assert.AreEqual(1, count, "1");
-                Assert.AreEqual(beforeTime, entity.Date);
+                Assert.AreEqual(beforeTime, entity.Ddate);
             }
             {
                 DateTime beforeDate = DateTime.Now;
@@ -105,11 +105,11 @@ namespace Seasar.Dao.Tests.Impl
                 entity.EntityNo = 1001;
                 int count = (int)cmdUpd.Execute(new object[] { entity });
                 Assert.AreEqual(1, count, "1");
-                Assert.GreaterEqualThan(entity.Date, beforeDate);
+                Assert.GreaterEqualThan(entity.Ddate, beforeDate);
             }
             {
                 GenericNullableEntity entity = (GenericNullableEntity)cmdGet.Execute(new object[] { 101 });
-                Assert.IsFalse(entity.Date.HasValue);
+                Assert.IsFalse(entity.Ddate.HasValue);
             }
             {
                 DateTime beforeDate = DateTime.Now;
@@ -117,7 +117,7 @@ namespace Seasar.Dao.Tests.Impl
                 entity.EntityNo = 1002;
                 int count = (int)cmdProps.Execute(new object[] { entity });
                 Assert.AreEqual(1, count, "2");
-                Assert.GreaterEqualThan(entity.Date, beforeDate);
+                Assert.GreaterEqualThan(entity.Ddate, beforeDate);
             }
         }
 #endif

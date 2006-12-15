@@ -36,7 +36,7 @@ namespace Seasar.Dao.Tests.Impl
         [PersistentProps("EntityNo")]
         void UpdateWithPersistentProps(GenericNullableEntity entity);
 
-        [NoPersistentProps("Date")]
+        [NoPersistentProps("Ddate")]
         void UpdateWithNoPersistentProps(GenericNullableEntity entity);
 
         void Delete(GenericNullableEntity entity);

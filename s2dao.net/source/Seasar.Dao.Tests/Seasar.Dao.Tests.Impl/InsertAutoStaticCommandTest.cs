@@ -76,7 +76,7 @@ namespace Seasar.Dao.Tests.Impl
                 entity.EntityNo = 1;
                 int count = (int)cmd.Execute(new object[] { entity });
                 Assert.AreEqual(1, count, "Inserting");
-                Assert.GreaterEqualThan(entity.Date, beforeTime);
+                Assert.GreaterEqualThan(entity.Ddate, beforeTime);
             }
         }
 #endif
