@@ -27,7 +27,7 @@ namespace Seasar.Dao.Tests.Impl
 
         private string name;
 
-        [ID("sequence", "SEQ_SEQTABLE")]
+        [ID(IDType.SEQUENCE, "SEQ_SEQTABLE")]
         public int Id
         {
             set { id = value; }

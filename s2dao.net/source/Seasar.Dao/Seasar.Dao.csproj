@@ -137,6 +137,7 @@
     <Compile Include="Seasar.Dao.Attrs\VersionNoPropertyAttribute.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Seasar.Dao.Attrs\IDType.cs" />
     <Compile Include="Seasar.Dao.Context\CommandContextImpl.cs">
       <SubType>Code</SubType>
     </Compile>

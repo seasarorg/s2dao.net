@@ -226,6 +226,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Attrs\IDType.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Seasar.Dao.Attrs\NoPersistentPropsAttribute.cs"
                     SubType = "Code"
                     BuildAction = "Compile"

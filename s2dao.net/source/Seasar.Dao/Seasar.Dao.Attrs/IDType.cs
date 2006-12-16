@@ -16,28 +16,12 @@
  */
 #endregion
 
-using Seasar.Dao.Attrs;
+using System;
 
-namespace Seasar.Dao.Tests.Impl
+namespace Seasar.Dao.Attrs
 {
-    public class IdentityTable
+    public enum IDType
     {
-        private int myid;
-
-        private string name;
-
-        [ID(IDType.IDENTITY)]
-        [Column("ID")]
-        public int Myid
-        {
-            set { myid = value; }
-            get { return myid; }
-        }
-
-        public string Name
-        {
-            set { name = value; }
-            get { return name; }
-        }
+        IDENTITY, SEQUENCE, ASSIGNED
     }
 }

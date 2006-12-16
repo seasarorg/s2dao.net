@@ -20,26 +20,54 @@ using System;
 
 namespace Seasar.Dao.Attrs
 {
-    [AttributeUsage(AttributeTargets.Property)]
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
     public class IDAttribute : Attribute
     {
-        private string id;
+        private IDType idType = IDType.ASSIGNED;
         private string sequenceName;
 
+        [Obsolete("use IDAttribute(IDType)")]
         public IDAttribute(string id)
+            : this(id, null)
         {
-            this.id = id;
         }
 
-        public IDAttribute(string id,string sequenceName)
+        [Obsolete("use IDAttribute(IDType, string)")]
+        public IDAttribute(string id, string sequenceName)
         {
-            this.id = id;
+            if ("assigned".Equals(id))
+            {
+                this.idType = IDType.ASSIGNED;
+            }
+            else if ("identity".Equals(id))
+            {
+                this.idType = IDType.IDENTITY;
+            }
+            else if ("sequence".Equals(id))
+            {
+                this.idType = IDType.SEQUENCE;
+            }
+            else
+            {
+                throw new ArgumentException("id");
+            }
             this.sequenceName = sequenceName;
         }
 
-        public string ID
+        public IDAttribute(IDType idType)
         {
-            get { return id; }
+            this.idType = idType;
+        }
+
+        public IDAttribute(IDType idType, string sequenceName)
+        {
+            this.idType = idType;
+            this.sequenceName = sequenceName;
+        }
+
+        public IDType IDType
+        {
+            get { return idType; }
         }
 
         public string SequenceName

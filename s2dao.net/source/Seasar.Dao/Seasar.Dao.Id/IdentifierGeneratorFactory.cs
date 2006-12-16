@@ -24,27 +24,24 @@ using Seasar.Framework.Util;
 
 namespace Seasar.Dao.Id
 {
-    /// <summary>
-    /// IdentifierGeneratorFactory ÇÃäTóvÇÃê‡ñæÇ≈Ç∑ÅB
-    /// </summary>
     public class IdentifierGeneratorFactory
     {
         private static Hashtable generatorTypes = new Hashtable();
 
         static IdentifierGeneratorFactory()
         {
-            AddIdentifierGeneratorType("assigned", typeof(AssignedIdentifierGenerator));
-            AddIdentifierGeneratorType("identity", typeof(IdentityIdentifierGenerator));
-            AddIdentifierGeneratorType("sequence", typeof(SequenceIdentifierGenerator));
+            AddIdentifierGeneratorType(IDType.ASSIGNED, typeof(AssignedIdentifierGenerator));
+            AddIdentifierGeneratorType(IDType.IDENTITY, typeof(IdentityIdentifierGenerator));
+            AddIdentifierGeneratorType(IDType.SEQUENCE, typeof(SequenceIdentifierGenerator));
         }
 
         private IdentifierGeneratorFactory()
         {
         }
 
-        public static void AddIdentifierGeneratorType(string name, Type type)
+        public static void AddIdentifierGeneratorType(IDType idType, Type type)
         {
-            generatorTypes[name] = type;
+            generatorTypes[idType] = type;
         }
 
         public static IIdentifierGenerator CreateIdentifierGenerator(
@@ -58,18 +55,23 @@ namespace Seasar.Dao.Id
         {
             if(idAttr == null) 
                 return new AssignedIdentifierGenerator(propertyName, dbms);
-            Type type = GetGeneratorType(idAttr.ID);
+            Type type = GetGeneratorType(idAttr.IDType);
             IIdentifierGenerator generator = CreateIdentifierGenerator(type, propertyName, dbms);
-            if(idAttr.SequenceName != null)
+            if (idAttr.IDType == IDType.SEQUENCE)
+            {
                 SetProperty(generator, "SequenceName", idAttr.SequenceName);
+            }
             return generator;
         }
 
-        protected static Type GetGeneratorType(string name)
+        protected static Type GetGeneratorType(IDType idType)
         {
-            Type type = (Type) generatorTypes[name];
-            if(type != null) return type;
-            return ClassUtil.ForName(name, AppDomain.CurrentDomain.GetAssemblies());
+            Type type = (Type) generatorTypes[idType];
+            if (type == null)
+            {
+                throw new InvalidOperationException("generatorTypes");
+            }
+            return type;
         }
 
         protected static IIdentifierGenerator CreateIdentifierGenerator(

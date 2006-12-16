@@ -39,11 +39,11 @@ namespace Seasar.Dao.Tests.Id
             Assert.AreEqual(typeof(AssignedIdentifierGenerator), generator.GetType(), "1");
             
             generator = IdentifierGeneratorFactory.CreateIdentifierGenerator(
-                "id", dbms, new IDAttribute("identity"));
+                "id", dbms, new IDAttribute(IDType.IDENTITY));
             Assert.AreEqual(typeof(IdentityIdentifierGenerator), generator.GetType(), "2");
 
             generator = IdentifierGeneratorFactory.CreateIdentifierGenerator(
-                "id", dbms, new IDAttribute("sequence", "myseq"));
+                "id", dbms, new IDAttribute(IDType.SEQUENCE, "myseq"));
             Assert.AreEqual("myseq", ((SequenceIdentifierGenerator) generator).SequenceName, "3");
         }
     }

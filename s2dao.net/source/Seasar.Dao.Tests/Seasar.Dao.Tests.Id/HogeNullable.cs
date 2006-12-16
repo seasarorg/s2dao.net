@@ -10,7 +10,7 @@ namespace Seasar.Dao.Tests.Id
         {
         }
 
-        [ID("identity")]
+        [ID(IDType.IDENTITY)]
         public Nullables.NullableDecimal Id
         {
             set { id = value; }

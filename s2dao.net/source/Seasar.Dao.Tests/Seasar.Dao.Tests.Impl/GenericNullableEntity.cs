@@ -31,7 +31,7 @@ namespace Seasar.Dao.Tests.Impl
         private Nullable<DateTime> ddate;
         private int entityNo;
 
-        [ID("identity")]
+        [ID(IDType.IDENTITY)]
         [Column("ID")]
         public Nullable<Decimal> ID {
             get { return id; }

@@ -159,8 +159,8 @@ namespace Seasar.Dao.Tests.Impl
             private string bbb_;
             private Ccc ccc_;
             private SqlInt32 ddd_;
-            
-            [ID("assigned")]
+
+            [ID(IDType.ASSIGNED)]
             public SqlInt32 Aaa
             {
                 get { return aaa_; }
@@ -192,7 +192,7 @@ namespace Seasar.Dao.Tests.Impl
         {
             private SqlInt32 id_;
 
-            [ID("assigned")]
+            [ID(IDType.ASSIGNED)]
             public SqlInt32 Id
             {
                 get { return id_; }
