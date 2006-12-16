@@ -17,25 +17,24 @@
 #endregion
 
 using System;
-using Seasar.Dao.Dbms;
-using Seasar.Dao.Impl;
-using Seasar.Dao.Unit;
-using Seasar.Extension.ADO.Impl;
-using Seasar.Extension.Unit;
-using MbUnit.Framework;
 
-namespace Seasar.Dao.Tests.Dbms
+namespace Seasar.Dao.Impl
 {
-    [TestFixture]
-    public class StandardTest : S2DaoTestCase 
+    public class FieldAnnotationReaderFactory : IAnnotationReaderFactory
     {
-        [Test, S2]
-        public void TestCreateAutoSelectList() 
+
+        #region FieldAnnotationReaderFactory ÉÅÉìÉo
+
+        public IDaoAnnotationReader CreateDaoAnnotationReader(Type daoBeanType)
         {
-            IDbms dbms = new Standard();
-            IBeanMetaData bmd = CreateBeanMetaData(typeof(Employee), dbms);
-            string sql = dbms.GetAutoSelectSql(bmd);
-            Assert.AreEqual("SELECT EMP2.DEPTNUM, EMP2.ENAME, EMP2.EMPNO FROM EMP2", sql);
+            return new FieldAnnotationReader(daoBeanType);
         }
+
+        public IBeanAnnotationReader CreateBeanAnnotationReader(Type beanType)
+        {
+            return new FieldBeanAnnotationReader(beanType);
+        }
+
+        #endregion
     }
 }

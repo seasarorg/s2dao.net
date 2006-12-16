@@ -55,6 +55,7 @@ namespace Seasar.Dao.Impl
         protected Type daoType;
         protected Type daoInterface;
         protected IDataSource dataSource;
+        protected IAnnotationReaderFactory annotationReaderFactory;
         protected IDaoAnnotationReader annotationReader;
         protected ICommandFactory commandFactory;
         protected IDataReaderFactory dataReaderFactory;
@@ -71,6 +72,7 @@ namespace Seasar.Dao.Impl
 
         public DaoMetaDataImpl(Type daoType, IDataSource dataSource,ICommandFactory commandFactory,
             IDataReaderFactory dataReaderFactory, IDatabaseMetaData dbMetaData)
+            : this(daoType, dataSource, commandFactory, dataReaderFactory, new FieldAnnotationReaderFactory(), dbMetaData)
         {
             DaoType = daoType;
             DataSource = dataSource;
@@ -80,21 +82,32 @@ namespace Seasar.Dao.Impl
             Initialize();
         }
 
+        public DaoMetaDataImpl(Type daoType, IDataSource dataSource, ICommandFactory commandFactory,
+            IDataReaderFactory dataReaderFactory, IAnnotationReaderFactory annotationReaderFactory, IDatabaseMetaData dbMetaData)
+        {
+            DaoType = daoType;
+            DataSource = dataSource;
+            CommandFactory = commandFactory;
+            DataReaderFactory = dataReaderFactory;
+            AnnotationReaderFactory = annotationReaderFactory;
+            DatabaseMetaData = dbMetaData;
+            Initialize();
+        }
+
         public virtual void Initialize()
         {
             daoInterface = GetDaoInterface(daoType);
-            annotationReader = new FieldAnnotationReader(daoType);
+            annotationReader = AnnotationReaderFactory.CreateDaoAnnotationReader(daoType);
             beanType = annotationReader.GetBeanType();
             dbms = DbmsManager.GetDbms(dataSource);
-            beanMetaData = CreateBeanMetaData(beanType, dbMetaData, dbms);
+            beanMetaData = new BeanMetaDataImpl(beanType, dbMetaData, dbms, annotationReaderFactory);
             SetupSqlCommand();
         }
-        
-        protected virtual IBeanMetaData CreateBeanMetaData(Type beanType, IDatabaseMetaData dbMetaData, IDbms dbms)
+
+        public IAnnotationReaderFactory AnnotationReaderFactory
         {
-            BeanMetaDataImpl bmdImpl = new BeanMetaDataImpl(beanType);
-            bmdImpl.Initialize(dbMetaData, dbms);
-            return bmdImpl;
+            get { return annotationReaderFactory; }
+            set { annotationReaderFactory = value; }
         }
 
         protected virtual void SetupSqlCommand()
@@ -511,7 +524,7 @@ namespace Seasar.Dao.Impl
         {
             string sql = dbms.GetAutoSelectSql(BeanMetaData);
             StringBuilder buf = new StringBuilder(sql);
-            IDtoMetaData dmd = new DtoMetaDataImpl(dtoType);
+            IDtoMetaData dmd = new DtoMetaDataImpl(dtoType, annotationReaderFactory.CreateBeanAnnotationReader(dtoType));
             bool began = false;
             if(!(sql.LastIndexOf("WHERE") > 0))
             {

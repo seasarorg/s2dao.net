@@ -33,6 +33,7 @@
     <component class="Seasar.Extension.ADO.Impl.BasicDataReaderFactory" />
     <component class="Seasar.Extension.ADO.Impl.BasicCommandFactory" />
     <component class="Seasar.Dao.Impl.DaoMetaDataFactoryImpl" />
+    <component class="Seasar.Dao.Impl.FieldAnnotationReaderFactory" />
     <component name="DaoInterceptor"
         class="Seasar.Dao.Interceptors.S2DaoInterceptor"/>
     

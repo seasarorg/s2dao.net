@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
+"http://www.seasar.org/dtd/components21.dtd">
+<components>
+  <include path="Ado.dicon" />
+  <include path="Dao.dicon" />
+  <include path="LocalTx.dicon" />
+  <include path="Tests.dicon" />
+</components>

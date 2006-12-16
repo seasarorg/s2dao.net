@@ -39,13 +39,21 @@ namespace Seasar.Dao.Impl
             StringComparer.OrdinalIgnoreCase);
 #endif
 
+        protected IBeanAnnotationReader beanAnnotationReader;
+
         protected DtoMetaDataImpl()
         {
         }
 
-        public DtoMetaDataImpl(Type beanType)
+        public DtoMetaDataImpl(Type beanType, IBeanAnnotationReader beanAnnotationReader)
         {
-            this.beanType = beanType;
+            BeanType = beanType;
+            BeanAnnotationReader = beanAnnotationReader;
+            Initialize();
+        }
+
+        public void Initialize()
+        {
             SetupPropertyType();
         }
 
@@ -69,6 +77,11 @@ namespace Seasar.Dao.Impl
             {
                 return propertyTypes.Count;
             }
+        }
+
+        public IBeanAnnotationReader BeanAnnotationReader
+        {
+            set { beanAnnotationReader = value; }
         }
 
         public Seasar.Extension.ADO.IPropertyType GetPropertyType(int index)
@@ -104,9 +117,11 @@ namespace Seasar.Dao.Impl
 
         protected IPropertyType CreatePropertyType(PropertyInfo pi)
         {
-            ColumnAttribute attr = AttributeUtil.GetColumnAttribute(pi);
-            string columnName = pi.Name;
-            if(attr != null) columnName = attr.ColumnName;
+            string columnName = beanAnnotationReader.GetColumn(pi);
+            if (columnName == null)
+            {
+                columnName = pi.Name;
+            }
             IValueType valueType = ValueTypes.GetValueType(pi.PropertyType);
             IPropertyType pt = new PropertyTypeImpl(pi, valueType, columnName);
             return pt;

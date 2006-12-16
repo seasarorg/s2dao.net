@@ -1,18 +1,18 @@
-<?xml version="1.0" encoding="utf-8" ?> 
+<?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
 "http://www.seasar.org/dtd/components21.dtd">
 <components namespace="Tests">
-    <include path="Ado.dicon" />
+  <include path="Dao.dicon" />
 
-    <component class="Seasar.Dao.Tests.Interceptors.IEmployeeDao">
-        <aspect>Tests.DaoInterceptor</aspect>
-    </component>
-    
-    <component class="Seasar.Dao.Tests.Interceptors.IEmployeeAutoDao">
-        <aspect>Tests.DaoInterceptor</aspect>
-    </component>
-    
-    <component class="Seasar.Dao.Tests.Interceptors.IDepartmentAutoDao">
-        <aspect>Tests.DaoInterceptor</aspect>
-    </component>
+  <component class="Seasar.Dao.Tests.Interceptors.IEmployeeDao">
+    <aspect>Dao.Interceptor</aspect>
+  </component>
+
+  <component class="Seasar.Dao.Tests.Interceptors.IEmployeeAutoDao">
+    <aspect>Dao.Interceptor</aspect>
+  </component>
+
+  <component class="Seasar.Dao.Tests.Interceptors.IDepartmentAutoDao">
+    <aspect>Dao.Interceptor</aspect>
+  </component>
 </components>

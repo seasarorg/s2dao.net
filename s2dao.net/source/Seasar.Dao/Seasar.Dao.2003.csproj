@@ -116,6 +116,16 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao\IAnnotationReaderFactory.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao\IBeanAnnotationReader.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Seasar.Dao\IBeanMetaData.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -427,6 +437,16 @@
                 />
                 <File
                     RelPath = "Seasar.Dao.Impl\FieldAnnotationReader.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Impl\FieldAnnotationReaderFactory.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Impl\FieldBeanAnnotationReader.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

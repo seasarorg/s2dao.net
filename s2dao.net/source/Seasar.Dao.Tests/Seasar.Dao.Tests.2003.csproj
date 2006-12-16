@@ -1,7 +1,7 @@
 <VisualStudioProject>
     <CSHARP
         ProjectType = "Local"
-        ProductVersion = "7.10.3077"
+        ProductVersion = "7.10.6030"
         SchemaVersion = "2.0"
         ProjectGuid = "{BEED9F86-B197-4994-A3D3-344AD4E7DB71}"
     >
@@ -122,9 +122,21 @@
                     BuildAction = "None"
                 />
                 <File
+                    RelPath = "App.dicon"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "AssemblyInfo.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Dao.dicon"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "LocalTx.dicon"
+                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "Tests.dicon"

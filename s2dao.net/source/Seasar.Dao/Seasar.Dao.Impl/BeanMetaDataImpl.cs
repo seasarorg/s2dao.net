@@ -51,70 +51,67 @@ namespace Seasar.Dao.Impl
         protected string timestampPropertyName = "Timestamp";
         protected string versionNoBindingName;
         protected string timestampBindingName;
+        private IAnnotationReaderFactory annotationReaderFactory;
 
-        /// <summary>
-        /// Constructor.
-        /// If you use this constructor, you should invoke initialize() after this.
-        /// </summary>
-        /// <param name="beanType"></param>
-        public BeanMetaDataImpl(Type beanType) : this(beanType, false)
+        public BeanMetaDataImpl()
         {
         }
 
-        /// <summary>
-        /// Constructor.
-        /// If you use this constructor, you should invoke initialize() after this.
-        /// </summary>
-        /// <param name="beanType"></param>
-        /// <param name="relation"></param>
+        [Obsolete]
+        public BeanMetaDataImpl(Type beanType)
+            : this(beanType, false)
+        {
+        }
+
+        [Obsolete]
         public BeanMetaDataImpl(Type beanType, bool relation)
         {
             this.BeanType = beanType;
             this.relation = relation;
         }
 
-        /// <summary>
-        /// Constructor.
-        /// If you use this constructor, you should NOT invoke initialize() after this.
-        /// </summary>
-        /// <param name="beanType"></param>
-        /// <param name="dbMetaData"></param>
-        /// <param name="dbms"></param>
-        public BeanMetaDataImpl(Type beanType, IDatabaseMetaData dbMetaData,
-            IDbms dbms) : this(beanType, dbMetaData, dbms, false)
+        [Obsolete]
+        public BeanMetaDataImpl(Type beanType, IDatabaseMetaData dbMetaData, IDbms dbms)
+            : this(beanType, dbMetaData, dbms, false)
         {
         }
 
-        /// <summary>
-        /// Constructor.
-        /// If you use this constructor, you should NOT invoke initialize() after this.
-        /// </summary>
-        /// <param name="beanType"></param>
-        /// <param name="dbMetaData"></param>
-        /// <param name="dbms"></param>
-        /// <param name="relation"></param>
+        [Obsolete]
+        public BeanMetaDataImpl(Type beanType, IDatabaseMetaData dbMetaData, IDbms dbms, bool relation)
+            : this(beanType, dbMetaData, dbms, new FieldAnnotationReaderFactory(), relation)
+        {
+        }
+
         public BeanMetaDataImpl(Type beanType, IDatabaseMetaData dbMetaData,
-            IDbms dbms, bool relation)
+            IDbms dbms, IAnnotationReaderFactory annotationReaderFactory)
+            : this(beanType, dbMetaData, dbms, annotationReaderFactory, false)
+        {
+        }
+
+        public BeanMetaDataImpl(Type beanType, IDatabaseMetaData dbMetaData,
+            IDbms dbms, IAnnotationReaderFactory annotationReaderFactory, bool relation)
         {
             BeanType = beanType;
             this.relation = relation;
-
-            SetupTableName(beanType);
-            SetupVersionNoPropertyName(beanType);
-            SetupTimestampPropertyName(beanType);
-            SetupProperty(beanType, dbMetaData, dbms);
-            SetupDatabaseMetaData(beanType, dbMetaData, dbms);
-            SetupPropertiesByColumnName();
+            AnnotationReaderFactory = annotationReaderFactory;
+            Initialize(dbMetaData, dbms);
         }
 
         public void Initialize(IDatabaseMetaData dbMetaData, IDbms dbms)
         {
+            beanAnnotationReader = AnnotationReaderFactory.CreateBeanAnnotationReader(BeanType);
             SetupTableName(this.BeanType);
             SetupVersionNoPropertyName(this.BeanType);
             SetupTimestampPropertyName(this.BeanType);
             SetupProperty(this.BeanType, dbMetaData, dbms);
             SetupDatabaseMetaData(this.BeanType, dbMetaData, dbms);
             SetupPropertiesByColumnName();
+        }
+
+        protected IAnnotationReaderFactory AnnotationReaderFactory
+        {
+            get { return annotationReaderFactory; }
+            set { annotationReaderFactory = value; }
         }
 
         #region IBeanMetaData ÉÅÉìÉo
@@ -346,11 +343,10 @@ namespace Seasar.Dao.Impl
 
         protected virtual void SetupTableName(Type beanType)
         {
-            TableAttribute attr = AttributeUtil.GetTableAttribute(beanType);
-            if(attr != null)
+            string ta = beanAnnotationReader.GetTable();
+            if(ta != null)
             {
-                tableName = attr.TableName;
-
+                tableName = ta;
             }
             else
             {
@@ -360,32 +356,37 @@ namespace Seasar.Dao.Impl
 
         protected virtual void SetupVersionNoPropertyName(Type beanType)
         {
-            VersionNoPropertyAttribute attr = AttributeUtil.GetVersionNoPropertyAttribute(beanType);
-            if(attr != null) versionNoPropertyName = attr.PropertyName;
+            string vna = beanAnnotationReader.GetVersionNoProteryName();
+            if (vna != null)
+            {
+                versionNoPropertyName = vna;
+            }
 
             int i = 0;
-
             do
             {
                 versionNoBindingName = versionNoPropertyName + i++;
             } while (HasPropertyType(versionNoBindingName));
-
         }
 
         protected virtual void SetupTimestampPropertyName(Type beanType)
         {
-            TimestampPropertyAttribute attr = AttributeUtil.GetTimestampPropertyAttribute(beanType);
-            if(attr != null) timestampPropertyName = attr.PropertyName;
+            string tsa = beanAnnotationReader.GetTimestampPropertyName();
+            if (tsa != null)
+            {
+                timestampPropertyName = tsa;
+            }
 
             int i = 0;
-
             do
             {
                 timestampBindingName = timestampPropertyName + i++;
             } while (HasPropertyType(timestampBindingName));
 
-            if(timestampBindingName.Equals(versionNoBindingName))
+            if (timestampBindingName.Equals(versionNoBindingName))
+            {
                 timestampBindingName = timestampPropertyName + i++;
+            }
         }
 
         protected virtual void SetupProperty(Type beanType, IDatabaseMetaData dbMetaData, IDbms dbms)
@@ -393,7 +394,7 @@ namespace Seasar.Dao.Impl
             foreach(PropertyInfo pi in beanType.GetProperties())
             {
                 IPropertyType pt = null;
-                RelnoAttribute relnoAttr = AttributeUtil.GetRelnoAttribute(pi);
+                RelnoAttribute relnoAttr = beanAnnotationReader.GetRelnoAttribute(pi);
                 if(relnoAttr != null)
                 {
                     if(!relation)
@@ -410,8 +411,8 @@ namespace Seasar.Dao.Impl
                 }
                 if(IdentifierGenerator == null)
                 {
-                    IDAttribute idAttr = AttributeUtil.GetIDAttribute(pi);
-                    if(idAttr != null)
+                    IDAttribute idAttr = beanAnnotationReader.GetIdAttribute(pi);
+                    if (idAttr != null)
                     {
                         identifierGenerator = IdentifierGeneratorFactory.CreateIdentifierGenerator(
                             pi.Name, dbms, idAttr);
@@ -490,11 +491,11 @@ namespace Seasar.Dao.Impl
                     }
                 }
             }
-            NoPersistentPropsAttribute noPersistentPropsAttr =
-                AttributeUtil.GetNoPersistentPropsAttribute(beanType);
-            if(noPersistentPropsAttr != null)
+
+            string[] props = beanAnnotationReader.GetNoPersisteneProps();
+            if (props != null)
             {
-                foreach(string prop in noPersistentPropsAttr.Props)
+                foreach(string prop in props)
                 {
                     IPropertyType pt = GetPropertyType(prop.Trim());
                     pt.IsPersistent = false;
@@ -525,13 +526,12 @@ namespace Seasar.Dao.Impl
         {
             string[] myKeys = new string[0];
             string[] yourKeys = new string[0];
-            RelkeysAttribute relkeysAttr = 
-                AttributeUtil.GetRelkeysAttribute(propertyInfo);
-            if(relkeysAttr != null)
+            string relkeys = beanAnnotationReader.GetRelationKey(propertyInfo);
+            if(relkeys != null)
             {
                 ArrayList myKeyList = new ArrayList();
                 ArrayList yourKeyList = new ArrayList();
-                foreach(string token in relkeysAttr.Relkeys.Split(
+                foreach(string token in relkeys.Split(
                     '\t', '\n', '\r', '\f', ','))
                 {
                     int index = token.IndexOf(':');
@@ -564,8 +564,7 @@ namespace Seasar.Dao.Impl
 
         protected virtual IBeanMetaData CreateRelationBeanMetaData(PropertyInfo propertyInfo, IDatabaseMetaData dbMetaData, IDbms dbms)
         {
-            BeanMetaDataImpl bmdImpl = new BeanMetaDataImpl(propertyInfo.PropertyType, true);
-            bmdImpl.Initialize(dbMetaData, dbms);
+            BeanMetaDataImpl bmdImpl = new BeanMetaDataImpl(propertyInfo.PropertyType, dbMetaData, dbms, AnnotationReaderFactory, true);
             return bmdImpl;
         }
 

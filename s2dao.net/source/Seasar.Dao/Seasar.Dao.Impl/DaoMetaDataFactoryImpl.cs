@@ -30,6 +30,7 @@ namespace Seasar.Dao.Impl
         private IDataSource dataSource;
         private ICommandFactory commandFactory;
         private IDataReaderFactory dataReaderFactory;
+        private IAnnotationReaderFactory readerFactory;
         private IDatabaseMetaData dbMetaData;
         protected string sqlFileEncoding = Encoding.Default.WebName;
         protected string[] insertPrefixes;
@@ -37,10 +38,12 @@ namespace Seasar.Dao.Impl
         protected string[] deletePrefixes;
 
         public DaoMetaDataFactoryImpl(IDataSource dataSource,
-            ICommandFactory commandFactory, IDataReaderFactory dataReaderFactory)
+            ICommandFactory commandFactory, IAnnotationReaderFactory readerFactory, 
+            IDataReaderFactory dataReaderFactory)
         {
             this.dataSource = dataSource;
             this.commandFactory = commandFactory;
+            this.readerFactory = readerFactory;
             this.dataReaderFactory = dataReaderFactory;
             this.dbMetaData = new DatabaseMetaDataImpl(dataSource);
         }
@@ -92,6 +95,7 @@ namespace Seasar.Dao.Impl
             dmd.DataSource = dataSource;
             dmd.CommandFactory = commandFactory;
             dmd.DataReaderFactory = dataReaderFactory;
+            dmd.AnnotationReaderFactory = readerFactory;
             dmd.DatabaseMetaData = dbMetaData;
             if (sqlFileEncoding != null) 
             {

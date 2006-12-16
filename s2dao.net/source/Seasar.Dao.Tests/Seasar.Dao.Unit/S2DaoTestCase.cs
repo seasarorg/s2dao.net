@@ -26,11 +26,13 @@ namespace Seasar.Dao.Unit
 {
     public class S2DaoTestCase : S2TestCase
     {
+        private IAnnotationReaderFactory annotationReaderFactory;
+
         public S2DaoTestCase()
         {
         }
 
-        protected IDbms Dbms 
+        protected virtual IDbms Dbms 
         {
             get 
             {
@@ -38,26 +40,43 @@ namespace Seasar.Dao.Unit
             }
         }
 
-        protected BeanMetaDataImpl CreateBeanMetaData(Type beanType) 
+        protected virtual BeanMetaDataImpl CreateBeanMetaData(Type beanType) 
+        {
+            return CreateBeanMetaData(beanType, Dbms);
+        }
+
+        protected virtual BeanMetaDataImpl CreateBeanMetaData(Type beanType, IDbms dbms)
         {
             BeanMetaDataImpl beanMetaData = new BeanMetaDataImpl(
                 beanType,
                 new DatabaseMetaDataImpl(DataSource),
-                Dbms
+                dbms,
+                GetAnnotationReaderFactory(),
+                false
                 );
             return beanMetaData;
         }
 
-        protected DaoMetaDataImpl CreateDaoMetaData(Type daoType) 
+        protected virtual DaoMetaDataImpl CreateDaoMetaData(Type daoType) 
         {
             DaoMetaDataImpl dmd = new DaoMetaDataImpl();
             dmd.DaoType = daoType;
             dmd.DataSource = DataSource;
             dmd.CommandFactory = BasicCommandFactory.INSTANCE;
             dmd.DataReaderFactory = BasicDataReaderFactory.INSTANCE;
+            dmd.AnnotationReaderFactory = GetAnnotationReaderFactory();
             dmd.DatabaseMetaData = new DatabaseMetaDataImpl(DataSource);
             dmd.Initialize();
             return dmd;
+        }
+
+        protected virtual IAnnotationReaderFactory GetAnnotationReaderFactory()
+        {
+            if (annotationReaderFactory == null)
+            {
+                annotationReaderFactory = new FieldAnnotationReaderFactory();
+            }
+            return annotationReaderFactory;
         }
     }
 }

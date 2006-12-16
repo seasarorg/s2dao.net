@@ -1,4 +1,4 @@
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
     <ProductVersion>8.0.50727</ProductVersion>
@@ -233,6 +233,7 @@
     <Compile Include="Seasar.Dao.Impl\FieldAnnotationReader.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Seasar.Dao.Impl\FieldBeanAnnotationReader.cs" />
     <Compile Include="Seasar.Dao.Impl\HashtableBasicProcedureHandler.cs" />
     <Compile Include="Seasar.Dao.Impl\InsertAutoHandler.cs">
       <SubType>Code</SubType>
@@ -263,6 +264,7 @@
     <Compile Include="Seasar.Dao.Impl\UpdateDynamicCommand.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Seasar.Dao.Impl\FieldAnnotationReaderFactory.cs" />
     <Compile Include="Seasar.Dao.Interceptors\S2DaoInterceptor.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -308,6 +310,7 @@
     <Compile Include="Seasar.Dao\Exceptions.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Seasar.Dao\IBeanAnnotationReader.cs" />
     <Compile Include="Seasar.Dao\IBeanMetaData.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -354,13 +357,16 @@
     <Compile Include="Seasar.Dao\TokenType.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Seasar.Dao\IAnnotationReaderFactory.cs" />
     <EmbeddedResource Include="DAOMessages.ja-JP.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="DAOMessages.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dbms.resx" />
+    <EmbeddedResource Include="Dbms.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="Seasar.Dao.snk" />

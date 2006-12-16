@@ -46,15 +46,5 @@ namespace Seasar.Dao.Tests.Dbms
             string sql = dbms.GetAutoSelectSql(bmd);
             Assert.AreEqual("SELECT DEPT.LOC, DEPT.DNAME, DEPT.DEPTNO, DEPT.VERSIONNO FROM DEPT", sql);
         }
-
-        private BeanMetaDataImpl CreateBeanMetaData(Type beanType, IDbms dbms) 
-        {
-            BeanMetaDataImpl beanMetaData = new BeanMetaDataImpl(
-                beanType,
-                new DatabaseMetaDataImpl(DataSource),
-                dbms
-                );
-            return beanMetaData;
-        }
     }
 }

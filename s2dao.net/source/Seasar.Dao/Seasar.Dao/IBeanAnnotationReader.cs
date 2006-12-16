@@ -16,26 +16,20 @@
  */
 #endregion
 
-using System;
-using Seasar.Dao.Dbms;
-using Seasar.Dao.Impl;
-using Seasar.Dao.Unit;
-using Seasar.Extension.ADO.Impl;
-using Seasar.Extension.Unit;
-using MbUnit.Framework;
+using System.Reflection;
+using Seasar.Dao.Attrs;
 
-namespace Seasar.Dao.Tests.Dbms
+namespace Seasar.Dao
 {
-    [TestFixture]
-    public class StandardTest : S2DaoTestCase 
+    public interface IBeanAnnotationReader
     {
-        [Test, S2]
-        public void TestCreateAutoSelectList() 
-        {
-            IDbms dbms = new Standard();
-            IBeanMetaData bmd = CreateBeanMetaData(typeof(Employee), dbms);
-            string sql = dbms.GetAutoSelectSql(bmd);
-            Assert.AreEqual("SELECT EMP2.DEPTNUM, EMP2.ENAME, EMP2.EMPNO FROM EMP2", sql);
-        }
+        string GetColumn(PropertyInfo pi);
+        string GetTable();
+        string GetVersionNoProteryName();
+        string GetTimestampPropertyName();
+        IDAttribute GetIdAttribute(PropertyInfo pi);
+        string[] GetNoPersisteneProps();
+        RelnoAttribute GetRelnoAttribute(PropertyInfo pi);
+        string GetRelationKey(PropertyInfo pi);
     }
 }

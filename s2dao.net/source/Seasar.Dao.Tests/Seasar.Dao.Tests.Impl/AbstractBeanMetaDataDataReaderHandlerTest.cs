@@ -17,13 +17,13 @@
 #endregion
 
 
-using Seasar.Dao.Unit;
+using System;
+using System.Collections;
 using MbUnit.Framework;
 using Seasar.Dao.Impl;
-using System.Collections;
-using Seasar.Extension.Unit;
-using System;
+using Seasar.Dao.Unit;
 using Seasar.Extension.ADO;
+using Seasar.Extension.Unit;
 using Seasar.Framework.Util;
 
 namespace Seasar.Dao.Tests.Impl
@@ -67,9 +67,10 @@ namespace Seasar.Dao.Tests.Impl
         private class TestBeanMetaData : BeanMetaDataImpl, IBeanMetaData
         {
             public TestBeanMetaData(Type type)
-                :base(type)
             {
-                base.SetupPropertyType();
+                base.BeanType = type;
+                base.BeanAnnotationReader = new FieldBeanAnnotationReader(type);
+                base.Initialize();
 
                 IPropertyType pt = this.GetPropertyType("Empno");
                 pt.IsPersistent = false;
