@@ -2,7 +2,7 @@
 2007/xx/xx
 - [DAONET-43]DaoMetaDataImplを拡張できるようにIAnnotationReaderFactoryを追加する
              Ver1.0.2以前からアップデートする場合、FieldAnnotationReaderFactoryをdiconファイルに追加する必要がある
-             詳細は、Seasar/Dao/Tests/Dao.diconを参照
+             追加方法は、Seasar/Dao/Tests/Dao.diconを参照
 - [DAONET-44]ID属性の種類を文字列ではなく列挙型で指定する
 
 S2Dao.NET 1.0.2
