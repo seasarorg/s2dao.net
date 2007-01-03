@@ -26,13 +26,11 @@ namespace Seasar.Dao.Attrs
         private IDType idType = IDType.ASSIGNED;
         private string sequenceName;
 
-        [Obsolete("use IDAttribute(IDType)")]
         public IDAttribute(string id)
             : this(id, null)
         {
         }
 
-        [Obsolete("use IDAttribute(IDType, string)")]
         public IDAttribute(string id, string sequenceName)
         {
             if ("assigned".Equals(id))
