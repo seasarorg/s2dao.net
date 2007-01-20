@@ -260,6 +260,7 @@ Relkeys属性を省略することが出来ます。</p>
 <p>ID（プライマリキー）をRDBMSに自動生成させて、自動生成させた値をEntityに自動的に設定することが出来ます。
 そのために使うのが、ID属性です。ID属性を指定してS2Dao.NETにInsert文を作成させた場合、
 引数で渡したEntityのID属性が指定されたプロパティに、RDBMSによって自動生成された値がセットされます。
+ID属性の値は、文字列またはIDType列挙型で指定します。
 </p>
 <p>ID属性はプロパティに指定します。</p>
 
@@ -271,6 +272,13 @@ C#
 {
    set { _id = <span class="kwrd">value</span>; }
    get { <span class="kwrd">return</span> _id; }
+}
+
+[ID(IDType.IDENTITY)]
+<span class="kwrd">public</span> <span class="kwrd">int</span> ID
+{
+    set { id = <span class="kwrd">value</span>; }
+    get { <span class="kwrd">return</span> id; }
 }
 </pre>
 
@@ -285,19 +293,36 @@ VB.NET
    <span class="kwrd">Set</span>
       _id = value
    <span class="kwrd">End</span> <span class="kwrd">Set</span>
-<span class="kwrd">End</span> Property</pre>
+<span class="kwrd">End</span> Property
+
+&lt;ID(IDType.IDENTITY)&gt;  _
+<span class="kwrd">Public</span> <span class="kwrd">Property</span> Id() <span class="kwrd">As</span> <span class="kwrd">Integer</span>
+   <span class="kwrd">Get</span>
+      <span class="kwrd">Return</span> _id
+   <span class="kwrd">End</span> <span class="kwrd">Get</span>
+   <span class="kwrd">Set</span>
+      _id = value
+   <span class="kwrd">End</span> <span class="kwrd">Set</span>
+<span class="kwrd">End</span> Property
+</pre>
 
 <p>SEQUENCEを使うことも出来ます。myseqの部分は、実際のSEQUENCEに置き換えて下さい。</p>
 
 C#
 <!-- code formatted by http://manoli.net/csharpformat/ -->
 <pre class="csharpcode">
-[ID(<span class="str">"sequence"</span>, <span class="str">"myseq"</span>)]</pre>
+[ID(<span class="str">"sequence"</span>, <span class="str">"myseq"</span>)]
+
+[ID(IDType.SEQUENCE, <span class="str">"myseq"</span>)]
+</pre>
 
 VB.NET
 <!-- code formatted by http://manoli.net/csharpformat/ -->
 <pre class="csharpcode vb">
-&lt;ID(<span class="str">"sequence"</span>, <span class="str">"myseq"</span>)&gt;</pre>
+&lt;ID(<span class="str">"sequence"</span>, <span class="str">"myseq"</span>)&gt;
+
+&lt;ID(IDType.SEQUENCE, <span class="str">"myseq"</span>)&gt;
+</pre>
 
 <p>手動でIDを設定する場合は、何も指定する必要はありません。テーブルのプライマリキーの情報はテーブル定義より自動的に取得されます。
 また、明示的に"assigned"を指定することも出来ます。</p>
@@ -305,12 +330,19 @@ VB.NET
 C#
 <!-- code formatted by http://manoli.net/csharpformat/ -->
 <pre class="csharpcode">
-[ID(<span class="str">"assigned"</span>)]</pre>
+[ID(<span class="str">"assigned"</span>)]
+
+
+[ID(IDType.ASSIGNED)]
+</pre>
 
 VB.NET
 <!-- code formatted by http://manoli.net/csharpformat/ -->
 <pre class="csharpcode vb">
-&lt;ID(<span class="str">"assigned"</span>)&gt;</pre>
+&lt;ID(<span class="str">"assigned"</span>)&gt;
+
+&lt;ID(IDType.ASSIGNED)&gt;
+</pre>
 
 <h2><a name="noPersistent">永続化されないカラムを指定するNoPersistentProps属性</a></h2>
 
