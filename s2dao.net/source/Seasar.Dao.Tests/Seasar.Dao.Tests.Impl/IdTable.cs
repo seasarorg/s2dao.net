@@ -20,9 +20,25 @@ using Seasar.Dao.Attrs;
 
 namespace Seasar.Dao.Tests.Impl
 {
-    [Bean(typeof(SeqTable))]
-    public interface SeqTableAutoDao
+    public class IdTable
     {
-        void Insert(SeqTable seqTable);
+        private int myId;
+
+        private string idName;
+
+        [ID(IDType.IDENTITY)]
+        [ID(IDType.SEQUENCE, "SEQ_IDTABLE")]
+        [Column("ID")]
+        public int MyId
+        {
+            set { myId = value; }
+            get { return myId; }
+        }
+
+        public string IdName
+        {
+            set { idName = value; }
+            get { return idName; }
+        }
     }
 }

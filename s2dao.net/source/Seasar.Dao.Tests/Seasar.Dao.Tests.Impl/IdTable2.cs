@@ -20,24 +20,31 @@ using Seasar.Dao.Attrs;
 
 namespace Seasar.Dao.Tests.Impl
 {
-    public class IdentityTable
+    [Table("IDTABLE")]
+    public class IdTable2
     {
-        private int myid;
+        private int myId;
 
-        private string name;
+        private string idName;
 
-        [ID(IDType.IDENTITY)]
+        [ID(IDType.IDENTITY, KindOfDbms.DB2)]
+        [ID(IDType.SEQUENCE, "SEQ_IDTABLE", KindOfDbms.Firebird)]
+        [ID(IDType.SEQUENCE, "SEQ_IDTABLE", KindOfDbms.MDB)]
+        [ID(IDType.IDENTITY, KindOfDbms.MSSQLServer)]
+        [ID(IDType.IDENTITY, KindOfDbms.MySQL)]
+        [ID(IDType.SEQUENCE, "SEQ_IDTABLE", KindOfDbms.Oracle)]
+        [ID(IDType.SEQUENCE, "SEQ_IDTABLE", KindOfDbms.PostgreSQL)]
         [Column("ID")]
-        public int Myid
+        public int MyId
         {
-            set { myid = value; }
-            get { return myid; }
+            set { myId = value; }
+            get { return myId; }
         }
 
-        public string Name
+        public string IdName
         {
-            set { name = value; }
-            get { return name; }
+            set { idName = value; }
+            get { return idName; }
         }
     }
 }

@@ -411,7 +411,7 @@ namespace Seasar.Dao.Impl
                 }
                 if(IdentifierGenerator == null)
                 {
-                    IDAttribute idAttr = beanAnnotationReader.GetIdAttribute(pi);
+                    IDAttribute idAttr = beanAnnotationReader.GetIdAttribute(pi, dbms);
                     if (idAttr != null)
                     {
                         identifierGenerator = IdentifierGeneratorFactory.CreateIdentifierGenerator(

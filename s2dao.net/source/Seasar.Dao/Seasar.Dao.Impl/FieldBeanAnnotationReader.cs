@@ -73,14 +73,33 @@ namespace Seasar.Dao.Impl
             return null;
         }
 
-        public IDAttribute GetIdAttribute(PropertyInfo pi)
+        public IDAttribute GetIdAttribute(PropertyInfo pi, IDbms dbms)
         {
-            IDAttribute attr = AttributeUtil.GetIDAttribute(pi);
-            if (attr != null)
+            IDAttribute[] attrs = AttributeUtil.GetIDAttribute(pi);
+            IDAttribute defaultAttr = null;
+            foreach (IDAttribute attr in attrs)
             {
-                return attr;
+                if (attr.Dbms == dbms.Dbms)
+                {
+                    return attr;
+                }
+                if (attr.Dbms == KindOfDbms.None)
+                {
+                    if (attr.IDType == IDType.IDENTITY && dbms.IdentitySelectString != null)
+                    {
+                        defaultAttr = attr;
+                    }
+                    if (attr.IDType == IDType.SEQUENCE && dbms.GetSequenceNextValString(attr.SequenceName) != null)
+                    {
+                        defaultAttr = attr;
+                    }
+                    if (attr.IDType == IDType.ASSIGNED)
+                    {
+                        defaultAttr = attr;
+                    }
+                }
             }
-            return null;
+            return defaultAttr;
         }
 
         public string[] GetNoPersisteneProps()

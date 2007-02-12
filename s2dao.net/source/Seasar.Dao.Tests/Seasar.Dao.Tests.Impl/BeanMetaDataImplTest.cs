@@ -134,7 +134,7 @@ namespace Seasar.Dao.Tests.Impl
         [Test, S2]
         public void TestPrimaryKeyForIdentifier()
         {
-            IBeanMetaData bmd = CreateBeanMetaData(typeof(IdentityTable));
+            IBeanMetaData bmd = CreateBeanMetaData(typeof(IdTable));
             Assert.AreEqual("ID", bmd.GetPrimaryKey(0), "1");
         }
         

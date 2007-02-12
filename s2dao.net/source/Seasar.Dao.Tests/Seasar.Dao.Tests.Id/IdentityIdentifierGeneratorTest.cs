@@ -39,7 +39,7 @@ namespace Seasar.Dao.Tests.Id
             }
 
             BasicUpdateHandler updateHandler = new BasicUpdateHandler(
-                DataSource, "insert into identitytable(name) values('hoge')");
+                DataSource, "insert into idtable(id_name) values('hoge')");
             updateHandler.Execute(null);
 
             IdentityIdentifierGenerator generator = new IdentityIdentifierGenerator("Id", Dbms);
@@ -57,7 +57,7 @@ namespace Seasar.Dao.Tests.Id
             }
 
             BasicUpdateHandler updateHandler = new BasicUpdateHandler(
-                DataSource, "insert into identitytable(name) values('hoge')");
+                DataSource, "insert into idtable(id_name) values('hoge')");
             updateHandler.Execute(null);
 
             IdentityIdentifierGenerator generator = new IdentityIdentifierGenerator("Id", Dbms);

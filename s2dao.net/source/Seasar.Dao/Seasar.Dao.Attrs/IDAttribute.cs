@@ -25,13 +25,24 @@ namespace Seasar.Dao.Attrs
     {
         private IDType idType = IDType.ASSIGNED;
         private string sequenceName;
+        private KindOfDbms dbms = KindOfDbms.None;
 
         public IDAttribute(string id)
             : this(id, null)
         {
         }
 
+        public IDAttribute(string id, KindOfDbms dbms)
+            : this(id, null, dbms)
+        {
+        }
+
         public IDAttribute(string id, string sequenceName)
+            : this(id, sequenceName, KindOfDbms.None)
+        {
+        }
+
+        public IDAttribute(string id, string sequenceName, KindOfDbms dbms)
         {
             if ("assigned".Equals(id))
             {
@@ -50,17 +61,29 @@ namespace Seasar.Dao.Attrs
                 throw new ArgumentException("id");
             }
             this.sequenceName = sequenceName;
+            this.dbms = dbms;
         }
 
         public IDAttribute(IDType idType)
+            : this(idType, null)
         {
-            this.idType = idType;
+        }
+
+        public IDAttribute(IDType idType, KindOfDbms dbms)
+            : this(idType, null, dbms)
+        {
         }
 
         public IDAttribute(IDType idType, string sequenceName)
+            : this(idType, sequenceName, KindOfDbms.None)
+        {
+        }
+
+        public IDAttribute(IDType idType, string sequenceName, KindOfDbms dbms)
         {
             this.idType = idType;
             this.sequenceName = sequenceName;
+            this.dbms = dbms;
         }
 
         public IDType IDType
@@ -72,6 +95,11 @@ namespace Seasar.Dao.Attrs
         {
             get { return sequenceName; }
             set { sequenceName = value; }
+        }
+
+        public KindOfDbms Dbms
+        {
+            get { return dbms; }
         }
     }
 }

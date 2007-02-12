@@ -1,4 +1,8 @@
-﻿S2Dao.NET 1.0.3
+﻿S2Dao.NET 1.0.4
+2007/??/??
+- [DAONET-47]ID属性の複数DBMS対応(※テスト用DBの再作成が必要)
+
+S2Dao.NET 1.0.3
 2007/1/15
 - [DAONET-43]DaoMetaDataImplを拡張できるようにIAnnotationReaderFactoryを追加する
              Ver1.0.2以前からアップデートする場合、FieldAnnotationReaderFactoryをdiconファイルに追加する必要がある

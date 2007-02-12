@@ -84,6 +84,10 @@ namespace Seasar.Dao.Tests.Impl
         [Test, S2(Tx.Rollback)]
         public void TestExecuteWithUnderscoreTx()
         {
+            if (Dbms.Dbms == KindOfDbms.Oracle)
+            {
+                Assert.Ignore("Oracleでカラム名の先頭が_の場合、\"(引用符)で囲む必要がある。");
+            }
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IUnderscoreEntityDao));
             ISqlCommand cmd = dmd.GetSqlCommand("Insert");
             ISqlCommand cmd2 = dmd.GetSqlCommand("GetUnderScoreEntityByUnderScoreNo");
@@ -105,23 +109,18 @@ namespace Seasar.Dao.Tests.Impl
         [Test, S2(Tx.Rollback)]
         public void TestExecute2Tx() 
         {
-            if (Dbms.IdentitySelectString == null) 
-            {
-                Assert.Ignore("IDENTITYをサポートしていないDBMS。");
-            }
-
-            IDaoMetaData dmd = CreateDaoMetaData(typeof(IIdentityTableAutoDao));
+            IDaoMetaData dmd = CreateDaoMetaData(typeof(IIdTableAutoDao));
 
             ISqlCommand cmd = dmd.GetSqlCommand("Insert");
-            IdentityTable table = new IdentityTable();
-            table.Name = "hoge";
+            IdTable table = new IdTable();
+            table.IdName = "hoge";
             int count1 = (int) cmd.Execute(new object[] { table });
             Assert.AreEqual(1, count1, "1");
-            int id1 = table.Myid;
+            int id1 = table.MyId;
             Trace.WriteLine(id1);
             int count2 = (int) cmd.Execute(new object[] { table });
             Assert.AreEqual(1, count2, "2");
-            int id2 = table.Myid;
+            int id2 = table.MyId;
             Trace.WriteLine(id2);
             Assert.AreEqual(1, id2 - id1, "2");
         }
@@ -129,43 +128,33 @@ namespace Seasar.Dao.Tests.Impl
         [Test, S2(Tx.Rollback)]
         public void TestExecute3_1Tx() 
         {
-            if (Dbms.GetSequenceNextValString("dummy") == null) 
-            {
-                Assert.Ignore("SEQUENCEをサポートしていないDBMS。");
-            }
-
-            IDaoMetaData dmd = CreateDaoMetaData(typeof(SeqTableAutoDao));
+            IDaoMetaData dmd = CreateDaoMetaData(typeof(IIdTableAutoDao));
             ISqlCommand cmd = dmd.GetSqlCommand("Insert");
-            SeqTable table = new SeqTable();
-            table.Name ="hoge";
+            IdTable table = new IdTable();
+            table.IdName ="hoge";
             int count = (int) cmd.Execute(new object[] { table });
             Assert.AreEqual(1, count, "1");
-            Trace.WriteLine(table.Id);
-            Assert.IsTrue(table.Id > 0, "2");
+            Trace.WriteLine(table.MyId);
+            Assert.IsTrue(table.MyId > 0, "2");
         }
 
         [Test, S2(Tx.Rollback)]
         public void TestExecute3_2Tx() 
         {
-            if (Dbms.GetSequenceNextValString("dummy") == null) 
-            {
-                Assert.Ignore("SEQUENCEをサポートしていないDBMS。");
-            }
-
-            IDaoMetaData dmd = CreateDaoMetaData(typeof(SeqTableAuto2Dao));
+            IDaoMetaData dmd = CreateDaoMetaData(typeof(IIdTableAuto2Dao));
             ISqlCommand cmd = dmd.GetSqlCommand("Insert");
-            SeqTable2 table1 = new SeqTable2();
-            table1.Name ="hoge";
+            IdTable2 table1 = new IdTable2();
+            table1.IdName ="hoge";
             int count = (int) cmd.Execute(new object[] { table1 });
             Assert.AreEqual(1, count, "1");
-            Trace.WriteLine(table1.Id);
-            Assert.IsTrue(table1.Id > 0, "2");
+            Trace.WriteLine(table1.MyId);
+            Assert.IsTrue(table1.MyId > 0, "2");
 
-            SeqTable2 table2 = new SeqTable2();
-            table2.Name ="foo";
+            IdTable2 table2 = new IdTable2();
+            table2.IdName = "foo";
             cmd.Execute(new object[] { table2 });
-            Trace.WriteLine(table2.Id);
-            Assert.IsTrue(table2.Id > table1.Id, "3");
+            Trace.WriteLine(table2.MyId);
+            Assert.IsTrue(table2.MyId > table1.MyId, "3");
         }
 
         [Test, S2(Tx.Rollback)]

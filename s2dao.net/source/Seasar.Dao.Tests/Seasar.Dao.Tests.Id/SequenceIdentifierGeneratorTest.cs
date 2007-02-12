@@ -30,13 +30,13 @@ namespace Seasar.Dao.Tests.Id
         [Test, S2(Tx.Rollback)]
         public void TestGenerate()
         {
-            if (Dbms.GetSequenceNextValString("SEQ_SEQTABLE") == null)
+            if (Dbms.GetSequenceNextValString("SEQ_IDTABLE") == null)
             {
                 Assert.Ignore("シーケンスをサポートしていないDBMS。");
             }
 
             SequenceIdentifierGenerator generator = new SequenceIdentifierGenerator("Id", Dbms);
-            generator.SequenceName = "\"SEQ_SEQTABLE\"";
+            generator.SequenceName = "\"SEQ_IDTABLE\"";
             Hoge hoge = new Hoge();
             generator.SetIdentifier(hoge, DataSource);
             Assert.IsTrue(hoge.Id > 0);

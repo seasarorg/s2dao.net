@@ -20,9 +20,9 @@ using Seasar.Dao.Attrs;
 
 namespace Seasar.Dao.Tests.Impl
 {
-    [Bean(typeof(IdentityTable))]
-    public interface IIdentityTableAutoDao
+    [Bean(typeof(IdTable))]
+    public interface IIdTableAutoDao
     {
-        void Insert(IdentityTable identityTable);
+        void Insert(IdTable value);
     }
 }

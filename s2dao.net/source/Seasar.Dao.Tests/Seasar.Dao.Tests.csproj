@@ -211,15 +211,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Seasar.Dao.Tests.Impl\GenericNullableEntity.cs" />
-    <Compile Include="Seasar.Dao.Tests.Impl\IdentityTable.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Seasar.Dao.Tests.Impl\IDepartmentAutoDao.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Seasar.Dao.Tests.Impl\IDepartmentTotalSalaryDao.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\IdTable.cs" />
+    <Compile Include="Seasar.Dao.Tests.Impl\IdTable2.cs" />
     <Compile Include="Seasar.Dao.Tests.Impl\IEmployee2Dao.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -252,9 +251,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Seasar.Dao.Tests.Impl\IGenericNullableDao.cs" />
-    <Compile Include="Seasar.Dao.Tests.Impl\IIdentityTableAutoDao.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\IIdTableAuto2Dao.cs" />
+    <Compile Include="Seasar.Dao.Tests.Impl\IIdTableAutoDao.cs" />
     <Compile Include="Seasar.Dao.Tests.Impl\IIllegalEmployeeAutoDao.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -266,18 +264,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Seasar.Dao.Tests.Impl\SelectDynamicCommandTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Seasar.Dao.Tests.Impl\SeqTable.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Seasar.Dao.Tests.Impl\SeqTable2.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Seasar.Dao.Tests.Impl\SeqTableAuto2Dao.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Seasar.Dao.Tests.Impl\SeqTableAutoDao.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Seasar.Dao.Tests.Impl\UnderscoreEntity.cs" />

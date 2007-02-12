@@ -32,6 +32,7 @@ namespace Seasar.Dao.Tests.Impl
         private int entityNo;
 
         [ID(IDType.IDENTITY)]
+        [ID(IDType.SEQUENCE, "SEQ_GENERIC_NULLABLE")]
         [Column("ID")]
         public Nullable<Decimal> ID {
             get { return id; }

@@ -27,7 +27,7 @@ namespace Seasar.Dao
         string GetTable();
         string GetVersionNoProteryName();
         string GetTimestampPropertyName();
-        IDAttribute GetIdAttribute(PropertyInfo pi);
+        IDAttribute GetIdAttribute(PropertyInfo pi, IDbms dbms);
         string[] GetNoPersisteneProps();
         RelnoAttribute GetRelnoAttribute(PropertyInfo pi);
         string GetRelationKey(PropertyInfo pi);

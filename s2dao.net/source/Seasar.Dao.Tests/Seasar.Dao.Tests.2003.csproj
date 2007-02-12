@@ -293,11 +293,6 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Seasar.Dao.Tests.Impl\IdentityTable.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
                     RelPath = "Seasar.Dao.Tests.Impl\IDepartmentAutoDao.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -310,6 +305,16 @@
                 <File
                     RelPath = "Seasar.Dao.Tests.Impl\IDepartmentTotalSalaryDao_GetTotalSalaries.sql"
                     BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Tests.Impl\IdTable.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Tests.Impl\IdTable2.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
                 />
                 <File
                     RelPath = "Seasar.Dao.Tests.Impl\IEmployee2Dao.cs"
@@ -392,7 +397,12 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Seasar.Dao.Tests.Impl\IIdentityTableAutoDao.cs"
+                    RelPath = "Seasar.Dao.Tests.Impl\IIdTableAuto2Dao.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Tests.Impl\IIdTableAutoDao.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -418,26 +428,6 @@
                 />
                 <File
                     RelPath = "Seasar.Dao.Tests.Impl\SelectDynamicCommandTest.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\SeqTable.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\SeqTable2.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\SeqTableAuto2Dao.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Seasar.Dao.Tests.Impl\SeqTableAutoDao.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

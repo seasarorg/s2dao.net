@@ -62,10 +62,10 @@ namespace Seasar.Dao.Attrs
                                                 typeof (RelnoAttribute)) as RelnoAttribute;
         }
 
-        public static IDAttribute GetIDAttribute(PropertyInfo pi)
+        public static IDAttribute[] GetIDAttribute(PropertyInfo pi)
         {
-            return Attribute.GetCustomAttribute(pi,
-                                                typeof (IDAttribute)) as IDAttribute;
+            return Attribute.GetCustomAttributes(pi,
+                                                typeof(IDAttribute)) as IDAttribute[];
         }
 
         public static NoPersistentPropsAttribute GetNoPersistentPropsAttribute(MemberInfo mi)
