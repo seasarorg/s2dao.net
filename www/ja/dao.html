@@ -323,11 +323,11 @@ VB.NET
 &lt;Sql(<span class="str">"SELECT empno,ename from emp where job=/*job*/ order by empno"</span>)&gt; _
 <span class="kwrd">Function</span> GetByJob(job <span class="kwrd">As</span> <span class="kwrd">String</span>) <span class="kwrd">As</span> Employee()</pre>
 
-<h3>Sql属性の複数DBMS対応</h3>
+<h3><a name="SqlAttrDbms">Sql属性の複数DBMS対応</a></h3>
 
 <p>DBMS毎に使用するSql属性を指定することができます。どのDBMSを使っているのかは、
 Diconファイルに登録されているデータプロバイダとS2Dao.NETが持っているDbms.resxからS2Dao.NETが自動的に判断しています。
-Dbms毎にSql属性を用意する場合は、Sql属性の第2引数にSeasar.Dao.KindOfDbms列挙型でDbmsを指定します。
+DBMS毎にSql属性を用意する場合は、Sql属性の第2引数にSeasar.Dao.KindOfDbms列挙型でDBMSを指定します。
 KindOfDbms列挙型は以下の列挙子を持っています。</p>
 
 <table class="main" border="1">

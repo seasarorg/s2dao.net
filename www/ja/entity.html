@@ -344,6 +344,27 @@ VB.NET
 &lt;ID(IDType.ASSIGNED)&gt;
 </pre>
 
+<h3>ID属性の複数DBMS対応</h3>
+
+<p>DBMS毎に使用するID属性を指定することができます。どのDBMSを使っているのかは、
+Diconファイルに登録されているデータプロバイダとS2Dao.NETが持っているDbms.resxからS2Dao.NETが自動的に判断しています。
+DBMS毎にID属性を用意する場合は、ID属性の第3引数にSeasar.Dao.KindOfDbms列挙型でDBMSを指定します。
+KindOfDbms列挙型の一覧は、<a href="dao.html#SqlAttrDbms">Sql属性の複数DBMS対応</a>を参照してください。</p>
+
+C#
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode">
+[ID(IDType.SEQUENCE, <span class="str">"myseq"</span>, KindOfDbms.Oracle)]
+</pre>
+
+VB.NET
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode vb">
+&lt;ID(IDType.SEQUENCE, <span class="str">"myseq"</span>, KindOfDbms.MSSQLServer)&gt;
+</pre>
+
+
+
 <h2><a name="noPersistent">永続化されないカラムを指定するNoPersistentProps属性</a></h2>
 
 <p>Entityクラスのプロパティが永続化(テーブルとマッピング)の対象かどうかという情報は、
