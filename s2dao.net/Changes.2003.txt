@@ -1,6 +1,7 @@
 ﻿S2Dao.NET 1.0.4
 2007/??/??
 - [DAONET-47]ID属性の複数DBMS対応(※テスト用DBの再作成が必要)
+- [DAONET-48]decimal以外のNullable数値型もIdentityを設定できるようにする
 
 S2Dao.NET 1.0.3
 2007/1/15

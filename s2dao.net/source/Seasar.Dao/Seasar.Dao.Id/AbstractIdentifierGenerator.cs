@@ -21,6 +21,7 @@ using System.Reflection;
 using Seasar.Extension.ADO;
 using Seasar.Extension.ADO.Impl;
 using Seasar.Framework.Exceptions;
+using Seasar.Framework.Util;
 
 namespace Seasar.Dao.Id
 {
@@ -56,20 +57,9 @@ namespace Seasar.Dao.Id
         {
             if(propertyName == null) throw new EmptyRuntimeException("propertyName");
             PropertyInfo propertyInfo = bean.GetType().GetProperty(propertyName);
-            
-            if (propertyInfo.PropertyType == typeof(Nullables.NullableDecimal))
-            {
-                propertyInfo.SetValue(bean, Nullables.NullableDecimal.Parse(value.ToString()), null);
-            }
-#if !NET_1_1
-            else if (propertyInfo.PropertyType == typeof(Decimal?)) 
-            {
-                propertyInfo.SetValue(bean, new Decimal?((Decimal)value), null);
-            }
-#endif
-            else {
-                propertyInfo.SetValue(bean, Convert.ChangeType(value, propertyInfo.PropertyType), null);
-            }
+
+            propertyInfo.SetValue(bean,
+                ConversionUtil.ConvertTargetType(value, propertyInfo.PropertyType), null);
         }
 
         #region IIdentifierGenerator ÉÅÉìÉo

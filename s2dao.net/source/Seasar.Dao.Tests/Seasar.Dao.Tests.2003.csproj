@@ -1,7 +1,7 @@
 <VisualStudioProject>
     <CSHARP
         ProjectType = "Local"
-        ProductVersion = "7.10.6030"
+        ProductVersion = "7.10.3077"
         SchemaVersion = "2.0"
         ProjectGuid = "{BEED9F86-B197-4994-A3D3-344AD4E7DB71}"
     >
@@ -180,6 +180,10 @@
                 <File
                     RelPath = "Seasar.Dao.Tests.Id\HogeNullable.cs"
                     SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Tests.Id\HogeSystemNullable.cs"
                     BuildAction = "Compile"
                 />
                 <File
