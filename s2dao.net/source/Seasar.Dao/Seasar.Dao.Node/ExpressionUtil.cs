@@ -37,7 +37,7 @@ namespace Seasar.Dao.Node
         public ExpressionUtil()
         {
             reOps = new Regex(@"^\s*(&&|\|\||<=|>=|==|!=|[=+\-*/^()!<>])", RegexOptions.Compiled);
-            reSym = new Regex(@"^\s*(\-?\b*[_a-zA-Z.']+[_a-zA-Z0-9\[()\]]*)", RegexOptions.Compiled);
+            reSym = new Regex(@"^\s*(\-?\b*[^=+\-*/^()!<>\s]*)", RegexOptions.Compiled);
             reLit = new Regex(@"^\s*([0-9]+(\.[0-9]+)?)", RegexOptions.Compiled);
         }
 
