@@ -81,7 +81,7 @@ namespace Seasar.Dao.Impl
 
             if ( _returnType != typeof (Hashtable) )
             {
-                ObjectBasicProcedureHandler handler = new ObjectBasicProcedureHandler(DataSource, ctx.Sql);
+                ObjectBasicProcedureHandler handler = new ObjectBasicProcedureHandler(DataSource, CommandFactory, ctx.Sql);
                 handler.ArgumentNames = ArgNames;
                 handler.ArgumentTypes = ArgTypes;
                 handler.ArgumentDirection = ArgDirections;
@@ -90,7 +90,7 @@ namespace Seasar.Dao.Impl
             }
             else
             {
-                HashtableBasicProcedureHandler handler = new HashtableBasicProcedureHandler(DataSource, ctx.Sql);
+                HashtableBasicProcedureHandler handler = new HashtableBasicProcedureHandler(DataSource, CommandFactory, ctx.Sql);
                 handler.ArgumentNames = ArgNames;
                 handler.ArgumentTypes = ArgTypes;
                 handler.ArgumentDirection = ArgDirections;

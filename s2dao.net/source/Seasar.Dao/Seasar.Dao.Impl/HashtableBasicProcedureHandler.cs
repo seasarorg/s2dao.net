@@ -34,14 +34,15 @@ namespace Seasar.Dao.Impl
     public class HashtableBasicProcedureHandler : AbstractProcedureHandler
     {
         private static readonly Logger logger = Logger.GetLogger(typeof(HashtableBasicProcedureHandler));
-        
+
         /// <summary>
         /// コンストラクタ
         /// </summary>
         /// <param name="dataSource">データソース名</param>
+        /// <param name="commandFactory">IDbCommand Factory</param>
         /// <param name="procedureName">プロシージャ名</param>
-        public HashtableBasicProcedureHandler(IDataSource dataSource, string procedureName)
-            : base(dataSource, procedureName)
+        public HashtableBasicProcedureHandler(IDataSource dataSource, ICommandFactory commandFactory, string procedureName)
+            : base(dataSource, commandFactory, procedureName)
         {
             ;
         }
@@ -53,7 +54,7 @@ namespace Seasar.Dao.Impl
         /// <returns>出力パラメータ値</returns>
         public Hashtable Execute(object[] args)
         {
-            if ( DataSource == null ) throw new EmptyRuntimeException("dataSource");
+            if (DataSource == null) throw new EmptyRuntimeException("dataSource");
             IDbConnection conn = DataSourceUtil.GetConnection(DataSource);
 
             Hashtable ret = new Hashtable();
@@ -63,7 +64,7 @@ namespace Seasar.Dao.Impl
                 {
                     logger.Debug(ProcedureName);
                 }
-                
+
                 IDbCommand cmd = null;
                 try
                 {
@@ -73,16 +74,16 @@ namespace Seasar.Dao.Impl
                     cmd = GetCommand(conn, ProcedureName);
 
                     // パラメータをセットする
-                    for ( int j = 0; j < outParamNames.Length; j++ )
+                    for (int j = 0; j < outParamNames.Length; j++)
                     {
                         BindReturnValues(cmd, _AddParameterName(outParamNames[j], cmd), GetDbValueType(outParamTypes[j]));
                     }
                     BindParamters(cmd, args, ArgumentTypes, ArgumentNames, ArgumentDirection);
-                    
+
                     CommandUtil.ExecuteNonQuery(DataSource, cmd);
 
                     // 返り値を取得する
-                    for ( int j = 0; j < outParamNames.Length; j++ )
+                    for (int j = 0; j < outParamNames.Length; j++)
                     {
                         string paramName = _AddParameterName(outParamNames[j], cmd);
                         IDbDataParameter param = (IDbDataParameter) cmd.Parameters[paramName];
@@ -90,12 +91,12 @@ namespace Seasar.Dao.Impl
                     }
 
                     // OutまたはInOutパラメータ値を取得する
-                    for ( int i = 0; i < args.Length; i++ )
+                    for (int i = 0; i < args.Length; i++)
                     {
-                        if ( ArgumentDirection[i] == ParameterDirection.InputOutput ||
-                             ArgumentDirection[i] == ParameterDirection.Output )
+                        if (ArgumentDirection[i] == ParameterDirection.InputOutput ||
+                             ArgumentDirection[i] == ParameterDirection.Output)
                         {
-                            args[i] = ( (IDataParameter) cmd.Parameters[i] ).Value;
+                            args[i] = ((IDataParameter) cmd.Parameters[i]).Value;
                         }
                     }
 
@@ -106,7 +107,7 @@ namespace Seasar.Dao.Impl
                     CommandUtil.Close(cmd);
                 }
             }
-            catch ( Exception e )
+            catch (Exception e)
             {
                 throw new SQLRuntimeException(e);
             }
@@ -145,7 +146,7 @@ namespace Seasar.Dao.Impl
         private string _AddParameterName(string paramName, IDbCommand command)
         {
             BindVariableType vt = DataProviderUtil.GetBindVariableType(command);
-            switch ( vt )
+            switch (vt)
             {
                 case BindVariableType.QuestionWithParam:
                     paramName = "?" + paramName;

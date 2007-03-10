@@ -38,9 +38,10 @@ namespace Seasar.Dao.Impl
         /// コンストラクタ
         /// </summary>
         /// <param name="dataSource">データソース名</param>
+        /// <param name="commandFactory">IDbCommand Factory</param>
         /// <param name="procedureName">プロシージャ名</param>
-        public ObjectBasicProcedureHandler(IDataSource dataSource, string procedureName)
-            : base(dataSource, procedureName)
+        public ObjectBasicProcedureHandler(IDataSource dataSource, ICommandFactory commandFactory, string procedureName)
+            : base(dataSource, commandFactory, procedureName)
         {
             ;
         }

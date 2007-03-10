@@ -37,7 +37,7 @@ namespace Seasar.Dao.Impl
     /// </summary>
     public class AbstractProcedureHandler : BasicHandler
     {
-        private static Logger logger = Logger.GetLogger(typeof (AbstractAutoHandler));
+        private static Logger logger = Logger.GetLogger(typeof(AbstractAutoHandler));
 
         /// <summary>
         /// 引数タイプ
@@ -63,10 +63,12 @@ namespace Seasar.Dao.Impl
         /// コンストラクタ
         /// </summary>
         /// <param name="dataSource">データソース名</param>
+        /// <param name="commandFactory">IDbCommand Factory</param>
         /// <param name="procedureName">ストアドプロシージャ名</param>
-        public AbstractProcedureHandler(IDataSource dataSource, string procedureName)
+        public AbstractProcedureHandler(IDataSource dataSource, ICommandFactory commandFactory, string procedureName)
         {
             DataSource = dataSource;
+            CommandFactory = commandFactory;
             _procedureName = procedureName;
         }
 
@@ -120,11 +122,10 @@ namespace Seasar.Dao.Impl
         /// <returns></returns>
         protected IDbCommand GetCommand(IDbConnection connection, string procedureName)
         {
-            if ( procedureName == null )
+            if (procedureName == null)
                 throw new EmptyRuntimeException("procedureName");
 
-            IDbCommand cmd = connection.CreateCommand();
-            cmd.CommandText = procedureName;
+            IDbCommand cmd = CommandFactory.CreateCommand(connection, procedureName);
             cmd.CommandType = CommandType.StoredProcedure;
 
             cmd.UpdatedRowSource = UpdateRowSource.OutputParameters;
@@ -143,12 +144,12 @@ namespace Seasar.Dao.Impl
         protected void BindParamters(IDbCommand command, object[] args, Type[] argTypes,
                                      string[] argNames, ParameterDirection[] argDirection)
         {
-            if ( args == null ) return;
-            for ( int i = 0; i < args.Length; ++i )
+            if (args == null) return;
+            for (int i = 0; i < args.Length; ++i)
             {
                 string columnName = argNames[i];
                 BindVariableType vt = DataProviderUtil.GetBindVariableType(command);
-                switch ( vt )
+                switch (vt)
                 {
                     case BindVariableType.QuestionWithParam:
                         columnName = "?" + columnName;
@@ -171,7 +172,7 @@ namespace Seasar.Dao.Impl
                 parameter.Value = args[i];
                 parameter.DbType = dbType;
                 parameter.Size = 4096;
-                if ( "OleDbCommand".Equals(command.GetType().Name) && dbType == DbType.String )
+                if ("OleDbCommand".Equals(command.GetType().Name) && dbType == DbType.String)
                 {
                     OleDbParameter oleDbParam = parameter as OleDbParameter;
                     oleDbParam.OleDbType = OleDbType.VarChar;
@@ -198,12 +199,12 @@ namespace Seasar.Dao.Impl
             parameter.Direction = ParameterDirection.ReturnValue;
             parameter.DbType = dbType;
             parameter.Size = 4096;
-            if ( "OleDbCommand".Equals(command.GetType().Name) && dbType == DbType.String )
+            if ("OleDbCommand".Equals(command.GetType().Name) && dbType == DbType.String)
             {
                 OleDbParameter oleDbParam = parameter as OleDbParameter;
                 oleDbParam.OleDbType = OleDbType.VarChar;
             }
-            else if ( "SqlDbCommand".Equals(command.GetType().Name) && dbType == DbType.String )
+            else if ("SqlDbCommand".Equals(command.GetType().Name) && dbType == DbType.String)
             {
                 SqlParameter sqlDbParam = parameter as SqlParameter;
                 sqlDbParam.SqlDbType = SqlDbType.VarChar;
@@ -221,31 +222,31 @@ namespace Seasar.Dao.Impl
         /// <returns></returns>
         protected static DbType GetDbValueType(Type type)
         {
-            if ( type == typeof(Byte) || type.FullName == "System.Byte&" )
+            if (type == typeof(Byte) || type.FullName == "System.Byte&")
                 return DbType.Byte;
-            if ( type == typeof(SByte) || type.FullName == "System.SByte&" )
+            if (type == typeof(SByte) || type.FullName == "System.SByte&")
                 return DbType.SByte;
-            if ( type == typeof(Int16) || type.FullName == "System.Int16&" )
+            if (type == typeof(Int16) || type.FullName == "System.Int16&")
                 return DbType.Int16;
-            if ( type == typeof(Int32) || type.FullName == "System.Int32&" )
+            if (type == typeof(Int32) || type.FullName == "System.Int32&")
                 return DbType.Int32;
-            if ( type == typeof(Int64) || type.FullName == "System.Int64&" )
+            if (type == typeof(Int64) || type.FullName == "System.Int64&")
                 return DbType.Int64;
-            if ( type == typeof(Single) || type.FullName == "System.Single&" )
+            if (type == typeof(Single) || type.FullName == "System.Single&")
                 return DbType.Single;
-            if ( type == typeof(Double) || type.FullName == "System.Double&" )
+            if (type == typeof(Double) || type.FullName == "System.Double&")
                 return DbType.Double;
-            if ( type == typeof(Decimal) || type.FullName == "System.Decimal&" )
+            if (type == typeof(Decimal) || type.FullName == "System.Decimal&")
                 return DbType.Decimal;
-            if ( type == typeof(DateTime) || type.FullName == "System.DateTime&" )
+            if (type == typeof(DateTime) || type.FullName == "System.DateTime&")
                 return DbType.DateTime;
-            if ( type == ValueTypes.BYTE_ARRAY_TYPE )
+            if (type == ValueTypes.BYTE_ARRAY_TYPE)
                 return DbType.Binary;
-            if ( type == typeof(String) || type.FullName == "System.String&" )
+            if (type == typeof(String) || type.FullName == "System.String&")
                 return DbType.String;
-            if ( type == typeof(Boolean) || type.FullName == "System.Boolean&" )
+            if (type == typeof(Boolean) || type.FullName == "System.Boolean&")
                 return DbType.Boolean;
-            if ( type == typeof(Guid) || type.FullName == "System.Guid&" )
+            if (type == typeof(Guid) || type.FullName == "System.Guid&")
                 return DbType.Guid;
             else
                 return DbType.Object;
@@ -260,13 +261,13 @@ namespace Seasar.Dao.Impl
         {
             ParameterInfo[] parameters = mi.GetParameters();
             ParameterDirection[] ret = new ParameterDirection[parameters.Length];
-            for ( int i = 0; i < parameters.Length; ++i )
+            for (int i = 0; i < parameters.Length; ++i)
             {
-                if ( parameters[i].IsOut )
+                if (parameters[i].IsOut)
                 {
                     ret[i] = ParameterDirection.Output;
                 }
-                else if ( parameters[i].ParameterType.IsByRef )
+                else if (parameters[i].ParameterType.IsByRef)
                 {
                     ret[i] = ParameterDirection.InputOutput;
                 }
