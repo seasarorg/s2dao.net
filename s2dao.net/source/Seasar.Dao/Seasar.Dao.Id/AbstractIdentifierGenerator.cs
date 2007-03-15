@@ -49,7 +49,7 @@ namespace Seasar.Dao.Id
 
         protected object ExecuteSql(IDataSource ds, string sql, object[] args)
         {
-            BasicSelectHandler handler = new BasicSelectHandler(ds, sql, dataReaderHandler);
+            ISelectHandler handler = new BasicSelectHandler(ds, sql, dataReaderHandler);
             return handler.Execute(args);
         }
 

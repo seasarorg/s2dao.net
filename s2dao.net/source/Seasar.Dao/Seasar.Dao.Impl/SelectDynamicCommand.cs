@@ -45,10 +45,9 @@ namespace Seasar.Dao.Impl
         public override object Execute(object[] args)
         {
             ICommandContext ctx = Apply(args);
-            ISelectHandler selectHandler = new BasicSelectHandler(DataSource,
-                ctx.Sql, dataReaderHandler, CommandFactory,
-                dataReaderFactory);
-            return selectHandler.Execute(ctx.BindVariables, ctx.BindVariableTypes);
+            ISelectHandler handler = new BasicSelectHandler(DataSource,
+                ctx.Sql, dataReaderHandler, CommandFactory, dataReaderFactory);
+            return handler.Execute(ctx.BindVariables, ctx.BindVariableTypes);
         }
     }
 }

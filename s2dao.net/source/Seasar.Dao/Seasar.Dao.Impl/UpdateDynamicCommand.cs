@@ -22,9 +22,6 @@ using Seasar.Extension.ADO.Impl;
 
 namespace Seasar.Dao.Impl
 {
-    /// <summary>
-    /// UpdateDynamicCommand ÇÃäTóvÇÃê‡ñæÇ≈Ç∑ÅB
-    /// </summary>
     public class UpdateDynamicCommand : AbstractDynamicCommand
     {
         public UpdateDynamicCommand(IDataSource dataSource, ICommandFactory commandFactory)
@@ -35,10 +32,9 @@ namespace Seasar.Dao.Impl
         public override object Execute(object[] args)
         {
             ICommandContext ctx = Apply(args);
-            BasicUpdateHandler updateHandler = new BasicUpdateHandler(
+            IUpdateHandler handler = new BasicUpdateHandler(
                 DataSource, ctx.Sql, CommandFactory);
-            return updateHandler.Execute(ctx.BindVariables,
-                ctx.BindVariableTypes, ctx.BindVariableNames);
+            return handler.Execute(ctx.BindVariables, ctx.BindVariableTypes);
         }
     }
 }
