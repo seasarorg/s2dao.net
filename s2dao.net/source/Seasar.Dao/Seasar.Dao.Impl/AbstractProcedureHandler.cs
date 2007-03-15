@@ -37,7 +37,7 @@ namespace Seasar.Dao.Impl
     /// </summary>
     public class AbstractProcedureHandler : BasicHandler
     {
-        private static Logger logger = Logger.GetLogger(typeof(AbstractAutoHandler));
+        private static Logger logger = Logger.GetLogger(typeof(AbstractProcedureHandler));
 
         /// <summary>
         /// ˆø”ƒ^ƒCƒv
