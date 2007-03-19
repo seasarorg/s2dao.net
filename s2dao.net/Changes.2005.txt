@@ -4,6 +4,7 @@
 - [DAONET-48]decimal以外のNullable数値型もIdentityを設定できるようにする
 - [DAONET-49]数字を含む引数をDaoのメソッドに渡すとJScriptEvaluateRuntimeExceptionが発生する問題を修正する
 - [DAONET-50]IDbCommand.CommandTimeoutプロパティの設定をDiconファイルから設定可能にする
+- [DAONET-51]負数を含むSQLコメントで負数の評価が正しく行われない
 
 S2Dao.NET 1.0.3
 2007/1/15
