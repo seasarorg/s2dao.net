@@ -80,7 +80,7 @@ namespace Seasar.Dao.Impl
                     }
                     BindParamters(cmd, args, ArgumentTypes, ArgumentNames, ArgumentDirection);
 
-                    CommandUtil.ExecuteNonQuery(DataSource, cmd);
+                    CommandFactory.ExecuteNonQuery(DataSource, cmd);
 
                     // •Ô‚è’l‚ðŽæ“¾‚·‚é
                     for (int j = 0; j < outParamNames.Length; j++)
@@ -122,7 +122,7 @@ namespace Seasar.Dao.Impl
             IDbCommand cmd = GetCommand(conn, ProcedureName);
             BindParamters(cmd, args, ArgumentTypes, ArgumentNames, ArgumentDirection);
 
-            IDataReader reader = CommandUtil.ExecuteReader(DataSource, cmd);
+            IDataReader reader = CommandFactory.ExecuteReader(DataSource, cmd);
             DataTable dt = reader.GetSchemaTable();
             int i = 0;
             string[] outParamNames = new string[dt.Rows.Count];

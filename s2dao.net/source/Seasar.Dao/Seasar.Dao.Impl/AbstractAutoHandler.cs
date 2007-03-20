@@ -142,7 +142,7 @@ namespace Seasar.Dao.Impl
             try
             {
                 BindArgs(cmd, bindVariables, bindVariableTypes);
-                ret = CommandUtil.ExecuteNonQuery(this.DataSource, cmd);
+                ret = CommandFactory.ExecuteNonQuery(this.DataSource, cmd);
             }
             finally
             {

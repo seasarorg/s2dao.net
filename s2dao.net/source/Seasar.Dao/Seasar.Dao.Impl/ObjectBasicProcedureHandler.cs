@@ -78,7 +78,7 @@ namespace Seasar.Dao.Impl
 
                         BindParamters(cmd, args, ArgumentTypes, ArgumentNames, ArgumentDirection);
 
-                        CommandUtil.ExecuteNonQuery(DataSource, cmd);
+                        CommandFactory.ExecuteNonQuery(DataSource, cmd);
 
                         IDbDataParameter param = (IDbDataParameter) cmd.Parameters[returnParamName];
                         ret = param.Value;
@@ -86,7 +86,7 @@ namespace Seasar.Dao.Impl
                     else
                     {
                         BindParamters(cmd, args, ArgumentTypes, ArgumentNames, ArgumentDirection);
-                        CommandUtil.ExecuteNonQuery(DataSource, cmd);
+                        CommandFactory.ExecuteNonQuery(DataSource, cmd);
                     }
 
                     // OutまたはInOutパラメータ値を取得する
