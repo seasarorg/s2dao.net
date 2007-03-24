@@ -17,7 +17,6 @@
 #endregion
 
 using System;
-using System.Collections;
 using Seasar.Framework.Container;
 using Seasar.Framework.Container.Factory;
 

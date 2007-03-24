@@ -26,11 +26,7 @@ namespace Seasar.Dao.Unit
 {
     public class S2DaoTestCase : S2TestCase
     {
-        private IAnnotationReaderFactory annotationReaderFactory;
-
-        public S2DaoTestCase()
-        {
-        }
+        private IAnnotationReaderFactory _annotationReaderFactory;
 
         protected virtual IDbms Dbms
         {
@@ -72,11 +68,11 @@ namespace Seasar.Dao.Unit
 
         protected virtual IAnnotationReaderFactory GetAnnotationReaderFactory()
         {
-            if (annotationReaderFactory == null)
+            if (_annotationReaderFactory == null)
             {
-                annotationReaderFactory = new FieldAnnotationReaderFactory();
+                _annotationReaderFactory = new FieldAnnotationReaderFactory();
             }
-            return annotationReaderFactory;
+            return _annotationReaderFactory;
         }
     }
 }

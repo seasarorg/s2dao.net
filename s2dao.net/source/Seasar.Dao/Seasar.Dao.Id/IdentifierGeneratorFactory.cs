@@ -26,7 +26,7 @@ namespace Seasar.Dao.Id
 {
     public class IdentifierGeneratorFactory
     {
-        private static Hashtable generatorTypes = new Hashtable();
+        private static readonly Hashtable _generatorTypes = new Hashtable();
 
         static IdentifierGeneratorFactory()
         {
@@ -41,7 +41,7 @@ namespace Seasar.Dao.Id
 
         public static void AddIdentifierGeneratorType(IDType idType, Type type)
         {
-            generatorTypes[idType] = type;
+            _generatorTypes[idType] = type;
         }
 
         public static IIdentifierGenerator CreateIdentifierGenerator(
@@ -66,7 +66,7 @@ namespace Seasar.Dao.Id
 
         protected static Type GetGeneratorType(IDType idType)
         {
-            Type type = (Type) generatorTypes[idType];
+            Type type = (Type) _generatorTypes[idType];
             if (type == null)
             {
                 throw new InvalidOperationException("generatorTypes");

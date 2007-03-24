@@ -22,32 +22,32 @@ namespace Seasar.Dao.Node
 {
     public class IfNode : ContainerNode
     {
-        private string expression;
-        private ElseNode elseNode;
-        private ExpressionUtil expressionUtil;
+        private readonly string _expression;
+        private ElseNode _elseNode;
+        private readonly ExpressionUtil _expressionUtil;
 
         public IfNode(string expression)
         {
-            expressionUtil = new ExpressionUtil();
-            this.expression = expressionUtil.parseExpression(expression);
-            if (this.expression == null)
-                throw new ApplicationException("IllegalBoolExpression=[" + this.expression + "]");
+            _expressionUtil = new ExpressionUtil();
+            _expression = _expressionUtil.parseExpression(expression);
+            if (_expression == null)
+                throw new ApplicationException("IllegalBoolExpression=[" + _expression + "]");
         }
 
         public string Expression
         {
-            get { return this.expression; }
+            get { return _expression; }
         }
 
         public ElseNode ElseNode
         {
-            get { return elseNode; }
-            set { elseNode = value; }
+            get { return _elseNode; }
+            set { _elseNode = value; }
         }
 
         public override void Accept(ICommandContext ctx)
         {
-            object result = InvokeExpression(this.expression, ctx);
+            object result = InvokeExpression(_expression, ctx);
             if (result != null)
             {
                 if (Convert.ToBoolean(result))
@@ -55,15 +55,15 @@ namespace Seasar.Dao.Node
                     base.Accept(ctx);
                     ctx.IsEnabled = true;
                 }
-                else if (elseNode != null)
+                else if (_elseNode != null)
                 {
-                    elseNode.Accept(ctx);
+                    _elseNode.Accept(ctx);
                     ctx.IsEnabled = true;
                 }
             }
             else
             {
-                throw new ApplicationException("IllegalBoolExpression=[" + this.expression + "]");
+                throw new ApplicationException("IllegalBoolExpression=[" + _expression + "]");
             }
         }
     }

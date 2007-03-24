@@ -75,7 +75,7 @@ namespace Seasar.Dao.Tests.Parser
             Assert.AreEqual("job", tokenizer.Token, "4");
             tokenizer.SkipToken();
             Assert.AreEqual(TokenType.COMMENT, tokenizer.Next(), "5");
-            Assert.AreEqual("", tokenizer.Token, "6");
+            Assert.AreEqual(string.Empty, tokenizer.Token, "6");
             Assert.AreEqual(TokenType.EOF, tokenizer.Next(), "7");
         }
 

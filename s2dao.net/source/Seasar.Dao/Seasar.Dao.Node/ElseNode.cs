@@ -16,21 +16,14 @@
  */
 #endregion
 
-using System;
-
 namespace Seasar.Dao.Node
 {
     public class ElseNode : ContainerNode
     {
-        public ElseNode()
-        {
-        }
-
         public override void Accept(ICommandContext ctx)
         {
             base.Accept(ctx);
             ctx.IsEnabled = true;
         }
-
     }
 }

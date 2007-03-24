@@ -16,28 +16,25 @@
  */
 #endregion
 
-using System;
-
 namespace Seasar.Dao.Node
 {
     public class SqlNode : AbstractNode
     {
-        private string sql;
+        private readonly string _sql;
 
         public SqlNode(string sql)
         {
-            this.sql = sql;
+            _sql = sql;
         }
 
         public string Sql
         {
-            get { return sql; }
+            get { return _sql; }
         }
 
         public override void Accept(ICommandContext ctx)
         {
-            ctx.AddSql(sql);
+            ctx.AddSql(_sql);
         }
-
     }
 }

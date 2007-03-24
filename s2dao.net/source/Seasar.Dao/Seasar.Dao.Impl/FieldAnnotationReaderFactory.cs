@@ -22,7 +22,6 @@ namespace Seasar.Dao.Impl
 {
     public class FieldAnnotationReaderFactory : IAnnotationReaderFactory
     {
-
         #region FieldAnnotationReaderFactory ƒƒ“ƒo
 
         public IDaoAnnotationReader CreateDaoAnnotationReader(Type daoBeanType)

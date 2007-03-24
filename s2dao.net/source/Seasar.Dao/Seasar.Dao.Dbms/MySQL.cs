@@ -32,10 +32,7 @@ namespace Seasar.Dao.Dbms
 
         public override KindOfDbms Dbms
         {
-            get
-            {
-                return KindOfDbms.MySQL;
-            }
+            get { return KindOfDbms.MySQL; }
         }
     }
 }

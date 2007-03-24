@@ -25,9 +25,9 @@ namespace Seasar.Dao.Impl
 {
     public abstract class AbstractDynamicCommand : AbstractSqlCommand
     {
-        private INode rootNode;
-        private string[] argNames = new string[0];
-        private Type[] argTypes = new Type[0];
+        private INode _rootNode;
+        private string[] _argNames = new string[0];
+        private Type[] _argTypes = new Type[0];
 
         public AbstractDynamicCommand(IDataSource dataSource, ICommandFactory commandFactory)
             : base(dataSource, commandFactory)
@@ -36,33 +36,30 @@ namespace Seasar.Dao.Impl
 
         public override string Sql
         {
+            get { return base.Sql; }
             set
             {
                 base.Sql = value;
-                rootNode = new SqlParserImpl(value).Parse();
-            }
-            get
-            {
-                return base.Sql;
+                _rootNode = new SqlParserImpl(value).Parse();
             }
         }
 
         public string[] ArgNames
         {
-            get { return argNames; }
-            set { argNames = value; }
+            get { return _argNames; }
+            set { _argNames = value; }
         }
 
         public Type[] ArgTypes
         {
-            get { return argTypes; }
-            set { argTypes = value; }
+            get { return _argTypes; }
+            set { _argTypes = value; }
         }
 
         protected ICommandContext Apply(object[] args)
         {
             ICommandContext ctx = CreateCommandContext(args);
-            rootNode.Accept(ctx);
+            _rootNode.Accept(ctx);
             return ctx;
         }
 
@@ -76,13 +73,13 @@ namespace Seasar.Dao.Impl
                     Type argType = null;
                     if (args[i] != null)
                     {
-                        if (i < argTypes.Length)
-                            argType = argTypes[i];
+                        if (i < _argTypes.Length)
+                            argType = _argTypes[i];
                         else if (args[i] != null)
                             argType = args[i].GetType();
                     }
-                    if (i < argNames.Length)
-                        ctx.AddArg(argNames[i], args[i], argType);
+                    if (i < _argNames.Length)
+                        ctx.AddArg(_argNames[i], args[i], argType);
                     else
                         ctx.AddArg("$" + (i + 1), args[i], argType);
                 }

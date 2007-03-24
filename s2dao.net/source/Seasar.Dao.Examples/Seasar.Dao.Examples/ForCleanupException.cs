@@ -25,8 +25,5 @@ namespace Seasar.Dao.Examples
     /// </summary>
     public class ForCleanupException : Exception
     {
-        public ForCleanupException()
-        {
-        }
     }
 }

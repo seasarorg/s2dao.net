@@ -16,13 +16,12 @@
  */
 #endregion
 
+using System;
 using System.Diagnostics;
-using Seasar.Dao;
-using Seasar.Dao.Dbms;
+using MbUnit.Framework;
+using Nullables;
 using Seasar.Dao.Unit;
 using Seasar.Extension.Unit;
-using MbUnit.Framework;
-using System;
 
 namespace Seasar.Dao.Tests.Impl
 {
@@ -60,7 +59,7 @@ namespace Seasar.Dao.Tests.Impl
                 emp.Empno = 98;
                 emp.Ename = "hoge";
                 emp.Deptno = 1;
-                emp.NullableNextRestDate = Nullables.NullableDateTime.Parse("2000/01/01");
+                emp.NullableNextRestDate = NullableDateTime.Parse("2000/01/01");
                 int count = (int) cmd.Execute(new object[] { emp });
                 Assert.AreEqual(1, count, "2");
             }

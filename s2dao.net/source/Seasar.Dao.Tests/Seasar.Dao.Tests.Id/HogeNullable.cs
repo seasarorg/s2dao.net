@@ -22,97 +22,73 @@ namespace Seasar.Dao.Tests.Id
 {
     public class HogeNullableDecimal
     {
-        private Nullables.NullableDecimal id;
-
-        public HogeNullableDecimal()
-        {
-        }
+        private Nullables.NullableDecimal _id;
 
         [ID(IDType.IDENTITY)]
         public Nullables.NullableDecimal Id
         {
-            set { id = value; }
-            get { return id; }
+            set { _id = value; }
+            get { return _id; }
         }
     }
 
     public class HogeNullableInt16
     {
-        private Nullables.NullableInt16 id;
-
-        public HogeNullableInt16()
-        {
-        }
+        private Nullables.NullableInt16 _id;
 
         [ID(IDType.IDENTITY)]
         public Nullables.NullableInt16 Id
         {
-            set { id = value; }
-            get { return id; }
+            set { _id = value; }
+            get { return _id; }
         }
     }
 
     public class HogeNullableInt32
     {
-        private Nullables.NullableInt32 id;
-
-        public HogeNullableInt32()
-        {
-        }
+        private Nullables.NullableInt32 _id;
 
         [ID(IDType.IDENTITY)]
         public Nullables.NullableInt32 Id
         {
-            set { id = value; }
-            get { return id; }
+            set { _id = value; }
+            get { return _id; }
         }
     }
 
     public class HogeNullableInt64
     {
-        private Nullables.NullableInt64 id;
-
-        public HogeNullableInt64()
-        {
-        }
+        private Nullables.NullableInt64 _id;
 
         [ID(IDType.IDENTITY)]
         public Nullables.NullableInt64 Id
         {
-            set { id = value; }
-            get { return id; }
+            set { _id = value; }
+            get { return _id; }
         }
     }
 
     public class HogeNullableSingle
     {
-        private Nullables.NullableSingle id;
-
-        public HogeNullableSingle()
-        {
-        }
+        private Nullables.NullableSingle _id;
 
         [ID(IDType.IDENTITY)]
         public Nullables.NullableSingle Id
         {
-            set { id = value; }
-            get { return id; }
+            set { _id = value; }
+            get { return _id; }
         }
     }
 
     public class HogeNullableDouble
     {
-        private Nullables.NullableDouble id;
-
-        public HogeNullableDouble()
-        {
-        }
+        private Nullables.NullableDouble _id;
 
         [ID(IDType.IDENTITY)]
         public Nullables.NullableDouble Id
         {
-            set { id = value; }
-            get { return id; }
+            set { _id = value; }
+            get { return _id; }
         }
     }
 }

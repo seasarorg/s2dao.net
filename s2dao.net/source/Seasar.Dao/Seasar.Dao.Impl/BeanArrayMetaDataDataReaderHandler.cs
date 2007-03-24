@@ -16,8 +16,8 @@
  */
 #endregion
 
-using System;
 using System.Collections;
+using System.Data;
 
 namespace Seasar.Dao.Impl
 {
@@ -29,11 +29,10 @@ namespace Seasar.Dao.Impl
         {
         }
 
-        public override object Handle(System.Data.IDataReader dataReader)
+        public override object Handle(IDataReader dataReader)
         {
             ArrayList list = (ArrayList) base.Handle(dataReader);
             return list.ToArray(BeanMetaData.BeanType);
         }
-
     }
 }

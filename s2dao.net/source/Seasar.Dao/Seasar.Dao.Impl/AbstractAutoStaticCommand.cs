@@ -16,7 +16,6 @@
  */
 #endregion
 
-using System;
 using System.Collections;
 using System.Text;
 using Seasar.Extension.ADO;
@@ -169,7 +168,5 @@ namespace Seasar.Dao.Impl
                 buf.Append(" = ?");
             }
         }
-
-
     }
 }

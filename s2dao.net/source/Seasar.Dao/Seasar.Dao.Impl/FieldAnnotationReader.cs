@@ -24,18 +24,18 @@ namespace Seasar.Dao.Impl
 {
     public class FieldAnnotationReader : IDaoAnnotationReader
     {
-        protected Type daoBeanType;
+        protected Type _daoBeanType;
 
         public FieldAnnotationReader(Type daoBeanType)
         {
-            this.daoBeanType = daoBeanType;
+            _daoBeanType = daoBeanType;
         }
 
         #region IDaoAnnotationReader メンバ
 
         public string GetQuery(string name)
         {
-            MethodInfo mi = daoBeanType.GetMethod(name);
+            MethodInfo mi = _daoBeanType.GetMethod(name);
             QueryAttribute queryAttr = AttributeUtil.GetQueryAttribute(mi);
             if (queryAttr != null)
             {
@@ -49,13 +49,13 @@ namespace Seasar.Dao.Impl
 
         public Type GetBeanType()
         {
-            BeanAttribute beanAttr = AttributeUtil.GetBeanAttribute(daoBeanType);
+            BeanAttribute beanAttr = AttributeUtil.GetBeanAttribute(_daoBeanType);
             return beanAttr.BeanType;
         }
 
         public string[] GetNoPersistentProps(string methodName)
         {
-            MethodInfo mi = daoBeanType.GetMethod(methodName);
+            MethodInfo mi = _daoBeanType.GetMethod(methodName);
             NoPersistentPropsAttribute nppAttr = AttributeUtil.GetNoPersistentPropsAttribute(mi);
             if (nppAttr != null)
             {
@@ -69,7 +69,7 @@ namespace Seasar.Dao.Impl
 
         public string[] GetPersistentProps(string methodName)
         {
-            MethodInfo mi = daoBeanType.GetMethod(methodName);
+            MethodInfo mi = _daoBeanType.GetMethod(methodName);
             PersistentPropsAttribute ppAttr = AttributeUtil.GetPersistentPropsAttribute(mi);
             if (ppAttr != null)
             {
@@ -83,7 +83,7 @@ namespace Seasar.Dao.Impl
 
         public string GetSql(string name, IDbms dbms)
         {
-            MethodInfo mi = daoBeanType.GetMethod(name);
+            MethodInfo mi = _daoBeanType.GetMethod(name);
             SqlAttribute[] sqlAttrs = AttributeUtil.GetSqlAttributes(mi);
             SqlAttribute defaultSqlAttr = null;
             foreach (SqlAttribute sqlAttr in sqlAttrs)
@@ -104,7 +104,7 @@ namespace Seasar.Dao.Impl
         /// <returns>プロシージャ名</returns>
         public string GetProcedure(string name)
         {
-            MethodInfo mi = daoBeanType.GetMethod(name);
+            MethodInfo mi = _daoBeanType.GetMethod(name);
             ProcedureAttribute procedureAttribute = AttributeUtil.GetProcedureAttribute(mi);
             if (procedureAttribute != null)
             {

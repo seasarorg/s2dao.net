@@ -26,27 +26,27 @@ namespace Seasar.Dao.Context
 {
     public class CommandContextImpl : ICommandContext
     {
-        private static readonly Logger logger = Logger.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly Logger _logger = Logger.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
 #if NET_1_1
-        Hashtable args = new Hashtable( new CaseInsensitiveHashCodeProvider(), 
+        readonly Hashtable _args = new Hashtable( new CaseInsensitiveHashCodeProvider(), 
             new CaseInsensitiveComparer() );
-        Hashtable argTypes = new Hashtable( new CaseInsensitiveHashCodeProvider(),
+        readonly Hashtable _argTypes = new Hashtable( new CaseInsensitiveHashCodeProvider(),
             new CaseInsensitiveComparer() );
-        Hashtable argNames = new Hashtable( new CaseInsensitiveHashCodeProvider(), 
+        readonly Hashtable _argNames = new Hashtable( new CaseInsensitiveHashCodeProvider(), 
             new CaseInsensitiveComparer() );
 #else
-        Hashtable args = new Hashtable(StringComparer.OrdinalIgnoreCase);
-        Hashtable argTypes = new Hashtable(StringComparer.OrdinalIgnoreCase);
-        Hashtable argNames = new Hashtable(StringComparer.OrdinalIgnoreCase);
+        readonly Hashtable _args = new Hashtable(StringComparer.OrdinalIgnoreCase);
+        readonly Hashtable _argTypes = new Hashtable(StringComparer.OrdinalIgnoreCase);
+        readonly Hashtable _argNames = new Hashtable(StringComparer.OrdinalIgnoreCase);
 #endif
 
-        private StringBuilder sqlBuf = new StringBuilder(100);
-        private IList bindVariables = new ArrayList();
-        private IList bindVariableTypes = new ArrayList();
-        private IList bindVariableNames = new ArrayList();
-        private bool enabled = true;
-        private ICommandContext parent;
+        private readonly StringBuilder _sqlBuf = new StringBuilder(100);
+        private readonly IList _bindVariables = new ArrayList();
+        private readonly IList _bindVariableTypes = new ArrayList();
+        private readonly IList _bindVariableNames = new ArrayList();
+        private bool _enabled = true;
+        private readonly ICommandContext _parent;
 
         public CommandContextImpl()
         {
@@ -54,25 +54,25 @@ namespace Seasar.Dao.Context
 
         public CommandContextImpl(ICommandContext parent)
         {
-            this.parent = parent;
-            this.enabled = false;
+            _parent = parent;
+            _enabled = false;
         }
 
         public object GetArg(string name)
         {
-            if (this.args.ContainsKey(name))
+            if (_args.ContainsKey(name))
             {
-                return this.args[name];
+                return _args[name];
             }
-            else if (this.parent != null)
+            else if (_parent != null)
             {
-                return this.parent.GetArg(name);
+                return _parent.GetArg(name);
             }
             else
             {
                 string[] names = name.Split('.');
-                object value = this.args[names[0]]; ;
-                Type type = this.GetArgType(names[0]);
+                object value = _args[names[0]]; ;
+                Type type = GetArgType(names[0]);
 
                 for (int pos = 1; pos < names.Length; pos++)
                 {
@@ -93,53 +93,53 @@ namespace Seasar.Dao.Context
 
         public Type GetArgType(string name)
         {
-            if (this.argTypes.ContainsKey(name))
+            if (_argTypes.ContainsKey(name))
             {
-                return (Type) this.argTypes[name];
+                return (Type) _argTypes[name];
             }
-            else if (this.parent != null)
+            else if (_parent != null)
             {
-                return this.parent.GetArgType(name);
+                return _parent.GetArgType(name);
             }
             else
             {
-                logger.Log("WDAO0001", new object[] { name });
+                _logger.Log("WDAO0001", new object[] { name });
                 return null;
             }
         }
 
         public void AddArg(string name, object arg, Type argType)
         {
-            if (this.args.ContainsKey(name))
+            if (_args.ContainsKey(name))
             {
-                this.args.Remove(name);
+                _args.Remove(name);
             }
-            this.args.Add(name, arg);
+            _args.Add(name, arg);
 
-            if (this.argTypes.ContainsKey(name))
+            if (_argTypes.ContainsKey(name))
             {
-                this.argTypes.Remove(name);
+                _argTypes.Remove(name);
             }
-            this.argTypes.Add(name, argType);
+            _argTypes.Add(name, argType);
 
-            if (this.argNames.ContainsKey(name))
+            if (_argNames.ContainsKey(name))
             {
-                this.argNames.Remove(name);
+                _argNames.Remove(name);
             }
-            this.argNames.Add(name, name);
+            _argNames.Add(name, name);
         }
 
         public string Sql
         {
-            get { return this.sqlBuf.ToString(); }
+            get { return _sqlBuf.ToString(); }
         }
 
         public object[] BindVariables
         {
             get
             {
-                object[] variables = new object[this.bindVariables.Count];
-                this.bindVariables.CopyTo(variables, 0);
+                object[] variables = new object[_bindVariables.Count];
+                _bindVariables.CopyTo(variables, 0);
                 return variables;
             }
         }
@@ -148,8 +148,8 @@ namespace Seasar.Dao.Context
         {
             get
             {
-                Type[] variables = new Type[this.bindVariableTypes.Count];
-                this.bindVariableTypes.CopyTo(variables, 0);
+                Type[] variables = new Type[_bindVariableTypes.Count];
+                _bindVariableTypes.CopyTo(variables, 0);
                 return variables;
             }
         }
@@ -158,15 +158,15 @@ namespace Seasar.Dao.Context
         {
             get
             {
-                string[] variableNames = new string[this.bindVariableNames.Count];
-                this.bindVariableNames.CopyTo(variableNames, 0);
+                string[] variableNames = new string[_bindVariableNames.Count];
+                _bindVariableNames.CopyTo(variableNames, 0);
                 return variableNames;
             }
         }
 
         public ICommandContext AddSql(string sql)
         {
-            this.sqlBuf.Append(sql);
+            _sqlBuf.Append(sql);
             return this;
         }
 
@@ -174,10 +174,10 @@ namespace Seasar.Dao.Context
             Type bindVariableType, string bindVariableName)
         {
 
-            this.sqlBuf.Append(sql);
-            this.bindVariables.Add(bindVariable);
-            this.bindVariableTypes.Add(bindVariableType);
-            this.bindVariableNames.Add(bindVariableName);
+            _sqlBuf.Append(sql);
+            _bindVariables.Add(bindVariable);
+            _bindVariableTypes.Add(bindVariableType);
+            _bindVariableNames.Add(bindVariableName);
             return this;
         }
 
@@ -191,12 +191,12 @@ namespace Seasar.Dao.Context
             Type[] bindVariableTypes, string[] bindVariableNames)
         {
 
-            this.sqlBuf.Append(sql);
+            _sqlBuf.Append(sql);
             for (int i = 0; i < bindVariables.Length; ++i)
             {
-                this.bindVariables.Add(bindVariables[i]);
-                this.bindVariableTypes.Add(bindVariableTypes[i]);
-                this.bindVariableNames.Add(bindVariableNames[i]);
+                _bindVariables.Add(bindVariables[i]);
+                _bindVariableTypes.Add(bindVariableTypes[i]);
+                _bindVariableNames.Add(bindVariableNames[i]);
             }
             return this;
         }
@@ -209,9 +209,8 @@ namespace Seasar.Dao.Context
 
         public bool IsEnabled
         {
-            get { return this.enabled; }
-            set { this.enabled = value; }
-
+            get { return _enabled; }
+            set { _enabled = value; }
         }
     }
 }

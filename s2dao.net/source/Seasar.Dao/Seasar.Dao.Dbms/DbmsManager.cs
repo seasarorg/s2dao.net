@@ -28,11 +28,11 @@ namespace Seasar.Dao.Dbms
 {
     public sealed class DbmsManager
     {
-        private static ResourceManager resourceManager;
+        private static readonly ResourceManager _resourceManager;
 
         static DbmsManager()
         {
-            resourceManager = new ResourceManager(
+            _resourceManager = new ResourceManager(
                 "Dbms", Assembly.GetExecutingAssembly());
         }
 
@@ -46,7 +46,7 @@ namespace Seasar.Dao.Dbms
             IDbConnection cn = dataSource.GetConnection();
 
             //IDbmsの実装クラスを取得するためのKey
-            string dbmsKey = null;
+            string dbmsKey;
 
             if (cn is OleDbConnection)
             {
@@ -79,7 +79,7 @@ namespace Seasar.Dao.Dbms
         public static IDbms GetDbms(string dbmsKey)
         {
             // Dbms.resxからIDbmsの実装クラス名を取得する
-            string typeName = resourceManager.GetString(dbmsKey);
+            string typeName = _resourceManager.GetString(dbmsKey);
 
             // IDbms実装クラスのTypeを取得する
             // Dbms.resxに対応するIDbms実装クラスが無い場合は、標準のStandardを使用する

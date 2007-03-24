@@ -30,32 +30,32 @@ namespace Seasar.Extension.UI
     {
         private delegate void WriteEventHandler(String s);
 
-        private TextBoxBase textBox;
+        private readonly TextBoxBase _textBox;
         private WriteEventHandler WriteEvent;
 
         public TextAppender(TextBoxBase textBox)
         {
-            this.textBox = textBox;
-            this.textBox.HandleCreated += new EventHandler(OnHandleCreated);
-            this.textBox.HandleDestroyed += new EventHandler(OnHandleDestroyed);
+            _textBox = textBox;
+            _textBox.HandleCreated += new EventHandler(OnHandleCreated);
+            _textBox.HandleDestroyed += new EventHandler(OnHandleDestroyed);
 
-            this.WriteEvent = new WriteEventHandler(BufferText);
+            WriteEvent = new WriteEventHandler(BufferText);
         }
 
         private void OnHandleCreated(object sender, EventArgs e)
         {
-            this.textBox.AppendText(base.ToString()); // 既にバッファリングされている文字列を書き込む。
-            this.WriteEvent = new WriteEventHandler(AppendText);
+            _textBox.AppendText(base.ToString()); // 既にバッファリングされている文字列を書き込む。
+            WriteEvent = new WriteEventHandler(AppendText);
         }
 
         private void OnHandleDestroyed(object sender, EventArgs e)
         {
-            this.WriteEvent = new WriteEventHandler(DoNothing);
+            WriteEvent = new WriteEventHandler(DoNothing);
         }
 
         public override void Write(String s)
         {
-            this.WriteEvent(s);
+            WriteEvent(s);
         }
 
         private void BufferText(string s)
@@ -65,12 +65,13 @@ namespace Seasar.Extension.UI
 
         private void AppendText(string s)
         {
-            this.textBox.AppendText(s);
+            _textBox.AppendText(s);
         }
 
         private void DoNothing(string s)
         {
         }
+
         public override void WriteLine(string s)
         {
             Write(s + base.NewLine);

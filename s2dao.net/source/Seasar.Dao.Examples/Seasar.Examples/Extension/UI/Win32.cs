@@ -16,10 +16,7 @@
  */
 #endregion
 
-using System;
-using System.Runtime;
 using System.Runtime.InteropServices;
-
 using HWND = System.IntPtr;
 
 namespace Seasar.Extension.UI
@@ -47,7 +44,7 @@ namespace Seasar.Extension.UI
             public int y;
         }
 
-        [DllImport("user32")] public static extern int SendMessage(HWND hwnd, int wMsg, int wParam, IntPtr lParam);
+        [DllImport("user32")] public static extern int SendMessage(HWND hwnd, int wMsg, int wParam, HWND lParam);
         [DllImport("user32")] public static extern int PostMessage(HWND hwnd, int wMsg, int wParam, int lParam);
     }
 }

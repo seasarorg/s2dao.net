@@ -16,36 +16,33 @@
  */
 #endregion
 
-using System;
-
 namespace Seasar.Dao.Node
 {
     public class PrefixSqlNode : AbstractNode
     {
-        private string prefix;
-        private string sql;
+        private readonly string _prefix;
+        private readonly string _sql;
 
         public PrefixSqlNode(string prefix, string sql)
         {
-            this.prefix = prefix;
-            this.sql = sql;
+            _prefix = prefix;
+            _sql = sql;
         }
 
         public string Prefix
         {
-            get { return prefix; }
+            get { return _prefix; }
         }
 
         public string Sql
         {
-            get { return sql; }
+            get { return _sql; }
         }
 
         public override void Accept(ICommandContext ctx)
         {
-            if (ctx.IsEnabled) ctx.AddSql(prefix);
-            ctx.AddSql(sql);
+            if (ctx.IsEnabled) ctx.AddSql(_prefix);
+            ctx.AddSql(_sql);
         }
-
     }
 }

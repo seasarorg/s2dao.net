@@ -26,46 +26,46 @@ namespace Seasar.Dao.Impl
 {
     public class DaoMetaDataFactoryImpl : IDaoMetaDataFactory
     {
-        private Hashtable daoMetaDataCache = new Hashtable();
-        private IDataSource dataSource;
-        private ICommandFactory commandFactory;
-        private IDataReaderFactory dataReaderFactory;
-        private IAnnotationReaderFactory readerFactory;
-        private IDatabaseMetaData dbMetaData;
-        protected string sqlFileEncoding = Encoding.Default.WebName;
-        protected string[] insertPrefixes;
-        protected string[] updatePrefixes;
-        protected string[] deletePrefixes;
+        private readonly Hashtable _daoMetaDataCache = new Hashtable();
+        private readonly IDataSource _dataSource;
+        private readonly ICommandFactory _commandFactory;
+        private readonly IDataReaderFactory _dataReaderFactory;
+        private readonly IAnnotationReaderFactory _readerFactory;
+        private readonly IDatabaseMetaData _dbMetaData;
+        protected string _sqlFileEncoding = Encoding.Default.WebName;
+        protected string[] _insertPrefixes;
+        protected string[] _updatePrefixes;
+        protected string[] _deletePrefixes;
 
         public DaoMetaDataFactoryImpl(IDataSource dataSource,
             ICommandFactory commandFactory, IAnnotationReaderFactory readerFactory,
             IDataReaderFactory dataReaderFactory)
         {
-            this.dataSource = dataSource;
-            this.commandFactory = commandFactory;
-            this.readerFactory = readerFactory;
-            this.dataReaderFactory = dataReaderFactory;
-            this.dbMetaData = new DatabaseMetaDataImpl(dataSource);
+            _dataSource = dataSource;
+            _commandFactory = commandFactory;
+            _readerFactory = readerFactory;
+            _dataReaderFactory = dataReaderFactory;
+            _dbMetaData = new DatabaseMetaDataImpl(dataSource);
         }
 
         public string[] InsertPrefixes
         {
-            set { insertPrefixes = value; }
+            set { _insertPrefixes = value; }
         }
 
         public string[] UpdatePrefixes
         {
-            set { updatePrefixes = value; }
+            set { _updatePrefixes = value; }
         }
 
         public string[] DeletePrefixes
         {
-            set { deletePrefixes = value; }
+            set { _deletePrefixes = value; }
         }
 
         public string SqlFileEncoding
         {
-            set { sqlFileEncoding = value; }
+            set { _sqlFileEncoding = value; }
         }
 
         #region IDaoMetaDataFactory ÉÅÉìÉo
@@ -75,13 +75,13 @@ namespace Seasar.Dao.Impl
             lock (this)
             {
                 string key = daoType.FullName;
-                IDaoMetaData dmd = (IDaoMetaData) daoMetaDataCache[key];
+                IDaoMetaData dmd = (IDaoMetaData) _daoMetaDataCache[key];
                 if (dmd != null)
                 {
                     return dmd;
                 }
                 dmd = CreateDaoMetaData(daoType);
-                daoMetaDataCache[key] = dmd;
+                _daoMetaDataCache[key] = dmd;
                 return dmd;
             }
         }
@@ -92,26 +92,26 @@ namespace Seasar.Dao.Impl
         {
             DaoMetaDataImpl dmd = new DaoMetaDataImpl();
             dmd.DaoType = daoType;
-            dmd.DataSource = dataSource;
-            dmd.CommandFactory = commandFactory;
-            dmd.DataReaderFactory = dataReaderFactory;
-            dmd.AnnotationReaderFactory = readerFactory;
-            dmd.DatabaseMetaData = dbMetaData;
-            if (sqlFileEncoding != null)
+            dmd.DataSource = _dataSource;
+            dmd.CommandFactory = _commandFactory;
+            dmd.DataReaderFactory = _dataReaderFactory;
+            dmd.AnnotationReaderFactory = _readerFactory;
+            dmd.DatabaseMetaData = _dbMetaData;
+            if (_sqlFileEncoding != null)
             {
-                dmd.SqlFileEncoding = sqlFileEncoding;
+                dmd.SqlFileEncoding = _sqlFileEncoding;
             }
-            if (insertPrefixes != null)
+            if (_insertPrefixes != null)
             {
-                dmd.InsertPrefixes = insertPrefixes;
+                dmd.InsertPrefixes = _insertPrefixes;
             }
-            if (updatePrefixes != null)
+            if (_updatePrefixes != null)
             {
-                dmd.UpdatePrefixes = updatePrefixes;
+                dmd.UpdatePrefixes = _updatePrefixes;
             }
-            if (deletePrefixes != null)
+            if (_deletePrefixes != null)
             {
-                dmd.DeletePrefixes = deletePrefixes;
+                dmd.DeletePrefixes = _deletePrefixes;
             }
             dmd.Initialize();
             return dmd;

@@ -16,7 +16,6 @@
  */
 #endregion
 
-using System;
 using System.Collections;
 using System.Text;
 
@@ -24,15 +23,11 @@ namespace Seasar.Dao.Dbms
 {
     public class Standard : IDbms
     {
-        private Hashtable autoSelectFromClauseCache = new Hashtable();
-
-        public Standard()
-        {
-        }
+        private readonly Hashtable _autoSelectFromClauseCache = new Hashtable();
 
         public virtual string Suffix
         {
-            get { return ""; }
+            get { return string.Empty; }
         }
 
         public virtual KindOfDbms Dbms
@@ -46,13 +41,13 @@ namespace Seasar.Dao.Dbms
             buf.Append(beanMetaData.AutoSelectList);
             buf.Append(" ");
             string beanName = beanMetaData.BeanType.Name;
-            lock (autoSelectFromClauseCache)
+            lock (_autoSelectFromClauseCache)
             {
-                string fromClause = (string) autoSelectFromClauseCache[beanName];
+                string fromClause = (string) _autoSelectFromClauseCache[beanName];
                 if (fromClause == null)
                 {
-                    fromClause = this.CreateAutoSelectFromClause(beanMetaData);
-                    autoSelectFromClauseCache[beanName] = fromClause;
+                    fromClause = CreateAutoSelectFromClause(beanMetaData);
+                    _autoSelectFromClauseCache[beanName] = fromClause;
                 }
                 buf.Append(fromClause);
             }

@@ -16,7 +16,6 @@
  */
 #endregion
 
-using System;
 using System.Collections;
 using System.Data;
 using System.Reflection;
@@ -118,6 +117,5 @@ namespace Seasar.Dao.Impl
             }
             else return null;
         }
-
     }
 }

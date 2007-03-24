@@ -27,11 +27,11 @@ namespace Seasar.Dao.Examples.AutoInsert
 
     public class AutoInsertLogicImpl : IAutoInsertLogic
     {
-        private IEmployeeDao employeeDao;
+        private readonly IEmployeeDao _employeeDao;
 
         public AutoInsertLogicImpl(IEmployeeDao employeeDao)
         {
-            this.employeeDao = employeeDao;
+            _employeeDao = employeeDao;
         }
 
         #region IAutoInsertLogic メンバ
@@ -40,7 +40,7 @@ namespace Seasar.Dao.Examples.AutoInsert
         {
             // 従業員番号9999の従業員を確認
             int empno = 9999;
-            Employee emp1 = employeeDao.GetEmployeeByEmpno(empno);
+            Employee emp1 = _employeeDao.GetEmployeeByEmpno(empno);
             if (emp1 == null)
             {
                 Console.WriteLine("従業員番号[" + empno + "]の従業員は存在しません。");
@@ -51,11 +51,11 @@ namespace Seasar.Dao.Examples.AutoInsert
             emp2.Empno = empno;
             emp2.Ename = "テスト";
             emp2.Deptnum = 12;
-            int ret = employeeDao.InsertEmployee(emp2);
+            int ret = _employeeDao.InsertEmployee(emp2);
             Console.WriteLine("InsertEmployeeメソッドの戻り値:" + ret);
 
             // 従業員番号9999の従業員を確認
-            Employee emp3 = employeeDao.GetEmployeeByEmpno(empno);
+            Employee emp3 = _employeeDao.GetEmployeeByEmpno(empno);
             Console.WriteLine("従業員番号[" + empno + "]の従業員：" + emp3.ToString());
 
             throw new ForCleanupException();

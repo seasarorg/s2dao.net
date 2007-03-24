@@ -27,116 +27,103 @@ namespace Seasar.Dao.Tests.Impl
     [Table("EMP_NULLABLE")]
     public class EmployeeNullable
     {
-        private long empno;
-
-        private string ename;
-
-        private string job;
-
-        private SqlInt16 mgr;
-
-        private DateTime hiredate = DateTime.Now;
-
-        private SqlSingle sal;
-
-        private SqlSingle comm;
-
-        private int deptno;
-
-        private DateTime tstamp = DateTime.Now;
-
-        private Nullables.NullableDateTime nullableNextRestDate;
-
-        public EmployeeNullable()
-        {
-        }
+        private long _empno;
+        private string _ename;
+        private string _job;
+        private SqlInt16 _mgr;
+        private DateTime _hiredate = DateTime.Now;
+        private SqlSingle _sal;
+        private SqlSingle _comm;
+        private int _deptno;
+        private DateTime _tstamp = DateTime.Now;
+        private Nullables.NullableDateTime _nullableNextRestDate;
 
         public long Empno
         {
-            set { empno = value; }
-            get { return empno; }
+            set { _empno = value; }
+            get { return _empno; }
         }
 
         public string Ename
         {
-            set { ename = value; }
-            get { return ename; }
+            set { _ename = value; }
+            get { return _ename; }
         }
 
         [Column("Job")]
         public string JobName
         {
-            set { job = value; }
-            get { return job; }
+            set { _job = value; }
+            get { return _job; }
         }
 
         public SqlInt16 Mgr
         {
-            set { mgr = value; }
-            get { return mgr; }
+            set { _mgr = value; }
+            get { return _mgr; }
         }
 
         public DateTime HireDate
         {
-            set { hiredate = value; }
-            get { return hiredate; }
+            set { _hiredate = value; }
+            get { return _hiredate; }
         }
 
         public SqlSingle Sal
         {
-            set { sal = value; }
-            get { return sal; }
+            set { _sal = value; }
+            get { return _sal; }
         }
 
         public SqlSingle Comm
         {
-            set { comm = value; }
-            get { return comm; }
+            set { _comm = value; }
+            get { return _comm; }
         }
 
         public int Deptno
         {
-            set { deptno = value; }
-            get { return deptno; }
+            set { _deptno = value; }
+            get { return _deptno; }
         }
 
         public DateTime TStamp
         {
-            set { tstamp = value; }
-            get { return tstamp; }
+            set { _tstamp = value; }
+            get { return _tstamp; }
         }
 
         public Nullables.NullableDateTime NullableNextRestDate
         {
-            set { nullableNextRestDate = value; }
-            get { return nullableNextRestDate; }
+            set { _nullableNextRestDate = value; }
+            get { return _nullableNextRestDate; }
         }
 
         public bool equals(object other)
         {
             if (!(other.GetType() == typeof(EmployeeNullable))) return false;
             EmployeeNullable castOther = (EmployeeNullable) other;
-            return this.Empno == castOther.Empno;
+            return Empno == castOther.Empno;
         }
 
         public int hashCode()
         {
-            return (int) this.Empno;
+            return (int) Empno;
         }
 
         public override string ToString()
         {
             StringBuilder buf = new StringBuilder(50);
-            buf.Append(empno).Append(", ");
-            buf.Append(ename).Append(", ");
-            buf.Append(job).Append(", ");
-            buf.Append(mgr).Append(", ");
-            buf.Append(hiredate).Append(", ");
-            buf.Append(sal).Append(", ");
-            buf.Append(comm).Append(", ");
-            buf.Append(deptno).Append(", ");
-            buf.Append(tstamp).Append(", ");
-            buf.Append(nullableNextRestDate);
+            buf.Append(_empno).Append(", ");
+            buf.Append(_ename).Append(", ");
+            buf.Append(_job).Append(", ");
+            buf.Append(_mgr).Append(", ");
+            buf.Append(_hiredate).Append(", ");
+            buf.Append(_sal).Append(", ");
+            buf.Append(_comm).Append(", ");
+            buf.Append(_deptno).Append(", ");
+            buf.Append(_tstamp).Append(", ");
+            buf.Append(_nullableNextRestDate);
             return buf.ToString();
         }
     }

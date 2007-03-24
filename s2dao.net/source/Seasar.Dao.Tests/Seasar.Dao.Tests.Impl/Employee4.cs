@@ -25,81 +25,69 @@ namespace Seasar.Dao.Tests.Impl
     [Table("EMP")]
     public class Employee4
     {
-        private long empno;
-
-        private string ename;
-
-        private string job;
-
-        private SqlInt16 mgr;
-
-        private DateTime hiredate;
-
-        private float sal;
-
-        private float comm;
-
-        private int deptno;
-
-        private Employee4 parent;
-
-        public Employee4()
-        {
-        }
+        private long _empno;
+        private string _ename;
+        private string _job;
+        private SqlInt16 _mgr;
+        private DateTime _hiredate;
+        private float _sal;
+        private float _comm;
+        private int _deptno;
+        private Employee4 _parent;
 
         public long Empno
         {
-            set { empno = value; }
-            get { return empno; }
+            set { _empno = value; }
+            get { return _empno; }
         }
 
         public string Ename
         {
-            set { ename = value; }
-            get { return ename; }
+            set { _ename = value; }
+            get { return _ename; }
         }
 
         public string Job
         {
-            set { job = value; }
-            get { return job; }
+            set { _job = value; }
+            get { return _job; }
         }
 
         public SqlInt16 Mgr
         {
-            set { mgr = value; }
-            get { return mgr; }
+            set { _mgr = value; }
+            get { return _mgr; }
         }
 
         public DateTime Hiredate
         {
-            set { hiredate = value; }
-            get { return hiredate; }
+            set { _hiredate = value; }
+            get { return _hiredate; }
         }
 
         public float Sal
         {
-            set { sal = value; }
-            get { return sal; }
+            set { _sal = value; }
+            get { return _sal; }
         }
 
         public float Comm
         {
-            set { comm = value; }
-            get { return comm; }
+            set { _comm = value; }
+            get { return _comm; }
         }
 
         public int Deptno
         {
-            set { deptno = value; }
-            get { return deptno; }
+            set { _deptno = value; }
+            get { return _deptno; }
         }
 
         [Relno(0), Relkeys("mgr:empno")]
         public Employee4 Parent
         {
-            set { parent = value; }
-            get { return parent; }
+            set { _parent = value; }
+            get { return _parent; }
         }
     }
 }

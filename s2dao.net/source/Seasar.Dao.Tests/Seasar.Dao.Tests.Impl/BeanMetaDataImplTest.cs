@@ -19,12 +19,11 @@
 using System;
 using System.Data.SqlTypes;
 using System.Diagnostics;
+using MbUnit.Framework;
 using Seasar.Dao.Attrs;
-using Seasar.Dao.Impl;
 using Seasar.Dao.Unit;
 using Seasar.Extension.ADO;
 using Seasar.Extension.Unit;
-using MbUnit.Framework;
 
 namespace Seasar.Dao.Tests.Impl
 {
@@ -155,72 +154,72 @@ namespace Seasar.Dao.Tests.Impl
         [Table("MyBean")]
         public class MyBean
         {
-            private SqlInt32 aaa_;
-            private string bbb_;
-            private Ccc ccc_;
-            private SqlInt32 ddd_;
+            private SqlInt32 _aaa;
+            private string _bbb;
+            private Ccc _ccc;
+            private SqlInt32 _ddd;
 
             [ID(IDType.ASSIGNED)]
             public SqlInt32 Aaa
             {
-                get { return aaa_; }
-                set { aaa_ = value; }
+                get { return _aaa; }
+                set { _aaa = value; }
             }
 
             [Column("myBbb")]
             public string Bbb
             {
-                get { return bbb_; }
-                set { bbb_ = value; }
+                get { return _bbb; }
+                set { _bbb = value; }
             }
 
             [Relno(0), Relkeys("ddd:id")]
             public Ccc Cccc
             {
-                get { return ccc_; }
-                set { ccc_ = value; }
+                get { return _ccc; }
+                set { _ccc = value; }
             }
 
             public SqlInt32 Ddd
             {
-                get { return ddd_; }
-                set { ddd_ = value; }
+                get { return _ddd; }
+                set { _ddd = value; }
             }
         }
 
         public class Ccc
         {
-            private SqlInt32 id_;
+            private SqlInt32 _id;
 
             [ID(IDType.ASSIGNED)]
             public SqlInt32 Id
             {
-                get { return id_; }
-                set { id_ = value; }
+                get { return _id; }
+                set { _id = value; }
             }
         }
 
         [NoPersistentProps("")]
         public class Ddd : Ccc
         {
-            private string name_;
+            private string _name;
 
             public string Name
             {
-                get { return name_; }
-                set { name_ = value; }
+                get { return _name; }
+                set { _name = value; }
             }
         }
 
         [NoPersistentProps("name")]
         public class Eee : Ccc
         {
-            private string name_;
+            private string _name;
 
             public string Name
             {
-                get { return name_; }
-                set { name_ = value; }
+                get { return _name; }
+                set { _name = value; }
             }
         }
 
@@ -228,26 +227,26 @@ namespace Seasar.Dao.Tests.Impl
         [TimestampProperty("Updated")]
         public class Fff
         {
-            private int version_;
-            private SqlInt32 id_;
-            private DateTime updated_;
+            private int _version;
+            private SqlInt32 _id;
+            private DateTime _updated;
 
             public SqlInt32 Id
             {
-                get { return id_; }
-                set { id_ = value; }
+                get { return _id; }
+                set { _id = value; }
             }
 
             public int Version
             {
-                get { return version_; }
-                set { version_ = value; }
+                get { return _version; }
+                set { _version = value; }
             }
 
             public DateTime Updated
             {
-                get { return updated_; }
-                set { updated_ = value; }
+                get { return _updated; }
+                set { _updated = value; }
             }
         }
     }

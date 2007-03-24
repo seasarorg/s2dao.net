@@ -24,38 +24,33 @@ namespace Seasar.Dao.Examples
     [Table("DEPT2")]
     public class Department2
     {
-        private NullableInt32 deptno;
-        private string dname;
-        private NullableInt16 active;
-
-        public Department2()
-        {
-        }
+        private NullableInt32 _deptno;
+        private string _dname;
+        private NullableInt16 _active;
 
         public NullableInt32 Deptno
         {
-            set { deptno = value; }
-            get { return deptno; }
+            set { _deptno = value; }
+            get { return _deptno; }
         }
 
         public string Dname
         {
-            set { dname = value; }
-            get { return dname; }
+            set { _dname = value; }
+            get { return _dname; }
         }
 
         public NullableInt16 Active
         {
-            set { active = value; }
-            get { return active; }
+            set { _active = value; }
+            get { return _active; }
         }
 
         public override string ToString()
         {
-            return "deptno=" + (!deptno.HasValue ? "null" : deptno.Value.ToString())
-                + ", dname=" + (dname == null ? "null" : dname)
-                + ", active=" + (!active.HasValue ? "null" : active.Value.ToString());
+            return "deptno=" + (!_deptno.HasValue ? "null" : _deptno.Value.ToString())
+                + ", dname=" + (_dname == null ? "null" : _dname)
+                + ", active=" + (!_active.HasValue ? "null" : _active.Value.ToString());
         }
-
     }
 }

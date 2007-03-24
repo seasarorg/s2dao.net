@@ -29,21 +29,21 @@ namespace Seasar.Dao.Impl
 {
     public abstract class AbstractAutoHandler : BasicHandler, IUpdateHandler
     {
-        private static Logger logger = Logger.GetLogger(typeof(AbstractAutoHandler));
-        private IBeanMetaData beanMetaData;
-        private object[] bindVariables;
-        private Type[] bindVariableTypes;
-        private DateTime timestamp = DateTime.MinValue;
-        private Int32 versionNo = Int32.MinValue;
-        private IPropertyType[] propertyTypes;
+        private static readonly Logger _logger = Logger.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly IBeanMetaData _beanMetaData;
+        private object[] _bindVariables;
+        private Type[] _bindVariableTypes;
+        private DateTime _timestamp = DateTime.MinValue;
+        private Int32 _versionNo = Int32.MinValue;
+        private IPropertyType[] _propertyTypes;
 
         public AbstractAutoHandler(IDataSource dataSource, ICommandFactory commandFactory,
             IBeanMetaData beanMetaData, IPropertyType[] propertyTypes)
         {
-            this.DataSource = dataSource;
-            this.CommandFactory = commandFactory;
-            this.beanMetaData = beanMetaData;
-            this.propertyTypes = propertyTypes;
+            DataSource = dataSource;
+            CommandFactory = commandFactory;
+            _beanMetaData = beanMetaData;
+            _propertyTypes = propertyTypes;
         }
 
         public new IDataSource DataSource
@@ -64,50 +64,49 @@ namespace Seasar.Dao.Impl
 
         public IBeanMetaData BeanMetaData
         {
-            get { return beanMetaData; }
+            get { return _beanMetaData; }
         }
 
         protected static Logger Logger
         {
-            get { return logger; }
+            get { return _logger; }
         }
 
         protected object[] BindVariables
         {
-            get { return bindVariables; }
-            set { bindVariables = value; }
+            get { return _bindVariables; }
+            set { _bindVariables = value; }
         }
 
         protected Type[] BindVariableTypes
         {
-            get { return bindVariableTypes; }
-            set { bindVariableTypes = value; }
+            get { return _bindVariableTypes; }
+            set { _bindVariableTypes = value; }
         }
 
         protected DateTime Timestamp
         {
-            get { return timestamp; }
-            set { timestamp = value; }
+            get { return _timestamp; }
+            set { _timestamp = value; }
         }
 
         protected int VersionNo
         {
-            get { return versionNo; }
-            set { versionNo = value; }
+            get { return _versionNo; }
+            set { _versionNo = value; }
         }
 
         protected IPropertyType[] PropertyTypes
         {
-            get { return propertyTypes; }
-            set { propertyTypes = value; }
+            get { return _propertyTypes; }
+            set { _propertyTypes = value; }
         }
 
         #region IUpdateHandler ÉÅÉìÉo
 
         public int Execute(object[] args)
         {
-            IDbConnection connection = this.Connection;
-
+            IDbConnection connection = Connection;
             try
             {
                 return Execute(connection, args[0]);
@@ -136,13 +135,13 @@ namespace Seasar.Dao.Impl
         {
             PreUpdateBean(bean);
             SetupBindVariables(bean);
-            if (logger.IsDebugEnabled) logger.Debug(GetCompleteSql(bindVariables));
+            if (_logger.IsDebugEnabled) _logger.Debug(GetCompleteSql(_bindVariables));
             IDbCommand cmd = Command(connection);
             int ret = -1;
             try
             {
-                BindArgs(cmd, bindVariables, bindVariableTypes);
-                ret = CommandFactory.ExecuteNonQuery(this.DataSource, cmd);
+                BindArgs(cmd, _bindVariables, _bindVariableTypes);
+                ret = CommandFactory.ExecuteNonQuery(DataSource, cmd);
             }
             finally
             {
@@ -166,18 +165,18 @@ namespace Seasar.Dao.Impl
         {
             ArrayList varList = new ArrayList();
             ArrayList varTypeList = new ArrayList();
-            for (int i = 0; i < propertyTypes.Length; ++i)
+            for (int i = 0; i < _propertyTypes.Length; ++i)
             {
-                IPropertyType pt = propertyTypes[i];
+                IPropertyType pt = _propertyTypes[i];
                 if (string.Compare(pt.PropertyName, BeanMetaData.TimestampPropertyName, true) == 0)
                 {
-                    this.Timestamp = DateTime.Now;
+                    Timestamp = DateTime.Now;
                     SetupTimestampVariableList(varList, pt);
                 }
-                else if (pt.PropertyName.Equals(this.BeanMetaData.VersionNoPropertyName))
+                else if (pt.PropertyName.Equals(BeanMetaData.VersionNoPropertyName))
                 {
-                    this.VersionNo = 0;
-                    varList.Add(this.VersionNo);
+                    VersionNo = 0;
+                    varList.Add(VersionNo);
                 }
                 else
                 {
@@ -193,20 +192,20 @@ namespace Seasar.Dao.Impl
         {
             ArrayList varList = new ArrayList();
             ArrayList varTypeList = new ArrayList();
-            for (int i = 0; i < propertyTypes.Length; ++i)
+            for (int i = 0; i < _propertyTypes.Length; ++i)
             {
-                IPropertyType pt = propertyTypes[i];
+                IPropertyType pt = _propertyTypes[i];
                 if (string.Compare(pt.PropertyName, BeanMetaData.TimestampPropertyName, true) == 0)
                 {
-                    this.Timestamp = DateTime.Now;
+                    Timestamp = DateTime.Now;
                     SetupTimestampVariableList(varList, pt);
                 }
                 else if (string.Compare(pt.PropertyName, BeanMetaData.VersionNoPropertyName, true) == 0)
                 {
                     object value = pt.PropertyInfo.GetValue(bean, null);
                     int intValue = Convert.ToInt32(value) + 1;
-                    this.VersionNo = intValue;
-                    varList.Add(this.VersionNo);
+                    VersionNo = intValue;
+                    varList.Add(VersionNo);
                 }
                 else
                 {
@@ -231,7 +230,7 @@ namespace Seasar.Dao.Impl
         protected void AddAutoUpdateWhereBindVariables(ArrayList varList, ArrayList varTypeList,
             object bean)
         {
-            IBeanMetaData bmd = this.BeanMetaData;
+            IBeanMetaData bmd = BeanMetaData;
             for (int i = 0; i < bmd.PrimaryKeySize; ++i)
             {
                 IPropertyType pt = bmd.GetPropertyTypeByColumnName(bmd.GetPrimaryKey(i));
@@ -277,16 +276,16 @@ namespace Seasar.Dao.Impl
         {
             if (pt.PropertyType == typeof(DateTime))
             {
-                varList.Add(this.Timestamp);
+                varList.Add(Timestamp);
             }
             else if (pt.PropertyType == typeof(Nullables.NullableDateTime))
             {
-                varList.Add(new Nullables.NullableDateTime(this.Timestamp));
+                varList.Add(new Nullables.NullableDateTime(Timestamp));
             }
 #if !NET_1_1
             else if (pt.PropertyType == typeof(DateTime?))
             {
-                varList.Add(this.Timestamp);
+                varList.Add(Timestamp);
             }
 #endif
             else
@@ -303,12 +302,12 @@ namespace Seasar.Dao.Impl
             }
             else if (pi.PropertyType == typeof(Nullables.NullableDateTime))
             {
-                pi.SetValue(bean, new Nullables.NullableDateTime(this.Timestamp), null);
+                pi.SetValue(bean, new Nullables.NullableDateTime(Timestamp), null);
             }
 #if !NET_1_1
             else if (pi.PropertyType == typeof(DateTime?))
             {
-                pi.SetValue(bean, new DateTime?(this.Timestamp), null);
+                pi.SetValue(bean, new DateTime?(Timestamp), null);
             }
 #endif
             else

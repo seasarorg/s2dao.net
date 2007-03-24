@@ -16,8 +16,6 @@
  */
 #endregion
 
-using System;
-using System.Collections;
 using Seasar.Dao.Attrs;
 
 namespace Seasar.Dao.Examples.SqlAttr

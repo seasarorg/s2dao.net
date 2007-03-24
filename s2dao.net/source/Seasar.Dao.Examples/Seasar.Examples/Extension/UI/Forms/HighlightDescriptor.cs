@@ -85,5 +85,4 @@ namespace Seasar.Extension.UI.Forms
         /// </summary>
         Contains
     }
-
 }

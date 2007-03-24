@@ -31,7 +31,7 @@ namespace Seasar.Dao.Attrs
         /// <summary>
         /// プロシージャ名
         /// </summary>
-        private string _procedureName;
+        private readonly string _procedureName;
 
         /// <summary>
         /// コンストラクタ

@@ -16,7 +16,6 @@
  */
 #endregion
 
-using System;
 using System.Reflection;
 using Seasar.Extension.ADO;
 
@@ -27,34 +26,32 @@ namespace Seasar.Dao.Impl
     /// </summary>
     public class ColumnMetaDataImpl : IColumnMetaData
     {
-        private string columnName;
-
-        private PropertyInfo propertyInfo;
-
-        private IValueType valueType;
+        private readonly string _columnName;
+        private readonly PropertyInfo _propertyInfo;
+        private readonly IValueType _valueType;
 
         public ColumnMetaDataImpl(IPropertyType propertyType, string columnName)
         {
-            this.valueType = propertyType.ValueType;
-            this.propertyInfo = propertyType.PropertyInfo;
-            this.columnName = columnName;
+            _valueType = propertyType.ValueType;
+            _propertyInfo = propertyType.PropertyInfo;
+            _columnName = columnName;
         }
 
         #region IColumnMetaData ÉÅÉìÉo
 
         public string ColumnName
         {
-            get { return columnName; }
+            get { return _columnName; }
         }
 
         public PropertyInfo PropertyInfo
         {
-            get { return propertyInfo; }
+            get { return _propertyInfo; }
         }
 
         public IValueType ValueType
         {
-            get { return valueType; }
+            get { return _valueType; }
         }
 
         #endregion

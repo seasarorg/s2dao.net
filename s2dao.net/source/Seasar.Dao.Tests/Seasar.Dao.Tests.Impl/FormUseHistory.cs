@@ -16,7 +16,6 @@
  */
 #endregion
 
-using System;
 using System.Text;
 using Seasar.Dao.Attrs;
 
@@ -26,53 +25,53 @@ namespace Seasar.Dao.Tests.Impl
     public class FormUseHistory
     {
         /** WEBユーザコード */
-        private string webUserCode;
+        private string _webUserCode;
 
         /** WEB画面ID */
-        private string webFormId;
+        private string _webFormId;
 
         /** 参照タイムスタンプ */
         //      private java.sql.Timestamp referenceTimestamp;
 
         /** 参照ホストIP */
-        private string referenceHostIp;
+        private string _referenceHostIp;
 
         [Column("W_USER_CD")]
         public string WebUserCode
         {
-            set { this.webUserCode = value; }
-            get { return this.webUserCode; }
+            set { _webUserCode = value; }
+            get { return _webUserCode; }
         }
 
         [Column("W_FORM_ID")]
         public string WebFormId
         {
-            set { this.webFormId = value; }
-            get { return this.webFormId; }
+            set { _webFormId = value; }
+            get { return _webFormId; }
         }
 
         //        [Column("REF_TIMESTAMP")]
         //        public timestamp ReferenceTimestamp
         //        {
-        //            set { this.referenceTimestamp = value; }
-        //            get { return this.referenceTimestamp; }
+        //            set { referenceTimestamp = value; }
+        //            get { return referenceTimestamp; }
         //        }
 
 
         [Column("REF_HOST_IP")]
         public string ReferenceHostIp
         {
-            set { this.referenceHostIp = value; }
-            get { return this.referenceHostIp; }
+            set { _referenceHostIp = value; }
+            get { return _referenceHostIp; }
         }
 
         public override string ToString()
         {
             StringBuilder buffer = new StringBuilder();
-            buffer.Append("webUserCode[").Append(this.webUserCode).Append("]");
-            buffer.Append("webFormId[").Append(this.webFormId).Append("]");
-            //          buffer.Append("referenceTimestamp[").Append(this.referenceTimestamp).Append("]");
-            buffer.Append("referenceHostIp[").Append(this.referenceHostIp).Append("]");
+            buffer.Append("webUserCode[").Append(_webUserCode).Append("]");
+            buffer.Append("webFormId[").Append(_webFormId).Append("]");
+            //          buffer.Append("referenceTimestamp[").Append(referenceTimestamp).Append("]");
+            buffer.Append("referenceHostIp[").Append(_referenceHostIp).Append("]");
             return buffer.ToString();
         }
     }

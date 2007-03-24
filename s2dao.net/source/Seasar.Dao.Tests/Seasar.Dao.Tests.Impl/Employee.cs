@@ -16,9 +16,8 @@
  */
 #endregion
 
-using System;
-using System.Text;
 using System.Data.SqlTypes;
+using System.Text;
 using Seasar.Dao.Attrs;
 
 namespace Seasar.Dao.Tests.Impl
@@ -26,57 +25,42 @@ namespace Seasar.Dao.Tests.Impl
     [Table("EMP")]
     public class Employee
     {
-        private long empno;
-
-        private string ename;
-
-        private string job;
-
-        private SqlInt16 mgr;
-
+        private long _empno;
+        private string _ename;
+        private string _job;
+        private SqlInt16 _mgr;
         //        private SqlDateTime hiredate;
-
-        private SqlSingle sal;
-
-        private SqlSingle comm;
-
-        private int deptno;
-
-        private byte[] password;
-
-        private string dummy;
-
-        private Department department;
-
+        private SqlSingle _sal;
+        private SqlSingle _comm;
+        private int _deptno;
+        private byte[] _password;
+        private string _dummy;
+        private Department _department;
         //        private SqlDateTime timestamp;
-
-        public Employee()
-        {
-        }
 
         public long Empno
         {
-            set { empno = value; }
-            get { return empno; }
+            set { _empno = value; }
+            get { return _empno; }
         }
 
         public string Ename
         {
-            set { ename = value; }
-            get { return ename; }
+            set { _ename = value; }
+            get { return _ename; }
         }
 
         [Column("Job")]
         public string JobName
         {
-            set { job = value; }
-            get { return job; }
+            set { _job = value; }
+            get { return _job; }
         }
 
         public SqlInt16 Mgr
         {
-            set { mgr = value; }
-            get { return mgr; }
+            set { _mgr = value; }
+            get { return _mgr; }
         }
 
         //        public SqlDateTime Hiredate
@@ -87,39 +71,39 @@ namespace Seasar.Dao.Tests.Impl
 
         public SqlSingle Sal
         {
-            set { sal = value; }
-            get { return sal; }
+            set { _sal = value; }
+            get { return _sal; }
         }
 
         public SqlSingle Comm
         {
-            set { comm = value; }
-            get { return comm; }
+            set { _comm = value; }
+            get { return _comm; }
         }
 
         public int Deptno
         {
-            set { deptno = value; }
-            get { return deptno; }
+            set { _deptno = value; }
+            get { return _deptno; }
         }
 
         public byte[] Password
         {
-            set { password = value; }
-            get { return password; }
+            set { _password = value; }
+            get { return _password; }
         }
 
         public string Dummy
         {
-            set { dummy = value; }
-            get { return dummy; }
+            set { _dummy = value; }
+            get { return _dummy; }
         }
 
         [Relno(0)]
         public Department Department
         {
-            set { department = value; }
-            get { return department; }
+            set { _department = value; }
+            get { return _department; }
         }
 
         //        [Column("tstamp")]
@@ -133,27 +117,27 @@ namespace Seasar.Dao.Tests.Impl
         {
             if (!(other.GetType() == typeof(Employee))) return false;
             Employee castOther = (Employee) other;
-            return this.Empno == castOther.Empno;
+            return Empno == castOther.Empno;
         }
 
         public int hashCode()
         {
-            return (int) this.Empno;
+            return (int) Empno;
         }
 
         public override string ToString()
         {
             StringBuilder buf = new StringBuilder(50);
-            buf.Append(empno).Append(", ");
-            buf.Append(ename).Append(", ");
-            buf.Append(job).Append(", ");
-            buf.Append(mgr).Append(", ");
+            buf.Append(_empno).Append(", ");
+            buf.Append(_ename).Append(", ");
+            buf.Append(_job).Append(", ");
+            buf.Append(_mgr).Append(", ");
             //            buf.Append(hiredate).Append(", ");
-            buf.Append(sal).Append(", ");
-            buf.Append(comm).Append(", ");
-            buf.Append(deptno).Append(", ");
+            buf.Append(_sal).Append(", ");
+            buf.Append(_comm).Append(", ");
+            buf.Append(_deptno).Append(", ");
             //            buf.Append(timestamp).Append(", ");
-            buf.Append(department);
+            buf.Append(_department);
             return buf.ToString();
         }
     }

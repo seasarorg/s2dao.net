@@ -23,38 +23,38 @@ namespace Seasar.Dao.Impl
 {
     public abstract class AbstractSqlCommand : ISqlCommand
     {
-        private IDataSource dataSource;
-        private ICommandFactory commandFactory;
-        private string sql;
-        private Type notSingleRowUpdatedExceptionType;
+        private readonly IDataSource _dataSource;
+        private readonly ICommandFactory _commandFactory;
+        private string _sql;
+        private Type _notSingleRowUpdatedExceptionType;
 
         public AbstractSqlCommand(IDataSource dataSource,
             ICommandFactory commandFactory)
         {
-            this.dataSource = dataSource;
-            this.commandFactory = commandFactory;
+            _dataSource = dataSource;
+            _commandFactory = commandFactory;
         }
 
         public IDataSource DataSource
         {
-            get { return dataSource; }
+            get { return _dataSource; }
         }
 
         public ICommandFactory CommandFactory
         {
-            get { return commandFactory; }
+            get { return _commandFactory; }
         }
 
         public virtual string Sql
         {
-            get { return sql; }
-            set { sql = value; }
+            get { return _sql; }
+            set { _sql = value; }
         }
 
         public Type NotSingleRowUpdatedExceptionType
         {
-            get { return notSingleRowUpdatedExceptionType; }
-            set { notSingleRowUpdatedExceptionType = value; }
+            get { return _notSingleRowUpdatedExceptionType; }
+            set { _notSingleRowUpdatedExceptionType = value; }
         }
 
         #region ISqlCommand ÉÅÉìÉo

@@ -23,10 +23,6 @@ namespace Seasar.Dao.Tests.Interceptors
         private string _val;
         private Hoge _parent;
 
-        public Hoge()
-        {
-        }
-
         public string Val
         {
             set { _val = value; }

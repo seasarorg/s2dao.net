@@ -24,23 +24,23 @@ namespace Seasar.Dao.Node
 {
     public class BindVariableNode : AbstractNode
     {
-        private static readonly Logger logger = Logger.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly Logger _logger = Logger.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        private string expression;
+        private readonly string _expression;
 
         public BindVariableNode(string expression)
         {
-            this.expression = expression;
+            _expression = expression;
         }
 
         public string Expression
         {
-            get { return expression; }
+            get { return _expression; }
         }
 
         public override void Accept(ICommandContext ctx)
         {
-            object value = ctx.GetArg(expression);
+            object value = ctx.GetArg(_expression);
             Type type = null;
             if (value != null)
             {
@@ -48,9 +48,9 @@ namespace Seasar.Dao.Node
             }
             else
             {
-                logger.Log("WDAO0001", new object[] { expression });
+                _logger.Log("WDAO0001", new object[] { _expression });
             }
-            ctx.AddSql(value, type, expression.Replace('.', '_'));
+            ctx.AddSql(value, type, _expression.Replace('.', '_'));
         }
     }
 }

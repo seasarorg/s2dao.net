@@ -19,7 +19,6 @@
 using System;
 using System.Collections;
 using System.Reflection;
-using Seasar.Dao.Attrs;
 using Seasar.Extension.ADO;
 using Seasar.Extension.ADO.Impl;
 using Seasar.Extension.ADO.Types;
@@ -29,17 +28,17 @@ namespace Seasar.Dao.Impl
 {
     public class DtoMetaDataImpl : IDtoMetaData
     {
-        private Type beanType;
+        private Type _beanType;
 
 #if NET_1_1
-        private Hashtable propertyTypes = new Hashtable(
+        private readonly Hashtable _propertyTypes = new Hashtable(
             CaseInsensitiveHashCodeProvider.Default, CaseInsensitiveComparer.Default);
 #else
-        private Hashtable propertyTypes = new Hashtable(
+        private readonly Hashtable _propertyTypes = new Hashtable(
             StringComparer.OrdinalIgnoreCase);
 #endif
 
-        protected IBeanAnnotationReader beanAnnotationReader;
+        protected IBeanAnnotationReader _beanAnnotationReader;
 
         protected DtoMetaDataImpl()
         {
@@ -63,11 +62,11 @@ namespace Seasar.Dao.Impl
         {
             get
             {
-                return beanType;
+                return _beanType;
             }
             set
             {
-                beanType = value;
+                _beanType = value;
             }
         }
 
@@ -75,40 +74,40 @@ namespace Seasar.Dao.Impl
         {
             get
             {
-                return propertyTypes.Count;
+                return _propertyTypes.Count;
             }
         }
 
         public IBeanAnnotationReader BeanAnnotationReader
         {
-            set { beanAnnotationReader = value; }
+            set { _beanAnnotationReader = value; }
         }
 
-        public Seasar.Extension.ADO.IPropertyType GetPropertyType(int index)
+        public IPropertyType GetPropertyType(int index)
         {
-            IEnumerator enu = propertyTypes.Keys.GetEnumerator();
+            IEnumerator enu = _propertyTypes.Keys.GetEnumerator();
             for (int i = -1; i < index; ++i) enu.MoveNext();
-            return (IPropertyType) propertyTypes[enu.Current];
+            return (IPropertyType) _propertyTypes[enu.Current];
         }
 
         public IPropertyType GetPropertyType(string propertyName)
         {
-            IPropertyType propertyType = (IPropertyType) propertyTypes[propertyName];
+            IPropertyType propertyType = (IPropertyType) _propertyTypes[propertyName];
             if (propertyType == null)
-                throw new PropertyNotFoundRuntimeException(beanType, propertyName);
+                throw new PropertyNotFoundRuntimeException(_beanType, propertyName);
             return propertyType;
         }
 
         public bool HasPropertyType(string propertyName)
         {
-            return propertyTypes.Contains(propertyName);
+            return _propertyTypes.Contains(propertyName);
         }
 
         #endregion
 
         protected void SetupPropertyType()
         {
-            foreach (PropertyInfo pi in beanType.GetProperties())
+            foreach (PropertyInfo pi in _beanType.GetProperties())
             {
                 IPropertyType pt = CreatePropertyType(pi);
                 AddPropertyType(pt);
@@ -117,7 +116,7 @@ namespace Seasar.Dao.Impl
 
         protected IPropertyType CreatePropertyType(PropertyInfo pi)
         {
-            string columnName = beanAnnotationReader.GetColumn(pi);
+            string columnName = _beanAnnotationReader.GetColumn(pi);
             if (columnName == null)
             {
                 columnName = pi.Name;
@@ -129,7 +128,7 @@ namespace Seasar.Dao.Impl
 
         protected void AddPropertyType(IPropertyType propertyType)
         {
-            propertyTypes.Add(propertyType.PropertyName, propertyType);
+            _propertyTypes.Add(propertyType.PropertyName, propertyType);
         }
     }
 }

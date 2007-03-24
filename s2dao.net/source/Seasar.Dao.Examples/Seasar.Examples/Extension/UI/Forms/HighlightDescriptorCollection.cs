@@ -26,14 +26,15 @@ namespace Seasar.Extension.UI.Forms
     /// </summary>
     public class HighLightDescriptorCollection
     {
-        private ArrayList mInnerList = new ArrayList();
+        private readonly ArrayList _mInnerList = new ArrayList();
+
         internal HighLightDescriptorCollection()
         {
         }
 
         public void AddRange(ICollection c)
         {
-            mInnerList.AddRange(c);
+            _mInnerList.AddRange(c);
         }
 
 
@@ -43,7 +44,7 @@ namespace Seasar.Extension.UI.Forms
         {
             get
             {
-                return mInnerList.IsReadOnly;
+                return _mInnerList.IsReadOnly;
             }
         }
 
@@ -51,54 +52,54 @@ namespace Seasar.Extension.UI.Forms
         {
             get
             {
-                return (HighlightDescriptor)mInnerList[index];
+                return (HighlightDescriptor)_mInnerList[index];
             }
             set
             {
-                mInnerList[index] = value;
+                _mInnerList[index] = value;
             }
         }
 
         public void RemoveAt(int index)
         {
-            mInnerList.RemoveAt(index);
+            _mInnerList.RemoveAt(index);
         }
 
         public void Insert(int index, HighlightDescriptor value)
         {
-            mInnerList.Insert(index, value);
+            _mInnerList.Insert(index, value);
         }
 
         public void Remove(HighlightDescriptor value)
         {
-            mInnerList.Remove(value);
+            _mInnerList.Remove(value);
         }
 
         public bool Contains(HighlightDescriptor value)
         {
-            return mInnerList.Contains(value);
+            return _mInnerList.Contains(value);
         }
 
         public void Clear()
         {
-            mInnerList.Clear();
+            _mInnerList.Clear();
         }
 
         public int IndexOf(HighlightDescriptor value)
         {
-            return mInnerList.IndexOf(value);
+            return _mInnerList.IndexOf(value);
         }
 
         public int Add(HighlightDescriptor value)
         {
-            return mInnerList.Add(value);
+            return _mInnerList.Add(value);
         }
 
         public bool IsFixedSize
         {
             get
             {
-                return mInnerList.IsFixedSize;
+                return _mInnerList.IsFixedSize;
             }
         }
 
@@ -110,7 +111,7 @@ namespace Seasar.Extension.UI.Forms
         {
             get
             {
-                return mInnerList.IsSynchronized;
+                return _mInnerList.IsSynchronized;
             }
         }
 
@@ -118,20 +119,20 @@ namespace Seasar.Extension.UI.Forms
         {
             get
             {
-                return mInnerList.Count;
+                return _mInnerList.Count;
             }
         }
 
         public void CopyTo(Array array, int index)
         {
-            mInnerList.CopyTo(array, index);
+            _mInnerList.CopyTo(array, index);
         }
 
         public object SyncRoot
         {
             get
             {
-                return mInnerList.SyncRoot;
+                return _mInnerList.SyncRoot;
             }
         }
 
@@ -141,7 +142,7 @@ namespace Seasar.Extension.UI.Forms
 
         public IEnumerator GetEnumerator()
         {
-            return mInnerList.GetEnumerator();
+            return _mInnerList.GetEnumerator();
         }
 
         #endregion

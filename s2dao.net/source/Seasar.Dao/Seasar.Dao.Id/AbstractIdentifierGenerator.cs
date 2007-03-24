@@ -27,36 +27,36 @@ namespace Seasar.Dao.Id
 {
     public abstract class AbstractIdentifierGenerator : IIdentifierGenerator
     {
-        private static IDataReaderHandler dataReaderHandler = new ObjectDataReaderHandler();
-        private string propertyName;
-        private IDbms dbms;
+        private static readonly IDataReaderHandler _dataReaderHandler = new ObjectDataReaderHandler();
+        private readonly string _propertyName;
+        private readonly IDbms _dbms;
 
         public AbstractIdentifierGenerator(string propertyName, IDbms dbms)
         {
-            this.propertyName = propertyName;
-            this.dbms = dbms;
+            _propertyName = propertyName;
+            _dbms = dbms;
         }
 
         public string PropertyName
         {
-            get { return this.propertyName; }
+            get { return _propertyName; }
         }
 
         public IDbms Dbms
         {
-            get { return this.dbms; }
+            get { return _dbms; }
         }
 
         protected object ExecuteSql(IDataSource ds, string sql, object[] args)
         {
-            ISelectHandler handler = new BasicSelectHandler(ds, sql, dataReaderHandler);
+            ISelectHandler handler = new BasicSelectHandler(ds, sql, _dataReaderHandler);
             return handler.Execute(args);
         }
 
         protected void SetIdentifier(object bean, object value)
         {
-            if (propertyName == null) throw new EmptyRuntimeException("propertyName");
-            PropertyInfo propertyInfo = bean.GetType().GetProperty(propertyName);
+            if (_propertyName == null) throw new EmptyRuntimeException("propertyName");
+            PropertyInfo propertyInfo = bean.GetType().GetProperty(_propertyName);
 
             propertyInfo.SetValue(bean,
                 ConversionUtil.ConvertTargetType(value, propertyInfo.PropertyType), null);
@@ -69,7 +69,7 @@ namespace Seasar.Dao.Id
             get { throw new NotImplementedException(); }
         }
 
-        public virtual void SetIdentifier(object bean, Seasar.Extension.ADO.IDataSource ds)
+        public virtual void SetIdentifier(object bean, IDataSource ds)
         {
             throw new NotImplementedException();
         }

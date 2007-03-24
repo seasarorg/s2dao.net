@@ -16,7 +16,6 @@
  */
 #endregion
 
-using System;
 using System.Reflection;
 using Seasar.Framework.Log;
 
@@ -24,32 +23,31 @@ namespace Seasar.Dao.Node
 {
     public class EmbeddedValueNode : AbstractNode
     {
-        private static readonly Logger logger = Logger.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly Logger _logger = Logger.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        private string expression;
+        private readonly string _expression;
 
         public EmbeddedValueNode(string expression)
         {
-            this.expression = expression;
+            _expression = expression;
         }
 
         public string Expression
         {
-            get { return expression; }
+            get { return _expression; }
         }
 
         public override void Accept(ICommandContext ctx)
         {
-            object value = ctx.GetArg(expression);
+            object value = ctx.GetArg(_expression);
             if (value != null)
             {
                 ctx.AddSql(value.ToString());
             }
             else
             {
-                logger.Log("WDAO0001", new object[] { expression });
+                _logger.Log("WDAO0001", new object[] { _expression });
             }
         }
-
     }
 }

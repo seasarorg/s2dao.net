@@ -27,11 +27,11 @@ namespace Seasar.Dao.Examples.AutoDelete
 
     public class AutoDeleteLogicImpl : IAutoDeleteLogic
     {
-        private IEmployeeDao employeeDao;
+        private readonly IEmployeeDao _employeeDao;
 
         public AutoDeleteLogicImpl(IEmployeeDao employeeDao)
         {
-            this.employeeDao = employeeDao;
+            _employeeDao = employeeDao;
         }
 
         #region IAutoDeleteLogic メンバ
@@ -40,15 +40,15 @@ namespace Seasar.Dao.Examples.AutoDelete
         {
             // 従業員番号7499の従業員を確認
             int empno = 7499;
-            Employee emp1 = employeeDao.GetEmployeeByEmpno(empno);
+            Employee emp1 = _employeeDao.GetEmployeeByEmpno(empno);
             Console.WriteLine("従業員番号[" + empno + "]の従業員：" + emp1.ToString());
 
             // 従業員番号7499の従業員を削除
-            int ret = employeeDao.DeleteEmployee(emp1);
+            int ret = _employeeDao.DeleteEmployee(emp1);
             Console.WriteLine("DeleteEmployeeメソッドの戻り値:" + ret);
 
             // 従業員番号7499の従業員を確認
-            Employee emp2 = employeeDao.GetEmployeeByEmpno(empno);
+            Employee emp2 = _employeeDao.GetEmployeeByEmpno(empno);
             if (emp2 == null)
             {
                 Console.WriteLine("従業員番号[" + empno + "]の従業員は存在しません。");

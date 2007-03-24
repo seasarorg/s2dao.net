@@ -20,16 +20,12 @@ namespace Seasar.Dao.Tests.Id
 {
     public class Hoge
     {
-        private int id = -1;
-
-        public Hoge()
-        {
-        }
+        private int _id = -1;
 
         public int Id
         {
-            set { id = value; }
-            get { return id; }
+            set { _id = value; }
+            get { return _id; }
         }
     }
 }

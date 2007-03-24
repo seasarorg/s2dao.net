@@ -16,16 +16,10 @@
  */
 #endregion
 
-using System;
-
 namespace Seasar.Dao.Node
 {
     public class ContainerNode : AbstractNode
     {
-        public ContainerNode()
-        {
-        }
-
         public override void Accept(ICommandContext ctx)
         {
             for (int i = 0; i < ChildSize; ++i)
@@ -33,6 +27,5 @@ namespace Seasar.Dao.Node
                 GetChild(i).Accept(ctx);
             }
         }
-
     }
 }

@@ -24,35 +24,28 @@ namespace Seasar.Dao.Node
 {
     public abstract class AbstractNode : INode
     {
-        private IList children = new ArrayList();
-
-        public AbstractNode()
-        {
-        }
+        private readonly IList _children = new ArrayList();
 
         #region INode ÉÅÉìÉo
 
         public int ChildSize
         {
-            get
-            {
-                return children.Count;
-            }
+            get { return _children.Count; }
         }
 
         public INode GetChild(int index)
         {
-            return (INode) children[index];
+            return (INode) _children[index];
         }
 
         public void AddChild(INode node)
         {
-            children.Add(node);
+            _children.Add(node);
         }
 
         public bool ContainsChild(Type childType)
         {
-            foreach (INode child in children)
+            foreach (INode child in _children)
             {
                 if (child.GetType().Equals(childType)) return true;
             }

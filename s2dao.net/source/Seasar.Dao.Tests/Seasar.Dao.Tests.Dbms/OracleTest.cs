@@ -16,13 +16,10 @@
  */
 #endregion
 
-using System;
-using Seasar.Dao.Dbms;
-using Seasar.Dao.Impl;
-using Seasar.Dao.Unit;
-using Seasar.Extension.ADO.Impl;
-using Seasar.Extension.Unit;
 using MbUnit.Framework;
+using Seasar.Dao.Dbms;
+using Seasar.Dao.Unit;
+using Seasar.Extension.Unit;
 
 namespace Seasar.Dao.Tests.Dbms
 {

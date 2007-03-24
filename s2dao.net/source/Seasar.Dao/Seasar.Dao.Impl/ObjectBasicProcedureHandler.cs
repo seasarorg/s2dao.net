@@ -32,7 +32,7 @@ namespace Seasar.Dao.Impl
     /// </summary>
     public class ObjectBasicProcedureHandler : AbstractProcedureHandler
     {
-        private static readonly Logger logger = Logger.GetLogger(typeof(ObjectBasicProcedureHandler));
+        private static readonly Logger _logger = Logger.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         /// <summary>
         /// コンストラクタ
@@ -59,9 +59,9 @@ namespace Seasar.Dao.Impl
 
             try
             {
-                if (logger.IsDebugEnabled)
+                if (_logger.IsDebugEnabled)
                 {
-                    logger.Debug(ProcedureName);
+                    _logger.Debug(ProcedureName);
                 }
 
                 IDbCommand cmd = null;

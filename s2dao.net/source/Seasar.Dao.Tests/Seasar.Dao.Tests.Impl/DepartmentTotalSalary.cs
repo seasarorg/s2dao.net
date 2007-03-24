@@ -17,30 +17,25 @@
 #endregion
 
 using System.Data.SqlTypes;
-using Seasar.Dao.Attrs;
 
 namespace Seasar.Dao.Tests.Impl
 {
     public class DepartmentTotalSalary
     {
-        private SqlInt32 deptno;
+        private SqlInt32 _deptno;
 
-        private decimal totalSalary;
-
-        public DepartmentTotalSalary()
-        {
-        }
+        private decimal _totalSalary;
 
         public SqlInt32 Deptno
         {
-            set { deptno = value; }
-            get { return deptno; }
+            set { _deptno = value; }
+            get { return _deptno; }
         }
 
         public decimal TotalSalary
         {
-            set { totalSalary = value; }
-            get { return totalSalary; }
+            set { _totalSalary = value; }
+            get { return _totalSalary; }
         }
     }
 }

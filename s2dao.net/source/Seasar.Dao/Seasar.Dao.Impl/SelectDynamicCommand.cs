@@ -16,37 +16,35 @@
  */
 #endregion
 
-using System;
 using Seasar.Extension.ADO;
 using Seasar.Extension.ADO.Impl;
-
 
 namespace Seasar.Dao.Impl
 {
     public class SelectDynamicCommand : AbstractDynamicCommand
     {
-        private IDataReaderHandler dataReaderHandler;
-        private IDataReaderFactory dataReaderFactory;
+        private readonly IDataReaderHandler _dataReaderHandler;
+        private readonly IDataReaderFactory _dataReaderFactory;
 
         public SelectDynamicCommand(IDataSource dataSource,
             ICommandFactory commandFactory,
             IDataReaderHandler dataReaderHandler, IDataReaderFactory dataReaderFactory)
             : base(dataSource, commandFactory)
         {
-            this.dataReaderHandler = dataReaderHandler;
-            this.dataReaderFactory = dataReaderFactory;
+            _dataReaderHandler = dataReaderHandler;
+            _dataReaderFactory = dataReaderFactory;
         }
 
         public IDataReaderHandler DataReaderHandler
         {
-            get { return dataReaderHandler; }
+            get { return _dataReaderHandler; }
         }
 
         public override object Execute(object[] args)
         {
             ICommandContext ctx = Apply(args);
             ISelectHandler handler = new BasicSelectHandler(DataSource,
-                ctx.Sql, dataReaderHandler, CommandFactory, dataReaderFactory);
+                ctx.Sql, _dataReaderHandler, CommandFactory, _dataReaderFactory);
             return handler.Execute(ctx.BindVariables, ctx.BindVariableTypes);
         }
     }

@@ -26,46 +26,42 @@ namespace Seasar.Dao.Tests.Dbms
     [Serializable()]
     public class Department
     {
-        private int deptno;
-        private string dname;
-        private string loc;
-        private int versionNo;
-
-        public Department()
-        {
-        }
+        private int _deptno;
+        private string _dname;
+        private string _loc;
+        private int _versionNo;
 
         public int Deptno
         {
-            set { deptno = value; }
-            get { return deptno; }
+            set { _deptno = value; }
+            get { return _deptno; }
         }
 
         public string Dname
         {
-            set { dname = value; }
-            get { return dname; }
+            set { _dname = value; }
+            get { return _dname; }
         }
 
         public string Loc
         {
-            set { loc = value; }
-            get { return loc; }
+            set { _loc = value; }
+            get { return _loc; }
         }
 
         public int VersionNo
         {
-            set { versionNo = value; }
-            get { return versionNo; }
+            set { _versionNo = value; }
+            get { return _versionNo; }
         }
 
         public override string ToString()
         {
             StringBuilder buf = new StringBuilder();
-            buf.Append(deptno).Append(", ");
-            buf.Append(dname).Append(", ");
-            buf.Append(loc).Append(", ");
-            buf.Append(versionNo);
+            buf.Append(_deptno).Append(", ");
+            buf.Append(_dname).Append(", ");
+            buf.Append(_loc).Append(", ");
+            buf.Append(_versionNo);
             return buf.ToString();
         }
     }

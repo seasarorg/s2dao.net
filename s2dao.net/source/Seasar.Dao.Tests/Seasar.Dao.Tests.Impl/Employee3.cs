@@ -25,23 +25,15 @@ namespace Seasar.Dao.Tests.Impl
     [Table("EMP")]
     public class Employee3
     {
-        private SqlInt64 empno;
-
-        private string ename;
-
-        private string job;
-
-        private SqlInt16 mgr;
-
-        private SqlDateTime hiredate;
-
-        private SqlSingle sal;
-
-        private SqlSingle comm;
-
-        private SqlInt32 deptno;
-
-        private Department department;
+        private SqlInt64 _empno;
+        private string _ename;
+        private string _job;
+        private SqlInt16 _mgr;
+        private SqlDateTime _hiredate;
+        private SqlSingle _sal;
+        private SqlSingle _comm;
+        private SqlInt32 _deptno;
+        private Department _department;
 
         public Employee3()
         {
@@ -49,75 +41,75 @@ namespace Seasar.Dao.Tests.Impl
 
         public Employee3(SqlInt64 empno)
         {
-            this.empno = empno;
+            _empno = empno;
         }
 
         public SqlInt64 Empno
         {
-            set { empno = value; }
-            get { return empno; }
+            set { _empno = value; }
+            get { return _empno; }
         }
 
         public string Ename
         {
-            set { ename = value; }
-            get { return ename; }
+            set { _ename = value; }
+            get { return _ename; }
         }
 
         public string Job
         {
-            set { job = value; }
-            get { return job; }
+            set { _job = value; }
+            get { return _job; }
         }
 
         public SqlInt16 Mgr
         {
-            set { mgr = value; }
-            get { return mgr; }
+            set { _mgr = value; }
+            get { return _mgr; }
         }
 
         public SqlDateTime Hiredate
         {
-            set { hiredate = value; }
-            get { return hiredate; }
+            set { _hiredate = value; }
+            get { return _hiredate; }
         }
 
         public SqlSingle Sal
         {
-            set { sal = value; }
-            get { return sal; }
+            set { _sal = value; }
+            get { return _sal; }
         }
 
         public SqlSingle Comm
         {
-            set { comm = value; }
-            get { return comm; }
+            set { _comm = value; }
+            get { return _comm; }
         }
 
         public SqlInt32 Deptno
         {
-            set { deptno = value; }
-            get { return deptno; }
+            set { _deptno = value; }
+            get { return _deptno; }
         }
 
         public Department Department
         {
-            set { department = value; }
-            get { return department; }
+            set { _department = value; }
+            get { return _department; }
         }
 
         public override string ToString()
         {
             StringBuilder buf = new StringBuilder();
-            buf.Append(empno).Append(", ");
-            buf.Append(ename).Append(", ");
-            buf.Append(job).Append(", ");
-            buf.Append(mgr).Append(", ");
-            buf.Append(hiredate).Append(", ");
-            buf.Append(sal).Append(", ");
-            buf.Append(comm).Append(", ");
-            buf.Append(deptno).Append(", {");
-            buf.Append(department).Append("}");
+            buf.Append(_empno).Append(", ");
+            buf.Append(_ename).Append(", ");
+            buf.Append(_job).Append(", ");
+            buf.Append(_mgr).Append(", ");
+            buf.Append(_hiredate).Append(", ");
+            buf.Append(_sal).Append(", ");
+            buf.Append(_comm).Append(", ");
+            buf.Append(_deptno).Append(", {");
+            buf.Append(_department).Append("}");
             return buf.ToString();
         }
     }

@@ -16,11 +16,10 @@
  */
 #endregion
 
-using System;
 using System.Collections;
 using System.Data.SqlTypes;
-using Seasar.Dao.Attrs;
 using Nullables;
+using Seasar.Dao.Attrs;
 
 namespace Seasar.Dao.Examples.AutoSelect
 {

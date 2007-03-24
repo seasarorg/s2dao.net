@@ -16,14 +16,13 @@
  */
 #endregion
 
-using System;
 using Seasar.Extension.ADO;
 
 namespace Seasar.Dao.Id
 {
     public class SequenceIdentifierGenerator : AbstractIdentifierGenerator
     {
-        private string sequenceName;
+        private string _sequenceName;
 
         public SequenceIdentifierGenerator(string propertyName, IDbms dbms)
             : base(propertyName, dbms)
@@ -32,13 +31,13 @@ namespace Seasar.Dao.Id
 
         public string SequenceName
         {
-            get { return this.sequenceName; }
-            set { this.sequenceName = value; }
+            get { return _sequenceName; }
+            set { _sequenceName = value; }
         }
 
         public override void SetIdentifier(object bean, IDataSource ds)
         {
-            object value = ExecuteSql(ds, this.Dbms.GetSequenceNextValString(sequenceName), null);
+            object value = ExecuteSql(ds, Dbms.GetSequenceNextValString(_sequenceName), null);
             SetIdentifier(bean, value);
         }
 
@@ -46,6 +45,5 @@ namespace Seasar.Dao.Id
         {
             get { return true; }
         }
-
     }
 }

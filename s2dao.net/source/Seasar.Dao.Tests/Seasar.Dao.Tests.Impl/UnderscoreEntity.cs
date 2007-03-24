@@ -16,15 +16,14 @@
  */
 #endregion
 
-using System;
-using System.Data.SqlTypes;
 using Seasar.Dao.Attrs;
+
 namespace Seasar.Dao.Tests.Impl
 {
     [Table("UNDER_SCORE")]
     public class UnderscoreEntity
     {
-        private long underScoreNo;
+        private long _underScoreNo;
         private string tableName_;
         private string _tableName;
         private string _tableName_;
@@ -32,8 +31,8 @@ namespace Seasar.Dao.Tests.Impl
 
         public long UnderScoreNo
         {
-            get { return underScoreNo; }
-            set { underScoreNo = value; }
+            get { return _underScoreNo; }
+            set { _underScoreNo = value; }
         }
 
         public string Table_Name_

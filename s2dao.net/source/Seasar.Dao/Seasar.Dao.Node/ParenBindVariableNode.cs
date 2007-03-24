@@ -23,23 +23,23 @@ namespace Seasar.Dao.Node
 {
     public class ParenBindVariableNode : AbstractNode
     {
-        private string bindName;
-        private string expression;
+        private readonly string _bindName;
+        private readonly string _expression;
 
         public ParenBindVariableNode(string expression)
         {
-            this.bindName = expression;
-            this.expression = "self.GetArg('" + expression + "')";
+            _bindName = expression;
+            _expression = "self.GetArg('" + expression + "')";
         }
 
         public string Expression
         {
-            get { return expression; }
+            get { return _expression; }
         }
 
         public override void Accept(ICommandContext ctx)
         {
-            object var = InvokeExpression(expression, ctx);
+            object var = InvokeExpression(_expression, ctx);
             if (var != null)
             {
                 IList list = var as IList;
@@ -57,7 +57,7 @@ namespace Seasar.Dao.Node
             }
             else
             {
-                ctx.AddSql(var, var.GetType(), bindName);
+                ctx.AddSql(var, var.GetType(), _bindName);
             }
         }
 
@@ -73,13 +73,12 @@ namespace Seasar.Dao.Node
                 if (o != null) type = o.GetType();
             }
             ctx.AddSql("(");
-            ctx.AddSql(array[0], type, bindName + 1);
+            ctx.AddSql(array[0], type, _bindName + 1);
             for (int i = 1; i < length; ++i)
             {
-                ctx.AppendSql(array[i], type, bindName + (i + 1));
+                ctx.AppendSql(array[i], type, _bindName + (i + 1));
             }
             ctx.AddSql(")");
         }
-
     }
 }

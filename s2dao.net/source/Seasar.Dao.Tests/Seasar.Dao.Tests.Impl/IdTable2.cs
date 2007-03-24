@@ -23,9 +23,8 @@ namespace Seasar.Dao.Tests.Impl
     [Table("IDTABLE")]
     public class IdTable2
     {
-        private int myId;
-
-        private string idName;
+        private int _myId;
+        private string _idName;
 
         [ID(IDType.IDENTITY, KindOfDbms.DB2)]
         [ID(IDType.SEQUENCE, "SEQ_IDTABLE", KindOfDbms.Firebird)]
@@ -37,14 +36,14 @@ namespace Seasar.Dao.Tests.Impl
         [Column("ID")]
         public int MyId
         {
-            set { myId = value; }
-            get { return myId; }
+            set { _myId = value; }
+            get { return _myId; }
         }
 
         public string IdName
         {
-            set { idName = value; }
-            get { return idName; }
+            set { _idName = value; }
+            get { return _idName; }
         }
     }
 }

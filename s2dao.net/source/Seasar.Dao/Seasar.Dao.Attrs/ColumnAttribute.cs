@@ -23,16 +23,16 @@ namespace Seasar.Dao.Attrs
     [AttributeUsage(AttributeTargets.Property)]
     public class ColumnAttribute : Attribute
     {
-        private string columnName;
+        private readonly string _columnName;
 
         public ColumnAttribute(string columnName)
         {
-            this.columnName = columnName;
+            _columnName = columnName;
         }
 
         public string ColumnName
         {
-            get { return columnName; }
+            get { return _columnName; }
         }
     }
 }

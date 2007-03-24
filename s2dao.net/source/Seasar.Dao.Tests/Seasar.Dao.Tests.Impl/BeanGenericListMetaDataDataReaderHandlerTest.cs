@@ -43,7 +43,7 @@ namespace Seasar.Dao.Tests.Impl
                 {
                     cmd.CommandText = sql;
 
-                    IList<Employee> ret = null;
+                    IList<Employee> ret;
 
                     using (IDataReader reader = cmd.ExecuteReader())
                     {
@@ -72,7 +72,7 @@ namespace Seasar.Dao.Tests.Impl
                 {
                     cmd.CommandText = sql;
 
-                    IList<Employee> ret = null;
+                    IList<Employee> ret;
 
                     using (IDataReader reader = cmd.ExecuteReader())
                     {
@@ -105,7 +105,7 @@ namespace Seasar.Dao.Tests.Impl
                 {
                     cmd.CommandText = sql;
 
-                    IList<Employee> ret = null;
+                    IList<Employee> ret;
 
                     using (IDataReader reader = cmd.ExecuteReader())
                     {
@@ -114,9 +114,9 @@ namespace Seasar.Dao.Tests.Impl
 
                     IEnumerator<Employee> employees = ret.GetEnumerator();
                     employees.MoveNext();
-                    Employee emp = (Employee) employees.Current;
+                    Employee emp = employees.Current;
                     employees.MoveNext();
-                    Employee emp2 = (Employee) employees.Current;
+                    Employee emp2 = employees.Current;
                     Assert.AreSame(emp.Department, emp2.Department, "1");
                 }
             }

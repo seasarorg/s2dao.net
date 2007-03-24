@@ -26,30 +26,26 @@ namespace Seasar.Dao.Tests.Interceptors
     [Serializable]
     public class Employee
     {
-        private int empno;
-        private string ename;
-        private short deptno;
-
-        public Employee()
-        {
-        }
+        private int _empno;
+        private string _ename;
+        private short _deptno;
 
         public int Empno
         {
-            set { empno = value; }
-            get { return empno; }
+            set { _empno = value; }
+            get { return _empno; }
         }
 
         public string Ename
         {
-            set { ename = value; }
-            get { return ename; }
+            set { _ename = value; }
+            get { return _ename; }
         }
 
         public short Deptno
         {
-            set { deptno = value; }
-            get { return deptno; }
+            set { _deptno = value; }
+            get { return _deptno; }
         }
 
         public override string ToString()
@@ -71,7 +67,7 @@ namespace Seasar.Dao.Tests.Interceptors
                 return false;
             }
             Employee castOther = (Employee) other;
-            return this.Empno == castOther.Empno;
+            return Empno == castOther.Empno;
         }
 
         public override int GetHashCode()

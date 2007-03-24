@@ -16,12 +16,11 @@
  */
 #endregion
 
-using Seasar.Dao;
+using MbUnit.Framework;
 using Seasar.Dao.Impl;
 using Seasar.Dao.Unit;
 using Seasar.Extension.ADO.Impl;
 using Seasar.Extension.Unit;
-using MbUnit.Framework;
 
 namespace Seasar.Dao.Tests.Impl
 {

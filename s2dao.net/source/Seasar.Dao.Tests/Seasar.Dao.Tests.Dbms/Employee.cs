@@ -26,30 +26,26 @@ namespace Seasar.Dao.Tests.Dbms
     [Serializable]
     public class Employee
     {
-        private int empno;
-        private string ename;
-        private short deptnum;
-
-        public Employee()
-        {
-        }
+        private int _empno;
+        private string _ename;
+        private short _deptnum;
 
         public int Empno
         {
-            set { empno = value; }
-            get { return empno; }
+            set { _empno = value; }
+            get { return _empno; }
         }
 
         public string Ename
         {
-            set { ename = value; }
-            get { return ename; }
+            set { _ename = value; }
+            get { return _ename; }
         }
 
         public short Deptnum
         {
-            set { deptnum = value; }
-            get { return deptnum; }
+            set { _deptnum = value; }
+            get { return _deptnum; }
         }
 
         public override string ToString()

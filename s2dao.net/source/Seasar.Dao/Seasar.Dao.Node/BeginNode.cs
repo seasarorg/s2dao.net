@@ -22,10 +22,6 @@ namespace Seasar.Dao.Node
 {
     public class BeginNode : ContainerNode
     {
-        public BeginNode()
-        {
-        }
-
         public override void Accept(ICommandContext ctx)
         {
             ICommandContext childCtx = GetCommandContext(ctx);
@@ -42,6 +38,5 @@ namespace Seasar.Dao.Node
             return (ICommandContext) Activator.CreateInstance(
                 ctx.GetType(), new object[] { ctx });
         }
-
     }
 }

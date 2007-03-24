@@ -25,7 +25,6 @@ namespace Seasar.Dao.Impl
     public class BeanGenericListMetaDataDataReaderHandler
         : BeanListMetaDataDataReaderHandler
     {
-
         public BeanGenericListMetaDataDataReaderHandler(
             IBeanMetaData beanMetaData)
             : base(beanMetaData)

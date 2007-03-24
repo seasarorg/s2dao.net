@@ -18,13 +18,12 @@
 
 using System.Collections;
 using System.Diagnostics;
+using MbUnit.Framework;
 using Seasar.Dao.Dbms;
 using Seasar.Dao.Impl;
 using Seasar.Dao.Unit;
-using Seasar.Extension.ADO;
 using Seasar.Extension.ADO.Impl;
 using Seasar.Extension.Unit;
-using MbUnit.Framework;
 
 namespace Seasar.Dao.Tests.Impl
 {
@@ -197,7 +196,7 @@ namespace Seasar.Dao.Tests.Impl
         [Test, S2]
         public void TestCreateFindCommand5()
         {
-            DaoMetaDataImpl dmd = (DaoMetaDataImpl) CreateDaoMetaData(typeof(IEmployeeAutoDao));
+            DaoMetaDataImpl dmd = CreateDaoMetaData(typeof(IEmployeeAutoDao));
             dmd.Dbms = new Oracle();
             SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.CreateFindCommand("EMPNO = ?");
             Trace.WriteLine(cmd.Sql);
@@ -523,7 +522,7 @@ namespace Seasar.Dao.Tests.Impl
         [Test, S2(Tx.Rollback)]
         public void TestSqlFileEncodingUTF8()
         {
-            DaoMetaDataImpl dmd = (DaoMetaDataImpl) CreateDaoMetaData(typeof(IEmployeeDao));
+            DaoMetaDataImpl dmd = CreateDaoMetaData(typeof(IEmployeeDao));
             dmd.SqlFileEncoding = "utf-8";
             ISqlCommand cmd = dmd.GetSqlCommand("UpdateSqlFileEncodingUTF8");
             Employee emp = new Employee();

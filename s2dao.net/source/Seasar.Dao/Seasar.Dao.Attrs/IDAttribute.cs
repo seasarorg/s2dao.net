@@ -23,9 +23,9 @@ namespace Seasar.Dao.Attrs
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
     public class IDAttribute : Attribute
     {
-        private IDType idType = IDType.ASSIGNED;
-        private string sequenceName;
-        private KindOfDbms dbms = KindOfDbms.None;
+        private readonly IDType _idType = IDType.ASSIGNED;
+        private readonly string _sequenceName;
+        private readonly KindOfDbms _dbms = KindOfDbms.None;
 
         public IDAttribute(string id)
             : this(id, null)
@@ -46,22 +46,22 @@ namespace Seasar.Dao.Attrs
         {
             if ("assigned".Equals(id))
             {
-                this.idType = IDType.ASSIGNED;
+                _idType = IDType.ASSIGNED;
             }
             else if ("identity".Equals(id))
             {
-                this.idType = IDType.IDENTITY;
+                _idType = IDType.IDENTITY;
             }
             else if ("sequence".Equals(id))
             {
-                this.idType = IDType.SEQUENCE;
+                _idType = IDType.SEQUENCE;
             }
             else
             {
                 throw new ArgumentException("id");
             }
-            this.sequenceName = sequenceName;
-            this.dbms = dbms;
+            _sequenceName = sequenceName;
+            _dbms = dbms;
         }
 
         public IDAttribute(IDType idType)
@@ -81,25 +81,24 @@ namespace Seasar.Dao.Attrs
 
         public IDAttribute(IDType idType, string sequenceName, KindOfDbms dbms)
         {
-            this.idType = idType;
-            this.sequenceName = sequenceName;
-            this.dbms = dbms;
+            _idType = idType;
+            _sequenceName = sequenceName;
+            _dbms = dbms;
         }
 
         public IDType IDType
         {
-            get { return idType; }
+            get { return _idType; }
         }
 
         public string SequenceName
         {
-            get { return sequenceName; }
-            set { sequenceName = value; }
+            get { return _sequenceName; }
         }
 
         public KindOfDbms Dbms
         {
-            get { return dbms; }
+            get { return _dbms; }
         }
     }
 }

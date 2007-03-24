@@ -23,28 +23,28 @@ namespace Seasar.Dao.Attrs
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
     public class SqlAttribute : Attribute
     {
-        private string sql;
-        private KindOfDbms dbms = KindOfDbms.None;
+        private readonly string _sql;
+        private readonly KindOfDbms _dbms = KindOfDbms.None;
 
         public SqlAttribute(string sql)
         {
-            this.sql = sql;
+            _sql = sql;
         }
 
         public SqlAttribute(string sql, KindOfDbms dbms)
             : this(sql)
         {
-            this.dbms = dbms;
+            _dbms = dbms;
         }
 
         public string Sql
         {
-            get { return sql; }
+            get { return _sql; }
         }
 
         public KindOfDbms Dbms
         {
-            get { return dbms; }
+            get { return _dbms; }
         }
     }
 }

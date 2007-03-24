@@ -23,16 +23,16 @@ namespace Seasar.Dao.Attrs
     [AttributeUsage(AttributeTargets.Method)]
     public class PersistentPropsAttribute : Attribute
     {
-        private string[] props;
+        private readonly string[] _props;
 
         public PersistentPropsAttribute(params string[] props)
         {
-            this.props = props;
+            _props = props;
         }
 
         public string[] Props
         {
-            get { return props; }
+            get { return _props; }
         }
     }
 }

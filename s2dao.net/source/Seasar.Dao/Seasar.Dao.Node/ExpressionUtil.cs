@@ -22,29 +22,26 @@ using System.Text.RegularExpressions;
 
 namespace Seasar.Dao.Node
 {
-    /// <summary>
-    /// ExpressionUtil ÇÃäTóvÇÃê‡ñæÇ≈Ç∑ÅB
-    /// </summary>
     public class ExpressionUtil
     {
-        private IToken current;
-        private int start;
-        private string text;
-        private Regex reOps;
-        private Regex reLit;
-        private Regex reSym;
+        private IToken _current;
+        private int _start;
+        private string _text;
+        private readonly Regex _reOps;
+        private readonly Regex _reLit;
+        private readonly Regex _reSym;
 
         public ExpressionUtil()
         {
-            reOps = new Regex(@"^\s*(&&|\|\||<=|>=|==|!=|[=+\-*/^()!<>])", RegexOptions.Compiled);
-            reSym = new Regex(@"^\s*(\-?\b*[^=+\-*/^()!<>\s]*)", RegexOptions.Compiled);
-            reLit = new Regex(@"^\s*([-+]?[0-9]+(\.[0-9]+)?)", RegexOptions.Compiled);
+            _reOps = new Regex(@"^\s*(&&|\|\||<=|>=|==|!=|[=+\-*/^()!<>])", RegexOptions.Compiled);
+            _reSym = new Regex(@"^\s*(\-?\b*[^=+\-*/^()!<>\s]*)", RegexOptions.Compiled);
+            _reLit = new Regex(@"^\s*([-+]?[0-9]+(\.[0-9]+)?)", RegexOptions.Compiled);
         }
 
         public string parseExpression(string expression)
         {
-            current = null;
-            text = expression;
+            _current = null;
+            _text = expression;
             StringBuilder sb = new StringBuilder(255);
             while (!EOF())
             {
@@ -56,7 +53,7 @@ namespace Seasar.Dao.Node
 
         protected bool EOF()
         {
-            if (current is Eof)
+            if (_current is Eof)
             {
                 return true;
             }
@@ -66,76 +63,74 @@ namespace Seasar.Dao.Node
         protected IToken NextToken()
         {
             Match match;
-            match = reLit.Match(text);
+            match = _reLit.Match(_text);
             if (match.Length != 0)
             {
                 SetNumberLiteralToken(match);
             }
             else
             {
-                match = reOps.Match(text);
+                match = _reOps.Match(_text);
                 if (match.Length != 0)
                 {
                     SetOperatorToken(match);
                 }
                 else
                 {
-                    match = reSym.Match(text);
+                    match = _reSym.Match(_text);
                     if (match.Length != 0)
                     {
                         SetSymbolToken(match);
                     }
                     else
                     {
-                        current = new Eof();
+                        _current = new Eof();
                     }
                 }
             }
-            return current;
+            return _current;
         }
 
         private void SetNumberLiteralToken(Match match)
         {
             IToken token;
-            start += match.Length;
-            text = text.Substring(match.Length);
+            _start += match.Length;
+            _text = _text.Substring(match.Length);
             token = new NumberLiteral();
             token.Value = match.Groups[1].Value;
-            current = token;
+            _current = token;
         }
 
         private void SetSymbolToken(Match match)
         {
             IToken token;
-            start += match.Length;
-            text = text.Substring(match.Length);
+            _start += match.Length;
+            _text = _text.Substring(match.Length);
             token = new Symbol();
             token.Value = match.Groups[1].Value;
-            current = token;
+            _current = token;
         }
 
         private void SetOperatorToken(Match match)
         {
             IToken token;
-            start += match.Length;
-            text = text.Substring(match.Length);
+            _start += match.Length;
+            _text = _text.Substring(match.Length);
             token = new Operator();
             token.Value = match.Groups[1].Value;
-            current = token;
+            _current = token;
         }
     }
 
     #region Token
+
     public interface IToken
     {
         object Value { get; set;}
     }
+
     public class Eof : IToken
     {
-        public Eof()
-        {
-        }
-
         public object Value
         {
             get { return null; }
@@ -146,11 +141,7 @@ namespace Seasar.Dao.Node
     public class Symbol : IToken
     {
         private string _value;
-        private string[] _escapes = { "null", "true", "false" };
-
-        public Symbol()
-        {
-        }
+        private readonly string[] _escapes = { "null", "true", "false" };
 
         public object Value
         {
@@ -182,10 +173,6 @@ namespace Seasar.Dao.Node
     {
         private float _value;
 
-        public NumberLiteral()
-        {
-        }
-
         public object Value
         {
             get { return _value; }
@@ -201,10 +188,6 @@ namespace Seasar.Dao.Node
     {
         private string _value;
 
-        public Operator()
-        {
-        }
-
         public object Value
         {
             get { return _value; }
@@ -215,5 +198,6 @@ namespace Seasar.Dao.Node
             return _value.ToString();
         }
     }
+
     #endregion
 }

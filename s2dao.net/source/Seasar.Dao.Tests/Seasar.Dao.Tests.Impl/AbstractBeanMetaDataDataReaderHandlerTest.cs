@@ -16,7 +16,6 @@
  */
 #endregion
 
-
 using System;
 using System.Collections;
 using MbUnit.Framework;
@@ -64,15 +63,15 @@ namespace Seasar.Dao.Tests.Impl
             }
         }
 
-        private class TestBeanMetaData : BeanMetaDataImpl, IBeanMetaData
+        private class TestBeanMetaData : BeanMetaDataImpl
         {
             public TestBeanMetaData(Type type)
             {
-                base.BeanType = type;
-                base.BeanAnnotationReader = new FieldBeanAnnotationReader(type);
-                base.Initialize();
+                BeanType = type;
+                BeanAnnotationReader = new FieldBeanAnnotationReader(type);
+                Initialize();
 
-                IPropertyType pt = this.GetPropertyType("Empno");
+                IPropertyType pt = GetPropertyType("Empno");
                 pt.IsPersistent = false;
             }
         }

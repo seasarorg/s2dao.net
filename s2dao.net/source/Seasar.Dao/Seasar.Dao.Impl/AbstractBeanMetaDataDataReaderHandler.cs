@@ -16,7 +16,6 @@
  */
 #endregion
 
-using System;
 using System.Collections;
 using System.Data;
 using System.Reflection;
@@ -28,16 +27,16 @@ namespace Seasar.Dao.Impl
     public abstract class AbstractBeanMetaDataDataReaderHandler
         : IDataReaderHandler
     {
-        private IBeanMetaData beanMetaData;
+        private readonly IBeanMetaData _beanMetaData;
 
         public AbstractBeanMetaDataDataReaderHandler(IBeanMetaData beanMetaData)
         {
-            this.beanMetaData = beanMetaData;
+            _beanMetaData = beanMetaData;
         }
 
         public IBeanMetaData BeanMetaData
         {
-            get { return beanMetaData; }
+            get { return _beanMetaData; }
         }
 
         /// <summary>
@@ -56,10 +55,10 @@ namespace Seasar.Dao.Impl
                 new System.Collections.Generic.List<IColumnMetaData>();
 #endif
 
-            for (int i = 0; i < beanMetaData.PropertyTypeSize; ++i)
+            for (int i = 0; i < _beanMetaData.PropertyTypeSize; ++i)
             {
-                IPropertyType pt = beanMetaData.GetPropertyType(i);
-                string columnName = null;
+                IPropertyType pt = _beanMetaData.GetPropertyType(i);
+                string columnName;
 
                 columnName = FindColumnName(columnNames, pt.ColumnName);
 
@@ -92,11 +91,11 @@ namespace Seasar.Dao.Impl
                         }
                     }
 #if NET_1_1
-					if (names.Contains(pt.ColumnName.ToUpper()))
-					{
-						columnMetaDataList.Add(new ColumnMetaDataImpl(
+                    if (names.Contains(pt.ColumnName.ToUpper()))
+                    {
+                        columnMetaDataList.Add(new ColumnMetaDataImpl(
                             pt, (string) names[pt.ColumnName.ToUpper()]));
-					}
+                    }
 #else
                     if (names.ContainsKey(pt.ColumnName.ToUpper()))
                     {
@@ -142,7 +141,7 @@ namespace Seasar.Dao.Impl
         /// <returns>1行分のEntity型のオブジェクト</returns>
         protected virtual object CreateRow(IDataReader reader, IColumnMetaData[] columns)
         {
-            object row = ClassUtil.NewInstance(beanMetaData.BeanType);
+            object row = ClassUtil.NewInstance(_beanMetaData.BeanType);
 
             foreach (IColumnMetaData column in columns)
             {

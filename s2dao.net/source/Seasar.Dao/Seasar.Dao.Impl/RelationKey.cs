@@ -16,43 +16,40 @@
  */
 #endregion
 
-using System;
-
 namespace Seasar.Dao.Impl
 {
     public sealed class RelationKey
     {
-        private object[] values;
-        private int hashCode;
+        private readonly object[] _values;
+        private readonly int _hashCode;
 
         public RelationKey(object[] values)
         {
-            this.values = values;
+            _values = values;
             foreach (object value in values)
-                hashCode += value.GetHashCode();
+                _hashCode += value.GetHashCode();
         }
 
         public object[] Values
         {
-            get { return values; }
+            get { return _values; }
         }
 
         public override int GetHashCode()
         {
-            return hashCode;
+            return _hashCode;
         }
 
         public override bool Equals(object obj)
         {
             if (!(obj is RelationKey)) return false;
-            object[] otherValues = ((RelationKey) obj).values;
-            if (values.Length != otherValues.Length) return false;
-            for (int i = 0; i < values.Length; ++i)
+            object[] otherValues = ((RelationKey) obj)._values;
+            if (_values.Length != otherValues.Length) return false;
+            for (int i = 0; i < _values.Length; ++i)
             {
-                if (!values[i].Equals(otherValues[i])) return false;
+                if (!_values[i].Equals(otherValues[i])) return false;
             }
             return true;
         }
-
     }
 }

@@ -24,35 +24,33 @@ namespace Seasar.Dao.Tests.Impl
     [Table("DEPT2")]
     public class Department2
     {
-        private int deptno;
-
-        private string dname;
-
-        private bool active;
+        private int _deptno;
+        private string _dname;
+        private bool _active;
 
         public int Deptno
         {
-            set { deptno = value; }
-            get { return deptno; }
+            set { _deptno = value; }
+            get { return _deptno; }
         }
 
         public string Dname
         {
-            set { dname = value; }
-            get { return dname; }
+            set { _dname = value; }
+            get { return _dname; }
         }
 
         public bool IsActive
         {
-            set { active = value; }
-            get { return active; }
+            set { _active = value; }
+            get { return _active; }
         }
 
         public override string ToString()
         {
             StringBuilder buf = new StringBuilder();
-            buf.Append(deptno).Append(", ");
-            buf.Append(dname).Append(", ");
+            buf.Append(_deptno).Append(", ");
+            buf.Append(_dname).Append(", ");
             return buf.ToString();
         }
     }

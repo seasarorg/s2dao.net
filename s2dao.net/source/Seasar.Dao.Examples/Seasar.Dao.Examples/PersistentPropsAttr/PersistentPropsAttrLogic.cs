@@ -27,11 +27,11 @@ namespace Seasar.Dao.Examples.PersistentPropsAttr
 
     public class PersistentPropsAttrLogicImpl : IPersistentPropsAttrLogic
     {
-        private IEmployeeDao employeeDao;
+        private readonly IEmployeeDao _employeeDao;
 
         public PersistentPropsAttrLogicImpl(IEmployeeDao employeeDao)
         {
-            this.employeeDao = employeeDao;
+            _employeeDao = employeeDao;
         }
 
         #region IPersistentPropsAttrLogic メンバ
@@ -40,17 +40,17 @@ namespace Seasar.Dao.Examples.PersistentPropsAttr
         {
             // 従業員番号7499の従業員を確認
             int empno = 7499;
-            Employee emp1 = employeeDao.GetEmployeeByEmpno(empno);
+            Employee emp1 = _employeeDao.GetEmployeeByEmpno(empno);
             Console.WriteLine("従業員番号[" + empno + "]の従業員：" + emp1.ToString());
 
             // 従業員番号7499の部署番号を更新
             emp1.Ename = "Sugimoto";
             emp1.Deptnum = 99;
-            int ret = employeeDao.UpdateDeptnum(emp1);
+            int ret = _employeeDao.UpdateDeptnum(emp1);
             Console.WriteLine("UpdateEmployeeメソッドの戻り値:" + ret);
 
             // 従業員番号7499の従業員を確認
-            Employee emp2 = employeeDao.GetEmployeeByEmpno(empno);
+            Employee emp2 = _employeeDao.GetEmployeeByEmpno(empno);
             Console.WriteLine("従業員番号[" + empno + "]の従業員：" + emp2.ToString());
 
             throw new ForCleanupException();

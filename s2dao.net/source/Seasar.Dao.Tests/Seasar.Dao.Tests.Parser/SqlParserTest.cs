@@ -41,12 +41,12 @@ namespace Seasar.Dao.Tests.Parser
         [Test]
         public void TestParseEndSemicolon()
         {
-            parseEndSemicolon(";");
-            parseEndSemicolon(";\t");
-            parseEndSemicolon("; ");
+            ParseEndSemicolon(";");
+            ParseEndSemicolon(";\t");
+            ParseEndSemicolon("; ");
         }
 
-        private void parseEndSemicolon(string endChar)
+        private void ParseEndSemicolon(string endChar)
         {
             string sql = "SELECT * FROM emp";
             ISqlParser parser = new SqlParserImpl(sql + endChar);
@@ -171,11 +171,11 @@ namespace Seasar.Dao.Tests.Parser
             ICommandContext ctx = new CommandContextImpl();
             INode root = parser.Parse();
             root.Accept(ctx);
-            Assert.AreEqual("", ctx.Sql, "1");
+            Assert.AreEqual(string.Empty, ctx.Sql, "1");
             ctx.AddArg("aaa", null, typeof(string));
             ctx.AddArg("bbb", "hoge", typeof(string));
             root.Accept(ctx);
-            Assert.AreEqual("", ctx.Sql, "2");
+            Assert.AreEqual(string.Empty, ctx.Sql, "2");
             ctx.AddArg("aaa", "hoge", typeof(string));
             root.Accept(ctx);
             Assert.AreEqual("aaabbb", ctx.Sql, "3");

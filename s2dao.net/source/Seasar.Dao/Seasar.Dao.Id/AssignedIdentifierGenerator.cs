@@ -16,7 +16,6 @@
  */
 #endregion
 
-using System;
 using Seasar.Extension.ADO;
 
 namespace Seasar.Dao.Id

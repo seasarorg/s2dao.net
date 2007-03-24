@@ -25,29 +25,18 @@ namespace Seasar.Dao.Tests.Impl
     [Table("EMP")]
     public class Employee5
     {
-        private long empno;
-
-        private string ename;
-
-        private string job;
-
-        private SqlInt16 mgr;
-
-        private DateTime hiredate;
-
-        private SqlSingle sal;
-
-        private SqlSingle comm;
-
-        private int deptno;
-
-        private byte[] password;
-
-        private string dummy;
-
-        private Department department;
-
-        private DateTime timestamp;
+        private long _empno;
+        private string _ename;
+        private string _job;
+        private SqlInt16 _mgr;
+        private DateTime _hiredate;
+        private SqlSingle _sal;
+        private SqlSingle _comm;
+        private int _deptno;
+        private byte[] _password;
+        private string _dummy;
+        private Department _department;
+        private DateTime _timestamp;
 
         public Employee5()
         {
@@ -55,81 +44,81 @@ namespace Seasar.Dao.Tests.Impl
 
         public Employee5(long empno)
         {
-            this.empno = empno;
+            _empno = empno;
         }
 
         public long Empno
         {
-            set { empno = value; }
-            get { return empno; }
+            set { _empno = value; }
+            get { return _empno; }
         }
 
         public string Ename
         {
-            set { ename = value; }
-            get { return ename; }
+            set { _ename = value; }
+            get { return _ename; }
         }
 
         public string Job
         {
-            set { job = value; }
-            get { return job; }
+            set { _job = value; }
+            get { return _job; }
         }
 
         public SqlInt16 Mgr
         {
-            set { mgr = value; }
-            get { return mgr; }
+            set { _mgr = value; }
+            get { return _mgr; }
         }
 
         public DateTime Hiredate
         {
-            set { hiredate = value; }
-            get { return hiredate; }
+            set { _hiredate = value; }
+            get { return _hiredate; }
         }
 
         public SqlSingle Sal
         {
-            set { sal = value; }
-            get { return sal; }
+            set { _sal = value; }
+            get { return _sal; }
         }
 
         public SqlSingle Comm
         {
-            set { comm = value; }
-            get { return comm; }
+            set { _comm = value; }
+            get { return _comm; }
         }
 
         public int Deptno
         {
-            set { deptno = value; }
-            get { return deptno; }
+            set { _deptno = value; }
+            get { return _deptno; }
         }
 
         public byte[] Password
         {
-            set { password = value; }
-            get { return password; }
+            set { _password = value; }
+            get { return _password; }
         }
 
         public string Dummy
         {
-            set { dummy = value; }
-            get { return dummy; }
+            set { _dummy = value; }
+            get { return _dummy; }
         }
 
         [Column("tstamp")]
         public DateTime Timestamp
         {
-            set { timestamp = value; }
-            get { return timestamp; }
+            set { _timestamp = value; }
+            get { return _timestamp; }
         }
 
         [Relno(0), Relkeys("deptno:deptno, ename:dname")]
         public Department Department
         {
-            set { department = value; }
-            get { return department; }
+            set { _department = value; }
+            get { return _department; }
         }
     }
 }

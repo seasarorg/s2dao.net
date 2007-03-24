@@ -25,8 +25,8 @@ namespace Seasar.Dao.Parser
 {
     public class SqlParserImpl : ISqlParser
     {
-        private ISqlTokenizer tokenizer;
-        private Stack nodeStack = new Stack();
+        private readonly ISqlTokenizer _tokenizer;
+        private readonly Stack _nodeStack = new Stack();
 
         public SqlParserImpl(string sql)
         {
@@ -35,13 +35,13 @@ namespace Seasar.Dao.Parser
             {
                 sql = sql.Substring(0, sql.Length - 1);
             }
-            tokenizer = new SqlTokenizerImpl(sql);
+            _tokenizer = new SqlTokenizerImpl(sql);
         }
 
         public INode Parse()
         {
             Push(new ContainerNode());
-            while (TokenType.EOF != tokenizer.Next())
+            while (TokenType.EOF != _tokenizer.Next())
             {
                 ParseToken();
             }
@@ -50,7 +50,7 @@ namespace Seasar.Dao.Parser
 
         protected void ParseToken()
         {
-            switch (tokenizer.TokenType)
+            switch (_tokenizer.TokenType)
             {
                 case TokenType.SQL:
                     ParseSql();
@@ -69,10 +69,10 @@ namespace Seasar.Dao.Parser
 
         protected void ParseSql()
         {
-            string sql = tokenizer.Token;
+            string sql = _tokenizer.Token;
             if (IsElseMode())
             {
-                sql = sql.Replace("--", "");
+                sql = sql.Replace("--", string.Empty);
             }
             INode node = Peek();
 
@@ -99,7 +99,7 @@ namespace Seasar.Dao.Parser
 
         protected void ParseComment()
         {
-            string comment = tokenizer.Token;
+            string comment = _tokenizer.Token;
             if (IsTargetComment(comment))
             {
                 if (IsIfComment(comment))
@@ -123,7 +123,7 @@ namespace Seasar.Dao.Parser
 
         protected void ParseIf()
         {
-            string condition = tokenizer.Token.Substring(2).Trim();
+            string condition = _tokenizer.Token.Substring(2).Trim();
             if (StringUtil.IsEmpty(condition))
             {
                 throw new IfConditionNotFoundRuntimeException();
@@ -144,10 +144,10 @@ namespace Seasar.Dao.Parser
 
         protected void ParseEnd()
         {
-            while (TokenType.EOF != tokenizer.Next())
+            while (TokenType.EOF != _tokenizer.Next())
             {
-                if (tokenizer.TokenType == TokenType.COMMENT
-                    && IsEndComment(tokenizer.Token))
+                if (_tokenizer.TokenType == TokenType.COMMENT
+                    && IsEndComment(_tokenizer.Token))
                 {
                     Pop();
                     return;
@@ -168,13 +168,13 @@ namespace Seasar.Dao.Parser
             ElseNode elseNode = new ElseNode();
             ifNode.ElseNode = elseNode;
             Push(elseNode);
-            tokenizer.SkipWhitespace();
+            _tokenizer.SkipWhitespace();
         }
 
         protected void ParseCommentBindVariable()
         {
-            string expr = tokenizer.Token;
-            string s = tokenizer.SkipToken();
+            string expr = _tokenizer.Token;
+            string s = _tokenizer.SkipToken();
             if (s.StartsWith("(") && s.EndsWith(")"))
             {
                 Peek().AddChild(new ParenBindVariableNode(expr));
@@ -191,30 +191,30 @@ namespace Seasar.Dao.Parser
 
         protected void ParseBindVariable()
         {
-            string expr = tokenizer.Token;
+            string expr = _tokenizer.Token;
             Peek().AddChild(new BindVariableNode(expr));
         }
 
         protected INode Pop()
         {
-            return (INode) nodeStack.Pop();
+            return (INode) _nodeStack.Pop();
         }
 
         protected INode Peek()
         {
-            return (INode) nodeStack.Peek();
+            return (INode) _nodeStack.Peek();
         }
 
         protected void Push(INode node)
         {
-            nodeStack.Push(node);
+            _nodeStack.Push(node);
         }
 
         protected bool IsElseMode()
         {
-            for (int i = 0; i < nodeStack.Count; ++i)
+            for (int i = 0; i < _nodeStack.Count; ++i)
             {
-                if (nodeStack.ToArray()[i] is ElseNode)
+                if (_nodeStack.ToArray()[i] is ElseNode)
                 {
                     return true;
                 }

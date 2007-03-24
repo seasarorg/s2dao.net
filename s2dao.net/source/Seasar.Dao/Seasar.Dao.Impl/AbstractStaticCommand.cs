@@ -16,25 +16,24 @@
  */
 #endregion
 
-using System;
 using Seasar.Extension.ADO;
 
 namespace Seasar.Dao.Impl
 {
     public abstract class AbstractStaticCommand : AbstractSqlCommand
     {
-        private IBeanMetaData beanMetaData;
+        private readonly IBeanMetaData _beanMetaData;
 
         public AbstractStaticCommand(IDataSource dataSource,
             ICommandFactory commandFactory, IBeanMetaData beanMetaData)
             : base(dataSource, commandFactory)
         {
-            this.beanMetaData = beanMetaData;
+            _beanMetaData = beanMetaData;
         }
 
         public IBeanMetaData BeanMetaData
         {
-            get { return this.beanMetaData; }
+            get { return _beanMetaData; }
         }
     }
 }

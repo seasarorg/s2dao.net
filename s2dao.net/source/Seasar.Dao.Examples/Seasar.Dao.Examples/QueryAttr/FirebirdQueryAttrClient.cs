@@ -44,7 +44,7 @@ namespace Seasar.Dao.Examples.QueryAttr
             {
                 Console.WriteLine(((Employee) employees.Current).ToString());
             }
-            Console.WriteLine("");
+            Console.WriteLine(string.Empty);
 
             // ]‹Æˆõ–¼‚©‚ç]‹Æˆõ‚ğæ“¾
             Employee emp = employeeDao.GetEmployeeByEname("ALLEN");

@@ -36,7 +36,7 @@ namespace Seasar.Dao.Tests.Impl
                 CreateBeanMetaData(typeof(Employee)));
             string sql = "select emp.*, dept.deptno as deptno_0, dept.dname as dname_0 " +
                 "from emp, dept where empno = 7788 and emp.deptno = dept.deptno";
-            Employee ret = null;
+            Employee ret;
             using (IDbConnection con = Connection)
             {
                 using (IDbCommand cmd = con.CreateCommand())
@@ -63,7 +63,7 @@ namespace Seasar.Dao.Tests.Impl
             IDataReaderHandler handler = new BeanMetaDataDataReaderHandler(
                 CreateBeanMetaData(typeof(Employee)));
             string sql = "select ename, job from emp where empno = 7788";
-            Employee ret = null;
+            Employee ret;
             using (IDbConnection con = Connection)
             {
                 using (IDbCommand cmd = con.CreateCommand())
@@ -89,7 +89,7 @@ namespace Seasar.Dao.Tests.Impl
                 CreateBeanMetaData(typeof(Employee)));
             string sql = "select ename, dept.dname as dname_0 " +
                 "from emp, dept where empno = 7788 and emp.deptno = dept.deptno";
-            Employee ret = null;
+            Employee ret;
             using (IDbConnection con = Connection)
             {
                 using (IDbCommand cmd = con.CreateCommand())
@@ -118,7 +118,7 @@ namespace Seasar.Dao.Tests.Impl
             IDataReaderHandler handler = new BeanMetaDataDataReaderHandler(
                 CreateBeanMetaData(typeof(Employee)));
             string sql = "select job as jobname from emp where empno = 7788";
-            Employee ret = null;
+            Employee ret;
             using (IDbConnection con = Connection)
             {
                 using (IDbCommand cmd = con.CreateCommand())

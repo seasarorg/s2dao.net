@@ -24,95 +24,71 @@ namespace Seasar.Dao.Tests.Id
 
     public class HogeSystemNullableDecimal
     {
-        private System.Nullable<decimal> id;
-
-        public HogeSystemNullableDecimal()
-        {
-        }
+        private System.Nullable<decimal> _id;
 
         [ID(IDType.IDENTITY)]
         public System.Nullable<decimal> Id
         {
-            set { id = value; }
-            get { return id; }
+            set { _id = value; }
+            get { return _id; }
         }
     }
 
     public class HogeSystemNullableInt
     {
-        private System.Nullable<int> id;
-
-        public HogeSystemNullableInt()
-        {
-        }
+        private System.Nullable<int> _id;
 
         [ID(IDType.IDENTITY)]
         public System.Nullable<int> Id
         {
-            set { id = value; }
-            get { return id; }
+            set { _id = value; }
+            get { return _id; }
         }
     }
 
     public class HogeSystemNullableShort
     {
-        private System.Nullable<short> id;
-
-        public HogeSystemNullableShort()
-        {
-        }
+        private System.Nullable<short> _id;
 
         [ID(IDType.IDENTITY)]
         public System.Nullable<short> Id
         {
-            set { id = value; }
-            get { return id; }
+            set { _id = value; }
+            get { return _id; }
         }
     }
 
     public class HogeSystemNullableLong
     {
-        private System.Nullable<long> id;
-
-        public HogeSystemNullableLong()
-        {
-        }
+        private System.Nullable<long> _id;
 
         [ID(IDType.IDENTITY)]
         public System.Nullable<long> Id
         {
-            set { id = value; }
-            get { return id; }
+            set { _id = value; }
+            get { return _id; }
         }
     }
     public class HogeSystemNullableFloat
     {
-        private System.Nullable<float> id;
-
-        public HogeSystemNullableFloat()
-        {
-        }
+        private System.Nullable<float> _id;
 
         [ID(IDType.IDENTITY)]
         public System.Nullable<float> Id
         {
-            set { id = value; }
-            get { return id; }
+            set { _id = value; }
+            get { return _id; }
         }
     }
     public class HogeSystemNullableDouble
     {
-        private System.Nullable<double> id;
-
-        public HogeSystemNullableDouble()
-        {
-        }
+        private System.Nullable<double> _id;
 
         [ID(IDType.IDENTITY)]
         public System.Nullable<double> Id
         {
-            set { id = value; }
-            get { return id; }
+            set { _id = value; }
+            get { return _id; }
         }
     }
 

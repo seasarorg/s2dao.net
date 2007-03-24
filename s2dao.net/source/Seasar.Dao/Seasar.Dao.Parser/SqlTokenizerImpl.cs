@@ -22,58 +22,43 @@ namespace Seasar.Dao.Parser
 {
     public class SqlTokenizerImpl : ISqlTokenizer
     {
-        private string sql;
-        private int position = 0;
-        private string token;
-        private TokenType tokenType = TokenType.SQL;
-        private TokenType nextTokenType = TokenType.SQL;
-        private int bindVariableNum = 0;
+        private readonly string _sql;
+        private int _position = 0;
+        private string _token;
+        private TokenType _tokenType = TokenType.SQL;
+        private TokenType _nextTokenType = TokenType.SQL;
+        private int _bindVariableNum = 0;
 
         public SqlTokenizerImpl(string sql)
         {
-            this.sql = sql;
+            _sql = sql;
         }
 
         #region ISqlTokenizer ƒƒ“ƒo
 
         public string Token
         {
-            get
-            {
-                return token;
-            }
+            get { return _token; }
         }
 
         public string Before
         {
-            get
-            {
-                return sql.Substring(0, position);
-            }
+            get { return _sql.Substring(0, _position); }
         }
 
         public string After
         {
-            get
-            {
-                return sql.Substring(position);
-            }
+            get { return _sql.Substring(_position); }
         }
 
         public int Position
         {
-            get
-            {
-                return position;
-            }
+            get { return _position; }
         }
 
         public TokenType TokenType
         {
-            get
-            {
-                return tokenType;
-            }
+            get { return _tokenType; }
         }
 
         public TokenType NextTokenType
@@ -83,14 +68,14 @@ namespace Seasar.Dao.Parser
 
         public TokenType Next()
         {
-            if (position >= sql.Length)
+            if (_position >= _sql.Length)
             {
-                token = null;
-                tokenType = TokenType.EOF;
-                nextTokenType = TokenType.EOF;
-                return tokenType;
+                _token = null;
+                _tokenType = TokenType.EOF;
+                _nextTokenType = TokenType.EOF;
+                return _tokenType;
             }
-            switch (nextTokenType)
+            switch (_nextTokenType)
             {
                 case TokenType.SQL:
                     ParseSql();
@@ -108,39 +93,39 @@ namespace Seasar.Dao.Parser
                     ParseEof();
                     break;
             }
-            return tokenType;
+            return _tokenType;
         }
 
         public string SkipToken()
         {
-            int index = sql.Length;
-            char quote = position < sql.Length ? sql.ToCharArray()[position] : '\0';
+            int index = _sql.Length;
+            char quote = _position < _sql.Length ? _sql.ToCharArray()[_position] : '\0';
             bool quoting = quote == '\'' || quote == '(';
             if (quote == '(') quote = ')';
 
-            for (int i = quoting ? position + 1 : position; i < sql.Length; ++i)
+            for (int i = quoting ? _position + 1 : _position; i < _sql.Length; ++i)
             {
-                char c = sql.ToCharArray()[i];
+                char c = _sql.ToCharArray()[i];
                 if ((Char.IsWhiteSpace(c) || c == ',' || c == ')' || c == '(')
                     && !quoting)
                 {
                     index = i;
                     break;
                 }
-                else if (c == '/' && i + 1 < sql.Length
-                    && sql.ToCharArray()[i + 1] == '*')
+                else if (c == '/' && i + 1 < _sql.Length
+                    && _sql.ToCharArray()[i + 1] == '*')
                 {
                     index = i;
                     break;
                 }
-                else if (c == '-' && i + 1 < sql.Length
-                    && sql.ToCharArray()[i + 1] == '-')
+                else if (c == '-' && i + 1 < _sql.Length
+                    && _sql.ToCharArray()[i + 1] == '-')
                 {
                     index = i;
                     break;
                 }
                 else if (quoting && quote == '\'' && c == '\''
-                    && (i + 1 >= sql.Length || sql.ToCharArray()[i + 1] != '\''))
+                    && (i + 1 >= _sql.Length || _sql.ToCharArray()[i + 1] != '\''))
                 {
                     index = i + 1;
                     break;
@@ -151,40 +136,40 @@ namespace Seasar.Dao.Parser
                     break;
                 }
             }
-            token = sql.Substring(position, (index - position));
-            tokenType = TokenType.SQL;
-            nextTokenType = TokenType.SQL;
-            position = index;
-            return token;
+            _token = _sql.Substring(_position, (index - _position));
+            _tokenType = TokenType.SQL;
+            _nextTokenType = TokenType.SQL;
+            _position = index;
+            return _token;
         }
 
         public string SkipWhitespace()
         {
-            int index = SkipWhitespace(position);
-            token = sql.Substring(position, (index - position));
-            position = index;
-            return token;
+            int index = SkipWhitespace(_position);
+            _token = _sql.Substring(_position, (index - _position));
+            _position = index;
+            return _token;
         }
 
         #endregion
 
         protected void ParseSql()
         {
-            int commentStartPos = sql.IndexOf("/*", position);
-            int lineCommentStartPos = sql.IndexOf("--", position);
-            int bindVariableStartPos = sql.IndexOf("?", position);
+            int commentStartPos = _sql.IndexOf("/*", _position);
+            int lineCommentStartPos = _sql.IndexOf("--", _position);
+            int bindVariableStartPos = _sql.IndexOf("?", _position);
             int elseCommentStartPos = -1;
             int elseCommentLength = -1;
 
             if (bindVariableStartPos < 0)
             {
-                bindVariableStartPos = sql.IndexOf("?", position);
+                bindVariableStartPos = _sql.IndexOf("?", _position);
             }
             if (lineCommentStartPos >= 0)
             {
                 int skipPos = SkipWhitespace(lineCommentStartPos + 2);
-                if (skipPos + 4 < sql.Length
-                    && "ELSE" == sql.Substring(skipPos, ((skipPos + 4) - skipPos)))
+                if (skipPos + 4 < _sql.Length
+                    && "ELSE" == _sql.Substring(skipPos, ((skipPos + 4) - skipPos)))
                 {
                     elseCommentStartPos = lineCommentStartPos;
                     elseCommentLength = skipPos + 4 - lineCommentStartPos;
@@ -194,30 +179,30 @@ namespace Seasar.Dao.Parser
                 elseCommentStartPos, bindVariableStartPos);
             if (nextStartPos < 0)
             {
-                token = sql.Substring(position);
-                nextTokenType = TokenType.EOF;
-                position = sql.Length;
-                tokenType = TokenType.SQL;
+                _token = _sql.Substring(_position);
+                _nextTokenType = TokenType.EOF;
+                _position = _sql.Length;
+                _tokenType = TokenType.SQL;
             }
             else
             {
-                token = sql.Substring(position, nextStartPos - position);
-                tokenType = TokenType.SQL;
-                bool needNext = nextStartPos == position;
+                _token = _sql.Substring(_position, nextStartPos - _position);
+                _tokenType = TokenType.SQL;
+                bool needNext = nextStartPos == _position;
                 if (nextStartPos == commentStartPos)
                 {
-                    nextTokenType = TokenType.COMMENT;
-                    position = commentStartPos + 2;
+                    _nextTokenType = TokenType.COMMENT;
+                    _position = commentStartPos + 2;
                 }
                 else if (nextStartPos == elseCommentStartPos)
                 {
-                    nextTokenType = TokenType.ELSE;
-                    position = elseCommentStartPos + elseCommentLength;
+                    _nextTokenType = TokenType.ELSE;
+                    _position = elseCommentStartPos + elseCommentLength;
                 }
                 else if (nextStartPos == bindVariableStartPos)
                 {
-                    nextTokenType = TokenType.BIND_VARIABLE;
-                    position = bindVariableStartPos;
+                    _nextTokenType = TokenType.BIND_VARIABLE;
+                    _position = bindVariableStartPos;
                 }
                 if (needNext) Next();
             }
@@ -243,50 +228,50 @@ namespace Seasar.Dao.Parser
 
         protected string NextBindVariableName
         {
-            get { return "$" + ++bindVariableNum; }
+            get { return "$" + ++_bindVariableNum; }
         }
 
         protected void ParseComment()
         {
-            int commentEndPos = sql.IndexOf("*/", position);
+            int commentEndPos = _sql.IndexOf("*/", _position);
             if (commentEndPos < 0)
                 throw new TokenNotClosedRuntimeException("*/",
-                    sql.Substring(position));
+                    _sql.Substring(_position));
 
-            token = sql.Substring(position, (commentEndPos - position));
-            nextTokenType = TokenType.SQL;
-            position = commentEndPos + 2;
-            tokenType = TokenType.COMMENT;
+            _token = _sql.Substring(_position, (commentEndPos - _position));
+            _nextTokenType = TokenType.SQL;
+            _position = commentEndPos + 2;
+            _tokenType = TokenType.COMMENT;
         }
 
         protected void ParseBindVariable()
         {
-            token = NextBindVariableName;
-            nextTokenType = TokenType.SQL;
-            position++;
-            tokenType = TokenType.BIND_VARIABLE;
+            _token = NextBindVariableName;
+            _nextTokenType = TokenType.SQL;
+            _position++;
+            _tokenType = TokenType.BIND_VARIABLE;
         }
 
         protected void ParseElse()
         {
-            token = null;
-            nextTokenType = TokenType.SQL;
-            tokenType = TokenType.ELSE;
+            _token = null;
+            _nextTokenType = TokenType.SQL;
+            _tokenType = TokenType.ELSE;
         }
 
         protected void ParseEof()
         {
-            token = null;
-            tokenType = TokenType.EOF;
-            nextTokenType = TokenType.EOF;
+            _token = null;
+            _tokenType = TokenType.EOF;
+            _nextTokenType = TokenType.EOF;
         }
 
         private int SkipWhitespace(int position)
         {
-            int index = sql.Length;
-            for (int i = position; i < sql.Length; ++i)
+            int index = _sql.Length;
+            for (int i = position; i < _sql.Length; ++i)
             {
-                char c = sql.ToCharArray()[i];
+                char c = _sql.ToCharArray()[i];
                 if (!Char.IsWhiteSpace(c))
                 {
                     index = i;

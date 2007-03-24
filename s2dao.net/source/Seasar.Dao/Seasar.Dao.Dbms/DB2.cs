@@ -37,10 +37,7 @@ namespace Seasar.Dao.Dbms
 
         public override KindOfDbms Dbms
         {
-            get
-            {
-                return KindOfDbms.DB2;
-            }
+            get { return KindOfDbms.DB2; }
         }
     }
 }

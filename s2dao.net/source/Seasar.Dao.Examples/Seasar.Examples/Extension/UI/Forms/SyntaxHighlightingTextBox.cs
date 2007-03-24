@@ -17,42 +17,31 @@
 #endregion
 
 using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
 using System.Windows.Forms;
-using System.Text;
-using System.Runtime.InteropServices;
 
 namespace Seasar.Extension.UI.Forms
 {
     /// <summary>
     /// SyntaxHighlightingTextBox の概要の説明です。
     /// </summary>
-    public class SyntaxHighlightingTextBox : System.Windows.Forms.RichTextBox
+    public class SyntaxHighlightingTextBox : RichTextBox
     {
         //Members exposed via properties
-        private HighLightDescriptorCollection highlightDescriptors = new HighLightDescriptorCollection();
+        private readonly HighLightDescriptorCollection _highlightDescriptors = new HighLightDescriptorCollection();
 
         //Internal use members
-        private bool Parsing = false;
+        private bool _parsing = false;
 
         #region 公開プロパティ
         /// <summary>
         /// 強調表示する為の定義体コレクション
         /// </summary>
-        public HighLightDescriptorCollection HighlightDescriptors 
+        public HighLightDescriptorCollection HighlightDescriptors
         {
-            get 
-            {
-                return highlightDescriptors;
-            }
+            get { return _highlightDescriptors; }
         }
 
         #endregion
-
-        public SyntaxHighlightingTextBox() {}
 
         #region Overriden methods
 
@@ -66,50 +55,50 @@ namespace Seasar.Extension.UI.Forms
             int cursorLoc = SelectionStart;
             int cursorLen = SelectionLength;
 
-            if (Parsing) return;
-            Parsing = true;
+            if (_parsing) return;
+            _parsing = true;
             base.OnTextChanged(e);
             // 複数回呼ばれパフォーマンスが低下するのでコメントアウト
             //ProcessHighlighting();
-            Parsing = false;
+            _parsing = false;
 
             //Restore cursor and scrollbars location.
             SelectionStart = cursorLoc;
             SelectionLength = cursorLen;
             SetScrollPos(scrollPos);
         }
-        
+
         public void ProcessHighlighting()
         {
-            foreach(HighlightDescriptor desc in HighlightDescriptors)
+            foreach (HighlightDescriptor desc in HighlightDescriptors)
             {
                 int start = -1;
                 string target = desc.Token;
 
-                if(desc.DescriptorType == DescriptorType.ToCloseToken)
+                if (desc.DescriptorType == DescriptorType.ToCloseToken)
                 {
                     continue; // 開始、終了のあるキーワードには、とりあえず対応しない。
                 }
                 do
                 {
                     start = base.Find(target, ++start, RichTextBoxFinds.WholeWord);
-                    if(-1 < start)
+                    if (-1 < start)
                     {
                         base.SelectionFont = desc.Font;
                         base.SelectionColor = desc.Color;
                     }
-                } while(-1 < start);
+                } while (-1 < start);
             }
         }
 
-        protected override void WndProc(ref System.Windows.Forms.Message m) 
+        protected override void WndProc(ref Message m)
         {
             int msg = m.Msg;
-            if ((msg == Win32.WM_PAINT || msg == Win32.WM_HSCROLL || msg == Win32.WM_VSCROLL) && Parsing) 
+            if ((msg == Win32.WM_PAINT || msg == Win32.WM_HSCROLL || msg == Win32.WM_VSCROLL) && _parsing)
             {
                 m.Result = IntPtr.Zero;
-            } 
-            else 
+            }
+            else
             {
                 base.WndProc(ref m);
             }
@@ -128,7 +117,6 @@ namespace Seasar.Extension.UI.Forms
             IntPtr ptr = new IntPtr(&res);
             Win32.SendMessage(Handle, Win32.EM_GETSCROLLPOS, 0, ptr);
             return res;
-
         }
 
         /// <summary>
@@ -141,7 +129,7 @@ namespace Seasar.Extension.UI.Forms
             Win32.SendMessage(Handle, Win32.EM_SETSCROLLPOS, 0, ptr);
 
         }
+
         #endregion
-    
     }
 }

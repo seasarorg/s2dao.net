@@ -16,14 +16,10 @@
  */
 #endregion
 
-using System;
 using Seasar.Extension.ADO;
 
 namespace Seasar.Dao.Id
 {
-    /// <summary>
-    /// IdentityIdentifierGenerator ‚ÌŠT—v‚Ìà–¾‚Å‚·B
-    /// </summary>
     public class IdentityIdentifierGenerator : AbstractIdentifierGenerator
     {
         public IdentityIdentifierGenerator(string propertyName, IDbms dbms)

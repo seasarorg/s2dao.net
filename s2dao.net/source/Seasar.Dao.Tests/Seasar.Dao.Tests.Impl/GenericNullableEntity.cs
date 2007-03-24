@@ -17,7 +17,6 @@
 #endregion
 
 using System;
-using System.Data.SqlTypes;
 using Seasar.Dao.Attrs;
 
 namespace Seasar.Dao.Tests.Impl
@@ -27,29 +26,29 @@ namespace Seasar.Dao.Tests.Impl
     [Table("GENERIC_NULLABLE")]
     public class GenericNullableEntity
     {
-        private Nullable<Decimal> id;
-        private Nullable<DateTime> ddate;
-        private int entityNo;
+        private Nullable<Decimal> _id;
+        private Nullable<DateTime> _ddate;
+        private int _entityNo;
 
         [ID(IDType.IDENTITY)]
         [ID(IDType.SEQUENCE, "SEQ_GENERIC_NULLABLE")]
         [Column("ID")]
         public Nullable<Decimal> ID
         {
-            get { return id; }
-            set { id = value; }
+            get { return _id; }
+            set { _id = value; }
         }
 
         public Nullable<DateTime> Ddate
         {
-            get { return ddate; }
-            set { ddate = value; }
+            get { return _ddate; }
+            set { _ddate = value; }
         }
 
         public int EntityNo
         {
-            get { return entityNo; }
-            set { entityNo = value; }
+            get { return _entityNo; }
+            set { _entityNo = value; }
         }
     }
 #endif

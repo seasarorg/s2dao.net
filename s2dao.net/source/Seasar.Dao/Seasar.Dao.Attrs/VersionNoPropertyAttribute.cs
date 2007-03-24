@@ -23,16 +23,16 @@ namespace Seasar.Dao.Attrs
     [AttributeUsage(AttributeTargets.Class)]
     public class VersionNoPropertyAttribute : Attribute
     {
-        private string propertyName;
+        private readonly string _propertyName;
 
         public VersionNoPropertyAttribute(string propertyName)
         {
-            this.propertyName = propertyName;
+            _propertyName = propertyName;
         }
 
         public string PropertyName
         {
-            get { return propertyName; }
+            get { return _propertyName; }
         }
     }
 }

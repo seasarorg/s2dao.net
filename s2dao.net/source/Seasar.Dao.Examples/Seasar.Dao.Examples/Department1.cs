@@ -16,7 +16,6 @@
  */
 #endregion
 
-using System;
 using System.Data.SqlTypes;
 using Seasar.Dao.Attrs;
 
@@ -25,37 +24,33 @@ namespace Seasar.Dao.Examples
     [Table("DEPT2")]
     public class Department1
     {
-        private SqlInt32 deptno;
-        private SqlString dname;
-        private SqlInt16 active;
-
-        public Department1()
-        {
-        }
+        private SqlInt32 _deptno;
+        private SqlString _dname;
+        private SqlInt16 _active;
 
         public SqlInt32 Deptno
         {
-            set { deptno = value; }
-            get { return deptno; }
+            set { _deptno = value; }
+            get { return _deptno; }
         }
 
         public SqlString Dname
         {
-            set { dname = value; }
-            get { return dname; }
+            set { _dname = value; }
+            get { return _dname; }
         }
 
         public SqlInt16 Active
         {
-            set { active = value; }
-            get { return active; }
+            set { _active = value; }
+            get { return _active; }
         }
 
         public override string ToString()
         {
-            return "deptno=" + (deptno.IsNull ? "null" : deptno.Value.ToString())
-                + ", dname=" + (dname.IsNull ? "null" : dname.Value)
-                + ", active=" + (active.IsNull ? "null" : active.Value.ToString());
+            return "deptno=" + (_deptno.IsNull ? "null" : _deptno.Value.ToString())
+                + ", dname=" + (_dname.IsNull ? "null" : _dname.Value)
+                + ", active=" + (_active.IsNull ? "null" : _active.Value.ToString());
         }
     }
 }

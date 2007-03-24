@@ -23,22 +23,22 @@ namespace Seasar.Dao.Attrs
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class NoPersistentPropsAttribute : Attribute
     {
-        private string[] props;
+        private readonly string[] _props;
 
         public NoPersistentPropsAttribute(params string[] props)
         {
-            this.props = props;
+            _props = props;
         }
 
         public string[] Props
         {
             get 
             {
-                if (props != null && props.Length == 1 && props[0] == string.Empty) 
+                if (_props != null && _props.Length == 1 && _props[0] == string.Empty) 
                 {
                     return new string[0];
                 }
-                return props;
+                return _props;
             }
         }
     }

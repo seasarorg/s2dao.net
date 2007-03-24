@@ -37,22 +37,22 @@ namespace Seasar.Dao.Impl
     /// </summary>
     public class AbstractProcedureHandler : BasicHandler
     {
-        private static Logger logger = Logger.GetLogger(typeof(AbstractProcedureHandler));
+        private static readonly Logger _logger = Logger.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         /// <summary>
         /// 引数タイプ
         /// </summary>
-        private Type[] argumentTypes;
+        private Type[] _argumentTypes;
 
         /// <summary>
         /// 引数名
         /// </summary>
-        private string[] argumentNames;
+        private string[] _argumentNames;
 
         /// <summary>
         /// 引数のの入出力種別
         /// </summary>
-        private ParameterDirection[] argumentDirection;
+        private ParameterDirection[] _argumentDirection;
 
         /// <summary>
         /// ストアドプロシージャ名
@@ -74,8 +74,7 @@ namespace Seasar.Dao.Impl
 
         public static Logger Logger
         {
-            get { return logger; }
-            set { logger = value; }
+            get { return _logger; }
         }
 
         /// <summary>
@@ -83,8 +82,8 @@ namespace Seasar.Dao.Impl
         /// </summary>
         public Type[] ArgumentTypes
         {
-            get { return argumentTypes; }
-            set { argumentTypes = value; }
+            get { return _argumentTypes; }
+            set { _argumentTypes = value; }
         }
 
         /// <summary>
@@ -92,17 +91,17 @@ namespace Seasar.Dao.Impl
         /// </summary>
         public string[] ArgumentNames
         {
-            get { return argumentNames; }
-            set { argumentNames = value; }
+            get { return _argumentNames; }
+            set { _argumentNames = value; }
         }
 
         /// <summary>
-        /// 引数のの入出力種別
+        /// 引数の入出力種別
         /// </summary>
         public ParameterDirection[] ArgumentDirection
         {
-            get { return argumentDirection; }
-            set { argumentDirection = value; }
+            get { return _argumentDirection; }
+            set { _argumentDirection = value; }
         }
 
         /// <summary>
@@ -155,7 +154,7 @@ namespace Seasar.Dao.Impl
                         columnName = "?" + columnName;
                         break;
                     case BindVariableType.ColonWithParam:
-                        columnName = "" + columnName;
+                        columnName = string.Empty + columnName;
                         break;
                     case BindVariableType.ColonWithParamToLower:
                         columnName = ":" + columnName.ToLower();
@@ -213,7 +212,6 @@ namespace Seasar.Dao.Impl
 
             return parameter.ParameterName;
         }
-
 
         /// <summary>
         /// DBTypeへ変換する

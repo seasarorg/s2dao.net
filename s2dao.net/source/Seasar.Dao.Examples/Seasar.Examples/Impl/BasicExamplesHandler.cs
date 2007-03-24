@@ -21,9 +21,7 @@ using System.Collections;
 using System.IO;
 using System.Reflection;
 using System.Text;
-
 using Seasar.Framework.Util;
-
 using Seasar.Examples;
 using Seasar.Extension.UI;
 
@@ -36,73 +34,71 @@ namespace Seasar.Examples.Impl
     /// </summary>
     public class BasicExamplesHandler : IExamplesHandler
     {    
-        private string title = "UnKnown";
-        private int codeCodepage = 932;
-        private int diconCodepage = 65001;
+        private string _title = "UnKnown";
+        private int _codeCodepage = 932;
+        private int _diconCodepage = 65001;
         
         // 実行されるデモコード
-        private object examples = null;
+        private object _examples = null;
 
-        private ArrayList dicons = new ArrayList();
+        private readonly ArrayList _dicons = new ArrayList();
 
-        private ArrayList codes = new ArrayList();
-
-        public BasicExamplesHandler() {}
+        private readonly ArrayList _codes = new ArrayList();
 
         public object Examples
         {
-            get { return this.examples;  }
-            set { this.examples = value; }
+            get { return _examples;  }
+            set { _examples = value; }
         }
 
         public int CodeCodepage
         {
-            set { codeCodepage = value; }
-            get { return codeCodepage; }
+            set { _codeCodepage = value; }
+            get { return _codeCodepage; }
         }
 
         public int DiconCodepage
         {
-            set { diconCodepage = value; }
-            get { return diconCodepage; }
+            set { _diconCodepage = value; }
+            get { return _diconCodepage; }
         }
 
         public void AddDicon(string path) 
         {
-            this.dicons.Add(path);
+            _dicons.Add(path);
         }
 
         public void AddCode(string path)
         {
-            this.codes.Add(path);
+            _codes.Add(path);
         }
         
         #region IExamplesHandler メンバ
 
         public void Main(ExamplesContext context) 
         {
-            if(this.examples != null)
+            if(_examples != null)
             {
-                Type t = this.examples.GetType();
+                Type t = _examples.GetType();
                 MethodInfo method = t.GetMethod("Main");
-                MethodUtil.Invoke(method, this.examples, null);
+                MethodUtil.Invoke(method, _examples, null);
             }
         }
 
         public String Title
         {
-            get { return this.title; }
-            set { this.title = value; }
+            get { return _title; }
+            set { _title = value; }
         }
         
         public void AppendDicon(TextAppender appender) 
         {
-            AppendText(this.dicons, appender, diconCodepage);
+            AppendText(_dicons, appender, _diconCodepage);
         }
 
         public void AppendCode(TextAppender appender) 
         {
-            AppendText(this.codes, appender, codeCodepage);
+            AppendText(_codes, appender, _codeCodepage);
         }
 
         private void AppendText(ArrayList pathNames, TextAppender appender, int codepage)
@@ -111,10 +107,8 @@ namespace Seasar.Examples.Impl
             {
                 string pathWithoutExt = Path.Combine(
                     Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path));
-                string dotPath = Path.Combine(path.Substring(0, 
-                    path.LastIndexOf("/")).Replace("/", "."), Path.GetFileName(path));
                 string extension = ResourceUtil.GetExtension(path);
-                StreamReader sr = null;
+                StreamReader sr;
                 if(File.Exists(path))
                 {
                     // 基本的にはビルド時にコードとdiconファイルの両方をコピーしているのでファイルが存在する筈。

@@ -24,50 +24,43 @@ namespace Seasar.Dao.Tests.Impl
     [Table("EMP2")]
     public class Employee2
     {
-        private long empno;
-
-        private string ename;
-
-        private int deptnum;
-
-        private Department2 department2;
-
-        public Employee2()
-        {
-        }
+        private long _empno;
+        private string _ename;
+        private int _deptnum;
+        private Department2 _department2;
 
         public long Empno
         {
-            set { empno = value; }
-            get { return empno; }
+            set { _empno = value; }
+            get { return _empno; }
         }
 
         public string Ename
         {
-            set { ename = value; }
-            get { return ename; }
+            set { _ename = value; }
+            get { return _ename; }
         }
 
         public int Deptnum
         {
-            set { deptnum = value; }
-            get { return deptnum; }
+            set { _deptnum = value; }
+            get { return _deptnum; }
         }
 
         [Relno(0), Relkeys("DEPTNUM:DEPTNO")]
         public Department2 Department2
         {
-            set { department2 = value; }
-            get { return department2; }
+            set { _department2 = value; }
+            get { return _department2; }
         }
 
         public override string ToString()
         {
             StringBuilder buf = new StringBuilder();
-            buf.Append(empno).Append(", ");
-            buf.Append(ename).Append(", ");
-            buf.Append(deptnum).Append(", {");
-            buf.Append(department2).Append("}");
+            buf.Append(_empno).Append(", ");
+            buf.Append(_ename).Append(", ");
+            buf.Append(_deptnum).Append(", {");
+            buf.Append(_department2).Append("}");
             return buf.ToString();
         }
     }

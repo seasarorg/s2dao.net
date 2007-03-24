@@ -16,9 +16,7 @@
  */
 #endregion
 
-using System;
 using System.Reflection;
-using Seasar.Extension.ADO;
 using Seasar.Extension.ADO.Impl;
 
 namespace Seasar.Dao.Impl
@@ -26,10 +24,10 @@ namespace Seasar.Dao.Impl
     public class RelationPropertyTypeImpl
         : PropertyTypeImpl, IRelationPropertyType
     {
-        protected int relationNo;
-        protected string[] myKeys;
-        protected string[] yourKeys;
-        protected IBeanMetaData beanMetaData;
+        protected int _relationNo;
+        protected string[] _myKeys;
+        protected string[] _yourKeys;
+        protected IBeanMetaData _beanMetaData;
 
         public RelationPropertyTypeImpl(PropertyInfo propertyInfo)
             : base(propertyInfo)
@@ -40,47 +38,44 @@ namespace Seasar.Dao.Impl
             string[] myKeys, string[] yourKeys, IBeanMetaData beanMetaData)
             : base(propertyInfo)
         {
-            this.relationNo = relationNo;
-            this.myKeys = myKeys;
-            this.yourKeys = yourKeys;
-            this.beanMetaData = beanMetaData;
+            _relationNo = relationNo;
+            _myKeys = myKeys;
+            _yourKeys = yourKeys;
+            _beanMetaData = beanMetaData;
         }
 
         #region IRelationPropertyType ƒƒ“ƒo
 
         public int RelationNo
         {
-            get
-            {
-                return relationNo;
-            }
+            get { return _relationNo; }
         }
 
         public int KeySize
         {
             get
             {
-                if (myKeys.Length > 0)
-                    return myKeys.Length;
+                if (_myKeys.Length > 0)
+                    return _myKeys.Length;
                 else
-                    return beanMetaData.PrimaryKeySize;
+                    return _beanMetaData.PrimaryKeySize;
             }
         }
 
         public string GetMyKey(int index)
         {
-            if (myKeys.Length > 0)
-                return myKeys[index];
+            if (_myKeys.Length > 0)
+                return _myKeys[index];
             else
-                return beanMetaData.GetPrimaryKey(index);
+                return _beanMetaData.GetPrimaryKey(index);
         }
 
         public string GetYourKey(int index)
         {
-            if (yourKeys.Length > 0)
-                return yourKeys[index];
+            if (_yourKeys.Length > 0)
+                return _yourKeys[index];
             else
-                return beanMetaData.GetPrimaryKey(index);
+                return _beanMetaData.GetPrimaryKey(index);
         }
 
         public bool IsYourKey(string columnName)
@@ -95,10 +90,7 @@ namespace Seasar.Dao.Impl
 
         public IBeanMetaData BeanMetaData
         {
-            get
-            {
-                return beanMetaData;
-            }
+            get { return _beanMetaData; }
         }
 
         #endregion

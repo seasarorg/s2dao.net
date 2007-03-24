@@ -43,7 +43,7 @@ namespace Seasar.Dao.Tests.Impl
                 {
                     cmd.CommandText = sql;
 
-                    IList ret = null;
+                    IList ret;
 
                     using (IDataReader reader = cmd.ExecuteReader())
                     {
@@ -72,7 +72,7 @@ namespace Seasar.Dao.Tests.Impl
                 {
                     cmd.CommandText = sql;
 
-                    IList ret = null;
+                    IList ret;
 
                     using (IDataReader reader = cmd.ExecuteReader())
                     {
@@ -105,7 +105,7 @@ namespace Seasar.Dao.Tests.Impl
                 {
                     cmd.CommandText = sql;
 
-                    IList ret = null;
+                    IList ret;
 
                     using (IDataReader reader = cmd.ExecuteReader())
                     {

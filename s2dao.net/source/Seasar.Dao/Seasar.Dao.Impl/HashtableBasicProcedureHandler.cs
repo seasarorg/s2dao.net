@@ -33,7 +33,7 @@ namespace Seasar.Dao.Impl
     /// </summary>
     public class HashtableBasicProcedureHandler : AbstractProcedureHandler
     {
-        private static readonly Logger logger = Logger.GetLogger(typeof(HashtableBasicProcedureHandler));
+        private static readonly Logger _logger = Logger.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         /// <summary>
         /// コンストラクタ
@@ -60,9 +60,9 @@ namespace Seasar.Dao.Impl
             Hashtable ret = new Hashtable();
             try
             {
-                if (logger.IsDebugEnabled)
+                if (_logger.IsDebugEnabled)
                 {
-                    logger.Debug(ProcedureName);
+                    _logger.Debug(ProcedureName);
                 }
 
                 IDbCommand cmd = null;
@@ -152,7 +152,7 @@ namespace Seasar.Dao.Impl
                     paramName = "?" + paramName;
                     break;
                 case BindVariableType.ColonWithParam:
-                    paramName = "" + paramName;
+                    paramName = string.Empty + paramName;
                     break;
                 case BindVariableType.ColonWithParamToLower:
                     paramName = ":" + paramName.ToLower();

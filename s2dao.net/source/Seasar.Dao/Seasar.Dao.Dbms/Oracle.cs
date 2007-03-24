@@ -24,10 +24,7 @@ namespace Seasar.Dao.Dbms
     {
         public override string Suffix
         {
-            get
-            {
-                return "_oracle";
-            }
+            get { return "_oracle"; }
         }
 
         public override string GetSequenceNextValString(string sequenceName)
@@ -37,10 +34,7 @@ namespace Seasar.Dao.Dbms
 
         public override KindOfDbms Dbms
         {
-            get
-            {
-                return KindOfDbms.Oracle;
-            }
+            get { return KindOfDbms.Oracle; }
         }
 
 

@@ -16,20 +16,19 @@
  */
 #endregion
 
-using System;
 using System.Collections;
 
 namespace Seasar.Dao.Impl
 {
     public class RelationRowCache
     {
-        private ArrayList rowMapList;
+        private readonly ArrayList _rowMapList;
 
         public RelationRowCache(int size)
         {
-            rowMapList = new ArrayList();
+            _rowMapList = new ArrayList();
             for (int i = 0; i < size; ++i)
-                rowMapList.Add(new Hashtable());
+                _rowMapList.Add(new Hashtable());
         }
 
         public object GetRelationRow(int relno, RelationKey key)
@@ -44,7 +43,7 @@ namespace Seasar.Dao.Impl
 
         protected Hashtable GetRowMap(int relno)
         {
-            return (Hashtable) rowMapList[relno];
+            return (Hashtable) _rowMapList[relno];
         }
     }
 }

@@ -48,49 +48,49 @@ namespace Seasar.Dao.Tests.Impl
         [Table("MyBean")]
         public class MyBean
         {
-            private int aaa_;
+            private int _aaa;
 
-            private string bbb_;
+            private string _bbb;
 
-            private Ccc ccc_;
+            private Ccc _ccc;
 
-            private int ddd_;
+            private int _ddd;
 
             public int Aaa
             {
-                get { return aaa_; }
-                set { aaa_ = value; }
+                get { return _aaa; }
+                set { _aaa = value; }
             }
 
             [Column("myBbb")]
             public string Bbb
             {
-                get { return bbb_; }
-                set { bbb_ = value; }
+                get { return _bbb; }
+                set { _bbb = value; }
             }
 
             [Relno(0), Relkeys("ddd:id")]
             public Ccc Cccc
             {
-                get { return ccc_; }
-                set { ccc_ = value; }
+                get { return _ccc; }
+                set { _ccc = value; }
             }
 
             public int Ddd
             {
-                get { return ddd_; }
-                set { ddd_ = value; }
+                get { return _ddd; }
+                set { _ddd = value; }
             }
         }
 
         public class Ccc
         {
-            private int id_;
+            private int _id;
 
             public int Id
             {
-                get { return id_; }
-                set { id_ = value; }
+                get { return _id; }
+                set { _id = value; }
             }
         }
     }

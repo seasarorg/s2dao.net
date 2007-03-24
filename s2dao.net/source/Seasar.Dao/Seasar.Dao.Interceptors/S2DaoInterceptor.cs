@@ -25,11 +25,11 @@ namespace Seasar.Dao.Interceptors
 {
     public class S2DaoInterceptor : AbstractInterceptor
     {
-        private IDaoMetaDataFactory daoMetaDataFactory;
+        private readonly IDaoMetaDataFactory _daoMetaDataFactory;
 
         public S2DaoInterceptor(IDaoMetaDataFactory daoMetaDataFactory)
         {
-            this.daoMetaDataFactory = daoMetaDataFactory;
+            _daoMetaDataFactory = daoMetaDataFactory;
         }
 
         public override object Invoke(Seasar.Framework.Aop.IMethodInvocation invocation)
@@ -37,7 +37,7 @@ namespace Seasar.Dao.Interceptors
             MethodBase method = invocation.Method;
             if (!method.IsAbstract) return invocation.Proceed();
             Type targetType = GetComponentDef(invocation).ComponentType;
-            IDaoMetaData dmd = daoMetaDataFactory.GetDaoMetaData(targetType);
+            IDaoMetaData dmd = _daoMetaDataFactory.GetDaoMetaData(targetType);
             ISqlCommand cmd = dmd.GetSqlCommand(method.Name);
             object ret = cmd.Execute(invocation.Arguments);
 
@@ -45,6 +45,5 @@ namespace Seasar.Dao.Interceptors
             ret = ConversionUtil.ConvertTargetType(ret, retType);
             return ret;
         }
-
     }
 }

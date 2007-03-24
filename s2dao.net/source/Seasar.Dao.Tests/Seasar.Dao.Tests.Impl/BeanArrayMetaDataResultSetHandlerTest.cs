@@ -42,7 +42,7 @@ namespace Seasar.Dao.Tests.Impl
                 {
                     cmd.CommandText = sql;
 
-                    Employee[] ret = null;
+                    Employee[] ret;
 
                     using (IDataReader reader = cmd.ExecuteReader())
                     {
