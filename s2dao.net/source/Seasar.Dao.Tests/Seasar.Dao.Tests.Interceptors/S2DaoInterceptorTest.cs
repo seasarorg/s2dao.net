@@ -32,7 +32,7 @@ namespace Seasar.Dao.Tests.Interceptors
         public void TestSelectBeanList()
         {
             IList employees = _employeeDao.GetAllEmployees();
-            for (int i = 0; i < employees.Count; ++i) 
+            for (int i = 0; i < employees.Count; ++i)
             {
                 Trace.WriteLine(employees[i].ToString());
             }

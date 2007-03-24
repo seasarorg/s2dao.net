@@ -47,11 +47,11 @@ namespace Seasar.Dao.Tests.Impl
             Assert.AreEqual(1, rpt.KeySize, "6");
             Assert.AreEqual("ddd", rpt.GetMyKey(0), "7");
             Assert.AreEqual("id", rpt.GetYourKey(0), "8");
-            Assert.IsNotNull(bmd.IdentifierGenerator ,"9");
+            Assert.IsNotNull(bmd.IdentifierGenerator, "9");
             Assert.AreEqual(1, bmd.PrimaryKeySize, "10");
             Assert.AreEqual("Aaa", bmd.GetPrimaryKey(0), "11");
         }
-        
+
         [Test, S2]
         public void TestSetupDatabaseMetaData()
         {
@@ -64,7 +64,7 @@ namespace Seasar.Dao.Tests.Impl
             IPropertyType dummy = bmd.GetPropertyType("dummy");
             Assert.AreEqual(false, dummy.IsPersistent, "4");
         }
-        
+
         [Test, S2]
         public void TestSetupAutoSelectList()
         {
@@ -74,12 +74,12 @@ namespace Seasar.Dao.Tests.Impl
             string sql2 = bmd2.AutoSelectList;
             Trace.WriteLine(sql);
             Trace.WriteLine(sql2);
-            
+
             Assert.IsTrue(sql2.IndexOf("EMP.DEPTNO") > 0, sql2);
             Assert.IsTrue(sql2.IndexOf("Department.DEPTNO AS DEPTNO_0") > 0, "2");
             Assert.IsTrue(sql2.IndexOf("dummy_0") < 0, "3");
         }
-        
+
         [Test, S2]
         public void TestConvertFullColumnName()
         {
@@ -87,7 +87,7 @@ namespace Seasar.Dao.Tests.Impl
             Assert.AreEqual("EMP.empno", bmd.ConvertFullColumnName("empno"), "1");
             Assert.AreEqual("Department.dname", bmd.ConvertFullColumnName("dname_0"), "2");
         }
-        
+
         [Test, S2]
         public void TestHasPropertyTypeByAliasName()
         {
@@ -98,7 +98,7 @@ namespace Seasar.Dao.Tests.Impl
             Assert.AreEqual(false, bmd.HasPropertyTypeByAliasName("xxx_10"), "4");
             Assert.AreEqual(false, bmd.HasPropertyTypeByAliasName("xxx_0"), "5");
         }
-        
+
         [Test, S2]
         public void TestGetPropertyTypeByAliasName()
         {
@@ -106,7 +106,7 @@ namespace Seasar.Dao.Tests.Impl
             Assert.IsNotNull(bmd.GetPropertyTypeByAliasName("empno"), "1");
             Assert.IsNotNull(bmd.GetPropertyTypeByAliasName("dname_0"), "2");
         }
-        
+
         [Test, S2]
         public void TestSelfReference()
         {
@@ -114,7 +114,7 @@ namespace Seasar.Dao.Tests.Impl
             IRelationPropertyType rpt = bmd.GetRelationPropertyType("parent");
             Assert.AreEqual(typeof(Employee4), rpt.BeanMetaData.BeanType, "1");
         }
-        
+
         [Test, S2]
         public void TestNoPersistentPropsEmpty()
         {
@@ -122,7 +122,7 @@ namespace Seasar.Dao.Tests.Impl
             IPropertyType pt = bmd.GetPropertyType("Name");
             Assert.AreEqual(false, pt.IsPersistent, "1");
         }
-    
+
         [Test, S2]
         public void TestNoPersistentPropsDefined()
         {
@@ -130,31 +130,31 @@ namespace Seasar.Dao.Tests.Impl
             IPropertyType pt = bmd.GetPropertyType("name");
             Assert.AreEqual(false, pt.IsPersistent, "1");
         }
-        
+
         [Test, S2]
         public void TestPrimaryKeyForIdentifier()
         {
             IBeanMetaData bmd = CreateBeanMetaData(typeof(IdTable));
             Assert.AreEqual("ID", bmd.GetPrimaryKey(0), "1");
         }
-        
+
         [Test, S2]
         public void TestGetVersionNoPropertyName()
         {
             IBeanMetaData bmd = CreateBeanMetaData(typeof(Fff));
             Assert.AreEqual("Version", bmd.VersionNoPropertyName, "1");
         }
-      
+
         [Test, S2]
         public void TestGetTimestampPropertyName()
         {
             IBeanMetaData bmd = CreateBeanMetaData(typeof(Fff));
             Assert.AreEqual("Updated", bmd.TimestampPropertyName, "1");
         }
-    
+
         [Table("MyBean")]
-        public class MyBean 
-        {            
+        public class MyBean
+        {
             private SqlInt32 aaa_;
             private string bbb_;
             private Ccc ccc_;
@@ -166,7 +166,7 @@ namespace Seasar.Dao.Tests.Impl
                 get { return aaa_; }
                 set { aaa_ = value; }
             }
-            
+
             [Column("myBbb")]
             public string Bbb
             {
@@ -180,14 +180,14 @@ namespace Seasar.Dao.Tests.Impl
                 get { return ccc_; }
                 set { ccc_ = value; }
             }
-            
+
             public SqlInt32 Ddd
             {
                 get { return ddd_; }
                 set { ddd_ = value; }
             }
         }
-    
+
         public class Ccc
         {
             private SqlInt32 id_;
@@ -199,13 +199,13 @@ namespace Seasar.Dao.Tests.Impl
                 set { id_ = value; }
             }
         }
-        
+
         [NoPersistentProps("")]
-        public class Ddd : Ccc 
+        public class Ddd : Ccc
         {
             private string name_;
 
-            public string Name 
+            public string Name
             {
                 get { return name_; }
                 set { name_ = value; }
@@ -213,20 +213,20 @@ namespace Seasar.Dao.Tests.Impl
         }
 
         [NoPersistentProps("name")]
-        public class Eee : Ccc 
+        public class Eee : Ccc
         {
             private string name_;
 
-            public string Name 
+            public string Name
             {
                 get { return name_; }
                 set { name_ = value; }
             }
-        }    
-        
+        }
+
         [VersionNoProperty("Version")]
         [TimestampProperty("Updated")]
-        public class Fff 
+        public class Fff
         {
             private int version_;
             private SqlInt32 id_;
@@ -249,6 +249,6 @@ namespace Seasar.Dao.Tests.Impl
                 get { return updated_; }
                 set { updated_ = value; }
             }
-        }    
+        }
     }
 }

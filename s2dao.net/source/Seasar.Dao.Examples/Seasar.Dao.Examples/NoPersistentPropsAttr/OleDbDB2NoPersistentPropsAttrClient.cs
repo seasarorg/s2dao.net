@@ -26,20 +26,20 @@ namespace Seasar.Dao.Examples.NoPersistentPropsAttr
     /// </summary>
     public class OleDbDB2NoPersistentPropsAttrClient
     {
-        private const string PATH = 
+        private const string PATH =
             "Seasar.Dao.Examples/NoPersistentPropsAttr/OleDbDB2NoPersistentPropsAttr.dicon";
 
         public void Main()
         {
             IS2Container container = S2ContainerFactory.Create(PATH);
-            INoPersistentPropsAttrLogic logic = (INoPersistentPropsAttrLogic) 
+            INoPersistentPropsAttrLogic logic = (INoPersistentPropsAttrLogic)
                 container.GetComponent(typeof(INoPersistentPropsAttrLogic));
 
             try
             {
                 logic.TestNoPersistentPropsAttr();
             }
-            catch(ForCleanupException){}
+            catch (ForCleanupException) { }
         }
     }
 }

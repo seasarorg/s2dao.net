@@ -27,16 +27,16 @@ namespace Seasar.Dao.Tests.Impl
     {
         /** WEBユーザコード */
         private string webUserCode;
-        
+
         /** WEB画面ID */
         private string webFormId;
-        
+
         /** 参照タイムスタンプ */
-//      private java.sql.Timestamp referenceTimestamp;
-        
+        //      private java.sql.Timestamp referenceTimestamp;
+
         /** 参照ホストIP */
         private string referenceHostIp;
-        
+
         [Column("W_USER_CD")]
         public string WebUserCode
         {
@@ -51,12 +51,12 @@ namespace Seasar.Dao.Tests.Impl
             get { return this.webFormId; }
         }
 
-//        [Column("REF_TIMESTAMP")]
-//        public timestamp ReferenceTimestamp
-//        {
-//            set { this.referenceTimestamp = value; }
-//            get { return this.referenceTimestamp; }
-//        }
+        //        [Column("REF_TIMESTAMP")]
+        //        public timestamp ReferenceTimestamp
+        //        {
+        //            set { this.referenceTimestamp = value; }
+        //            get { return this.referenceTimestamp; }
+        //        }
 
 
         [Column("REF_HOST_IP")]
@@ -66,11 +66,12 @@ namespace Seasar.Dao.Tests.Impl
             get { return this.referenceHostIp; }
         }
 
-        public override string ToString() {
+        public override string ToString()
+        {
             StringBuilder buffer = new StringBuilder();
             buffer.Append("webUserCode[").Append(this.webUserCode).Append("]");
             buffer.Append("webFormId[").Append(this.webFormId).Append("]");
-//          buffer.Append("referenceTimestamp[").Append(this.referenceTimestamp).Append("]");
+            //          buffer.Append("referenceTimestamp[").Append(this.referenceTimestamp).Append("]");
             buffer.Append("referenceHostIp[").Append(this.referenceHostIp).Append("]");
             return buffer.ToString();
         }

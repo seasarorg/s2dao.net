@@ -23,7 +23,7 @@ using Seasar.Extension.ADO.Impl;
 
 namespace Seasar.Dao.Impl
 {
-    public class RelationPropertyTypeImpl 
+    public class RelationPropertyTypeImpl
         : PropertyTypeImpl, IRelationPropertyType
     {
         protected int relationNo;
@@ -60,7 +60,7 @@ namespace Seasar.Dao.Impl
         {
             get
             {
-                if(myKeys.Length > 0)
+                if (myKeys.Length > 0)
                     return myKeys.Length;
                 else
                     return beanMetaData.PrimaryKeySize;
@@ -69,7 +69,7 @@ namespace Seasar.Dao.Impl
 
         public string GetMyKey(int index)
         {
-            if(myKeys.Length > 0)
+            if (myKeys.Length > 0)
                 return myKeys[index];
             else
                 return beanMetaData.GetPrimaryKey(index);
@@ -77,7 +77,7 @@ namespace Seasar.Dao.Impl
 
         public string GetYourKey(int index)
         {
-            if(yourKeys.Length > 0)
+            if (yourKeys.Length > 0)
                 return yourKeys[index];
             else
                 return beanMetaData.GetPrimaryKey(index);
@@ -85,9 +85,9 @@ namespace Seasar.Dao.Impl
 
         public bool IsYourKey(string columnName)
         {
-            for(int i = 0; i < KeySize; ++i)
+            for (int i = 0; i < KeySize; ++i)
             {
-                if(string.Compare(columnName, GetYourKey(i), true) == 0)
+                if (string.Compare(columnName, GetYourKey(i), true) == 0)
                     return true;
             }
             return false;

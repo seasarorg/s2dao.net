@@ -37,7 +37,7 @@ namespace Seasar.Dao.Impl
         {
             MethodInfo mi = daoBeanType.GetMethod(name);
             QueryAttribute queryAttr = AttributeUtil.GetQueryAttribute(mi);
-            if(queryAttr != null)
+            if (queryAttr != null)
             {
                 return queryAttr.Query;
             }
@@ -57,7 +57,7 @@ namespace Seasar.Dao.Impl
         {
             MethodInfo mi = daoBeanType.GetMethod(methodName);
             NoPersistentPropsAttribute nppAttr = AttributeUtil.GetNoPersistentPropsAttribute(mi);
-            if(nppAttr != null)
+            if (nppAttr != null)
             {
                 return nppAttr.Props;
             }
@@ -71,7 +71,7 @@ namespace Seasar.Dao.Impl
         {
             MethodInfo mi = daoBeanType.GetMethod(methodName);
             PersistentPropsAttribute ppAttr = AttributeUtil.GetPersistentPropsAttribute(mi);
-            if(ppAttr != null)
+            if (ppAttr != null)
             {
                 return ppAttr.Props;
             }
@@ -86,14 +86,14 @@ namespace Seasar.Dao.Impl
             MethodInfo mi = daoBeanType.GetMethod(name);
             SqlAttribute[] sqlAttrs = AttributeUtil.GetSqlAttributes(mi);
             SqlAttribute defaultSqlAttr = null;
-            foreach(SqlAttribute sqlAttr in sqlAttrs)
+            foreach (SqlAttribute sqlAttr in sqlAttrs)
             {
-                if(sqlAttr.Dbms == dbms.Dbms)
+                if (sqlAttr.Dbms == dbms.Dbms)
                     return sqlAttr.Sql;
-                if(sqlAttr.Dbms == KindOfDbms.None)
+                if (sqlAttr.Dbms == KindOfDbms.None)
                     defaultSqlAttr = sqlAttr;
             }
-            
+
             return defaultSqlAttr == null ? null : defaultSqlAttr.Sql;
         }
 
@@ -106,7 +106,7 @@ namespace Seasar.Dao.Impl
         {
             MethodInfo mi = daoBeanType.GetMethod(name);
             ProcedureAttribute procedureAttribute = AttributeUtil.GetProcedureAttribute(mi);
-            if ( procedureAttribute != null )
+            if (procedureAttribute != null)
             {
                 return procedureAttribute.ProcedureName;
             }

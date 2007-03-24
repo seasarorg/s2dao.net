@@ -28,26 +28,26 @@ namespace Seasar.Dao.Tests.Impl
     public class RelationKeyTest : S2DaoTestCase
     {
         [Test, S2]
-        public void TestEquals() 
+        public void TestEquals()
         {
-            object[] values = new object[]{ "1", "2" };
+            object[] values = new object[] { "1", "2" };
             RelationKey pk = new RelationKey(values);
             Assert.AreEqual(pk, pk, "1");
             Assert.AreEqual(pk, new RelationKey(values), "2");
-            Assert.AreEqual(false, new RelationKey(new object[]{ "1" }).Equals(pk), "3");
+            Assert.AreEqual(false, new RelationKey(new object[] { "1" }).Equals(pk), "3");
         }
-        
+
         [Test, S2]
-        public void TestHashCode() 
+        public void TestHashCode()
         {
-            object[] values = new object[]{"1", "2"};
+            object[] values = new object[] { "1", "2" };
             RelationKey pk = new RelationKey(values);
             Assert.AreEqual("1".GetHashCode() + "2".GetHashCode(), pk.GetHashCode(), "1");
         }
-        
+
         [Table("MyBean")]
-        public class MyBean 
-        {       
+        public class MyBean
+        {
             private int aaa_;
 
             private string bbb_;
@@ -56,34 +56,34 @@ namespace Seasar.Dao.Tests.Impl
 
             private int ddd_;
 
-            public int Aaa 
+            public int Aaa
             {
                 get { return aaa_; }
                 set { aaa_ = value; }
             }
-            
+
             [Column("myBbb")]
             public string Bbb
             {
                 get { return bbb_; }
                 set { bbb_ = value; }
             }
-            
+
             [Relno(0), Relkeys("ddd:id")]
             public Ccc Cccc
             {
                 get { return ccc_; }
                 set { ccc_ = value; }
             }
-            
-            public int Ddd 
+
+            public int Ddd
             {
                 get { return ddd_; }
                 set { ddd_ = value; }
             }
         }
 
-        public class Ccc 
+        public class Ccc
         {
             private int id_;
 

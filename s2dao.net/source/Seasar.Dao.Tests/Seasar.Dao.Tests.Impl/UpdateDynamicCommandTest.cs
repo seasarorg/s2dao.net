@@ -27,7 +27,7 @@ namespace Seasar.Dao.Tests.Impl
 {
     [TestFixture]
     public class UpdateDynamicCommandTest : S2DaoTestCase
-	{
+    {
         [Test, S2(Tx.Rollback)]
         public void TestExecuteTx()
         {

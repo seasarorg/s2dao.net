@@ -16,8 +16,6 @@
  */
 #endregion
 
-using System;
-
 namespace Seasar.Dao
 {
     public interface ISqlParser

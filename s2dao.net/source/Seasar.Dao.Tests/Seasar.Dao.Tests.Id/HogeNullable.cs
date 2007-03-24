@@ -20,8 +20,8 @@ using Seasar.Dao.Attrs;
 
 namespace Seasar.Dao.Tests.Id
 {
-	public class HogeNullableDecimal
-	{
+    public class HogeNullableDecimal
+    {
         private Nullables.NullableDecimal id;
 
         public HogeNullableDecimal()
@@ -34,7 +34,7 @@ namespace Seasar.Dao.Tests.Id
             set { id = value; }
             get { return id; }
         }
-	}
+    }
 
     public class HogeNullableInt16
     {

@@ -37,7 +37,7 @@ namespace Seasar.Dao.Examples.AutoDelete
             {
                 logic.TestAutoDelete();
             }
-            catch(ForCleanupException){}
+            catch (ForCleanupException) { }
         }
     }
 }

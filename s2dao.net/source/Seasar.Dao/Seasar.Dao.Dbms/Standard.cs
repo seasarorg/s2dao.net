@@ -40,16 +40,16 @@ namespace Seasar.Dao.Dbms
             get { return KindOfDbms.None; }
         }
 
-        public  string GetAutoSelectSql(IBeanMetaData beanMetaData)
+        public string GetAutoSelectSql(IBeanMetaData beanMetaData)
         {
             StringBuilder buf = new StringBuilder(100);
             buf.Append(beanMetaData.AutoSelectList);
             buf.Append(" ");
             string beanName = beanMetaData.BeanType.Name;
-            lock(autoSelectFromClauseCache)
+            lock (autoSelectFromClauseCache)
             {
                 string fromClause = (string) autoSelectFromClauseCache[beanName];
-                if(fromClause == null)
+                if (fromClause == null)
                 {
                     fromClause = this.CreateAutoSelectFromClause(beanMetaData);
                     autoSelectFromClauseCache[beanName] = fromClause;
@@ -65,7 +65,7 @@ namespace Seasar.Dao.Dbms
             buf.Append("FROM ");
             string myTableName = beanMetaData.TableName;
             buf.Append(myTableName);
-            for(int i = 0; i < beanMetaData.RelationPropertyTypeSize; ++i)
+            for (int i = 0; i < beanMetaData.RelationPropertyTypeSize; ++i)
             {
                 IRelationPropertyType rpt = beanMetaData.GetRelationPropertyType(i);
                 IBeanMetaData bmd = rpt.BeanMetaData;
@@ -75,7 +75,7 @@ namespace Seasar.Dao.Dbms
                 string yourAliasName = rpt.PropertyName;
                 buf.Append(yourAliasName);
                 buf.Append(" ON ");
-                for(int j = 0; j < rpt.KeySize; ++j)
+                for (int j = 0; j < rpt.KeySize; ++j)
                 {
                     buf.Append(myTableName);
                     buf.Append(".");

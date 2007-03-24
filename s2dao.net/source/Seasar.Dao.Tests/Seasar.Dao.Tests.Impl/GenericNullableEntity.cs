@@ -34,17 +34,20 @@ namespace Seasar.Dao.Tests.Impl
         [ID(IDType.IDENTITY)]
         [ID(IDType.SEQUENCE, "SEQ_GENERIC_NULLABLE")]
         [Column("ID")]
-        public Nullable<Decimal> ID {
+        public Nullable<Decimal> ID
+        {
             get { return id; }
             set { id = value; }
         }
 
-        public Nullable<DateTime> Ddate {
+        public Nullable<DateTime> Ddate
+        {
             get { return ddate; }
             set { ddate = value; }
         }
 
-        public int EntityNo {
+        public int EntityNo
+        {
             get { return entityNo; }
             set { entityNo = value; }
         }

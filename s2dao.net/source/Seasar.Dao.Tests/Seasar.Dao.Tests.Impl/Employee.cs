@@ -34,21 +34,21 @@ namespace Seasar.Dao.Tests.Impl
 
         private SqlInt16 mgr;
 
-//        private SqlDateTime hiredate;
+        //        private SqlDateTime hiredate;
 
         private SqlSingle sal;
 
         private SqlSingle comm;
 
         private int deptno;
-    
+
         private byte[] password;
-    
+
         private string dummy;
-    
+
         private Department department;
-    
-//        private SqlDateTime timestamp;
+
+        //        private SqlDateTime timestamp;
 
         public Employee()
         {
@@ -79,11 +79,11 @@ namespace Seasar.Dao.Tests.Impl
             get { return mgr; }
         }
 
-//        public SqlDateTime Hiredate
-//        {
-//            set { hiredate = value; }
-//            get { return hiredate; }
-//        }
+        //        public SqlDateTime Hiredate
+        //        {
+        //            set { hiredate = value; }
+        //            get { return hiredate; }
+        //        }
 
         public SqlSingle Sal
         {
@@ -122,21 +122,21 @@ namespace Seasar.Dao.Tests.Impl
             get { return department; }
         }
 
-//        [Column("tstamp")]
-//        public SqlDateTime Timestamp
-//        {
-//            set { timestamp = value; }
-//            get { return timestamp; }
-//        }
+        //        [Column("tstamp")]
+        //        public SqlDateTime Timestamp
+        //        {
+        //            set { timestamp = value; }
+        //            get { return timestamp; }
+        //        }
 
-        public bool equals(object other) 
+        public bool equals(object other)
         {
-            if ( !(other.GetType() == typeof(Employee)) ) return false;
+            if (!(other.GetType() == typeof(Employee))) return false;
             Employee castOther = (Employee) other;
             return this.Empno == castOther.Empno;
         }
 
-        public int hashCode() 
+        public int hashCode()
         {
             return (int) this.Empno;
         }
@@ -148,11 +148,11 @@ namespace Seasar.Dao.Tests.Impl
             buf.Append(ename).Append(", ");
             buf.Append(job).Append(", ");
             buf.Append(mgr).Append(", ");
-//            buf.Append(hiredate).Append(", ");
+            //            buf.Append(hiredate).Append(", ");
             buf.Append(sal).Append(", ");
             buf.Append(comm).Append(", ");
             buf.Append(deptno).Append(", ");
-//            buf.Append(timestamp).Append(", ");
+            //            buf.Append(timestamp).Append(", ");
             buf.Append(department);
             return buf.ToString();
         }

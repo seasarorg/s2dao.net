@@ -23,8 +23,8 @@ using Seasar.Dao.Attrs;
 namespace Seasar.Dao.Tests.Impl
 {
     [Bean(typeof(UnderscoreEntity))]
-	public interface IUnderscoreEntityDao
-	{
+    public interface IUnderscoreEntityDao
+    {
         UnderscoreEntity GetUnderScoreEntity();
 
         [Query("UNDER_SCORE_NO=/*underScoreNo*/")]
@@ -35,5 +35,5 @@ namespace Seasar.Dao.Tests.Impl
         void Update(UnderscoreEntity entity);
 
         void Delete(UnderscoreEntity entity);
-	}
+    }
 }

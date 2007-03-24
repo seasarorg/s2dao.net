@@ -49,13 +49,13 @@ namespace Seasar.Dao.Impl
         public new IDataSource DataSource
         {
             get { return base.DataSource; }
-            set 
+            set
             {
-                if (value is ConnectionHolderDataSource) 
+                if (value is ConnectionHolderDataSource)
                 {
                     base.DataSource = value;
-                } 
-                else 
+                }
+                else
                 {
                     base.DataSource = new ConnectionHolderDataSource(value);
                 }
@@ -136,7 +136,7 @@ namespace Seasar.Dao.Impl
         {
             PreUpdateBean(bean);
             SetupBindVariables(bean);
-            if(logger.IsDebugEnabled) logger.Debug(GetCompleteSql(bindVariables));
+            if (logger.IsDebugEnabled) logger.Debug(GetCompleteSql(bindVariables));
             IDbCommand cmd = Command(connection);
             int ret = -1;
             try
@@ -186,22 +186,22 @@ namespace Seasar.Dao.Impl
                 varTypeList.Add(pt.PropertyInfo.PropertyType);
             }
             BindVariables = varList.ToArray();
-            BindVariableTypes = (Type[])varTypeList.ToArray(typeof(Type));
+            BindVariableTypes = (Type[]) varTypeList.ToArray(typeof(Type));
         }
 
         protected void SetupUpdateBindVariables(object bean)
         {
             ArrayList varList = new ArrayList();
             ArrayList varTypeList = new ArrayList();
-            for(int i = 0; i < propertyTypes.Length; ++i)
+            for (int i = 0; i < propertyTypes.Length; ++i)
             {
                 IPropertyType pt = propertyTypes[i];
-                if(string.Compare(pt.PropertyName, BeanMetaData.TimestampPropertyName, true) == 0)
+                if (string.Compare(pt.PropertyName, BeanMetaData.TimestampPropertyName, true) == 0)
                 {
                     this.Timestamp = DateTime.Now;
                     SetupTimestampVariableList(varList, pt);
                 }
-                else if(string.Compare(pt.PropertyName, BeanMetaData.VersionNoPropertyName, true) ==0)
+                else if (string.Compare(pt.PropertyName, BeanMetaData.VersionNoPropertyName, true) == 0)
                 {
                     object value = pt.PropertyInfo.GetValue(bean, null);
                     int intValue = Convert.ToInt32(value) + 1;
@@ -232,21 +232,21 @@ namespace Seasar.Dao.Impl
             object bean)
         {
             IBeanMetaData bmd = this.BeanMetaData;
-            for(int i = 0; i < bmd.PrimaryKeySize; ++i)
+            for (int i = 0; i < bmd.PrimaryKeySize; ++i)
             {
                 IPropertyType pt = bmd.GetPropertyTypeByColumnName(bmd.GetPrimaryKey(i));
                 PropertyInfo pi = pt.PropertyInfo;
                 varList.Add(pi.GetValue(bean, null));
                 varTypeList.Add(pi.PropertyType);
             }
-            if(bmd.HasVersionNoPropertyType)
+            if (bmd.HasVersionNoPropertyType)
             {
                 IPropertyType pt = bmd.VersionNoPropertyType;
                 PropertyInfo pi = pt.PropertyInfo;
                 varList.Add(pi.GetValue(bean, null));
                 varTypeList.Add(pi.PropertyType);
             }
-            if(bmd.HasTimestampPropertyType)
+            if (bmd.HasTimestampPropertyType)
             {
                 IPropertyType pt = bmd.TimestampPropertyType;
                 PropertyInfo pi = pt.PropertyInfo;
@@ -257,7 +257,7 @@ namespace Seasar.Dao.Impl
 
         protected void UpdateTimestampIfNeed(object bean)
         {
-            if(Timestamp != DateTime.MinValue)
+            if (Timestamp != DateTime.MinValue)
             {
                 PropertyInfo pi = BeanMetaData.TimestampPropertyType.PropertyInfo;
                 SetupTimestampPropertyInfo(pi, bean);
@@ -266,7 +266,7 @@ namespace Seasar.Dao.Impl
 
         protected void UpdateVersionNoIfNeed(object bean)
         {
-            if(VersionNo != Int32.MinValue)
+            if (VersionNo != Int32.MinValue)
             {
                 PropertyInfo pi = BeanMetaData.VersionNoPropertyType.PropertyInfo;
                 pi.SetValue(bean, VersionNo, null);
@@ -284,7 +284,8 @@ namespace Seasar.Dao.Impl
                 varList.Add(new Nullables.NullableDateTime(this.Timestamp));
             }
 #if !NET_1_1
-            else if (pt.PropertyType == typeof(DateTime?)) {
+            else if (pt.PropertyType == typeof(DateTime?))
+            {
                 varList.Add(this.Timestamp);
             }
 #endif
@@ -305,7 +306,8 @@ namespace Seasar.Dao.Impl
                 pi.SetValue(bean, new Nullables.NullableDateTime(this.Timestamp), null);
             }
 #if !NET_1_1
-            else if (pi.PropertyType == typeof(DateTime?)) {
+            else if (pi.PropertyType == typeof(DateTime?))
+            {
                 pi.SetValue(bean, new DateTime?(this.Timestamp), null);
             }
 #endif

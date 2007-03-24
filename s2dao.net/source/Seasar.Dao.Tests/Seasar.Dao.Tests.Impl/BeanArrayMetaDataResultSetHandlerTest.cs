@@ -30,27 +30,27 @@ namespace Seasar.Dao.Tests.Impl
     public class BeanArrayMetaDataDataReaderHandlerTest : S2DaoTestCase
     {
         [Test, S2]
-        public void TestHandle() 
+        public void TestHandle()
         {
             IDataReaderHandler handler = new BeanArrayMetaDataDataReaderHandler(
                 CreateBeanMetaData(typeof(Employee)));
 
             string sql = "select * from emp";
-            using (IDbConnection con = Connection) 
+            using (IDbConnection con = Connection)
             {
-                using (IDbCommand cmd = con.CreateCommand()) 
+                using (IDbCommand cmd = con.CreateCommand())
                 {
                     cmd.CommandText = sql;
 
                     Employee[] ret = null;
 
-                    using (IDataReader reader = cmd.ExecuteReader()) 
+                    using (IDataReader reader = cmd.ExecuteReader())
                     {
                         ret = (Employee[]) handler.Handle(reader);
                     }
 
                     Assert.IsNotNull(ret, "1");
-                    for (int i = 0; i < ret.Length; ++i) 
+                    for (int i = 0; i < ret.Length; ++i)
                     {
                         Employee emp = ret[i];
                         Trace.WriteLine(emp.Empno + "," + emp.Ename);

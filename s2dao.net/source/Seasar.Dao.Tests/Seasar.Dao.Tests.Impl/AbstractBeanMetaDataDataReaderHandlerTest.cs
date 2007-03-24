@@ -30,12 +30,12 @@ namespace Seasar.Dao.Tests.Impl
 {
     [TestFixture]
     public class AbstractBeanMetaDataDataReaderHandlerTest : S2DaoTestCase
-	{
+    {
         [Test, S2]
         public void TestCreateColumnMetaData()
         {
             TestBeanMetaData beanMetaData = new TestBeanMetaData(typeof(TestBean));
-            
+
             TestDataReaderHandler handler = new TestDataReaderHandler(beanMetaData);
 
             IList columnNames = new CaseInsentiveSet();
@@ -94,5 +94,5 @@ namespace Seasar.Dao.Tests.Impl
                 get { return _empname; }
             }
         }
-	}
+    }
 }

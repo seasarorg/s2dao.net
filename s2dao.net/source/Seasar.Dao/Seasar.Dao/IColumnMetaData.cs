@@ -16,7 +16,6 @@
  */
 #endregion
 
-using System;
 using System.Reflection;
 using Seasar.Extension.ADO;
 
@@ -25,8 +24,8 @@ namespace Seasar.Dao
     /// <summary>
     /// Columnのメタデータ
     /// </summary>
-	public interface IColumnMetaData
-	{
+    public interface IColumnMetaData
+    {
         /// <summary>
         /// カラム名
         /// </summary>
@@ -41,5 +40,5 @@ namespace Seasar.Dao
         /// データソースのColumnとBeanのプロパティがBindingを行う手段を提供する
         /// </summary>
         IValueType ValueType { get; }
-	}
+    }
 }

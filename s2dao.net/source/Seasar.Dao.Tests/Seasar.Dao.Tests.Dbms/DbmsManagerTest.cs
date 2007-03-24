@@ -24,14 +24,14 @@ using MbUnit.Framework;
 namespace Seasar.Dao.Tests.Dbms
 {
     [TestFixture]
-	public class DbmsManagerTest : S2TestCase
+    public class DbmsManagerTest : S2TestCase
     {
         [Test, S2]
-        public void TestCreateAutoSelectList() 
+        public void TestCreateAutoSelectList()
         {
             IDataSource dataSource = (IDataSource) GetComponent(typeof(IDataSource));
-            Assert.IsNotNull(DbmsManager.GetDbms(dataSource),"1");            
-		}
+            Assert.IsNotNull(DbmsManager.GetDbms(dataSource), "1");
+        }
 
         [Test, S2]
         public void TestGetStandard()
@@ -40,5 +40,5 @@ namespace Seasar.Dao.Tests.Dbms
             Assert.IsTrue(DbmsManager.GetDbms("OdbcConnection_xxx") is Standard);
             Assert.IsTrue(DbmsManager.GetDbms("xxx") is Standard);
         }
-	}
+    }
 }

@@ -83,14 +83,14 @@ namespace Seasar.Dao.Parser
 
         public TokenType Next()
         {
-            if(position >= sql.Length)
+            if (position >= sql.Length)
             {
                 token = null;
                 tokenType = TokenType.EOF;
                 nextTokenType = TokenType.EOF;
                 return tokenType;
             }
-            switch(nextTokenType)
+            switch (nextTokenType)
             {
                 case TokenType.SQL:
                     ParseSql();
@@ -115,37 +115,37 @@ namespace Seasar.Dao.Parser
         {
             int index = sql.Length;
             char quote = position < sql.Length ? sql.ToCharArray()[position] : '\0';
-            bool quoting = quote == '\'' || quote =='(';
-            if(quote == '(') quote = ')';
+            bool quoting = quote == '\'' || quote == '(';
+            if (quote == '(') quote = ')';
 
-            for(int i = quoting ? position + 1 : position; i < sql.Length; ++i)
+            for (int i = quoting ? position + 1 : position; i < sql.Length; ++i)
             {
                 char c = sql.ToCharArray()[i];
-                if((Char.IsWhiteSpace(c) || c == ',' || c == ')' || c == '(')
+                if ((Char.IsWhiteSpace(c) || c == ',' || c == ')' || c == '(')
                     && !quoting)
                 {
                     index = i;
                     break;
                 }
-                else if(c == '/' && i + 1 < sql.Length
+                else if (c == '/' && i + 1 < sql.Length
                     && sql.ToCharArray()[i + 1] == '*')
                 {
                     index = i;
                     break;
                 }
-                else if(c == '-' && i + 1 < sql.Length
+                else if (c == '-' && i + 1 < sql.Length
                     && sql.ToCharArray()[i + 1] == '-')
                 {
                     index = i;
                     break;
                 }
-                else if(quoting && quote == '\'' && c == '\''
+                else if (quoting && quote == '\'' && c == '\''
                     && (i + 1 >= sql.Length || sql.ToCharArray()[i + 1] != '\''))
                 {
                     index = i + 1;
                     break;
                 }
-                else if(quoting && c == quote)
+                else if (quoting && c == quote)
                 {
                     index = i + 1;
                     break;
@@ -176,14 +176,14 @@ namespace Seasar.Dao.Parser
             int elseCommentStartPos = -1;
             int elseCommentLength = -1;
 
-            if(bindVariableStartPos < 0)
+            if (bindVariableStartPos < 0)
             {
                 bindVariableStartPos = sql.IndexOf("?", position);
             }
-            if(lineCommentStartPos >= 0)
+            if (lineCommentStartPos >= 0)
             {
                 int skipPos = SkipWhitespace(lineCommentStartPos + 2);
-                if(skipPos + 4 < sql.Length
+                if (skipPos + 4 < sql.Length
                     && "ELSE" == sql.Substring(skipPos, ((skipPos + 4) - skipPos)))
                 {
                     elseCommentStartPos = lineCommentStartPos;
@@ -192,7 +192,7 @@ namespace Seasar.Dao.Parser
             }
             int nextStartPos = GetNextStartPos(commentStartPos,
                 elseCommentStartPos, bindVariableStartPos);
-            if(nextStartPos < 0)
+            if (nextStartPos < 0)
             {
                 token = sql.Substring(position);
                 nextTokenType = TokenType.EOF;
@@ -204,22 +204,22 @@ namespace Seasar.Dao.Parser
                 token = sql.Substring(position, nextStartPos - position);
                 tokenType = TokenType.SQL;
                 bool needNext = nextStartPos == position;
-                if(nextStartPos == commentStartPos)
+                if (nextStartPos == commentStartPos)
                 {
                     nextTokenType = TokenType.COMMENT;
                     position = commentStartPos + 2;
                 }
-                else if(nextStartPos == elseCommentStartPos)
+                else if (nextStartPos == elseCommentStartPos)
                 {
                     nextTokenType = TokenType.ELSE;
                     position = elseCommentStartPos + elseCommentLength;
                 }
-                else if(nextStartPos == bindVariableStartPos)
+                else if (nextStartPos == bindVariableStartPos)
                 {
                     nextTokenType = TokenType.BIND_VARIABLE;
                     position = bindVariableStartPos;
                 }
-                if(needNext) Next();
+                if (needNext) Next();
             }
         }
 
@@ -227,14 +227,14 @@ namespace Seasar.Dao.Parser
             int bindVariableStartPos)
         {
             int nextStartPos = -1;
-            if(commentStartPos >= 0)
+            if (commentStartPos >= 0)
                 nextStartPos = commentStartPos;
-            
-            if(elseCommentStartPos >= 0
+
+            if (elseCommentStartPos >= 0
                 && (nextStartPos < 0 || elseCommentStartPos < nextStartPos))
                 nextStartPos = elseCommentStartPos;
-            
-            if(bindVariableStartPos >= 0
+
+            if (bindVariableStartPos >= 0
                 && (nextStartPos < 0 || bindVariableStartPos < nextStartPos))
                 nextStartPos = bindVariableStartPos;
 
@@ -249,7 +249,7 @@ namespace Seasar.Dao.Parser
         protected void ParseComment()
         {
             int commentEndPos = sql.IndexOf("*/", position);
-            if(commentEndPos < 0)
+            if (commentEndPos < 0)
                 throw new TokenNotClosedRuntimeException("*/",
                     sql.Substring(position));
 
@@ -284,10 +284,10 @@ namespace Seasar.Dao.Parser
         private int SkipWhitespace(int position)
         {
             int index = sql.Length;
-            for(int i = position; i < sql.Length; ++i)
+            for (int i = position; i < sql.Length; ++i)
             {
                 char c = sql.ToCharArray()[i];
-                if(!Char.IsWhiteSpace(c))
+                if (!Char.IsWhiteSpace(c))
                 {
                     index = i;
                     break;

@@ -37,21 +37,21 @@ namespace Seasar.Dao.Tests.Impl
                 CreateBeanMetaData(typeof(Employee)));
 
             string sql = "select * from emp";
-            using (IDbConnection con = Connection) 
+            using (IDbConnection con = Connection)
             {
-                using (IDbCommand cmd = con.CreateCommand()) 
+                using (IDbCommand cmd = con.CreateCommand())
                 {
                     cmd.CommandText = sql;
 
                     IList<Employee> ret = null;
 
-                    using (IDataReader reader = cmd.ExecuteReader()) 
+                    using (IDataReader reader = cmd.ExecuteReader())
                     {
-                        ret = (IList<Employee>)handler.Handle(reader);
+                        ret = (IList<Employee>) handler.Handle(reader);
                     }
 
                     Assert.IsNotNull(ret, "1");
-                    foreach (Employee emp in ret) 
+                    foreach (Employee emp in ret)
                     {
                         Trace.WriteLine(emp.Empno + "," + emp.Ename);
                     }
@@ -66,21 +66,21 @@ namespace Seasar.Dao.Tests.Impl
                 CreateBeanMetaData(typeof(Employee)));
 
             string sql = "select emp.*, dept.dname as dname_0 from emp, dept where emp.deptno = dept.deptno and emp.deptno = 20";
-            using (IDbConnection con = Connection) 
+            using (IDbConnection con = Connection)
             {
-                using (IDbCommand cmd = con.CreateCommand()) 
+                using (IDbCommand cmd = con.CreateCommand())
                 {
                     cmd.CommandText = sql;
 
                     IList<Employee> ret = null;
 
-                    using (IDataReader reader = cmd.ExecuteReader()) 
+                    using (IDataReader reader = cmd.ExecuteReader())
                     {
-                        ret = (IList<Employee>)handler.Handle(reader);
+                        ret = (IList<Employee>) handler.Handle(reader);
                     }
 
                     Assert.IsNotNull(ret, "1");
-                    foreach (Employee emp in ret) 
+                    foreach (Employee emp in ret)
                     {
                         Trace.WriteLine(emp);
                         Department dept = emp.Department;
@@ -99,17 +99,17 @@ namespace Seasar.Dao.Tests.Impl
                 CreateBeanMetaData(typeof(Employee)));
 
             string sql = "select emp.*, dept.deptno as deptno_0, dept.dname as dname_0 from emp, dept where dept.deptno = 20 and emp.deptno = dept.deptno";
-            using (IDbConnection con = Connection) 
+            using (IDbConnection con = Connection)
             {
-                using (IDbCommand cmd = con.CreateCommand()) 
+                using (IDbCommand cmd = con.CreateCommand())
                 {
                     cmd.CommandText = sql;
 
                     IList<Employee> ret = null;
 
-                    using (IDataReader reader = cmd.ExecuteReader()) 
+                    using (IDataReader reader = cmd.ExecuteReader())
                     {
-                        ret = (IList<Employee>)handler.Handle(reader);
+                        ret = (IList<Employee>) handler.Handle(reader);
                     }
 
                     IEnumerator<Employee> employees = ret.GetEnumerator();
@@ -117,7 +117,7 @@ namespace Seasar.Dao.Tests.Impl
                     Employee emp = (Employee) employees.Current;
                     employees.MoveNext();
                     Employee emp2 = (Employee) employees.Current;
-                    Assert.AreSame(emp.Department, emp2.Department,"1");
+                    Assert.AreSame(emp.Department, emp2.Department, "1");
                 }
             }
         }

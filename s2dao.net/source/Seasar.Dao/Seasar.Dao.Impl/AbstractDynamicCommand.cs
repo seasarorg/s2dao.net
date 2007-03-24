@@ -36,7 +36,7 @@ namespace Seasar.Dao.Impl
 
         public override string Sql
         {
-            set 
+            set
             {
                 base.Sql = value;
                 rootNode = new SqlParserImpl(value).Parse();
@@ -69,19 +69,19 @@ namespace Seasar.Dao.Impl
         protected ICommandContext CreateCommandContext(object[] args)
         {
             ICommandContext ctx = GetCommandContext();
-            if(args != null)
+            if (args != null)
             {
-                for(int i = 0; i < args.Length; ++i)
+                for (int i = 0; i < args.Length; ++i)
                 {
                     Type argType = null;
-                    if(args[i] != null)
+                    if (args[i] != null)
                     {
-                        if(i < argTypes.Length)
+                        if (i < argTypes.Length)
                             argType = argTypes[i];
                         else if (args[i] != null)
                             argType = args[i].GetType();
                     }
-                    if(i < argNames.Length)
+                    if (i < argNames.Length)
                         ctx.AddArg(argNames[i], args[i], argType);
                     else
                         ctx.AddArg("$" + (i + 1), args[i], argType);
@@ -92,7 +92,7 @@ namespace Seasar.Dao.Impl
 
         private ICommandContext GetCommandContext()
         {
-            return new CommandContextImpl();            
+            return new CommandContextImpl();
         }
     }
 }

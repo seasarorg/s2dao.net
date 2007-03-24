@@ -38,7 +38,7 @@ namespace Seasar.Dao.Impl
         protected string[] deletePrefixes;
 
         public DaoMetaDataFactoryImpl(IDataSource dataSource,
-            ICommandFactory commandFactory, IAnnotationReaderFactory readerFactory, 
+            ICommandFactory commandFactory, IAnnotationReaderFactory readerFactory,
             IDataReaderFactory dataReaderFactory)
         {
             this.dataSource = dataSource;
@@ -48,22 +48,22 @@ namespace Seasar.Dao.Impl
             this.dbMetaData = new DatabaseMetaDataImpl(dataSource);
         }
 
-        public string[] InsertPrefixes 
+        public string[] InsertPrefixes
         {
             set { insertPrefixes = value; }
         }
 
-        public string[] UpdatePrefixes 
+        public string[] UpdatePrefixes
         {
             set { updatePrefixes = value; }
         }
 
-        public string[] DeletePrefixes 
+        public string[] DeletePrefixes
         {
             set { deletePrefixes = value; }
         }
 
-        public string SqlFileEncoding 
+        public string SqlFileEncoding
         {
             set { sqlFileEncoding = value; }
         }
@@ -72,11 +72,11 @@ namespace Seasar.Dao.Impl
 
         public IDaoMetaData GetDaoMetaData(Type daoType)
         {
-            lock(this)
+            lock (this)
             {
                 string key = daoType.FullName;
                 IDaoMetaData dmd = (IDaoMetaData) daoMetaDataCache[key];
-                if(dmd != null) 
+                if (dmd != null)
                 {
                     return dmd;
                 }
@@ -88,7 +88,7 @@ namespace Seasar.Dao.Impl
 
         #endregion
 
-        protected virtual IDaoMetaData CreateDaoMetaData(Type daoType) 
+        protected virtual IDaoMetaData CreateDaoMetaData(Type daoType)
         {
             DaoMetaDataImpl dmd = new DaoMetaDataImpl();
             dmd.DaoType = daoType;
@@ -97,19 +97,19 @@ namespace Seasar.Dao.Impl
             dmd.DataReaderFactory = dataReaderFactory;
             dmd.AnnotationReaderFactory = readerFactory;
             dmd.DatabaseMetaData = dbMetaData;
-            if (sqlFileEncoding != null) 
+            if (sqlFileEncoding != null)
             {
                 dmd.SqlFileEncoding = sqlFileEncoding;
             }
-            if (insertPrefixes != null) 
+            if (insertPrefixes != null)
             {
                 dmd.InsertPrefixes = insertPrefixes;
             }
-            if (updatePrefixes != null) 
+            if (updatePrefixes != null)
             {
                 dmd.UpdatePrefixes = updatePrefixes;
             }
-            if (deletePrefixes != null) 
+            if (deletePrefixes != null)
             {
                 dmd.DeletePrefixes = deletePrefixes;
             }

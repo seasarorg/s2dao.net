@@ -28,12 +28,12 @@ using Seasar.Dao.Unit;
 namespace Seasar.Dao.Tests.Id
 {
     [TestFixture]
-    public class IdentityIdentifierGeneratorTest : S2DaoTestCase 
+    public class IdentityIdentifierGeneratorTest : S2DaoTestCase
     {
         [Test, S2(Tx.Rollback)]
-        public void TestGetGeneratedValue() 
+        public void TestGetGeneratedValue()
         {
-            if (Dbms.IdentitySelectString == null) 
+            if (Dbms.IdentitySelectString == null)
             {
                 Assert.Ignore("IDENTITYをサポートしていないDBMS。");
             }
@@ -51,7 +51,8 @@ namespace Seasar.Dao.Tests.Id
         [Test, S2(Tx.Rollback)]
         public void TestGetGeneratedNullableValue()
         {
-            if (Dbms.IdentitySelectString == null) {
+            if (Dbms.IdentitySelectString == null)
+            {
                 Assert.Ignore("IDENTITYをサポートしていないDBMS。");
             }
 
@@ -101,7 +102,8 @@ namespace Seasar.Dao.Tests.Id
         [Test, S2(Tx.Rollback)]
         public void TestGetGeneratedSystemNullableValue()
         {
-            if (Dbms.IdentitySelectString == null) {
+            if (Dbms.IdentitySelectString == null)
+            {
                 Assert.Ignore("IDENTITYをサポートしていないDBMS。");
             }
 

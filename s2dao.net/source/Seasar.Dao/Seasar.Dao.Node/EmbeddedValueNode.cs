@@ -41,9 +41,12 @@ namespace Seasar.Dao.Node
         public override void Accept(ICommandContext ctx)
         {
             object value = ctx.GetArg(expression);
-            if(value != null) {
+            if (value != null)
+            {
                 ctx.AddSql(value.ToString());
-            } else {
+            }
+            else
+            {
                 logger.Log("WDAO0001", new object[] { expression });
             }
         }

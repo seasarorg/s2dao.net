@@ -30,20 +30,20 @@ namespace Seasar.Dao.Tests.Impl
     public class BeanMetaDataDataReaderHandlerTest : S2DaoTestCase
     {
         [Test, S2]
-        public void TestHandle() 
+        public void TestHandle()
         {
             IDataReaderHandler handler = new BeanMetaDataDataReaderHandler(
                 CreateBeanMetaData(typeof(Employee)));
             string sql = "select emp.*, dept.deptno as deptno_0, dept.dname as dname_0 " +
                 "from emp, dept where empno = 7788 and emp.deptno = dept.deptno";
             Employee ret = null;
-            using (IDbConnection con = Connection) 
+            using (IDbConnection con = Connection)
             {
-                using (IDbCommand cmd = con.CreateCommand()) 
+                using (IDbCommand cmd = con.CreateCommand())
                 {
                     cmd.CommandText = sql;
 
-                    using(IDataReader reader = cmd.ExecuteReader())
+                    using (IDataReader reader = cmd.ExecuteReader())
                     {
                         ret = (Employee) handler.Handle(reader);
                     }
@@ -64,13 +64,13 @@ namespace Seasar.Dao.Tests.Impl
                 CreateBeanMetaData(typeof(Employee)));
             string sql = "select ename, job from emp where empno = 7788";
             Employee ret = null;
-            using (IDbConnection con = Connection) 
+            using (IDbConnection con = Connection)
             {
-                using (IDbCommand cmd = con.CreateCommand()) 
+                using (IDbCommand cmd = con.CreateCommand())
                 {
                     cmd.CommandText = sql;
 
-                    using(IDataReader reader = cmd.ExecuteReader())
+                    using (IDataReader reader = cmd.ExecuteReader())
                     {
                         ret = (Employee) handler.Handle(reader);
                     }
@@ -90,13 +90,13 @@ namespace Seasar.Dao.Tests.Impl
             string sql = "select ename, dept.dname as dname_0 " +
                 "from emp, dept where empno = 7788 and emp.deptno = dept.deptno";
             Employee ret = null;
-            using (IDbConnection con = Connection) 
+            using (IDbConnection con = Connection)
             {
-                using (IDbCommand cmd = con.CreateCommand()) 
+                using (IDbCommand cmd = con.CreateCommand())
                 {
                     cmd.CommandText = sql;
 
-                    using(IDataReader reader = cmd.ExecuteReader())
+                    using (IDataReader reader = cmd.ExecuteReader())
                     {
                         ret = (Employee) handler.Handle(reader);
                     }
@@ -119,13 +119,13 @@ namespace Seasar.Dao.Tests.Impl
                 CreateBeanMetaData(typeof(Employee)));
             string sql = "select job as jobname from emp where empno = 7788";
             Employee ret = null;
-            using (IDbConnection con = Connection) 
+            using (IDbConnection con = Connection)
             {
-                using (IDbCommand cmd = con.CreateCommand()) 
+                using (IDbCommand cmd = con.CreateCommand())
                 {
                     cmd.CommandText = sql;
 
-                    using(IDataReader reader = cmd.ExecuteReader())
+                    using (IDataReader reader = cmd.ExecuteReader())
                     {
                         ret = (Employee) handler.Handle(reader);
                     }

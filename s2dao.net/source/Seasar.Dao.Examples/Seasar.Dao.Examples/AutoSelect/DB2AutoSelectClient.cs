@@ -1,3 +1,4 @@
+
 #region Copyright
 /*
  * Copyright 2005-2007 the Seasar Foundation and the Others.
@@ -40,7 +41,7 @@ namespace Seasar.Dao.Examples.AutoSelect
 
             IEnumerator employees = employeeList.GetEnumerator();
             Console.WriteLine("/** ‘S‚Ä‚Ì]‹Æˆõ‚ÌƒŠƒXƒg **/");
-            while(employees.MoveNext())
+            while (employees.MoveNext())
             {
                 Console.WriteLine(((Employee) employees.Current).ToString());
             }

@@ -41,14 +41,14 @@ namespace Seasar.Dao.Tests.Impl
             set { dname = value; }
             get { return dname; }
         }
-        
+
         public bool IsActive
         {
             set { active = value; }
             get { return active; }
         }
-        
-        public override string ToString() 
+
+        public override string ToString()
         {
             StringBuilder buf = new StringBuilder();
             buf.Append(deptno).Append(", ");

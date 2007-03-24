@@ -16,12 +16,10 @@
  */
 #endregion
 
-using System;
-
 namespace Seasar.Dao
 {
-    public interface ISqlCommand 
+    public interface ISqlCommand
     {
         object Execute(object[] args);
-    }    
+    }
 }

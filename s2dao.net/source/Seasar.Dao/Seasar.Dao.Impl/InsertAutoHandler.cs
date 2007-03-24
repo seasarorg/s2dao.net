@@ -37,14 +37,14 @@ namespace Seasar.Dao.Impl
         protected override void PreUpdateBean(object bean)
         {
             IIdentifierGenerator generator = BeanMetaData.IdentifierGenerator;
-            if(generator.IsSelfGenerate)
+            if (generator.IsSelfGenerate)
                 generator.SetIdentifier(bean, DataSource);
         }
 
         protected override void PostUpdateBean(object bean)
         {
             IIdentifierGenerator generator = BeanMetaData.IdentifierGenerator;
-            if(!generator.IsSelfGenerate)
+            if (!generator.IsSelfGenerate)
                 generator.SetIdentifier(bean, DataSource);
             UpdateVersionNoIfNeed(bean);
             UpdateTimestampIfNeed(bean);

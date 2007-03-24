@@ -40,18 +40,18 @@ namespace Seasar.Dao.Node
         public override void Accept(ICommandContext ctx)
         {
             object var = InvokeExpression(expression, ctx);
-            if(var != null)
+            if (var != null)
             {
                 IList list = var as IList;
                 Array array = new object[list.Count];
                 list.CopyTo(array, 0);
                 BindArray(ctx, array);
             }
-            else if(var == null)
+            else if (var == null)
             {
                 return;
             }
-            else if(var.GetType().IsArray)
+            else if (var.GetType().IsArray)
             {
                 BindArray(ctx, var);
             }
@@ -65,16 +65,16 @@ namespace Seasar.Dao.Node
         {
             object[] array = arrayArg as object[];
             int length = array.Length;
-            if(length == 0) return;
+            if (length == 0) return;
             Type type = null;
-            for(int i = 0; i < length; ++i)
+            for (int i = 0; i < length; ++i)
             {
                 object o = array[i];
-                if(o != null) type = o.GetType();
+                if (o != null) type = o.GetType();
             }
             ctx.AddSql("(");
             ctx.AddSql(array[0], type, bindName + 1);
-            for(int i = 1; i < length; ++i)
+            for (int i = 1; i < length; ++i)
             {
                 ctx.AppendSql(array[i], type, bindName + (i + 1));
             }

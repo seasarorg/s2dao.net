@@ -26,20 +26,20 @@ namespace Seasar.Dao.Examples.PersistentPropsAttr
     /// </summary>
     public class PersistentPropsAttrClient
     {
-        private const string PATH = 
+        private const string PATH =
             "Seasar.Dao.Examples/PersistentPropsAttr/PersistentPropsAttr.dicon";
 
         public void Main()
         {
             IS2Container container = S2ContainerFactory.Create(PATH);
-            IPersistentPropsAttrLogic logic = (IPersistentPropsAttrLogic) 
+            IPersistentPropsAttrLogic logic = (IPersistentPropsAttrLogic)
                 container.GetComponent(typeof(IPersistentPropsAttrLogic));
 
             try
             {
                 logic.TestPersistentPropsAttr();
             }
-            catch(ForCleanupException){}
+            catch (ForCleanupException) { }
         }
     }
 }

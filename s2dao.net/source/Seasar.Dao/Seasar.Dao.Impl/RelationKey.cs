@@ -28,7 +28,7 @@ namespace Seasar.Dao.Impl
         public RelationKey(object[] values)
         {
             this.values = values;
-            foreach(object value in values)
+            foreach (object value in values)
                 hashCode += value.GetHashCode();
         }
 
@@ -44,12 +44,12 @@ namespace Seasar.Dao.Impl
 
         public override bool Equals(object obj)
         {
-            if(!(obj is RelationKey)) return false;
+            if (!(obj is RelationKey)) return false;
             object[] otherValues = ((RelationKey) obj).values;
-            if(values.Length != otherValues.Length) return false;
-            for(int i = 0; i < values.Length; ++i)
+            if (values.Length != otherValues.Length) return false;
+            for (int i = 0; i < values.Length; ++i)
             {
-                if(!values[i].Equals(otherValues[i])) return false;
+                if (!values[i].Equals(otherValues[i])) return false;
             }
             return true;
         }

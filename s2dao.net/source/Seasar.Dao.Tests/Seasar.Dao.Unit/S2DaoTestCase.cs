@@ -32,15 +32,15 @@ namespace Seasar.Dao.Unit
         {
         }
 
-        protected virtual IDbms Dbms 
+        protected virtual IDbms Dbms
         {
-            get 
+            get
             {
                 return DbmsManager.GetDbms(DataSource);
             }
         }
 
-        protected virtual BeanMetaDataImpl CreateBeanMetaData(Type beanType) 
+        protected virtual BeanMetaDataImpl CreateBeanMetaData(Type beanType)
         {
             return CreateBeanMetaData(beanType, Dbms);
         }
@@ -57,7 +57,7 @@ namespace Seasar.Dao.Unit
             return beanMetaData;
         }
 
-        protected virtual DaoMetaDataImpl CreateDaoMetaData(Type daoType) 
+        protected virtual DaoMetaDataImpl CreateDaoMetaData(Type daoType)
         {
             DaoMetaDataImpl dmd = new DaoMetaDataImpl();
             dmd.DaoType = daoType;

@@ -29,7 +29,7 @@ namespace Seasar.Dao.Tests.Impl
     public class DeleteAutoStaticCommandTest : S2DaoTestCase
     {
         [Test, S2(Tx.Rollback)]
-        public void TestExecuteTx() 
+        public void TestExecuteTx()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeAutoDao));
             ISqlCommand cmd = dmd.GetSqlCommand("Delete");
@@ -40,7 +40,7 @@ namespace Seasar.Dao.Tests.Impl
         }
 
         [Test, S2(Tx.Rollback)]
-        public void TestExecute2Tx() 
+        public void TestExecute2Tx()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IDepartmentAutoDao));
             ISqlCommand cmd = dmd.GetSqlCommand("Delete");
@@ -53,7 +53,7 @@ namespace Seasar.Dao.Tests.Impl
 
         [Test, S2(Tx.Rollback)]
         [ExpectedException(typeof(NotSingleRowUpdatedRuntimeException))]
-        public void TestExecute3Tx() 
+        public void TestExecute3Tx()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IDepartmentAutoDao));
             DeleteAutoStaticCommand cmd =

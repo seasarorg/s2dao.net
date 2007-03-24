@@ -67,7 +67,7 @@ namespace Seasar.Dao.Impl
             }
             set
             {
-                beanType = value; 
+                beanType = value;
             }
         }
 
@@ -87,14 +87,14 @@ namespace Seasar.Dao.Impl
         public Seasar.Extension.ADO.IPropertyType GetPropertyType(int index)
         {
             IEnumerator enu = propertyTypes.Keys.GetEnumerator();
-            for(int i = -1; i < index; ++i) enu.MoveNext();
+            for (int i = -1; i < index; ++i) enu.MoveNext();
             return (IPropertyType) propertyTypes[enu.Current];
         }
 
         public IPropertyType GetPropertyType(string propertyName)
         {
             IPropertyType propertyType = (IPropertyType) propertyTypes[propertyName];
-            if(propertyType == null)
+            if (propertyType == null)
                 throw new PropertyNotFoundRuntimeException(beanType, propertyName);
             return propertyType;
         }
@@ -108,7 +108,7 @@ namespace Seasar.Dao.Impl
 
         protected void SetupPropertyType()
         {
-            foreach(PropertyInfo pi in beanType.GetProperties())
+            foreach (PropertyInfo pi in beanType.GetProperties())
             {
                 IPropertyType pt = CreatePropertyType(pi);
                 AddPropertyType(pt);

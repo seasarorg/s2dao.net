@@ -30,9 +30,9 @@ namespace Seasar.Dao.Node
         {
             ICommandContext childCtx = GetCommandContext(ctx);
             base.Accept(childCtx);
-            if(childCtx.IsEnabled)
+            if (childCtx.IsEnabled)
             {
-                ctx.AddSql(childCtx.Sql,childCtx.BindVariables,
+                ctx.AddSql(childCtx.Sql, childCtx.BindVariables,
                     childCtx.BindVariableTypes, childCtx.BindVariableNames);
             }
         }

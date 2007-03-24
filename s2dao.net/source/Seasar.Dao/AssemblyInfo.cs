@@ -31,7 +31,7 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyProduct("S2Dao.NET")]
 [assembly: AssemblyCopyright("c Copyright The Seasar Foundation and the others 2005-2007, all rights reserved.")]
 [assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]        
+[assembly: AssemblyCulture("")]
 
 //
 // アセンブリのバージョン情報は、以下の 4 つの属性で構成されます :

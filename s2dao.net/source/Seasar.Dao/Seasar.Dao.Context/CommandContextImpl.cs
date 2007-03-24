@@ -24,10 +24,10 @@ using Seasar.Framework.Log;
 
 namespace Seasar.Dao.Context
 {
-    public class CommandContextImpl : ICommandContext 
+    public class CommandContextImpl : ICommandContext
     {
         private static readonly Logger logger = Logger.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        
+
 #if NET_1_1
         Hashtable args = new Hashtable( new CaseInsensitiveHashCodeProvider(), 
             new CaseInsensitiveComparer() );
@@ -48,74 +48,74 @@ namespace Seasar.Dao.Context
         private bool enabled = true;
         private ICommandContext parent;
 
-        public CommandContextImpl() 
+        public CommandContextImpl()
         {
         }
 
-        public CommandContextImpl(ICommandContext parent) 
+        public CommandContextImpl(ICommandContext parent)
         {
             this.parent = parent;
             this.enabled = false;
         }
 
-        public object GetArg(string name) 
+        public object GetArg(string name)
         {
-            if (this.args.ContainsKey(name)) 
+            if (this.args.ContainsKey(name))
             {
                 return this.args[name];
-            } 
-            else if (this.parent != null) 
+            }
+            else if (this.parent != null)
             {
                 return this.parent.GetArg(name);
-            } 
+            }
             else
             {
                 string[] names = name.Split('.');
-                object value = this.args[names[0]];;
+                object value = this.args[names[0]]; ;
                 Type type = this.GetArgType(names[0]);
-                
-                for(int pos = 1; pos < names.Length; pos++)
+
+                for (int pos = 1; pos < names.Length; pos++)
                 {
-                    if(value == null || type == null) break;
+                    if (value == null || type == null) break;
                     PropertyInfo pi = type.GetProperty(names[pos]);
-                    if(pi == null)
+                    if (pi == null)
                     {
                         return null;
                     }
                     value = pi.GetValue(value, null);
                     type = pi.PropertyType;
                 }
-                if(value != null) return value;
+                if (value != null) return value;
 
                 return null;
             }
         }
-    
-        public Type GetArgType(string name) 
+
+        public Type GetArgType(string name)
         {
-            if (this.argTypes.ContainsKey(name)) 
+            if (this.argTypes.ContainsKey(name))
             {
                 return (Type) this.argTypes[name];
-            } 
-            else if (this.parent != null) 
+            }
+            else if (this.parent != null)
             {
                 return this.parent.GetArgType(name);
-            } 
-            else 
+            }
+            else
             {
                 logger.Log("WDAO0001", new object[] { name });
                 return null;
             }
         }
 
-        public void AddArg(string name, object arg, Type argType) 
+        public void AddArg(string name, object arg, Type argType)
         {
             if (this.args.ContainsKey(name))
             {
                 this.args.Remove(name);
             }
             this.args.Add(name, arg);
-            
+
             if (this.argTypes.ContainsKey(name))
             {
                 this.argTypes.Remove(name);
@@ -143,7 +143,7 @@ namespace Seasar.Dao.Context
                 return variables;
             }
         }
-    
+
         public Type[] BindVariableTypes
         {
             get
@@ -154,7 +154,7 @@ namespace Seasar.Dao.Context
             }
         }
 
-        public string[] BindVariableNames 
+        public string[] BindVariableNames
         {
             get
             {
@@ -164,16 +164,16 @@ namespace Seasar.Dao.Context
             }
         }
 
-        public ICommandContext AddSql(string sql) 
+        public ICommandContext AddSql(string sql)
         {
             this.sqlBuf.Append(sql);
             return this;
         }
 
         public ICommandContext AddSql(string sql, object bindVariable,
-            Type bindVariableType, string bindVariableName) 
+            Type bindVariableType, string bindVariableName)
         {
-        
+
             this.sqlBuf.Append(sql);
             this.bindVariables.Add(bindVariable);
             this.bindVariableTypes.Add(bindVariableType);
@@ -188,11 +188,11 @@ namespace Seasar.Dao.Context
         }
 
         public ICommandContext AddSql(string sql, object[] bindVariables,
-            Type[] bindVariableTypes, string[] bindVariableNames) 
+            Type[] bindVariableTypes, string[] bindVariableNames)
         {
-        
+
             this.sqlBuf.Append(sql);
-            for (int i = 0; i < bindVariables.Length; ++i) 
+            for (int i = 0; i < bindVariables.Length; ++i)
             {
                 this.bindVariables.Add(bindVariables[i]);
                 this.bindVariableTypes.Add(bindVariableTypes[i]);

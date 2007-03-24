@@ -23,7 +23,7 @@ using Seasar.Dao.Attrs;
 
 namespace Seasar.Dao.Tests.Impl
 {
-   // [TimestampProperty("NullableNextRestDate")]
+    // [TimestampProperty("NullableNextRestDate")]
     [Table("EMP_NULLABLE")]
     public class EmployeeNullable
     {
@@ -115,13 +115,13 @@ namespace Seasar.Dao.Tests.Impl
         public bool equals(object other)
         {
             if (!(other.GetType() == typeof(EmployeeNullable))) return false;
-            EmployeeNullable castOther = (EmployeeNullable)other;
+            EmployeeNullable castOther = (EmployeeNullable) other;
             return this.Empno == castOther.Empno;
         }
 
         public int hashCode()
         {
-            return (int)this.Empno;
+            return (int) this.Empno;
         }
 
         public override string ToString()

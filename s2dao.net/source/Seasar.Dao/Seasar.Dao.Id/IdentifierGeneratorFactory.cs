@@ -53,7 +53,7 @@ namespace Seasar.Dao.Id
         public static IIdentifierGenerator CreateIdentifierGenerator(
             string propertyName, IDbms dbms, IDAttribute idAttr)
         {
-            if(idAttr == null) 
+            if (idAttr == null)
                 return new AssignedIdentifierGenerator(propertyName, dbms);
             Type type = GetGeneratorType(idAttr.IDType);
             IIdentifierGenerator generator = CreateIdentifierGenerator(type, propertyName, dbms);
@@ -77,9 +77,9 @@ namespace Seasar.Dao.Id
         protected static IIdentifierGenerator CreateIdentifierGenerator(
             Type type, string propertyName, IDbms dbms)
         {
-            ConstructorInfo constructor = 
+            ConstructorInfo constructor =
                 ClassUtil.GetConstructorInfo(type, new Type[] { typeof(string), typeof(IDbms) });
-            return (IIdentifierGenerator) 
+            return (IIdentifierGenerator)
                 ConstructorUtil.NewInstance(constructor, new object[] { propertyName, dbms });
         }
 

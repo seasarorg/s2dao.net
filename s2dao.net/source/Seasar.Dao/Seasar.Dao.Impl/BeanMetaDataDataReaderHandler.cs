@@ -33,19 +33,19 @@ namespace Seasar.Dao.Impl
 
         public override object Handle(IDataReader dataReader)
         {
-            if(dataReader.Read())
+            if (dataReader.Read())
             {
                 IList columnNames = CreateColumnNames(dataReader.GetSchemaTable());
                 IColumnMetaData[] columns = CreateColumnMetaData(columnNames);
                 object row = CreateRow(dataReader, columns);
-                for(int i = 0; i < BeanMetaData.RelationPropertyTypeSize; ++i)
+                for (int i = 0; i < BeanMetaData.RelationPropertyTypeSize; ++i)
                 {
                     IRelationPropertyType rpt = BeanMetaData
                         .GetRelationPropertyType(i);
-                    if(rpt == null) continue;
+                    if (rpt == null) continue;
                     object relationRow = CreateRelationRow(dataReader, rpt,
                         columnNames, null);
-                    if(relationRow != null)
+                    if (relationRow != null)
                     {
                         PropertyInfo pi = rpt.PropertyInfo;
                         pi.SetValue(row, relationRow, null);

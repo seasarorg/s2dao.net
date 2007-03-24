@@ -25,19 +25,19 @@ using MbUnit.Framework;
 namespace Seasar.Dao.Tests.Id
 {
     [TestFixture]
-    public class IdentifierGeneratorFactoryTest : S2TestCase 
+    public class IdentifierGeneratorFactoryTest : S2TestCase
     {
         [Test, S2]
-        public void TestCreateIdentifierGenerator() 
+        public void TestCreateIdentifierGenerator()
         {
             IDbms dbms = new MSSQLServer();
             Hoge hoge = new Hoge();
             hoge.Id = 1;
-            
+
             IIdentifierGenerator generator = IdentifierGeneratorFactory.CreateIdentifierGenerator(
                 "id", dbms, null);
             Assert.AreEqual(typeof(AssignedIdentifierGenerator), generator.GetType(), "1");
-            
+
             generator = IdentifierGeneratorFactory.CreateIdentifierGenerator(
                 "id", dbms, new IDAttribute(IDType.IDENTITY));
             Assert.AreEqual(typeof(IdentityIdentifierGenerator), generator.GetType(), "2");

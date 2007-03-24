@@ -25,7 +25,7 @@ namespace Seasar.Dao.Tests.Impl
     public class Employee2
     {
         private long empno;
-        
+
         private string ename;
 
         private int deptnum;
@@ -54,7 +54,7 @@ namespace Seasar.Dao.Tests.Impl
             get { return deptnum; }
         }
 
-        [Relno(0),Relkeys("DEPTNUM:DEPTNO")]
+        [Relno(0), Relkeys("DEPTNUM:DEPTNO")]
         public Department2 Department2
         {
             set { department2 = value; }

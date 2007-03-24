@@ -24,7 +24,7 @@ namespace Seasar.Dao.Tests.Interceptors
 {
     [Table("DEPT")]
     [Serializable]
-    public class Department 
+    public class Department
     {
         private int deptno;
         private string dname;

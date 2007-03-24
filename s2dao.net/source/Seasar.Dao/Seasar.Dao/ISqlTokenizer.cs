@@ -16,8 +16,6 @@
  */
 #endregion
 
-using System;
-
 namespace Seasar.Dao
 {
     public interface ISqlTokenizer
@@ -31,6 +29,5 @@ namespace Seasar.Dao
         TokenType Next();
         string SkipToken();
         string SkipWhitespace();
-
     }
 }

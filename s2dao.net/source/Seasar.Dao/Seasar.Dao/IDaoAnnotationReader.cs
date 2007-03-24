@@ -27,6 +27,6 @@ namespace Seasar.Dao
         string[] GetNoPersistentProps(string methodName);
         string[] GetPersistentProps(string methodName);
         string GetSql(string name, IDbms dbms);
-        string GetProcedure( string name );
+        string GetProcedure(string name);
     }
 }

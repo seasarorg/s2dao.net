@@ -23,13 +23,9 @@ namespace Seasar.Dao
     public interface INode
     {
         int ChildSize { get; }
-    
         INode GetChild(int index);
-    
         void AddChild(INode node);
-
         void Accept(ICommandContext ctx);
-
         bool ContainsChild(Type childType);
     }
 }

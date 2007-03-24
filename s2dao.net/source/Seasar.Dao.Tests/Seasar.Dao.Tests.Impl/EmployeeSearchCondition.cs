@@ -29,7 +29,7 @@ namespace Seasar.Dao.Tests.Impl
         private string dname;
 
         private string orderByString;
-            
+
         public Department Department
         {
             set { department = value; }
@@ -53,6 +53,6 @@ namespace Seasar.Dao.Tests.Impl
         {
             set { orderByString = value; }
             get { return orderByString; }
-        }   
+        }
     }
 }

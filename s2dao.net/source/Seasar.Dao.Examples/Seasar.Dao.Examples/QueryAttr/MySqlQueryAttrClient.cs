@@ -40,7 +40,7 @@ namespace Seasar.Dao.Examples.QueryAttr
 
             IEnumerator employees = employeeList.GetEnumerator();
             Console.WriteLine("/** ]‹Æˆõ–¼‚Ì¸‡‚É•À‚Ñ‘Ö‚¦‚½‘S‚Ä‚Ì]‹Æˆõ‚ÌƒŠƒXƒg **/");
-            while(employees.MoveNext())
+            while (employees.MoveNext())
             {
                 Console.WriteLine(((Employee) employees.Current).ToString());
             }

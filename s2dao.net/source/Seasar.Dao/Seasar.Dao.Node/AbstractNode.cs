@@ -52,9 +52,9 @@ namespace Seasar.Dao.Node
 
         public bool ContainsChild(Type childType)
         {
-            foreach(INode child in children)
+            foreach (INode child in children)
             {
-                if(child.GetType().Equals(childType)) return true;
+                if (child.GetType().Equals(childType)) return true;
             }
             return false;
         }

@@ -35,22 +35,19 @@ namespace Seasar.Dao.Impl
 {
     public class DaoMetaDataImpl : IDaoMetaData
     {
-        private static readonly Regex startWithOrderByReplacePattern = 
+        private static readonly Regex startWithOrderByReplacePattern =
             new Regex(@"/\*.*?\*/");
 
-        private static readonly Regex startWithBeginCommentPattern = 
+        private static readonly Regex startWithBeginCommentPattern =
             new Regex(@"/\*BEGIN\*/\s*WHERE .+", RegexOptions.IgnoreCase);
 
         private const string NOT_SINGLE_ROW_UPDATED = "NotSingleRowUpdated";
 
-        protected string[] insertPrefixes = new string[]
-            { "Insert", "Create", "Add" };
+        protected string[] insertPrefixes = new string[] { "Insert", "Create", "Add" };
 
-        protected string[] updatePrefixes = new string[]
-            { "Update", "Modify", "Store" };
+        protected string[] updatePrefixes = new string[] { "Update", "Modify", "Store" };
 
-        protected string[] deletePrefixes = new string[]
-            { "Delete", "Remove" };
+        protected string[] deletePrefixes = new string[] { "Delete", "Remove" };
 
         protected Type daoType;
         protected Type daoInterface;
@@ -66,11 +63,11 @@ namespace Seasar.Dao.Impl
         protected IDatabaseMetaData dbMetaData;
         protected Hashtable sqlCommands = new Hashtable();
 
-        public DaoMetaDataImpl() 
+        public DaoMetaDataImpl()
         {
         }
 
-        public DaoMetaDataImpl(Type daoType, IDataSource dataSource,ICommandFactory commandFactory,
+        public DaoMetaDataImpl(Type daoType, IDataSource dataSource, ICommandFactory commandFactory,
             IDataReaderFactory dataReaderFactory, IDatabaseMetaData dbMetaData)
             : this(daoType, dataSource, commandFactory, dataReaderFactory, new FieldAnnotationReaderFactory(), dbMetaData)
         {
@@ -114,27 +111,27 @@ namespace Seasar.Dao.Impl
         {
             MethodInfo[] allMethods = daoInterface.GetMethods();
             Hashtable names = new Hashtable();
-            foreach(MethodInfo mi in allMethods)
+            foreach (MethodInfo mi in allMethods)
             {
                 names[mi.Name] = mi;
             }
             IDictionaryEnumerator enu = names.GetEnumerator();
-            while(enu.MoveNext())
+            while (enu.MoveNext())
             {
                 try
                 {
                     MethodInfo method = daoType.GetMethod((string) enu.Key);
-                    if(method.IsAbstract) SetupMethod(method);
+                    if (method.IsAbstract) SetupMethod(method);
                 }
-                catch(AmbiguousMatchException) {}
+                catch (AmbiguousMatchException) { }
             }
         }
 
-        protected virtual string ReadText(string path, Assembly asm) 
+        protected virtual string ReadText(string path, Assembly asm)
         {
-            using (Stream stream = ResourceUtil.GetResourceAsStream(path, asm)) 
+            using (Stream stream = ResourceUtil.GetResourceAsStream(path, asm))
             {
-                using (TextReader reader = new StreamReader(stream, Encoding.GetEncoding(SqlFileEncoding))) 
+                using (TextReader reader = new StreamReader(stream, Encoding.GetEncoding(SqlFileEncoding)))
                 {
                     return reader.ReadToEnd();
                 }
@@ -145,15 +142,15 @@ namespace Seasar.Dao.Impl
         {
             string sql = null;
             sql = annotationReader.GetSql(mi.Name, dbms);
-            if(sql != null)
+            if (sql != null)
             {
                 SetupMethodByManual(mi, sql);
                 return;
             }
-            if ( sql == null )
+            if (sql == null)
             {
                 sql = annotationReader.GetProcedure(mi.Name);
-                if ( sql != null )
+                if (sql != null)
                 {
                     SetupProcedure(mi, sql);
                     return;
@@ -163,13 +160,13 @@ namespace Seasar.Dao.Impl
             string dbmsPath = baseName + dbms.Suffix + ".sql";
             string standardPath = baseName + ".sql";
             Assembly asm = daoInterface.Assembly;
-            
-            if(ResourceUtil.IsExist(dbmsPath, asm))
+
+            if (ResourceUtil.IsExist(dbmsPath, asm))
             {
                 sql = ReadText(dbmsPath, asm);
                 SetupMethodByManual(mi, sql);
             }
-            else if(ResourceUtil.IsExist(standardPath, asm))
+            else if (ResourceUtil.IsExist(standardPath, asm))
             {
                 sql = ReadText(standardPath, asm);
                 SetupMethodByManual(mi, sql);
@@ -182,7 +179,7 @@ namespace Seasar.Dao.Impl
 
         protected virtual void SetupMethodByManual(MethodInfo mi, string sql)
         {
-            if(IsSelect(mi))
+            if (IsSelect(mi))
             {
                 SetupSelectMethodByManual(mi, sql);
             }
@@ -194,15 +191,15 @@ namespace Seasar.Dao.Impl
 
         protected virtual void SetupMethodByAuto(MethodInfo mi)
         {
-            if(IsInsert(mi.Name))
+            if (IsInsert(mi.Name))
             {
                 SetupInsertMethodByAuto(mi);
             }
-            else if(IsUpdate(mi.Name))
+            else if (IsUpdate(mi.Name))
             {
                 SetupUpdateMethodByAuto(mi);
             }
-            else if(IsDelete(mi.Name))
+            else if (IsDelete(mi.Name))
             {
                 SetupDeleteMethodByAuto(mi);
             }
@@ -231,7 +228,7 @@ namespace Seasar.Dao.Impl
         {
             SelectDynamicCommand cmd = CreateSelectDynamicCommand(dataReaderHandler);
             StringBuilder buf = new StringBuilder(255);
-            if(StartsWithSelect(query)) 
+            if (StartsWithSelect(query))
             {
                 buf.Append(query);
             }
@@ -239,21 +236,21 @@ namespace Seasar.Dao.Impl
             {
                 string sql = dbms.GetAutoSelectSql(BeanMetaData);
                 buf.Append(sql);
-                if(query != null)
+                if (query != null)
                 {
-                    if(StartsWithOrderBy(query)) 
+                    if (StartsWithOrderBy(query))
                     {
                         buf.Append(" ");
                     }
-                    else if(StartsWithBeginComment(query)) 
+                    else if (StartsWithBeginComment(query))
                     {
                         buf.Append(" ");
                     }
-                    else if(sql.LastIndexOf("WHERE") < 0) 
+                    else if (sql.LastIndexOf("WHERE") < 0)
                     {
                         buf.Append(" WHERE ");
                     }
-                    else 
+                    else
                     {
                         buf.Append(" AND ");
                     }
@@ -266,10 +263,10 @@ namespace Seasar.Dao.Impl
 
         protected static bool StartsWithBeginComment(string query)
         {
-            if(query != null) 
+            if (query != null)
             {
                 Match m = startWithBeginCommentPattern.Match(query);
-                if(m.Success) 
+                if (m.Success)
                 {
                     return true;
                 }
@@ -284,10 +281,10 @@ namespace Seasar.Dao.Impl
 
         protected static bool StartsWithOrderBy(string query)
         {
-            if(query != null)
+            if (query != null)
             {
                 string replaceQuery = startWithOrderByReplacePattern.Replace(query, string.Empty);
-                if(StringUtil.StartWith(replaceQuery.Trim(), "order by"))
+                if (StringUtil.StartWith(replaceQuery.Trim(), "order by"))
                 {
                     return true;
                 }
@@ -326,7 +323,7 @@ namespace Seasar.Dao.Impl
                 return CreateBeanArrayMetaDataDataReaderHandler(bmd);
             }
 #if !NET_1_1
-            else if(retType.IsGenericType
+            else if (retType.IsGenericType
                 && (retType.GetGenericTypeDefinition().Equals(
                     typeof(System.Collections.Generic.IList<>))
                 || retType.GetGenericTypeDefinition().Equals(
@@ -378,7 +375,7 @@ namespace Seasar.Dao.Impl
             UpdateDynamicCommand cmd = new UpdateDynamicCommand(dataSource, commandFactory);
             cmd.Sql = sql;
             string[] argNames = MethodUtil.GetParameterNames(mi);
-            if(argNames.Length == 0 && IsUpdateSignatureForBean(mi))
+            if (argNames.Length == 0 && IsUpdateSignatureForBean(mi))
                 argNames = new string[] { StringUtil.Decapitalize(beanType.Name) };
             cmd.ArgNames = argNames;
             cmd.ArgTypes = MethodUtil.GetParameterTypes(mi);
@@ -397,7 +394,7 @@ namespace Seasar.Dao.Impl
             CheckAutoUpdateMethod(mi);
             string[] propertyNames = GetPersistentPropertyNames(mi.Name);
             ISqlCommand cmd = null;
-            if(IsUpdateSignatureForBean(mi))
+            if (IsUpdateSignatureForBean(mi))
                 cmd = new InsertAutoStaticCommand(dataSource, commandFactory,
                     beanMetaData, propertyNames);
             else
@@ -410,12 +407,12 @@ namespace Seasar.Dao.Impl
             CheckAutoUpdateMethod(mi);
             string[] propertyNames = GetPersistentPropertyNames(mi.Name);
             AbstractSqlCommand cmd = null;
-            if(IsUpdateSignatureForBean(mi))
+            if (IsUpdateSignatureForBean(mi))
                 cmd = new UpdateAutoStaticCommand(dataSource, commandFactory,
                     beanMetaData, propertyNames);
             else
                 throw new NotSupportedException("UpdateBatchAutoStaticCommand");
-            
+
             sqlCommands[mi.Name] = cmd;
         }
 
@@ -424,7 +421,7 @@ namespace Seasar.Dao.Impl
             CheckAutoUpdateMethod(mi);
             string[] propertyNames = GetPersistentPropertyNames(mi.Name);
             ISqlCommand cmd = null;
-            if(IsUpdateSignatureForBean(mi))
+            if (IsUpdateSignatureForBean(mi))
                 cmd = new DeleteAutoStaticCommand(dataSource, commandFactory,
                     beanMetaData, propertyNames);
             else
@@ -436,12 +433,12 @@ namespace Seasar.Dao.Impl
         {
             ArrayList names = new ArrayList();
             string[] props = annotationReader.GetNoPersistentProps(methodName);
-            if(props != null)
+            if (props != null)
             {
-                for(int i = 0; i < beanMetaData.PropertyTypeSize; ++i)
+                for (int i = 0; i < beanMetaData.PropertyTypeSize; ++i)
                 {
                     IPropertyType pt = beanMetaData.GetPropertyType(i);
-                    if(pt.IsPersistent
+                    if (pt.IsPersistent
                         && !IsPropertyExist(props, pt.PropertyName))
                         names.Add(pt.PropertyName);
                 }
@@ -449,28 +446,28 @@ namespace Seasar.Dao.Impl
             else
             {
                 props = annotationReader.GetPersistentProps(methodName);
-                if(props != null)
+                if (props != null)
                 {
-                    
-                    foreach(string prop in props) names.Add(prop);
-                    for(int i = 0; i < beanMetaData.PrimaryKeySize; ++i)
+
+                    foreach (string prop in props) names.Add(prop);
+                    for (int i = 0; i < beanMetaData.PrimaryKeySize; ++i)
                     {
                         string pk = beanMetaData.GetPrimaryKey(i);
                         IPropertyType pt = beanMetaData.GetPropertyTypeByColumnName(pk);
                         names.Add(pt.PropertyName);
                     }
-                    if(beanMetaData.HasVersionNoPropertyType)
+                    if (beanMetaData.HasVersionNoPropertyType)
                         names.Add(beanMetaData.VersionNoPropertyName);
-                    if(beanMetaData.HasTimestampPropertyType)
+                    if (beanMetaData.HasTimestampPropertyType)
                         names.Add(beanMetaData.TimestampPropertyName);
                 }
             }
-            if(names.Count == 0)
+            if (names.Count == 0)
             {
-                for(int i = 0; i < beanMetaData.PropertyTypeSize; ++i)
+                for (int i = 0; i < beanMetaData.PropertyTypeSize; ++i)
                 {
                     IPropertyType pt = beanMetaData.GetPropertyType(i);
-                    if(pt.IsPersistent) names.Add(pt.PropertyName);
+                    if (pt.IsPersistent) names.Add(pt.PropertyName);
                 }
             }
             return (string[]) names.ToArray(typeof(string));
@@ -478,9 +475,9 @@ namespace Seasar.Dao.Impl
 
         protected virtual bool IsPropertyExist(string[] props, string propertyName)
         {
-            foreach(string prop in props)
+            foreach (string prop in props)
             {
-                if(string.Compare(prop, propertyName, true) == 0)
+                if (string.Compare(prop, propertyName, true) == 0)
                     return true;
             }
             return false;
@@ -493,7 +490,7 @@ namespace Seasar.Dao.Impl
             SelectDynamicCommand cmd = null;
             string[] argNames = MethodUtil.GetParameterNames(mi);
             Type[] argTypes = MethodUtil.GetParameterTypes(mi);
-            if(query != null && !StartsWithOrderBy(query))
+            if (query != null && !StartsWithOrderBy(query))
             {
                 cmd = CreateSelectDynamicCommand(handler, query);
             }
@@ -501,8 +498,8 @@ namespace Seasar.Dao.Impl
             {
                 cmd = CreateSelectDynamicCommand(handler);
                 string sql = null;
-                
-                if(argTypes.Length == 1 
+
+                if (argTypes.Length == 1
                     && ValueTypes.GetValueType(argTypes[0]) == ValueTypes.OBJECT)
                 {
                     argNames = new string[] { "dto" };
@@ -512,7 +509,7 @@ namespace Seasar.Dao.Impl
                 {
                     sql = CreateAutoSelectSql(argNames, argTypes);
                 }
-                if(query != null) sql += " " + query;
+                if (query != null) sql += " " + query;
                 cmd.Sql = sql;
             }
             cmd.ArgNames = argNames;
@@ -526,20 +523,20 @@ namespace Seasar.Dao.Impl
             StringBuilder buf = new StringBuilder(sql);
             IDtoMetaData dmd = new DtoMetaDataImpl(dtoType, annotationReaderFactory.CreateBeanAnnotationReader(dtoType));
             bool began = false;
-            if(!(sql.LastIndexOf("WHERE") > 0))
+            if (!(sql.LastIndexOf("WHERE") > 0))
             {
                 buf.Append("/*BEGIN*/ WHERE ");
                 began = true;
             }
-            for(int i = 0; i < dmd.PropertyTypeSize; ++i)
+            for (int i = 0; i < dmd.PropertyTypeSize; ++i)
             {
                 IPropertyType pt = dmd.GetPropertyType(i);
                 string aliasName = pt.ColumnName;
-                if(!beanMetaData.HasPropertyTypeByAliasName(aliasName))
+                if (!beanMetaData.HasPropertyTypeByAliasName(aliasName))
                 {
                     continue;
                 }
-                if(!beanMetaData.GetPropertyTypeByAliasName(aliasName).IsPersistent)
+                if (!beanMetaData.GetPropertyTypeByAliasName(aliasName).IsPersistent)
                 {
                     continue;
                 }
@@ -549,7 +546,7 @@ namespace Seasar.Dao.Impl
                 // IFコメントを作成する
                 CreateAutoIFComment(buf, columnName, propertyName, pt.PropertyType, i == 0, began);
             }
-            if(began) buf.Append("/*END*/");
+            if (began) buf.Append("/*END*/");
             return buf.ToString();
         }
 
@@ -557,22 +554,22 @@ namespace Seasar.Dao.Impl
         {
             string sql = dbms.GetAutoSelectSql(BeanMetaData);
             StringBuilder buf = new StringBuilder(sql);
-            if(argNames.Length != 0)
+            if (argNames.Length != 0)
             {
                 bool began = false;
-                if(!(sql.LastIndexOf("WHERE") > 0))
+                if (!(sql.LastIndexOf("WHERE") > 0))
                 {
                     buf.Append("/*BEGIN*/ WHERE ");
                     began = true;
                 }
-                for(int i = 0; i < argNames.Length; ++i)
+                for (int i = 0; i < argNames.Length; ++i)
                 {
                     string columnName = beanMetaData.ConvertFullColumnName(argNames[i]);
 
                     // IFコメントを作成する
                     CreateAutoIFComment(buf, columnName, argNames[i], argTypes[i], i == 0, began);
                 }
-                if(began) buf.Append("/*END*/");
+                if (began) buf.Append("/*END*/");
             }
             return buf.ToString();
         }
@@ -586,7 +583,7 @@ namespace Seasar.Dao.Impl
         /// <param name="propertyType">プロパティの型</param>
         /// <param name="first">1つめのプロパティかどうか</param>
         /// <param name="began">BEGINコメントが開始されているかどうか</param>
-        protected virtual void CreateAutoIFComment(StringBuilder buf, string columnName, 
+        protected virtual void CreateAutoIFComment(StringBuilder buf, string columnName,
             string propertyName, Type propertyType, bool first, bool began)
         {
             buf.Append("/*IF ");
@@ -596,7 +593,7 @@ namespace Seasar.Dao.Impl
 
             buf.Append("*/");
             buf.Append(" ");
-            if(!began || !first)
+            if (!began || !first)
             {
                 buf.Append("AND ");
             }
@@ -619,7 +616,7 @@ namespace Seasar.Dao.Impl
 
             buf.Append(propertyName);
 
-            if(valueType is NHibernateNullableBaseType)
+            if (valueType is NHibernateNullableBaseType)
             {
                 buf.Append(".HasValue == true");
             }
@@ -642,7 +639,7 @@ namespace Seasar.Dao.Impl
         protected virtual void CheckAutoUpdateMethod(MethodInfo mi)
         {
             Type[] parameterTypes = MethodUtil.GetParameterTypes(mi);
-            if(parameterTypes.Length != 1
+            if (parameterTypes.Length != 1
                 || !IsBeanTypeAssignable(parameterTypes[0])
                 && !parameterTypes[0].IsAssignableFrom(typeof(IList))
                 && !parameterTypes[0].IsArray)
@@ -653,35 +650,35 @@ namespace Seasar.Dao.Impl
 
         protected virtual bool IsSelect(MethodInfo mi)
         {
-            if(IsInsert(mi.Name)) return false;
-            if(IsUpdate(mi.Name)) return false;
-            if(IsDelete(mi.Name)) return false;
+            if (IsInsert(mi.Name)) return false;
+            if (IsUpdate(mi.Name)) return false;
+            if (IsDelete(mi.Name)) return false;
             return true;
         }
 
         protected virtual bool IsInsert(string methodName)
         {
-            foreach(string insertName in insertPrefixes)
+            foreach (string insertName in insertPrefixes)
             {
-                if(methodName.StartsWith(insertName)) return true;
+                if (methodName.StartsWith(insertName)) return true;
             }
             return false;
         }
 
         protected virtual bool IsUpdate(string methodName)
         {
-            foreach(string updateName in updatePrefixes)
+            foreach (string updateName in updatePrefixes)
             {
-                if(methodName.StartsWith(updateName)) return true;
+                if (methodName.StartsWith(updateName)) return true;
             }
             return false;
         }
 
         protected virtual bool IsDelete(string methodName)
         {
-            foreach(string deleteName in deletePrefixes)
+            foreach (string deleteName in deletePrefixes)
             {
-                if(methodName.StartsWith(deleteName)) return true;
+                if (methodName.StartsWith(deleteName)) return true;
             }
             return false;
         }
@@ -712,7 +709,7 @@ namespace Seasar.Dao.Impl
         public ISqlCommand GetSqlCommand(string methodName)
         {
             ISqlCommand cmd = (ISqlCommand) sqlCommands[methodName];
-            if(cmd == null)
+            if (cmd == null)
                 throw new MethodNotFoundRuntimeException(daoType,
                     methodName, null);
             return cmd;
@@ -745,7 +742,7 @@ namespace Seasar.Dao.Impl
 
         public static Type GetDaoInterface(Type type)
         {
-            if(type.IsInterface) 
+            if (type.IsInterface)
             {
                 return type;
             }
@@ -757,7 +754,7 @@ namespace Seasar.Dao.Impl
             set { dbms = value; }
         }
 
-        public IDataSource DataSource 
+        public IDataSource DataSource
         {
             set { dataSource = value; }
         }
@@ -772,22 +769,22 @@ namespace Seasar.Dao.Impl
             set { commandFactory = value; }
         }
 
-        public string[] InsertPrefixes 
+        public string[] InsertPrefixes
         {
             set { insertPrefixes = value; }
         }
 
-        public string[] UpdatePrefixes 
+        public string[] UpdatePrefixes
         {
             set { updatePrefixes = value; }
         }
 
-        public string[] DeletePrefixes 
+        public string[] DeletePrefixes
         {
             set { deletePrefixes = value; }
         }
 
-        public string SqlFileEncoding 
+        public string SqlFileEncoding
         {
             get { return sqlFileEncoding; }
             set { sqlFileEncoding = value; }
@@ -809,7 +806,7 @@ namespace Seasar.Dao.Impl
         /// </summary>
         /// <param name="mi">メソッド情報</param>
         /// <param name="sql">ストアドプロシージャ名</param>
-        protected void SetupProcedure( MethodInfo mi, string sql )
+        protected void SetupProcedure(MethodInfo mi, string sql)
         {
             ProcedureDynamicCommand cmd = new ProcedureDynamicCommand(dataSource, commandFactory);
             cmd.Sql = sql;

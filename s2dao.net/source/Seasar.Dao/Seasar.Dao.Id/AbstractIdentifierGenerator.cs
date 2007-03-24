@@ -55,7 +55,7 @@ namespace Seasar.Dao.Id
 
         protected void SetIdentifier(object bean, object value)
         {
-            if(propertyName == null) throw new EmptyRuntimeException("propertyName");
+            if (propertyName == null) throw new EmptyRuntimeException("propertyName");
             PropertyInfo propertyInfo = bean.GetType().GetProperty(propertyName);
 
             propertyInfo.SetValue(bean,

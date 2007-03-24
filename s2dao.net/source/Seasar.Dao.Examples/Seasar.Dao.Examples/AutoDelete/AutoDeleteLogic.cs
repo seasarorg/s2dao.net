@@ -49,7 +49,7 @@ namespace Seasar.Dao.Examples.AutoDelete
 
             // ]‹Æˆõ”Ô†7499‚Ì]‹Æˆõ‚ğŠm”F
             Employee emp2 = employeeDao.GetEmployeeByEmpno(empno);
-            if(emp2 == null)
+            if (emp2 == null)
             {
                 Console.WriteLine("]‹Æˆõ”Ô†[" + empno + "]‚Ì]‹Æˆõ‚Í‘¶İ‚µ‚Ü‚¹‚ñB");
             }

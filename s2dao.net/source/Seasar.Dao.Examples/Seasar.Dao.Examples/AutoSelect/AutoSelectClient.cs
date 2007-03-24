@@ -42,7 +42,7 @@ namespace Seasar.Dao.Examples.AutoSelect
 
             IEnumerator employees = employeeList.GetEnumerator();
             Console.WriteLine("/** 全ての従業員のリスト **/");
-            while(employees.MoveNext())
+            while (employees.MoveNext())
             {
                 Console.WriteLine(((Employee) employees.Current).ToString());
             }
@@ -54,7 +54,7 @@ namespace Seasar.Dao.Examples.AutoSelect
 
             IEnumerator depts = deptList.GetEnumerator();
             Console.WriteLine("/** 全ての部署のリスト(System.Data.SqlTypesを使用) **/");
-            while(depts.MoveNext())
+            while (depts.MoveNext())
             {
                 Console.WriteLine(((Department1) depts.Current).ToString());
             }
@@ -66,7 +66,7 @@ namespace Seasar.Dao.Examples.AutoSelect
 
             IEnumerator depts2 = deptList2.GetEnumerator();
             Console.WriteLine("/** 全ての部署のリスト(NullableTypeを使用) **/");
-            while(depts2.MoveNext())
+            while (depts2.MoveNext())
             {
                 Console.WriteLine(((Department2) depts2.Current).ToString());
             }

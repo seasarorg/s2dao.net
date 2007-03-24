@@ -37,7 +37,7 @@ namespace Seasar.Dao.Examples.AutoInsert
             {
                 logic.TestAutoInsert();
             }
-            catch(ForCleanupException){}
+            catch (ForCleanupException) { }
         }
     }
 }

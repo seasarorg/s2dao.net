@@ -45,12 +45,12 @@ namespace Seasar.Dao.Tests.Interceptors
             Assert.AreEqual(7788, emp.Empno);
         }
 
-        [Test,S2]
+        [Test, S2]
         public void TestSelectQuery()
         {
             IList employees = _dao.GetEmployeesBySal(0, 1000);
             Trace.WriteLine(employees);
-            Assert.AreEqual( 2, employees.Count);
+            Assert.AreEqual(2, employees.Count);
         }
 
         [Test, S2(Tx.Rollback)]

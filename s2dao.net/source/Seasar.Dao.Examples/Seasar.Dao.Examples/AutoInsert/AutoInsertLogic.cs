@@ -41,7 +41,7 @@ namespace Seasar.Dao.Examples.AutoInsert
             // ]‹Æˆõ”Ô†9999‚Ì]‹Æˆõ‚ğŠm”F
             int empno = 9999;
             Employee emp1 = employeeDao.GetEmployeeByEmpno(empno);
-            if(emp1 == null)
+            if (emp1 == null)
             {
                 Console.WriteLine("]‹Æˆõ”Ô†[" + empno + "]‚Ì]‹Æˆõ‚Í‘¶İ‚µ‚Ü‚¹‚ñB");
             }

@@ -27,10 +27,10 @@ using MbUnit.Framework;
 namespace Seasar.Dao.Tests.Dbms
 {
     [TestFixture]
-    public class OracleTest : S2DaoTestCase 
+    public class OracleTest : S2DaoTestCase
     {
         [Test, S2]
-        public void TestCreateAutoSelectList() 
+        public void TestCreateAutoSelectList()
         {
             IDbms dbms = new Oracle();
             IBeanMetaData bmd = CreateBeanMetaData(typeof(Employee), dbms);
@@ -39,7 +39,7 @@ namespace Seasar.Dao.Tests.Dbms
         }
 
         [Test, S2]
-        public void TestCreateAutoSelectList2() 
+        public void TestCreateAutoSelectList2()
         {
             IDbms dbms = new Oracle();
             IBeanMetaData bmd = CreateBeanMetaData(typeof(Department), dbms);

@@ -52,13 +52,13 @@ namespace Seasar.Dao.Tests.Dbms
             set { loc = value; }
             get { return loc; }
         }
-	    
+
         public int VersionNo
         {
             set { versionNo = value; }
             get { return versionNo; }
         }
-	    
+
         public override string ToString()
         {
             StringBuilder buf = new StringBuilder();

@@ -35,12 +35,12 @@ namespace Seasar.Dao.Interceptors
         public override object Invoke(Seasar.Framework.Aop.IMethodInvocation invocation)
         {
             MethodBase method = invocation.Method;
-            if(!method.IsAbstract) return invocation.Proceed();
+            if (!method.IsAbstract) return invocation.Proceed();
             Type targetType = GetComponentDef(invocation).ComponentType;
             IDaoMetaData dmd = daoMetaDataFactory.GetDaoMetaData(targetType);
             ISqlCommand cmd = dmd.GetSqlCommand(method.Name);
             object ret = cmd.Execute(invocation.Arguments);
-            
+
             Type retType = ((MethodInfo) method).ReturnType;
             ret = ConversionUtil.ConvertTargetType(ret, retType);
             return ret;

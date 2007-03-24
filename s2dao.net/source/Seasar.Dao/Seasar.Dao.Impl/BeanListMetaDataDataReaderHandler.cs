@@ -86,12 +86,12 @@ namespace Seasar.Dao.Impl
         {
             ArrayList keyList = new ArrayList();
             IBeanMetaData bmd = rpt.BeanMetaData;
-            for(int i = 0; i < rpt.KeySize; ++i)
+            for (int i = 0; i < rpt.KeySize; ++i)
             {
                 IValueType valueType = null;
                 string columnName = rpt.GetMyKey(i);
                 IPropertyType pt;
-                if(columnNames.Contains(columnName))
+                if (columnNames.Contains(columnName))
                 {
                     pt = BeanMetaData.GetPropertyTypeByColumnName(columnName);
                     valueType = pt.ValueType;
@@ -100,18 +100,18 @@ namespace Seasar.Dao.Impl
                 {
                     pt = bmd.GetPropertyTypeByColumnName(rpt.GetYourKey(i));
                     columnName = pt.ColumnName + "_" + rpt.RelationNo;
-                    if(columnNames.Contains(columnName))
+                    if (columnNames.Contains(columnName))
                         valueType = pt.ValueType;
                     else
                         return null;
                 }
                 object value = valueType.GetValue(reader, columnName);
-                if(value == null) return null;
+                if (value == null) return null;
 
                 relKeyValues[columnName] = value;
                 keyList.Add(value);
             }
-            if(keyList.Count > 0)
+            if (keyList.Count > 0)
             {
                 object[] keys = keyList.ToArray();
                 return new RelationKey(keys);

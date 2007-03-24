@@ -24,12 +24,12 @@ using Nullables;
 
 namespace Seasar.Dao.Examples.AutoSelect
 {
-	/// <summary>
-	/// IDepartmentDao
-	/// </summary>
-	[Bean(typeof(Department2))]
-	public interface IDepartmentDao2
-	{
+    /// <summary>
+    /// IDepartmentDao
+    /// </summary>
+    [Bean(typeof(Department2))]
+    public interface IDepartmentDao2
+    {
         IList GetAllList();
 
         [Sql("select active from dept2 where deptno=/*deptno*/")]
@@ -40,5 +40,5 @@ namespace Seasar.Dao.Examples.AutoSelect
 
         [Sql("select dname from dept2 where deptno=/*deptno*/")]
         string GetDnameByDeptno(int deptno);
-	}
+    }
 }

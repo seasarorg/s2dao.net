@@ -25,7 +25,7 @@ using Seasar.Framework.Util;
 
 namespace Seasar.Dao.Impl
 {
-    public abstract class AbstractBeanMetaDataDataReaderHandler 
+    public abstract class AbstractBeanMetaDataDataReaderHandler
         : IDataReaderHandler
     {
         private IBeanMetaData beanMetaData;
@@ -76,7 +76,7 @@ namespace Seasar.Dao.Impl
                     columnMetaDataList.Add(new ColumnMetaDataImpl(pt, columnName));
                     continue;
                 }
-                
+
                 if (!pt.IsPersistent)
                 {
                     if (names == null)
@@ -112,8 +112,8 @@ namespace Seasar.Dao.Impl
             return (IColumnMetaData[]) columnMetaDataList.ToArray(typeof(IColumnMetaData));
 #else
             return columnMetaDataList.ToArray();
-#endif   
-            
+#endif
+
         }
 
         /// <summary>
@@ -158,31 +158,31 @@ namespace Seasar.Dao.Impl
         {
             object row = null;
             IBeanMetaData bmd = rpt.BeanMetaData;
-            for(int i = 0; i < rpt.KeySize; ++i)
+            for (int i = 0; i < rpt.KeySize; ++i)
             {
                 string columnName = rpt.GetMyKey(i);
-                if(columnNames.Contains(columnName))
+                if (columnNames.Contains(columnName))
                 {
-                    if(row == null) row = CreateRelationRow(rpt);
-                    if(relKeyValues != null && relKeyValues.ContainsKey(columnName))
+                    if (row == null) row = CreateRelationRow(rpt);
+                    if (relKeyValues != null && relKeyValues.ContainsKey(columnName))
                     {
                         object value = relKeyValues[columnName];
                         IPropertyType pt = bmd.GetPropertyTypeByColumnName(rpt.GetYourKey(i));
                         PropertyInfo pi = pt.PropertyInfo;
-                        if(value != null) pi.SetValue(row, value, null);
+                        if (value != null) pi.SetValue(row, value, null);
                     }
                 }
                 continue;
             }
-            for(int i = 0; i < bmd.PropertyTypeSize; ++i)
+            for (int i = 0; i < bmd.PropertyTypeSize; ++i)
             {
                 IPropertyType pt = bmd.GetPropertyType(i);
                 string columnName = pt.ColumnName + "_" + rpt.RelationNo;
-                if(!columnNames.Contains(columnName)) continue;
-                if(row == null) row = CreateRelationRow(rpt);
+                if (!columnNames.Contains(columnName)) continue;
+                if (row == null) row = CreateRelationRow(rpt);
                 object value = null;
                 PropertyInfo pi = pt.PropertyInfo;
-                if(relKeyValues != null && relKeyValues.ContainsKey(columnName))
+                if (relKeyValues != null && relKeyValues.ContainsKey(columnName))
                 {
                     value = relKeyValues[columnName];
                 }
@@ -191,7 +191,7 @@ namespace Seasar.Dao.Impl
                     IValueType valueType = pt.ValueType;
                     value = valueType.GetValue(reader, columnName);
                 }
-                if(value != null) pi.SetValue(row, value, null);
+                if (value != null) pi.SetValue(row, value, null);
             }
             return row;
         }
@@ -204,7 +204,7 @@ namespace Seasar.Dao.Impl
         protected virtual IList CreateColumnNames(DataTable dt)
         {
             IList columnNames = new CaseInsentiveSet();
-            foreach(DataRow row in dt.Rows)
+            foreach (DataRow row in dt.Rows)
             {
                 string columnName = (string) row["ColumnName"];
                 columnNames.Add(columnName);

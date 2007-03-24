@@ -76,7 +76,7 @@ namespace Seasar.Dao.Parser
             }
             INode node = Peek();
 
-            if ( (node is IfNode || node is ElseNode) && node.ChildSize == 0)
+            if ((node is IfNode || node is ElseNode) && node.ChildSize == 0)
             {
                 ISqlTokenizer st = new SqlTokenizerImpl(sql);
                 st.SkipWhitespace();
@@ -160,7 +160,7 @@ namespace Seasar.Dao.Parser
         protected void ParseElse()
         {
             INode parent = Peek();
-            if ( !(parent is IfNode) )
+            if (!(parent is IfNode))
             {
                 return;
             }
@@ -227,7 +227,7 @@ namespace Seasar.Dao.Parser
             return comment != null && comment.Length > 0
                 && IsCSharpIdentifierStart(comment.ToCharArray()[0]);
         }
-        
+
         private static bool IsCSharpIdentifierStart(Char c)
         {
             return Char.IsLetterOrDigit(c) || c == '_' || c == '\\' || c == '$' || c == '@';

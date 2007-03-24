@@ -32,7 +32,7 @@ namespace Seasar.Dao.Tests.Impl
     public class DaoMetaDataImplTest : S2DaoTestCase
     {
         [Test, S2]
-        public void TestSelectBeanList() 
+        public void TestSelectBeanList()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeDao));
             SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.GetSqlCommand("GetAllEmployees");
@@ -47,10 +47,10 @@ namespace Seasar.Dao.Tests.Impl
         public void TestSelectGenericList1()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeDao));
-            SelectDynamicCommand cmd = (SelectDynamicCommand)dmd.GetSqlCommand("GetAllEmployeesToGenericList1");
+            SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.GetSqlCommand("GetAllEmployeesToGenericList1");
             Assert.IsNotNull(cmd, "1");
             Assert.AreEqual("SELECT * FROM emp", cmd.Sql, "2");
-            BeanGenericListMetaDataDataReaderHandler rsh = (BeanGenericListMetaDataDataReaderHandler)cmd.DataReaderHandler;
+            BeanGenericListMetaDataDataReaderHandler rsh = (BeanGenericListMetaDataDataReaderHandler) cmd.DataReaderHandler;
             Assert.AreEqual(typeof(Employee), rsh.BeanMetaData.BeanType, "3");
         }
 
@@ -58,16 +58,16 @@ namespace Seasar.Dao.Tests.Impl
         public void TestSelectGenericList2()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeDao));
-            SelectDynamicCommand cmd = (SelectDynamicCommand)dmd.GetSqlCommand("GetAllEmployeesToGenericList2");
+            SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.GetSqlCommand("GetAllEmployeesToGenericList2");
             Assert.IsNotNull(cmd, "1");
             Assert.AreEqual("SELECT * FROM emp", cmd.Sql, "2");
-            BeanGenericListMetaDataDataReaderHandler rsh = (BeanGenericListMetaDataDataReaderHandler)cmd.DataReaderHandler;
+            BeanGenericListMetaDataDataReaderHandler rsh = (BeanGenericListMetaDataDataReaderHandler) cmd.DataReaderHandler;
             Assert.AreEqual(typeof(Employee), rsh.BeanMetaData.BeanType, "3");
         }
 #endif
 
         [Test, S2]
-        public void TestSelectBeanArray() 
+        public void TestSelectBeanArray()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeDao));
             SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.GetSqlCommand("GetAllEmployeeArray");
@@ -77,7 +77,7 @@ namespace Seasar.Dao.Tests.Impl
         }
 
         [Test, S2]
-        public void TestSelectBean() 
+        public void TestSelectBean()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeDao));
             SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.GetSqlCommand("GetEmployee");
@@ -87,7 +87,7 @@ namespace Seasar.Dao.Tests.Impl
         }
 
         [Test, S2]
-        public void TestSelectObject() 
+        public void TestSelectObject()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeDao));
             SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.GetSqlCommand("GetCount");
@@ -97,7 +97,7 @@ namespace Seasar.Dao.Tests.Impl
         }
 
         [Test, S2]
-        public void TestUpdate() 
+        public void TestUpdate()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeDao));
             UpdateDynamicCommand cmd = (UpdateDynamicCommand) dmd.GetSqlCommand("Update");
@@ -106,19 +106,19 @@ namespace Seasar.Dao.Tests.Impl
         }
 
         [Test, S2(Tx.Rollback)]
-        public void TestInsertAutoTx() 
+        public void TestInsertAutoTx()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeAutoDao));
             ISqlCommand cmd = dmd.GetSqlCommand("Insert");
             Assert.IsNotNull(cmd, "1");
             Employee emp = new Employee();
-            emp.Empno= 99;
+            emp.Empno = 99;
             emp.Ename = "hoge";
             cmd.Execute(new object[] { emp });
         }
 
         [Test, S2(Tx.Rollback)]
-        public void TestUpdateAutoTx() 
+        public void TestUpdateAutoTx()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeAutoDao));
             ISqlCommand cmd = dmd.GetSqlCommand("Update");
@@ -130,7 +130,7 @@ namespace Seasar.Dao.Tests.Impl
         }
 
         [Test, S2(Tx.Rollback)]
-        public void TestDeleteAutoTx() 
+        public void TestDeleteAutoTx()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeAutoDao));
             ISqlCommand cmd = dmd.GetSqlCommand("Delete");
@@ -141,13 +141,13 @@ namespace Seasar.Dao.Tests.Impl
         }
 
         [Test, S2, ExpectedException(typeof(IllegalSignatureRuntimeException))]
-        public void TestIllegalAutoUpdateMethod() 
+        public void TestIllegalAutoUpdateMethod()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IIllegalEmployeeAutoDao));
         }
 
         [Test, S2]
-        public void TestSelectAuto() 
+        public void TestSelectAuto()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeAutoDao));
             SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.GetSqlCommand("GetEmployeeByDeptno");
@@ -155,7 +155,7 @@ namespace Seasar.Dao.Tests.Impl
         }
 
         [Test, S2]
-        public void TestCreateFindCommand() 
+        public void TestCreateFindCommand()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeAutoDao));
             ISqlCommand cmd = dmd.CreateFindCommand(null);
@@ -165,7 +165,7 @@ namespace Seasar.Dao.Tests.Impl
         }
 
         [Test, S2]
-        public void TestCreateFindCommand2() 
+        public void TestCreateFindCommand2()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeAutoDao));
             ISqlCommand cmd = dmd.CreateFindCommand(null);
@@ -175,7 +175,7 @@ namespace Seasar.Dao.Tests.Impl
         }
 
         [Test, S2]
-        public void TestCreateFindCommand3() 
+        public void TestCreateFindCommand3()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeAutoDao));
             ISqlCommand cmd = dmd.CreateFindCommand("select * from emp");
@@ -185,7 +185,7 @@ namespace Seasar.Dao.Tests.Impl
         }
 
         [Test, S2]
-        public void TestCreateFindCommand4() 
+        public void TestCreateFindCommand4()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeAutoDao));
             ISqlCommand cmd = dmd.CreateFindCommand("order by empno");
@@ -195,7 +195,7 @@ namespace Seasar.Dao.Tests.Impl
         }
 
         [Test, S2]
-        public void TestCreateFindCommand5() 
+        public void TestCreateFindCommand5()
         {
             DaoMetaDataImpl dmd = (DaoMetaDataImpl) CreateDaoMetaData(typeof(IEmployeeAutoDao));
             dmd.Dbms = new Oracle();
@@ -205,17 +205,17 @@ namespace Seasar.Dao.Tests.Impl
         }
 
         [Test, S2]
-        public void TestCreateFindBeanCommand() 
+        public void TestCreateFindBeanCommand()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeAutoDao));
             ISqlCommand cmd = dmd.CreateFindBeanCommand("empno = ?");
-            Employee employee = (Employee) cmd.Execute(new object[] { 7788});
+            Employee employee = (Employee) cmd.Execute(new object[] { 7788 });
             Trace.WriteLine(employee);
             Assert.IsNotNull(employee, "1");
         }
 
         [Test, S2]
-        public void TestCreateObjectBeanCommand() 
+        public void TestCreateObjectBeanCommand()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeAutoDao));
             ISqlCommand cmd = dmd.CreateFindObjectCommand("select count(*) from emp");
@@ -227,7 +227,7 @@ namespace Seasar.Dao.Tests.Impl
         }
 
         [Test, S2]
-        public void TestSelectAutoByQuery() 
+        public void TestSelectAutoByQuery()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeAutoDao));
             ISqlCommand cmd = dmd.GetSqlCommand("GetEmployeesBySal");
@@ -237,7 +237,7 @@ namespace Seasar.Dao.Tests.Impl
         }
 
         [Test, S2]
-        public void TestSelectAutoByQueryMultiIn() 
+        public void TestSelectAutoByQueryMultiIn()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeAutoDao));
             SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.GetSqlCommand("GetEmployeesByEnameJob");
@@ -254,35 +254,35 @@ namespace Seasar.Dao.Tests.Impl
         }
 
         [Test, S2]
-        public void TestRelation1() 
+        public void TestRelation1()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployee2Dao));
             ISqlCommand cmd = dmd.GetSqlCommand("GetAllEmployees");
             IList emps = (IList) cmd.Execute(null);
             Trace.WriteLine(emps);
             Assert.IsTrue(emps.Count > 0, "1");
-            foreach (Employee2 emp in emps) 
+            foreach (Employee2 emp in emps)
             {
                 Assert.IsNotNull(emp.Department2);
             }
         }
 
         [Test, S2]
-        public void TestRelation2() 
+        public void TestRelation2()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployee2Dao));
             ISqlCommand cmd = dmd.GetSqlCommand("GetAllEmployeesOnly");
             IList emps = (IList) cmd.Execute(null);
             Trace.WriteLine(emps);
             Assert.IsTrue(emps.Count > 0, "1");
-            foreach (Employee2 emp in emps) 
+            foreach (Employee2 emp in emps)
             {
                 Assert.IsNotNull(emp.Department2);
             }
         }
 
         [Test, S2(Tx.Rollback)]
-        public void TestRelation3() 
+        public void TestRelation3()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeAutoDao));
             ISqlCommand cmd = dmd.GetSqlCommand("Insert");
@@ -304,14 +304,14 @@ namespace Seasar.Dao.Tests.Impl
         }
 
         [Test, S2]
-        public void TestGetDaoInterface() 
+        public void TestGetDaoInterface()
         {
             Assert.AreEqual(typeof(IEmployeeDao), DaoMetaDataImpl.GetDaoInterface(typeof(IEmployeeDao)), "1");
             //Assert.AreEqual(typeof(IEmployeeDao), DaoMetaDataImpl.getDaoInterface(typeof(EmployeeDaoImpl)), "2");
         }
 
         [Test, S2]
-        public void TestAutoSelectSqlByDto() 
+        public void TestAutoSelectSqlByDto()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeAutoDao));
             SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.GetSqlCommand("GetEmployeesBySearchCondition");
@@ -324,21 +324,21 @@ namespace Seasar.Dao.Tests.Impl
         }
 
         [Test, S2]
-        public void TestAutoSelectSqlByDto2() 
+        public void TestAutoSelectSqlByDto2()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeAutoDao));
             SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.GetSqlCommand("GetEmployeesByEmployee");
             Assert.IsNotNull(cmd, "1");
             Trace.WriteLine(cmd.Sql);
             Employee dto = new Employee();
-            dto.JobName = "MANAGER";            
+            dto.JobName = "MANAGER";
             IList employees = (IList) cmd.Execute(new object[] { dto });
             Trace.WriteLine(employees);
             //Assert.IsTrue(employees.Count > 0, "2");
         }
 
         [Test, S2]
-        public void TestAutoSelectSqlByDto3() 
+        public void TestAutoSelectSqlByDto3()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployee3Dao));
             SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.GetSqlCommand("GetEmployees");
@@ -352,7 +352,7 @@ namespace Seasar.Dao.Tests.Impl
         }
 
         [Test, S2]
-        public void TestAutoSelectSqlByDto4() 
+        public void TestAutoSelectSqlByDto4()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployee3Dao));
             SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.GetSqlCommand("GetEmployees2");
@@ -362,7 +362,7 @@ namespace Seasar.Dao.Tests.Impl
         }
 
         [Test, S2]
-        public void TestAutoSelectSqlByDto5() 
+        public void TestAutoSelectSqlByDto5()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeAutoDao));
             SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.GetSqlCommand("GetEmployeesBySearchCondition2");
@@ -377,7 +377,7 @@ namespace Seasar.Dao.Tests.Impl
         }
 
         [Test, S2]
-        public void TestAutoSelectSqlByDto6() 
+        public void TestAutoSelectSqlByDto6()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeAutoDao));
             SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.GetSqlCommand("GetEmployeesBySearchCondition2");
@@ -390,7 +390,7 @@ namespace Seasar.Dao.Tests.Impl
         }
 
         [Test, S2]
-        public void TestSelfReference() 
+        public void TestSelfReference()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployee4Dao));
             SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.GetSqlCommand("GetEmployee");
@@ -402,7 +402,7 @@ namespace Seasar.Dao.Tests.Impl
         }
 
         [Test, S2]
-        public void TestSelfMultiPk() 
+        public void TestSelfMultiPk()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployee5Dao));
             SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.GetSqlCommand("GetEmployee");
@@ -411,7 +411,7 @@ namespace Seasar.Dao.Tests.Impl
         }
 
         [Test, S2]
-        public void TestNotHavePrimaryKey() 
+        public void TestNotHavePrimaryKey()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IDepartmentTotalSalaryDao));
             SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.GetSqlCommand("GetTotalSalaries");
@@ -422,7 +422,7 @@ namespace Seasar.Dao.Tests.Impl
         }
 
         [Test, S2]
-        public void TestSelectAutoFullColumnName() 
+        public void TestSelectAutoFullColumnName()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeAutoDao));
             SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.GetSqlCommand("GetEmployee");
@@ -430,7 +430,7 @@ namespace Seasar.Dao.Tests.Impl
         }
 
         [Test, S2]
-        public void TestStartsWithOrderBy() 
+        public void TestStartsWithOrderBy()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployee6Dao));
             EmployeeSearchCondition condition = new EmployeeSearchCondition();
@@ -443,7 +443,7 @@ namespace Seasar.Dao.Tests.Impl
         }
 
         [Test, S2]
-        public void TestStartsWithBeginComment() 
+        public void TestStartsWithBeginComment()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployee8Dao));
             SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.GetSqlCommand("GetEmployees");
@@ -476,7 +476,7 @@ namespace Seasar.Dao.Tests.Impl
         }
 
         [Test, S2(Tx.Rollback)]
-        public void TestQueryAnnotation() 
+        public void TestQueryAnnotation()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployee7Dao));
             SelectDynamicCommand cmd1 = (SelectDynamicCommand) dmd.GetSqlCommand("GetCount");
@@ -507,12 +507,12 @@ namespace Seasar.Dao.Tests.Impl
         //public void TestUsingColumnAnnotationForSql_SelectDto()
 
         [Test, S2(Tx.Rollback)]
-        public void TestSqlFileEncodingDefault() 
+        public void TestSqlFileEncodingDefault()
         {
             IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeDao));
             ISqlCommand cmd = dmd.GetSqlCommand("UpdateSqlFileEncodingDefault");
             Employee emp = new Employee();
-            emp.Empno= 7788;
+            emp.Empno = 7788;
             cmd.Execute(new object[] { emp });
 
             ISqlCommand cmd2 = dmd.GetSqlCommand("GetEmployee");
@@ -521,13 +521,13 @@ namespace Seasar.Dao.Tests.Impl
         }
 
         [Test, S2(Tx.Rollback)]
-        public void TestSqlFileEncodingUTF8() 
+        public void TestSqlFileEncodingUTF8()
         {
             DaoMetaDataImpl dmd = (DaoMetaDataImpl) CreateDaoMetaData(typeof(IEmployeeDao));
             dmd.SqlFileEncoding = "utf-8";
             ISqlCommand cmd = dmd.GetSqlCommand("UpdateSqlFileEncodingUTF8");
             Employee emp = new Employee();
-            emp.Empno= 7788;
+            emp.Empno = 7788;
             cmd.Execute(new object[] { emp });
 
             ISqlCommand cmd2 = dmd.GetSqlCommand("GetEmployee");

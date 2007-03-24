@@ -33,7 +33,7 @@ namespace Seasar.Dao.Impl
     public class ObjectBasicProcedureHandler : AbstractProcedureHandler
     {
         private static readonly Logger logger = Logger.GetLogger(typeof(ObjectBasicProcedureHandler));
-        
+
         /// <summary>
         /// コンストラクタ
         /// </summary>
@@ -54,7 +54,7 @@ namespace Seasar.Dao.Impl
         /// <returns>出力パラメータ値</returns>
         public object Execute(object[] args, Type returnType)
         {
-            if ( DataSource == null ) throw new EmptyRuntimeException("dataSource");
+            if (DataSource == null) throw new EmptyRuntimeException("dataSource");
             IDbConnection conn = DataSourceUtil.GetConnection(DataSource);
 
             try
@@ -63,7 +63,7 @@ namespace Seasar.Dao.Impl
                 {
                     logger.Debug(ProcedureName);
                 }
-                
+
                 IDbCommand cmd = null;
                 try
                 {
@@ -71,7 +71,7 @@ namespace Seasar.Dao.Impl
                     cmd = GetCommand(conn, ProcedureName);
 
                     // パラメータをセットし、返値を取得する
-                    if ( returnType != typeof (void) )
+                    if (returnType != typeof(void))
                     {
                         // ODP.NETでは、最初にRETURNパラメータをセットしないとRETURN値を取得できない？
                         string returnParamName = BindReturnValues(cmd, "RetValue", GetDbValueType(returnType));
@@ -90,12 +90,12 @@ namespace Seasar.Dao.Impl
                     }
 
                     // OutまたはInOutパラメータ値を取得する
-                    for ( int i = 0; i < args.Length; i++ )
+                    for (int i = 0; i < args.Length; i++)
                     {
-                        if ( ArgumentDirection[i] == ParameterDirection.InputOutput ||
-                             ArgumentDirection[i] == ParameterDirection.Output )
+                        if (ArgumentDirection[i] == ParameterDirection.InputOutput ||
+                             ArgumentDirection[i] == ParameterDirection.Output)
                         {
-                            args[i] = ( (IDataParameter) cmd.Parameters[i] ).Value;
+                            args[i] = ((IDataParameter) cmd.Parameters[i]).Value;
                         }
                     }
 
@@ -106,7 +106,7 @@ namespace Seasar.Dao.Impl
                     CommandUtil.Close(cmd);
                 }
             }
-            catch ( Exception e )
+            catch (Exception e)
             {
                 throw new SQLRuntimeException(e);
             }

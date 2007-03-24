@@ -42,12 +42,15 @@ namespace Seasar.Dao.Node
         {
             object value = ctx.GetArg(expression);
             Type type = null;
-            if(value != null) {
+            if (value != null)
+            {
                 type = value.GetType();
-            } else {
+            }
+            else
+            {
                 logger.Log("WDAO0001", new object[] { expression });
             }
-            ctx.AddSql(value, type, expression.Replace('.','_'));
+            ctx.AddSql(value, type, expression.Replace('.', '_'));
         }
     }
 }

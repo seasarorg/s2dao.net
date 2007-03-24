@@ -22,12 +22,13 @@ using System.Data;
 
 namespace Seasar.Dao.Impl
 {
-	public class BeanGenericListMetaDataDataReaderHandler
+    public class BeanGenericListMetaDataDataReaderHandler
         : BeanListMetaDataDataReaderHandler
-	{
+    {
 
         public BeanGenericListMetaDataDataReaderHandler(
-            IBeanMetaData beanMetaData) : base(beanMetaData)
+            IBeanMetaData beanMetaData)
+            : base(beanMetaData)
         {
         }
 
@@ -35,12 +36,12 @@ namespace Seasar.Dao.Impl
         {
             Type generic = typeof(System.Collections.Generic.List<>);
             Type constructed = generic.MakeGenericType(BeanMetaData.BeanType);
-            
+
             object list = Activator.CreateInstance(constructed);
-            
+
             Handle(dataReader, (IList) list);
 
             return list;
         }
-	}
+    }
 }

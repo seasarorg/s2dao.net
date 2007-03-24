@@ -24,7 +24,7 @@ namespace Seasar.Dao.Tests.Impl
 {
     [Table("EMP")]
     public class Employee4
-	{
+    {
         private long empno;
 
         private string ename;
@@ -40,12 +40,12 @@ namespace Seasar.Dao.Tests.Impl
         private float comm;
 
         private int deptno;
-    
+
         private Employee4 parent;
 
-		public Employee4()
-		{
-		}
+        public Employee4()
+        {
+        }
 
         public long Empno
         {
@@ -101,5 +101,5 @@ namespace Seasar.Dao.Tests.Impl
             set { parent = value; }
             get { return parent; }
         }
-	}
+    }
 }

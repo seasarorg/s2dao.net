@@ -21,17 +21,12 @@ using Seasar.Extension.ADO;
 
 namespace Seasar.Dao
 {
-
     public interface IDtoMetaData
     {
         Type BeanType { get; set; }
-
         int PropertyTypeSize { get; }
-
         IPropertyType GetPropertyType(int index);
-
         IPropertyType GetPropertyType(string propertyName);
-
         bool HasPropertyType(string propertyName);
     }
 }

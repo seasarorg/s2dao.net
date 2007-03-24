@@ -27,10 +27,10 @@ using MbUnit.Framework;
 namespace Seasar.Dao.Tests.Dbms
 {
     [TestFixture]
-    public class StandardTest : S2DaoTestCase 
+    public class StandardTest : S2DaoTestCase
     {
         [Test, S2]
-        public void TestCreateAutoSelectList() 
+        public void TestCreateAutoSelectList()
         {
             IDbms dbms = new Standard();
             IBeanMetaData bmd = CreateBeanMetaData(typeof(Employee), dbms);

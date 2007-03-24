@@ -45,7 +45,8 @@ namespace Seasar.Dao.Impl
         /// <param name="dataSource">データソース</param>
         /// <param name="commandFactory">Commandファクトリ</param>
         public ProcedureDynamicCommand(IDataSource dataSource,
-                                       ICommandFactory commandFactory) : base(dataSource, commandFactory)
+                                       ICommandFactory commandFactory)
+            : base(dataSource, commandFactory)
         {
             ;
         }
@@ -77,16 +78,16 @@ namespace Seasar.Dao.Impl
         {
             ICommandContext ctx = Apply(args);
 
-            if ( DataSource == null ) throw new EmptyRuntimeException("dataSource");
+            if (DataSource == null) throw new EmptyRuntimeException("dataSource");
 
-            if ( _returnType != typeof (Hashtable) )
+            if (_returnType != typeof(Hashtable))
             {
                 ObjectBasicProcedureHandler handler = new ObjectBasicProcedureHandler(DataSource, CommandFactory, ctx.Sql);
                 handler.ArgumentNames = ArgNames;
                 handler.ArgumentTypes = ArgTypes;
                 handler.ArgumentDirection = ArgDirections;
 
-                return ( handler.Execute(args, _returnType) );
+                return (handler.Execute(args, _returnType));
             }
             else
             {
@@ -95,7 +96,7 @@ namespace Seasar.Dao.Impl
                 handler.ArgumentTypes = ArgTypes;
                 handler.ArgumentDirection = ArgDirections;
 
-                return ( handler.Execute(args) );
+                return (handler.Execute(args));
             }
         }
     }

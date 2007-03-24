@@ -27,7 +27,7 @@ namespace Seasar.Dao.Tests.Impl
 
         private decimal totalSalary;
 
-        public DepartmentTotalSalary() 
+        public DepartmentTotalSalary()
         {
         }
 

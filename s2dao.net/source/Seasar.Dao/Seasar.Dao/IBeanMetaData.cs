@@ -16,7 +16,6 @@
  */
 #endregion
 
-using System;
 using Seasar.Extension.ADO;
 
 namespace Seasar.Dao
@@ -37,7 +36,7 @@ namespace Seasar.Dao
         IPropertyType GetPropertyTypeByColumnName(string columnName);
         bool HasPropertyTypeByColumnName(string columnName);
         bool HasPropertyTypeByAliasName(string aliasName);
-        int RelationPropertyTypeSize{ get; }
+        int RelationPropertyTypeSize { get; }
         IRelationPropertyType GetRelationPropertyType(int index);
         IRelationPropertyType GetRelationPropertyType(string propertyName);
         int PrimaryKeySize { get; }

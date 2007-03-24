@@ -25,10 +25,10 @@ namespace Seasar.Dao.Node
         private string expression;
         private ElseNode elseNode;
         private ExpressionUtil expressionUtil;
-        
+
         public IfNode(string expression)
         {
-			expressionUtil = new ExpressionUtil();
+            expressionUtil = new ExpressionUtil();
             this.expression = expressionUtil.parseExpression(expression);
             if (this.expression == null)
                 throw new ApplicationException("IllegalBoolExpression=[" + this.expression + "]");
@@ -50,11 +50,11 @@ namespace Seasar.Dao.Node
             object result = InvokeExpression(this.expression, ctx);
             if (result != null)
             {
-				if(Convert.ToBoolean(result))
-				{
-					base.Accept(ctx);
-					ctx.IsEnabled = true;
-				}
+                if (Convert.ToBoolean(result))
+                {
+                    base.Accept(ctx);
+                    ctx.IsEnabled = true;
+                }
                 else if (elseNode != null)
                 {
                     elseNode.Accept(ctx);

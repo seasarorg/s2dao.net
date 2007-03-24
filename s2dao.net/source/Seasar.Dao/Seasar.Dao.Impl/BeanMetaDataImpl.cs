@@ -190,10 +190,10 @@ namespace Seasar.Dao.Impl
 
         public string ConvertFullColumnName(string alias)
         {
-            if(HasPropertyTypeByColumnName(alias))
+            if (HasPropertyTypeByColumnName(alias))
                 return tableName + "." + alias;
             int index = alias.LastIndexOf('_');
-            if(index < 0)
+            if (index < 0)
                 throw new ColumnNotFoundRuntimeException(tableName, alias);
             string columnName = alias.Substring(0, index);
             string relnoStr = alias.Substring(index + 1);
@@ -202,22 +202,22 @@ namespace Seasar.Dao.Impl
             {
                 relno = int.Parse(relnoStr);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 throw new ColumnNotFoundRuntimeException(tableName, alias);
             }
             IRelationPropertyType rpt = GetRelationPropertyType(relno);
-            if(!rpt.BeanMetaData.HasPropertyTypeByColumnName(columnName))
+            if (!rpt.BeanMetaData.HasPropertyTypeByColumnName(columnName))
                 throw new ColumnNotFoundRuntimeException(tableName, alias);
             return rpt.PropertyName + "." + columnName;
         }
 
         public Seasar.Extension.ADO.IPropertyType GetPropertyTypeByAliasName(string aliasName)
         {
-            if(HasPropertyTypeByColumnName(aliasName))
+            if (HasPropertyTypeByColumnName(aliasName))
                 return GetPropertyTypeByColumnName(aliasName);
             int index = aliasName.LastIndexOf('_');
-            if(index < 0)
+            if (index < 0)
                 throw new ColumnNotFoundRuntimeException(tableName, aliasName);
             string columnName = aliasName.Substring(0, index);
             string relnoStr = aliasName.Substring(index + 1);
@@ -226,12 +226,12 @@ namespace Seasar.Dao.Impl
             {
                 relno = int.Parse(relnoStr);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 throw new ColumnNotFoundRuntimeException(tableName, columnName);
             }
             IRelationPropertyType rpt = GetRelationPropertyType(relno);
-            if(!rpt.BeanMetaData.HasPropertyTypeByColumnName(columnName))
+            if (!rpt.BeanMetaData.HasPropertyTypeByColumnName(columnName))
                 throw new ColumnNotFoundRuntimeException(tableName, aliasName);
             return rpt.BeanMetaData.GetPropertyTypeByAliasName(columnName);
         }
@@ -239,7 +239,7 @@ namespace Seasar.Dao.Impl
         public Seasar.Extension.ADO.IPropertyType GetPropertyTypeByColumnName(string columnName)
         {
             IPropertyType propertyType = (IPropertyType) propertyTypesByColumnName[columnName];
-            if(propertyType == null)
+            if (propertyType == null)
                 throw new ColumnNotFoundRuntimeException(tableName, columnName);
 
             return propertyType;
@@ -252,9 +252,9 @@ namespace Seasar.Dao.Impl
 
         public bool HasPropertyTypeByAliasName(string aliasName)
         {
-            if(HasPropertyTypeByColumnName(aliasName)) return true;
+            if (HasPropertyTypeByColumnName(aliasName)) return true;
             int index = aliasName.LastIndexOf('_');
-            if(index < 0) return false;
+            if (index < 0) return false;
             string columnName = aliasName.Substring(0, index);
             string relnoStr = aliasName.Substring(index + 1);
             int relno = -1;
@@ -262,11 +262,11 @@ namespace Seasar.Dao.Impl
             {
                 relno = int.Parse(relnoStr);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return false;
             }
-            if(relno >= RelationPropertyTypeSize) return false;
+            if (relno >= RelationPropertyTypeSize) return false;
             IRelationPropertyType rpt = GetRelationPropertyType(relno);
             return rpt.BeanMetaData.HasPropertyTypeByColumnName(columnName);
         }
@@ -286,10 +286,10 @@ namespace Seasar.Dao.Impl
 
         IRelationPropertyType Seasar.Dao.IBeanMetaData.GetRelationPropertyType(string propertyName)
         {
-            for(int i = 0; i < RelationPropertyTypeSize; ++i)
+            for (int i = 0; i < RelationPropertyTypeSize; ++i)
             {
                 IRelationPropertyType rpt = (IRelationPropertyType) relationProeprtyTypes[i];
-                if(rpt != null
+                if (rpt != null
                         && string.Compare(rpt.PropertyName, propertyName, true) == 0)
                     return rpt;
             }
@@ -321,9 +321,9 @@ namespace Seasar.Dao.Impl
         {
             get
             {
-                lock(this)
+                lock (this)
                 {
-                    if(autoSelectList != null)
+                    if (autoSelectList != null)
                         return autoSelectList;
                     SetupAutoSelectList();
                     return autoSelectList;
@@ -344,7 +344,7 @@ namespace Seasar.Dao.Impl
         protected virtual void SetupTableName(Type beanType)
         {
             string ta = beanAnnotationReader.GetTable();
-            if(ta != null)
+            if (ta != null)
             {
                 tableName = ta;
             }
@@ -391,13 +391,13 @@ namespace Seasar.Dao.Impl
 
         protected virtual void SetupProperty(Type beanType, IDatabaseMetaData dbMetaData, IDbms dbms)
         {
-            foreach(PropertyInfo pi in beanType.GetProperties())
+            foreach (PropertyInfo pi in beanType.GetProperties())
             {
                 IPropertyType pt = null;
                 RelnoAttribute relnoAttr = beanAnnotationReader.GetRelnoAttribute(pi);
-                if(relnoAttr != null)
+                if (relnoAttr != null)
                 {
-                    if(!relation)
+                    if (!relation)
                     {
                         IRelationPropertyType rpt = CreateRelationPropertyType(
                             beanType, pi, relnoAttr, dbMetaData, dbms);
@@ -409,7 +409,7 @@ namespace Seasar.Dao.Impl
                     pt = CreatePropertyType(pi);
                     AddPropertyType(pt);
                 }
-                if(IdentifierGenerator == null)
+                if (IdentifierGenerator == null)
                 {
                     IDAttribute idAttr = beanAnnotationReader.GetIdAttribute(pi, dbms);
                     if (idAttr != null)
@@ -432,14 +432,14 @@ namespace Seasar.Dao.Impl
 
         protected virtual void SetupPrimaryKey(IDatabaseMetaData dbMetaData, IDbms dbms)
         {
-            if(IdentifierGenerator == null)
+            if (IdentifierGenerator == null)
             {
                 ArrayList pkeyList = new ArrayList();
                 IList primaryKeySet = dbMetaData.GetPrimaryKeySet(tableName);
-                for(int i = 0; i < PropertyTypeSize; ++i)
+                for (int i = 0; i < PropertyTypeSize; ++i)
                 {
                     IPropertyType pt = GetPropertyType(i);
-                    if(primaryKeySet != null && primaryKeySet.Contains(pt.ColumnName))
+                    if (primaryKeySet != null && primaryKeySet.Contains(pt.ColumnName))
                     {
                         pt.IsPrimaryKey = true;
                         pkeyList.Add(pt.ColumnName);
@@ -459,15 +459,15 @@ namespace Seasar.Dao.Impl
             IDatabaseMetaData dbMetaData)
         {
             IList columnSet = dbMetaData.GetColumnSet(tableName);
-            if(columnSet == null || columnSet.Count == 0)
+            if (columnSet == null || columnSet.Count == 0)
             {
                 logger.Log("WDAO0002", new object[] { tableName });
             }
             else
             {
-                for(IEnumerator enu = columnSet.GetEnumerator(); enu.MoveNext();)
+                for (IEnumerator enu = columnSet.GetEnumerator(); enu.MoveNext(); )
                 {
-                    string columnName = (string)enu.Current;
+                    string columnName = (string) enu.Current;
                     string noUnderscoreColumnName = columnName.Replace("_", "");
                     bool hasProperty = false;
                     for (int i = 0; i < PropertyTypeSize; ++i)
@@ -476,7 +476,8 @@ namespace Seasar.Dao.Impl
                         if (string.Compare(pt.ColumnName, columnName, true) == 0)
                         {
                             hasProperty = true;
-                        } else
+                        }
+                        else
                         {
                             if (string.Compare(pt.ColumnName, noUnderscoreColumnName, true) == 0)
                             {
@@ -495,16 +496,16 @@ namespace Seasar.Dao.Impl
             string[] props = beanAnnotationReader.GetNoPersisteneProps();
             if (props != null)
             {
-                foreach(string prop in props)
+                foreach (string prop in props)
                 {
                     IPropertyType pt = GetPropertyType(prop.Trim());
                     pt.IsPersistent = false;
                 }
             }
-            for(int i = 0; i < PropertyTypeSize; ++i)
+            for (int i = 0; i < PropertyTypeSize; ++i)
             {
                 IPropertyType pt = GetPropertyType(i);
-                if(columnSet == null || !columnSet.Contains(pt.ColumnName))
+                if (columnSet == null || !columnSet.Contains(pt.ColumnName))
                 {
                     pt.IsPersistent = false;
                 }
@@ -513,7 +514,7 @@ namespace Seasar.Dao.Impl
 
         protected virtual void SetupPropertiesByColumnName()
         {
-            for(int i = 0; i < PropertyTypeSize; ++i)
+            for (int i = 0; i < PropertyTypeSize; ++i)
             {
                 IPropertyType pt = GetPropertyType(i);
                 propertyTypesByColumnName[pt.ColumnName] = pt;
@@ -527,15 +528,15 @@ namespace Seasar.Dao.Impl
             string[] myKeys = new string[0];
             string[] yourKeys = new string[0];
             string relkeys = beanAnnotationReader.GetRelationKey(propertyInfo);
-            if(relkeys != null)
+            if (relkeys != null)
             {
                 ArrayList myKeyList = new ArrayList();
                 ArrayList yourKeyList = new ArrayList();
-                foreach(string token in relkeys.Split(
+                foreach (string token in relkeys.Split(
                     '\t', '\n', '\r', '\f', ','))
                 {
                     int index = token.IndexOf(':');
-                    if(index > 0)
+                    if (index > 0)
                     {
                         myKeyList.Add(token.Substring(0, index));
                         yourKeyList.Add(token.Substring(index + 1));
@@ -570,7 +571,7 @@ namespace Seasar.Dao.Impl
 
         protected virtual void AddRelationPropertyType(IRelationPropertyType rpt)
         {
-            for(int i = relationProeprtyTypes.Count; i <= rpt.RelationNo; ++i)
+            for (int i = relationProeprtyTypes.Count; i <= rpt.RelationNo; ++i)
             {
                 relationProeprtyTypes.Add(null);
             }
@@ -581,10 +582,10 @@ namespace Seasar.Dao.Impl
         {
             StringBuilder buf = new StringBuilder(100);
             buf.Append("SELECT ");
-            for(int i = 0; i < PropertyTypeSize; ++i)
+            for (int i = 0; i < PropertyTypeSize; ++i)
             {
                 IPropertyType pt = GetPropertyType(i);
-                if(pt.IsPersistent)
+                if (pt.IsPersistent)
                 {
                     buf.Append(tableName);
                     buf.Append(".");
@@ -592,13 +593,13 @@ namespace Seasar.Dao.Impl
                     buf.Append(", ");
                 }
             }
-            foreach(IRelationPropertyType rpt in relationProeprtyTypes)
+            foreach (IRelationPropertyType rpt in relationProeprtyTypes)
             {
                 IBeanMetaData bmd = rpt.BeanMetaData;
-                for(int i = 0; i < bmd.PropertyTypeSize; ++i)
+                for (int i = 0; i < bmd.PropertyTypeSize; ++i)
                 {
                     IPropertyType pt = bmd.GetPropertyType(i);
-                    if(pt.IsPersistent)
+                    if (pt.IsPersistent)
                     {
                         string columnName = pt.ColumnName;
                         buf.Append(rpt.PropertyName);

@@ -16,19 +16,17 @@
  */
 #endregion
 
-using System;
-
 namespace Seasar.Dao
 {
     public enum KindOfDbms
     {
-        None, 
+        None,
         MSSQLServer,
-		DB2,
+        DB2,
         MySQL,
         Oracle,
-    	PostgreSQL,
-		Firebird,
-		MDB
+        PostgreSQL,
+        Firebird,
+        MDB
     }
 }

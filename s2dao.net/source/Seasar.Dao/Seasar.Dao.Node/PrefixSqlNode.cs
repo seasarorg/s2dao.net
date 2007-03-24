@@ -43,7 +43,7 @@ namespace Seasar.Dao.Node
 
         public override void Accept(ICommandContext ctx)
         {
-            if(ctx.IsEnabled) ctx.AddSql(prefix);
+            if (ctx.IsEnabled) ctx.AddSql(prefix);
             ctx.AddSql(sql);
         }
 

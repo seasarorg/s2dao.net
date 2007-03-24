@@ -28,7 +28,7 @@ namespace Seasar.Dao.Impl
         public RelationRowCache(int size)
         {
             rowMapList = new ArrayList();
-            for(int i = 0; i < size; ++i)
+            for (int i = 0; i < size; ++i)
                 rowMapList.Add(new Hashtable());
         }
 

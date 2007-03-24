@@ -25,8 +25,8 @@ namespace Seasar.Dao.Impl
     /// <summary>
     /// Columnのメタデータ
     /// </summary>
-	public class ColumnMetaDataImpl : IColumnMetaData
-	{
+    public class ColumnMetaDataImpl : IColumnMetaData
+    {
         private string columnName;
 
         private PropertyInfo propertyInfo;

@@ -37,7 +37,7 @@ namespace Seasar.Dao.Examples.AutoUpdate
             {
                 logic.TestAutoUpdate();
             }
-            catch(ForCleanupException){}
+            catch (ForCleanupException) { }
         }
     }
 }

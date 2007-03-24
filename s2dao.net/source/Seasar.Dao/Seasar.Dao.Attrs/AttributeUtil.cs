@@ -23,9 +23,6 @@ using System.Reflection;
 
 namespace Seasar.Dao.Attrs
 {
-    /// <summary>
-    /// AttributeUtil ‚ÌŠT—v‚Ìà–¾‚Å‚·B
-    /// </summary>
     public sealed class AttributeUtil
     {
         private AttributeUtil()

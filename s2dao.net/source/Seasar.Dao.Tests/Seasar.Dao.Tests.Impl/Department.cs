@@ -23,7 +23,7 @@ namespace Seasar.Dao.Tests.Impl
 {
     [Table("DEPT")]
     public class Department
-	{
+    {
         private int deptno;
 
         private string dname;
@@ -34,7 +34,7 @@ namespace Seasar.Dao.Tests.Impl
 
         private string dummy;
 
-        public Department() 
+        public Department()
         {
         }
 
@@ -49,7 +49,7 @@ namespace Seasar.Dao.Tests.Impl
             set { dname = value; }
             get { return dname; }
         }
-        
+
         public string Loc
         {
             set { loc = value; }
@@ -61,20 +61,20 @@ namespace Seasar.Dao.Tests.Impl
             set { versionNo = value; }
             get { return versionNo; }
         }
-   
-        public bool equals(object other) 
+
+        public bool equals(object other)
         {
-            if ( !(other.GetType() == typeof(Department)) ) return false;
+            if (!(other.GetType() == typeof(Department))) return false;
             Department castOther = (Department) other;
             return this.Deptno == castOther.Deptno;
         }
 
-        public int hashCode() 
+        public int hashCode()
         {
             return this.Deptno;
         }
-    
-        public override string ToString() 
+
+        public override string ToString()
         {
             StringBuilder buf = new StringBuilder();
             buf.Append(deptno).Append(", ");

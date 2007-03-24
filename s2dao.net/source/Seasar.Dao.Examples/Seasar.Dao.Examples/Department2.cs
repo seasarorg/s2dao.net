@@ -52,7 +52,7 @@ namespace Seasar.Dao.Examples
 
         public override string ToString()
         {
-            return "deptno=" + (!deptno.HasValue ? "null" : deptno.Value.ToString()) 
+            return "deptno=" + (!deptno.HasValue ? "null" : deptno.Value.ToString())
                 + ", dname=" + (dname == null ? "null" : dname)
                 + ", active=" + (!active.HasValue ? "null" : active.Value.ToString());
         }

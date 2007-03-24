@@ -23,7 +23,7 @@ namespace Seasar.Dao
 {
     public class DaoNotFoundRuntimeException : SRuntimeException
     {
-        private Type targetType;
+        private readonly Type targetType;
 
         public DaoNotFoundRuntimeException(Type targetType)
             : base("EDAO0008", new object[] { targetType.Name })
@@ -33,7 +33,7 @@ namespace Seasar.Dao
 
         public Type TargetType
         {
-            get { return this.targetType; }
+            get { return targetType; }
         }
     }
 
@@ -55,23 +55,23 @@ namespace Seasar.Dao
 
     public class IllegalBoolExpressionRuntimeException : SRuntimeException
     {
-        private string expression;
+        private readonly string expression;
 
         public IllegalBoolExpressionRuntimeException(string expression)
-            : base("EDAO0003", new object[] {expression})
+            : base("EDAO0003", new object[] { expression })
         {
             this.expression = expression;
         }
 
         public string Expression
         {
-            get { return this.expression; }
+            get { return expression; }
         }
     }
 
     public class IllegalSignatureRuntimeException : SRuntimeException
     {
-        private string signature;
+        private readonly string signature;
 
         public IllegalSignatureRuntimeException(string messageCode, string signature)
             : base(messageCode, new object[] { signature })
@@ -81,14 +81,14 @@ namespace Seasar.Dao
 
         public string Signature
         {
-            get { return this.signature; }
+            get { return signature; }
         }
     }
 
     public class UpdateFailureRuntimeException : SRuntimeException
     {
-        private object bean;
-        private int rows;
+        private readonly object bean;
+        private readonly int rows;
 
         public UpdateFailureRuntimeException(object bean, int rows)
             : base("EDAO0005", new object[] { bean.ToString(), rows.ToString() })
@@ -99,12 +99,12 @@ namespace Seasar.Dao
 
         public object Bean
         {
-            get { return this.bean; }
+            get { return bean; }
         }
 
         public int Rows
         {
-            get { return this.rows; }
+            get { return rows; }
         }
     }
 
@@ -118,7 +118,7 @@ namespace Seasar.Dao
 
     public class PrimaryKeyNotFoundRuntimeException : SRuntimeException
     {
-        private Type targetType;
+        private readonly Type targetType;
 
         public PrimaryKeyNotFoundRuntimeException(Type targetType)
             : base("EDAO0009", new object[] { targetType.Name })
@@ -128,14 +128,14 @@ namespace Seasar.Dao
 
         public Type TargetType
         {
-            get { return this.targetType; }
+            get { return targetType; }
         }
     }
 
     public class TokenNotClosedRuntimeException : SRuntimeException
     {
-        private string token;
-        private string sql;
+        private readonly string token;
+        private readonly string sql;
 
         public TokenNotClosedRuntimeException(string token, string sql)
             : base("EDAO0002", new object[] { token, sql })
@@ -146,19 +146,19 @@ namespace Seasar.Dao
 
         public string Token
         {
-            get { return this.token; }
+            get { return token; }
         }
 
         public string Sql
         {
-            get { return this.sql; }
+            get { return sql; }
         }
     }
 
     public class WrongPropertyTypeOfTimestampException : SRuntimeException
     {
-        private string propertyName;
-        private string propertyType;
+        private readonly string propertyName;
+        private readonly string propertyType;
 
         public WrongPropertyTypeOfTimestampException(string propertyName, string propertyType)
             : base("EDAO0010", new object[] { propertyName, propertyType })
@@ -169,12 +169,12 @@ namespace Seasar.Dao
 
         public string PropertyName
         {
-            get { return this.propertyName; }
+            get { return propertyName; }
         }
 
         public string PropertyType
         {
-            get { return this.propertyType; }
+            get { return propertyType; }
         }
     }
 }
