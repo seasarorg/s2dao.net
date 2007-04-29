@@ -24,6 +24,7 @@ using Seasar.Extension.ADO;
 using Seasar.Extension.ADO.Impl;
 using Seasar.Framework.Log;
 using Seasar.Framework.Util;
+using Nullables;
 
 namespace Seasar.Dao.Impl
 {
@@ -176,7 +177,7 @@ namespace Seasar.Dao.Impl
                 else if (pt.PropertyName.Equals(BeanMetaData.VersionNoPropertyName))
                 {
                     VersionNo = 0;
-                    varList.Add(VersionNo);
+                    varList.Add(ConversionUtil.ConvertTargetType(VersionNo, pt.PropertyInfo.PropertyType));
                 }
                 else
                 {
@@ -202,10 +203,7 @@ namespace Seasar.Dao.Impl
                 }
                 else if (string.Compare(pt.PropertyName, BeanMetaData.VersionNoPropertyName, true) == 0)
                 {
-                    object value = pt.PropertyInfo.GetValue(bean, null);
-                    int intValue = Convert.ToInt32(value) + 1;
-                    VersionNo = intValue;
-                    varList.Add(VersionNo);
+                    SetupVersionNoValiableList(varList, pt, bean);
                 }
                 else
                 {
@@ -242,6 +240,7 @@ namespace Seasar.Dao.Impl
             {
                 IPropertyType pt = bmd.VersionNoPropertyType;
                 PropertyInfo pi = pt.PropertyInfo;
+                Logger.Debug(pi.Name);
                 varList.Add(pi.GetValue(bean, null));
                 varTypeList.Add(pi.PropertyType);
             }
@@ -268,7 +267,7 @@ namespace Seasar.Dao.Impl
             if (VersionNo != Int32.MinValue)
             {
                 PropertyInfo pi = BeanMetaData.VersionNoPropertyType.PropertyInfo;
-                pi.SetValue(bean, VersionNo, null);
+                SetupVersionNoPropertyInfo(pi, bean);
             }
         }
 
@@ -314,6 +313,31 @@ namespace Seasar.Dao.Impl
             {
                 throw new WrongPropertyTypeOfTimestampException(pi.Name, pi.PropertyType.Name);
             }
+        }
+
+        protected void SetupVersionNoValiableList(IList varList, IPropertyType pt, object bean)
+        {
+            object value = pt.PropertyInfo.GetValue(bean, null);
+            if (value is INullableType) 
+            {
+                INullableType nullableValue = (INullableType)value;
+                if (nullableValue.HasValue) 
+                {
+                    value = nullableValue.Value;
+                }
+                else 
+                {
+                    value = 0;
+                }
+            }
+            int intValue = Convert.ToInt32(value) + 1;
+            VersionNo = intValue;
+            varList.Add(ConversionUtil.ConvertTargetType(VersionNo, pt.PropertyInfo.PropertyType));
+        }
+
+        protected void SetupVersionNoPropertyInfo(PropertyInfo pi, object bean)
+        {
+            pi.SetValue(bean, ConversionUtil.ConvertTargetType(VersionNo, pi.PropertyType), null);
         }
     }
 }

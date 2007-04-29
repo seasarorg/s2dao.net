@@ -63,5 +63,101 @@ namespace Seasar.Dao.Tests.Impl
             dept.VersionNo = -1;
             cmd.Execute(new object[] { dept });
         }
+
+        [Test, S2(Tx.Rollback)]
+        public void TestExecuteNullableDecimalVersionNoTx()
+        {
+            IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeNullableDecimalVersionNoDao));
+            DeleteAutoStaticCommand cmd =
+                (DeleteAutoStaticCommand)dmd.GetSqlCommand("Delete");
+            EmployeeNullableDecimalVersionNo emp = new EmployeeNullableDecimalVersionNo();
+            emp.EmpNo = 10;
+            emp.VersionNo = 100;
+            cmd.Execute(new object[] { emp });
+
+            ISqlCommand delCmd = (ISqlCommand)dmd.GetSqlCommand("GetEmployee");
+            object result = delCmd.Execute(new object[] { emp.EmpNo });
+            Assert.IsNull(result);
+        }
+
+        [Test, S2(Tx.Rollback)]
+        public void TestExecuteNullableIntVersionNoTx()
+        {
+            IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeNullableIntVersionNoDao));
+            DeleteAutoStaticCommand cmd =
+                (DeleteAutoStaticCommand)dmd.GetSqlCommand("Delete");
+            EmployeeNullableIntVersionNo emp = new EmployeeNullableIntVersionNo();
+            emp.EmpNo = 10;
+            emp.VersionNo = 100;
+            cmd.Execute(new object[] { emp });
+
+            ISqlCommand delCmd = (ISqlCommand)dmd.GetSqlCommand("GetEmployee");
+            object result = delCmd.Execute(new object[] { emp.EmpNo });
+            Assert.IsNull(result);
+        }
+#if !NET_1_1
+        [Test, S2(Tx.Rollback)]
+        public void TestExecuteGenericNullableDecimalVersionNoTx()
+        {
+            IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeGenericNullableDecimalVersionNoDao));
+            DeleteAutoStaticCommand cmd =
+                (DeleteAutoStaticCommand)dmd.GetSqlCommand("Delete");
+            EmployeeGenericNullableDecimalVersionNo emp = new EmployeeGenericNullableDecimalVersionNo();
+            emp.EmpNo = 10;
+            emp.VersionNo = 100;
+            cmd.Execute(new object[] { emp });
+
+            ISqlCommand delCmd = (ISqlCommand)dmd.GetSqlCommand("GetEmployee");
+            object result = delCmd.Execute(new object[] { emp.EmpNo });
+            Assert.IsNull(result);
+        }
+
+        [Test, S2(Tx.Rollback)]
+        public void TestExecuteGenericNullableIntVersionNoTx()
+        {
+            IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeGenericNullableIntVersionNoDao));
+            DeleteAutoStaticCommand cmd =
+                (DeleteAutoStaticCommand)dmd.GetSqlCommand("Delete");
+            EmployeeGenericNullableIntVersionNo emp = new EmployeeGenericNullableIntVersionNo();
+            emp.EmpNo = 10;
+            emp.VersionNo = 100;
+            cmd.Execute(new object[] { emp });
+
+            ISqlCommand delCmd = (ISqlCommand)dmd.GetSqlCommand("GetEmployee");
+            object result = delCmd.Execute(new object[] { emp.EmpNo });
+            Assert.IsNull(result);
+        }
+#endif
+        [Test, S2(Tx.Rollback)]
+        public void TestExecuteDecimalVersionNoTx()
+        {
+            IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeDecimalVersionNoDao));
+            DeleteAutoStaticCommand cmd =
+                (DeleteAutoStaticCommand)dmd.GetSqlCommand("Delete");
+            EmployeeDecimalVersionNo emp = new EmployeeDecimalVersionNo();
+            emp.EmpNo = 10;
+            emp.VersionNo = 100;
+            cmd.Execute(new object[] { emp });
+
+            ISqlCommand delCmd = (ISqlCommand)dmd.GetSqlCommand("GetEmployee");
+            object result = delCmd.Execute(new object[] { emp.EmpNo });
+            Assert.IsNull(result);
+        }
+
+        [Test, S2(Tx.Rollback)]
+        public void TestExecuteIntVersionNoTx()
+        {
+            IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeIntVersionNoDao));
+            DeleteAutoStaticCommand cmd =
+                (DeleteAutoStaticCommand)dmd.GetSqlCommand("Delete");
+            EmployeeIntVersionNo emp = new EmployeeIntVersionNo();
+            emp.EmpNo = 10;
+            emp.VersionNo = 100;
+            cmd.Execute(new object[] { emp });
+
+            ISqlCommand delCmd = (ISqlCommand)dmd.GetSqlCommand("GetEmployee");
+            object result = delCmd.Execute(new object[] { emp.EmpNo });
+            Assert.IsNull(result);
+        }
     }
 }

@@ -18,7 +18,6 @@
 
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -322,9 +321,9 @@ namespace Seasar.Dao.Impl
 #if !NET_1_1
             else if (retType.IsGenericType
                 && (retType.GetGenericTypeDefinition().Equals(
-                    typeof(IList<>))
+                    typeof(System.Collections.Generic.IList<>))
                 || retType.GetGenericTypeDefinition().Equals(
-                    typeof(List<>))))
+               typeof(System.Collections.Generic.List<>))))
             {
                 return CreateBeanGenericListMetaDataDataReaderHandler(bmd);
             }

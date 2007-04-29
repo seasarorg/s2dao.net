@@ -166,5 +166,115 @@ namespace Seasar.Dao.Tests.Impl
             int count = (int) cmd.Execute(new object[] { emp });
             Assert.AreEqual(1, count, "1");
         }
+
+        [Test, S2(Tx.Rollback)]
+        public void TestExecuteNullableDecimalVersionNoTx()
+        {
+            IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeNullableDecimalVersionNoDao));
+            ISqlCommand insCmd = dmd.GetSqlCommand("Insert");
+            EmployeeNullableDecimalVersionNo emp = new EmployeeNullableDecimalVersionNo();
+            emp.EmpNo = 1;
+            emp.EmpName = "insert";
+            insCmd.Execute(new object[] { emp });
+            Assert.IsTrue(emp.VersionNo.HasValue);
+            Assert.AreEqual(0, emp.VersionNo.Value);
+
+            ISqlCommand updCmd = dmd.GetSqlCommand("Update");
+            emp.EmpName = "update";
+            updCmd.Execute(new object[] { emp });
+            Assert.IsTrue(emp.VersionNo.HasValue);
+            Assert.AreEqual(1, emp.VersionNo.Value);
+        }
+
+        [Test, S2(Tx.Rollback)]
+        public void TestExecuteNullableIntVersionNoTx()
+        {
+            IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeNullableIntVersionNoDao));
+            ISqlCommand insCmd = dmd.GetSqlCommand("Insert");
+            EmployeeNullableIntVersionNo emp = new EmployeeNullableIntVersionNo();
+            emp.EmpNo = 1;
+            emp.EmpName = "insert";
+            insCmd.Execute(new object[] { emp });
+            Assert.IsTrue(emp.VersionNo.HasValue);
+            Assert.AreEqual(0, emp.VersionNo.Value);
+
+            ISqlCommand updCmd = dmd.GetSqlCommand("Update");
+            emp.EmpName = "update";
+            updCmd.Execute(new object[] { emp });
+            Assert.IsTrue(emp.VersionNo.HasValue);
+            Assert.AreEqual(1, emp.VersionNo.Value);
+        }
+#if !NET_1_1
+        [Test, S2(Tx.Rollback)]
+        public void TestExecuteGenericNullableDecimalVersionNoTx()
+        {
+            IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeGenericNullableDecimalVersionNoDao));
+            ISqlCommand insCmd = dmd.GetSqlCommand("Insert");
+            EmployeeGenericNullableDecimalVersionNo emp = new EmployeeGenericNullableDecimalVersionNo();
+            emp.EmpNo = 1;
+            emp.EmpName = "insert";
+            insCmd.Execute(new object[] { emp });
+            Assert.IsTrue(emp.VersionNo.HasValue);
+            Assert.AreEqual(0, emp.VersionNo.Value);
+
+            ISqlCommand updCmd = dmd.GetSqlCommand("Update");
+            emp.EmpName = "update";
+            updCmd.Execute(new object[] { emp });
+            Assert.IsTrue(emp.VersionNo.HasValue);
+            Assert.AreEqual(1, emp.VersionNo.Value);
+        }
+
+        [Test, S2(Tx.Rollback)]
+        public void TestExecuteGenericNullableIntVersionNoTx()
+        {
+            IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeGenericNullableIntVersionNoDao));
+            ISqlCommand insCmd = dmd.GetSqlCommand("Insert");
+            EmployeeGenericNullableIntVersionNo emp = new EmployeeGenericNullableIntVersionNo();
+            emp.EmpNo = 1;
+            emp.EmpName = "insert";
+            insCmd.Execute(new object[] { emp });
+            Assert.IsTrue(emp.VersionNo.HasValue);
+            Assert.AreEqual(0, emp.VersionNo.Value);
+
+            ISqlCommand updCmd = dmd.GetSqlCommand("Update");
+            emp.EmpName = "update";
+            updCmd.Execute(new object[] { emp });
+            Assert.IsTrue(emp.VersionNo.HasValue);
+            Assert.AreEqual(1, emp.VersionNo.Value);
+        }
+#endif
+        [Test, S2(Tx.Rollback)]
+        public void TestExecuteDecimalVersionNoTx()
+        {
+            IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeDecimalVersionNoDao));
+            ISqlCommand insCmd = dmd.GetSqlCommand("Insert");
+            EmployeeDecimalVersionNo emp = new EmployeeDecimalVersionNo();
+            emp.EmpNo = 1;
+            emp.EmpName = "insert";
+            insCmd.Execute(new object[] { emp });
+            Assert.AreEqual(0, emp.VersionNo);
+
+            ISqlCommand updCmd = dmd.GetSqlCommand("Update");
+            emp.EmpName = "update";
+            updCmd.Execute(new object[] { emp });
+            Assert.AreEqual(1, emp.VersionNo);
+        }
+
+        [Test, S2(Tx.Rollback)]
+        public void TestExecuteIntVersionNoTx()
+        {
+            IDaoMetaData dmd = CreateDaoMetaData(typeof(IEmployeeIntVersionNoDao));
+            ISqlCommand insCmd = dmd.GetSqlCommand("Insert");
+            EmployeeIntVersionNo emp = new EmployeeIntVersionNo();
+            emp.EmpNo = 1;
+            emp.EmpName = "insert";
+            insCmd.Execute(new object[] { emp });
+            Assert.AreEqual(0, emp.VersionNo);
+
+            ISqlCommand updCmd = dmd.GetSqlCommand("Update");
+            emp.EmpName = "update";
+            updCmd.Execute(new object[] { emp });
+            Assert.AreEqual(1, emp.VersionNo);
+        }
     }
 }

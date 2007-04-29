@@ -1,7 +1,7 @@
 <VisualStudioProject>
     <CSHARP
         ProjectType = "Local"
-        ProductVersion = "7.10.6030"
+        ProductVersion = "7.10.3077"
         SchemaVersion = "2.0"
         ProjectGuid = "{BEED9F86-B197-4994-A3D3-344AD4E7DB71}"
     >
@@ -288,6 +288,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Seasar.Dao.Tests.Impl\EmployeeVersionNo.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Seasar.Dao.Tests.Impl\FormUseHistory.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -388,6 +393,11 @@
                 />
                 <File
                     RelPath = "Seasar.Dao.Tests.Impl\IEmployeeNullableAutoDao.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Seasar.Dao.Tests.Impl\IEmployeeVersionNoDao.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
