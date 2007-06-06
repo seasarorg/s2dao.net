@@ -302,6 +302,24 @@
     <Compile Include="Seasar.Dao.Node\SqlNode.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Seasar.Dao.Pager\DefaultPagerCondition.cs" />
+    <Compile Include="Seasar.Dao.Pager\IPagerCondition.cs" />
+    <Compile Include="Seasar.Dao.Pager\PagerAttribute.cs" />
+    <Compile Include="Seasar.Dao.Pager\PagerContext.cs" />
+    <Compile Include="Seasar.Dao.Pager\PagerDataReaderFactoryLimitOffsetWrapper.cs" />
+    <Compile Include="Seasar.Dao.Pager\PagerDataReaderFactoryRowNumberWrapper.cs" />
+    <Compile Include="Seasar.Dao.Pager\PagerDataReaderFactoryWrapper.cs" />
+    <Compile Include="Seasar.Dao.Pager\PagerDataReaderWrapper.cs" />
+    <Compile Include="Seasar.Dao.Pager\PagerS2DaoInterceptorWrapper.cs" />
+    <Compile Include="Seasar.Dao.Pager\PagerDataReaderFactoryTopWrapper.cs" />
+    <Compile Include="Seasar.Dao.Pager\PagerUtil.cs" />
+    <Compile Include="Seasar.Dao.Pager\PagerConditionConstants.cs" />
+    <Compile Include="Seasar.Dao.Pager\AbstractPagerDataReaderFactoryWrapper.cs" />
+    <Compile Include="Seasar.Dao.Pager\PagerConditionUtil.cs" />
+    <Compile Include="Seasar.Dao.Pager\NonPagerAttribute.cs" />
+    <Compile Include="Seasar.Dao.Pager\PagingParameterDefinitionException.cs" />
+    <Compile Include="Seasar.Dao.Pager\PagingDaoMetaData.cs" />
+    <Compile Include="Seasar.Dao.Pager\PagingDaoMetaDataFactory.cs" />
     <Compile Include="Seasar.Dao.Parser\SqlParserImpl.cs">
       <SubType>Code</SubType>
     </Compile>

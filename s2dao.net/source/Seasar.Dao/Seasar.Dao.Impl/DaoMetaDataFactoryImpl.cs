@@ -27,11 +27,11 @@ namespace Seasar.Dao.Impl
     public class DaoMetaDataFactoryImpl : IDaoMetaDataFactory
     {
         private readonly Hashtable _daoMetaDataCache = new Hashtable();
-        private readonly IDataSource _dataSource;
-        private readonly ICommandFactory _commandFactory;
-        private readonly IDataReaderFactory _dataReaderFactory;
-        private readonly IAnnotationReaderFactory _readerFactory;
-        private readonly IDatabaseMetaData _dbMetaData;
+        protected readonly IDataSource _dataSource;
+        protected readonly ICommandFactory _commandFactory;
+        protected readonly IDataReaderFactory _dataReaderFactory;
+        protected readonly IAnnotationReaderFactory _readerFactory;
+        protected readonly IDatabaseMetaData _dbMetaData;
         protected string _sqlFileEncoding = Encoding.Default.WebName;
         protected string[] _insertPrefixes;
         protected string[] _updatePrefixes;

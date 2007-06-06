@@ -123,6 +123,7 @@
     <EmbeddedResource Include="Seasar.Dao.Tests.Interceptors\IEmployeeDao_Insert.sql" />
     <EmbeddedResource Include="Tests.dicon" />
     <None Include="App.config" />
+    <EmbeddedResource Include="Seasar.Dao.Tests.Pager\PagerDataReaderWrapperTest.dicon" />
     <EmbeddedResource Include="LocalTx.dicon" />
     <EmbeddedResource Include="App.dicon" />
     <EmbeddedResource Include="Dao.dicon" />
@@ -304,6 +305,16 @@
     <Compile Include="Seasar.Dao.Tests.Interceptors\S2DaoInterceptorTest.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Seasar.Dao.Tests.Pager\Employee.cs" />
+    <Compile Include="Seasar.Dao.Tests.Pager\IEmployeeDao.cs" />
+    <Compile Include="Seasar.Dao.Tests.Pager\MockDataReader.cs" />
+    <Compile Include="Seasar.Dao.Tests.Pager\MockDataReaderBase.cs" />
+    <Compile Include="Seasar.Dao.Tests.Pager\MockDataReaderFactory.cs" />
+    <Compile Include="Seasar.Dao.Tests.Pager\PagerDataReaderFactoryRowNumberWrapperTest.cs" />
+    <Compile Include="Seasar.Dao.Tests.Pager\PagerDataReaderFactoryWrapperTest.cs" />
+    <Compile Include="Seasar.Dao.Tests.Pager\PagerDataReaderWrapperTest.cs" />
+    <Compile Include="Seasar.Dao.Tests.Pager\PagerDataReaderFactoryLimitOffsetWrapperTest.cs" />
+    <Compile Include="Seasar.Dao.Tests.Pager\PagerDataReaderFactoryTopWrapperTest.cs" />
     <Compile Include="Seasar.Dao.Tests.Parser\SqlParserTest.cs">
       <SubType>Code</SubType>
     </Compile>

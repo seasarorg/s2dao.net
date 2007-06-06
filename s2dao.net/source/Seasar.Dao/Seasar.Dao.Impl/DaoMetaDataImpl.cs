@@ -136,8 +136,7 @@ namespace Seasar.Dao.Impl
 
         protected virtual void SetupMethod(MethodInfo mi)
         {
-            string sql = null;
-            sql = _annotationReader.GetSql(mi.Name, _dbms);
+            string sql = _annotationReader.GetSql(mi.Name, _dbms);
             if (sql != null)
             {
                 SetupMethodByManual(mi, sql);
@@ -209,8 +208,8 @@ namespace Seasar.Dao.Impl
         {
             SelectDynamicCommand cmd = CreateSelectDynamicCommand(CreateDataReaderHandler(mi));
             cmd.Sql = sql;
-            cmd.ArgNames = MethodUtil.GetParameterNames(mi);
-            cmd.ArgTypes = MethodUtil.GetParameterTypes(mi);
+            cmd.ArgNames = GetArgNames(mi);
+            cmd.ArgTypes = GetArgTypes(mi);
             _sqlCommands[mi.Name] = cmd;
         }
 
@@ -370,17 +369,17 @@ namespace Seasar.Dao.Impl
         {
             UpdateDynamicCommand cmd = new UpdateDynamicCommand(_dataSource, _commandFactory);
             cmd.Sql = sql;
-            string[] argNames = MethodUtil.GetParameterNames(mi);
+            string[] argNames = GetArgNames(mi);
             if (argNames.Length == 0 && IsUpdateSignatureForBean(mi))
                 argNames = new string[] { StringUtil.Decapitalize(_beanType.Name) };
             cmd.ArgNames = argNames;
-            cmd.ArgTypes = MethodUtil.GetParameterTypes(mi);
+            cmd.ArgTypes = GetArgTypes(mi);
             _sqlCommands[mi.Name] = cmd;
         }
 
         protected virtual bool IsUpdateSignatureForBean(MethodInfo mi)
         {
-            Type[] paramTypes = MethodUtil.GetParameterTypes(mi);
+            Type[] paramTypes = GetArgTypes(mi);
             return paramTypes.Length == 1
                 && IsBeanTypeAssignable(paramTypes[0]);
         }
@@ -484,8 +483,8 @@ namespace Seasar.Dao.Impl
             string query = _annotationReader.GetQuery(mi.Name);
             IDataReaderHandler handler = CreateDataReaderHandler(mi);
             SelectDynamicCommand cmd;
-            string[] argNames = MethodUtil.GetParameterNames(mi);
-            Type[] argTypes = MethodUtil.GetParameterTypes(mi);
+            string[] argNames = GetArgNames(mi);
+            Type[] argTypes = GetArgTypes(mi);
             if (query != null && !StartsWithOrderBy(query))
             {
                 cmd = CreateSelectDynamicCommand(handler, query);
@@ -634,7 +633,7 @@ namespace Seasar.Dao.Impl
 
         protected virtual void CheckAutoUpdateMethod(MethodInfo mi)
         {
-            Type[] parameterTypes = MethodUtil.GetParameterTypes(mi);
+            Type[] parameterTypes = GetArgTypes(mi);
             if (parameterTypes.Length != 1
                 || !IsBeanTypeAssignable(parameterTypes[0])
                 && !parameterTypes[0].IsAssignableFrom(typeof(IList))
@@ -677,6 +676,16 @@ namespace Seasar.Dao.Impl
                 if (methodName.StartsWith(deleteName)) return true;
             }
             return false;
+        }
+
+        protected virtual string[] GetArgNames(MethodInfo mi)
+        {
+            return MethodUtil.GetParameterNames(mi);
+        }
+
+        protected virtual Type[] GetArgTypes(MethodInfo mi)
+        {
+            return MethodUtil.GetParameterTypes(mi);
         }
 
         #region IDaoMetaData ÉÅÉìÉo
@@ -805,13 +814,12 @@ namespace Seasar.Dao.Impl
         {
             ProcedureDynamicCommand cmd = new ProcedureDynamicCommand(_dataSource, _commandFactory);
             cmd.Sql = sql;
-            cmd.ArgNames = MethodUtil.GetParameterNames(mi);
-            cmd.ArgTypes = MethodUtil.GetParameterTypes(mi);
+            cmd.ArgNames = GetArgNames(mi);
+            cmd.ArgTypes = GetArgTypes(mi);
             cmd.ArgDirections = AbstractProcedureHandler.GetParameterDirections(mi);
             cmd.ReturnType = mi.ReturnType;
 
             _sqlCommands[mi.Name] = cmd;
         }
-
     }
 }
