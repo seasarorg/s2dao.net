@@ -4,6 +4,10 @@
 <components namespace="Tests">
   <include path="Dao.dicon" />
 
+  <component class="Seasar.Dao.Tests.Impl.IStoredProcedureTestDao">
+    <aspect>Dao.Interceptor</aspect>
+  </component>
+  
   <component class="Seasar.Dao.Tests.Interceptors.IEmployeeDao">
     <aspect>Dao.Interceptor</aspect>
   </component>

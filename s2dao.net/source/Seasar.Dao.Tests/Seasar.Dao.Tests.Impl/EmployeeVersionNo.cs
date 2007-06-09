@@ -1,14 +1,13 @@
 using System;
-using System.Text;
 using Seasar.Dao.Attrs;
 using Nullables;
 
 namespace Seasar.Dao.Tests.Impl
 {
     [VersionNoProperty("VersionNo")]
-    [Table("NULLABLE_DECIMAL_VERSION_NO")]
-	public class EmployeeNullableDecimalVersionNo
-	{
+    [Table("DECIMAL_VERSION_NO")]
+    public class EmployeeNullableDecimalVersionNo
+    {
         private int _empNo;
         public int EmpNo
         {
@@ -29,10 +28,10 @@ namespace Seasar.Dao.Tests.Impl
             get { return _versionNo; }
             set { _versionNo = value; }
         }
-	}
+    }
 
     [VersionNoProperty("VersionNo")]
-    [Table("NULLABLE_INT_VERSION_NO")]
+    [Table("INT_VERSION_NO")]
     public class EmployeeNullableIntVersionNo
     {
         private int _empNo;
@@ -58,7 +57,7 @@ namespace Seasar.Dao.Tests.Impl
     }
 #if !NET_1_1
     [VersionNoProperty("VersionNo")]
-    [Table("GENERIC_NULLABLE_DECIMAL_VERSION_NO")]
+    [Table("DECIMAL_VERSION_NO")]
     public class EmployeeGenericNullableDecimalVersionNo
     {
         private int _empNo;
@@ -84,7 +83,7 @@ namespace Seasar.Dao.Tests.Impl
     }
 
     [VersionNoProperty("VersionNo")]
-    [Table("GENERIC_NULLABLE_INT_VERSION_NO")]
+    [Table("INT_VERSION_NO")]
     public class EmployeeGenericNullableIntVersionNo
     {
         private int _empNo;

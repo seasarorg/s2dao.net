@@ -16,6 +16,7 @@
  */
 #endregion
 
+using System;
 using System.Collections;
 using System.Diagnostics;
 using MbUnit.Framework;
@@ -436,9 +437,9 @@ namespace Seasar.Dao.Tests.Impl
             condition.Dname = "RESEARCH";
             SelectDynamicCommand cmd = (SelectDynamicCommand) dmd.GetSqlCommand("GetEmployees");
             Trace.WriteLine(cmd.Sql);
-            Employee[] results = (Employee[]) cmd.Execute(new object[] { condition });
             condition.OrderByString = "ENAME";
-            results = (Employee[]) cmd.Execute(new object[] { condition });
+            Employee[] results = (Employee[]) cmd.Execute(new object[] { condition });
+            Assert.AreEqual(7876, results[0].Empno, "1");
         }
 
         [Test, S2]
@@ -532,6 +533,80 @@ namespace Seasar.Dao.Tests.Impl
             ISqlCommand cmd2 = dmd.GetSqlCommand("GetEmployee");
             Employee ret = (Employee) cmd2.Execute(new object[] { 7788 });
             Assert.AreEqual("日本語", ret.Ename);
+        }
+
+        private IStoredProcedureTestDao _procedureDao = null;
+
+        public void SetUpTestFunction()
+        {
+            Include("Tests.dicon");
+        }
+
+        [Test, S2]
+        public void TestFunction()
+        {
+            if (Dbms.Dbms != KindOfDbms.MSSQLServer && Dbms.Dbms != KindOfDbms.Oracle)
+            {
+                Assert.Ignore("ProcedureのテストはSQL ServerとOracleしか用意していない。");
+            }
+            double sales = 0.4;
+            double ret = _procedureDao.GetSalesTax2(sales);
+            Assert.AreEqual(0.08, Math.Round(ret, 2), "1");
+        }
+
+        public void SetUpTestProcedureOutParameter()
+        {
+            Include("Tests.dicon");
+        }
+
+        [Test, S2]
+        public void TestProcedureOutParameter()
+        {
+            if (Dbms.Dbms != KindOfDbms.MSSQLServer && Dbms.Dbms != KindOfDbms.Oracle)
+            {
+                Assert.Ignore("ProcedureのテストはSQL ServerとOracleしか用意していない。");
+            }
+            double sales = 0.4;
+            double tax;
+            _procedureDao.GetSalesTax(sales, out tax);
+            Assert.AreEqual(0.08, Math.Round(tax, 2), "1");
+        }
+
+        public void SetUpTestProcedureInOutParameter()
+        {
+            Include("Tests.dicon");
+        }
+
+        [Test, S2]
+        public void TestProcedureInOutParameter()
+        {
+            if (Dbms.Dbms != KindOfDbms.MSSQLServer && Dbms.Dbms != KindOfDbms.Oracle)
+            {
+                Assert.Ignore("ProcedureのテストはSQL ServerとOracleしか用意していない。");
+            }
+            double sales = 0.4;
+            _procedureDao.GetSalesTax3(ref sales);
+            Assert.AreEqual(0.08, Math.Round(sales, 2), "1");
+        }
+
+        public void SetUpTestProcedureMultiParameter()
+        {
+            Include("Tests.dicon");
+        }
+
+        [Test, S2]
+        public void TestProcedureMultiParameter()
+        {
+            if (Dbms.Dbms != KindOfDbms.MSSQLServer && Dbms.Dbms != KindOfDbms.Oracle)
+            {
+                Assert.Ignore("ProcedureのテストはSQL ServerとOracleしか用意していない。");
+            }
+            double sales = 0.4;
+            double tax;
+            double total;
+            _procedureDao.GetSalesTax4(sales, out tax, out total);
+            Assert.AreEqual(0.08, Math.Round(tax, 2), "1");
+            Assert.AreEqual(0.48, Math.Round(total, 2), "1");
         }
     }
 }

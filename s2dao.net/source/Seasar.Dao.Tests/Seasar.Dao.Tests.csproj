@@ -278,6 +278,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Seasar.Dao.Tests.Impl\BeanGenericListMetaDataDataReaderHandlerTest.cs" />
+    <Compile Include="Seasar.Dao.Tests.Impl\IStoredProcedureTestDao.cs" />
     <Compile Include="Seasar.Dao.Tests.Interceptors\Department.cs">
       <SubType>Code</SubType>
     </Compile>
