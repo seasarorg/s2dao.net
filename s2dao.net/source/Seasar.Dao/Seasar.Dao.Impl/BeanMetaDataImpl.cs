@@ -57,31 +57,6 @@ namespace Seasar.Dao.Impl
         {
         }
 
-        [Obsolete]
-        public BeanMetaDataImpl(Type beanType)
-            : this(beanType, false)
-        {
-        }
-
-        [Obsolete]
-        public BeanMetaDataImpl(Type beanType, bool relation)
-        {
-            BeanType = beanType;
-            _relation = relation;
-        }
-
-        [Obsolete]
-        public BeanMetaDataImpl(Type beanType, IDatabaseMetaData dbMetaData, IDbms dbms)
-            : this(beanType, dbMetaData, dbms, false)
-        {
-        }
-
-        [Obsolete]
-        public BeanMetaDataImpl(Type beanType, IDatabaseMetaData dbMetaData, IDbms dbms, bool relation)
-            : this(beanType, dbMetaData, dbms, new FieldAnnotationReaderFactory(), relation)
-        {
-        }
-
         public BeanMetaDataImpl(Type beanType, IDatabaseMetaData dbMetaData,
             IDbms dbms, IAnnotationReaderFactory annotationReaderFactory)
             : this(beanType, dbMetaData, dbms, annotationReaderFactory, false)
