@@ -76,7 +76,7 @@ namespace Seasar.Dao.Pager
         {
             Attribute nonPager = Attribute.GetCustomAttribute(mi, typeof(NonPagerAttribute));
             if (nonPager != null)
-            {
+             {
                 return null;
             }
 
@@ -106,11 +106,6 @@ namespace Seasar.Dao.Pager
                 return;
             }
 
-            if (!parameters[ci].IsOut)
-            {
-                throw new PagingParameterDefinitionException();
-            }
-
             args[ci] = count;
         }
 
@@ -131,38 +126,36 @@ namespace Seasar.Dao.Pager
 
             // Pager属性値よりページング用引数のインデックスを取得
             ParameterInfo[] parameters = mi.GetParameters();
-            int oi = FindParameterIndex(pager.OffsetParameter, parameters);
             int li = FindParameterIndex(pager.LimitParameter, parameters);
+            int oi = FindParameterIndex(pager.OffsetParameter, parameters);
             int ci = FindParameterIndex(pager.CountParameter, parameters);
 
             // ページング用引数が取得できなかった場合、例外を発生
             if (li == -1)
             {
-                // TODO
-                throw new PagingParameterDefinitionException();
+                throw new PagingParameterDefinitionException(pager.LimitParameter);
             }
             if (parameters[li].ParameterType != typeof(int))
             {
-                // TODO
-                throw new PagingParameterDefinitionException();
+                throw new PagingParameterDefinitionException(pager.LimitParameter);
             }
 
             if (oi == -1)
             {
-                throw new PagingParameterDefinitionException();
+                throw new PagingParameterDefinitionException(pager.OffsetParameter);
             }
             if (parameters[oi].ParameterType != typeof(int))
             {
-                throw new PagingParameterDefinitionException();
+                throw new PagingParameterDefinitionException(pager.OffsetParameter);
             }
 
             if (ci == -1)
             {
-                throw new PagingParameterDefinitionException();
+                throw new PagingParameterDefinitionException(pager.OffsetParameter);
             }
             if (parameters[ci].ParameterType.Name != "Int32&" || !parameters[ci].IsOut)
             {
-                throw new PagingParameterDefinitionException();
+                throw new PagingParameterDefinitionException(pager.OffsetParameter);
             }
 
             return new DefaultPagerCondition(

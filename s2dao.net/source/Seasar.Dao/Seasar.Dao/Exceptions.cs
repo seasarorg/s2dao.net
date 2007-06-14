@@ -22,6 +22,7 @@ using Seasar.Framework.Exceptions;
 
 namespace Seasar.Dao
 {
+    [Serializable]
     public class DaoNotFoundRuntimeException : SRuntimeException
     {
         private readonly Type _targetType;
@@ -50,6 +51,7 @@ namespace Seasar.Dao
         }
     }
 
+    [Serializable]
     public class EndCommentNotFoundRuntimeException : SRuntimeException
     {
         public EndCommentNotFoundRuntimeException()
@@ -58,6 +60,7 @@ namespace Seasar.Dao
         }
     }
 
+    [Serializable]
     public class IfConditionNotFoundRuntimeException : SRuntimeException
     {
         public IfConditionNotFoundRuntimeException()
@@ -66,6 +69,7 @@ namespace Seasar.Dao
         }
     }
 
+    [Serializable]
     public class IllegalBoolExpressionRuntimeException : SRuntimeException
     {
         private readonly string _expression;
@@ -94,6 +98,7 @@ namespace Seasar.Dao
         }
     }
 
+    [Serializable]
     public class IllegalSignatureRuntimeException : SRuntimeException
     {
         private readonly string _signature;
@@ -122,6 +127,7 @@ namespace Seasar.Dao
         }
     }
 
+    [Serializable]
     public class UpdateFailureRuntimeException : SRuntimeException
     {
         private readonly object _bean;
@@ -159,6 +165,7 @@ namespace Seasar.Dao
         }
     }
 
+    [Serializable]
     public class NotSingleRowUpdatedRuntimeException : UpdateFailureRuntimeException
     {
         public NotSingleRowUpdatedRuntimeException(object bean, int rows)
@@ -167,6 +174,7 @@ namespace Seasar.Dao
         }
     }
 
+    [Serializable]
     public class PrimaryKeyNotFoundRuntimeException : SRuntimeException
     {
         private readonly Type _targetType;
@@ -195,6 +203,7 @@ namespace Seasar.Dao
         }
     }
 
+    [Serializable]
     public class TokenNotClosedRuntimeException : SRuntimeException
     {
         private readonly string _token;
@@ -232,6 +241,7 @@ namespace Seasar.Dao
         }
     }
 
+    [Serializable]
     public class WrongPropertyTypeOfTimestampException : SRuntimeException
     {
         private readonly string _propertyName;
@@ -248,7 +258,7 @@ namespace Seasar.Dao
             : base(info, context)
         {
             _propertyName = info.GetString("_propertyName");
-            _propertyType = info.GetString("propertyType");
+            _propertyType = info.GetString("_propertyType");
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext context)

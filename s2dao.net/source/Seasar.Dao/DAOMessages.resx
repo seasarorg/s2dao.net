@@ -147,6 +147,9 @@
   <data name="EDAO0010" xml:space="preserve">
     <value>The property type is wrong: name=[{0}] type=[{1}]</value>
   </data>
+  <data name="EDAO0011" xml:space="preserve">
+    <value>Parameter Name({0}) not found</value>
+  </data>
   <data name="WDAO0001" xml:space="preserve">
     <value>Argument({0}) not found</value>
   </data>
