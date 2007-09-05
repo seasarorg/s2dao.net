@@ -29,6 +29,7 @@ namespace Seasar.Dao.Impl
         public BeanListMetaDataDataReaderHandler(IBeanMetaData beanMetaData)
             : base(beanMetaData)
         {
+            
         }
 
         public override object Handle(IDataReader dataReader)

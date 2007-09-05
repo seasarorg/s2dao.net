@@ -27,6 +27,19 @@
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\Debug\</OutputPath>
@@ -123,12 +136,32 @@
     <EmbeddedResource Include="Seasar.Dao.Tests.Interceptors\IEmployeeDao_Insert.sql" />
     <EmbeddedResource Include="Tests.dicon" />
     <None Include="App.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Seasar.Dao.Tests.Impl\EmployeeDataSet.xsc">
+      <DependentUpon>EmployeeDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Seasar.Dao.Tests.Impl\EmployeeDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>EmployeeDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Seasar.Dao.Tests.Impl\EmployeeDataSet.xss">
+      <DependentUpon>EmployeeDataSet.xsd</DependentUpon>
+    </None>
     <EmbeddedResource Include="Seasar.Dao.Tests.Pager\PagerDataReaderWrapperTest.dicon" />
     <EmbeddedResource Include="LocalTx.dicon" />
     <EmbeddedResource Include="App.dicon" />
     <EmbeddedResource Include="Dao.dicon" />
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Seasar.Dao.Tests.Context\CommandContextPropertyAccessorTest.cs">
       <SubType>Code</SubType>
@@ -166,6 +199,8 @@
     <Compile Include="Seasar.Dao.Tests.Impl\BeanArrayMetaDataResultSetHandlerTest.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\BeanDataSetMetaDataDataReaderHandlerTest.cs" />
+    <Compile Include="Seasar.Dao.Tests.Impl\BeanDataTableMetaDataDataReaderHandlerTest.cs" />
     <Compile Include="Seasar.Dao.Tests.Impl\BeanListMetaDataDataReaderHandlerTest.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -204,6 +239,14 @@
     </Compile>
     <Compile Include="Seasar.Dao.Tests.Impl\Employee5.cs">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\EmployeeDataSet.cs">
+      <DependentUpon>EmployeeDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\EmployeeDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EmployeeDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Seasar.Dao.Tests.Impl\EmployeeNullable.cs" />
     <Compile Include="Seasar.Dao.Tests.Impl\EmployeeSearchCondition.cs">
@@ -249,6 +292,7 @@
     <Compile Include="Seasar.Dao.Tests.Impl\IEmployeeDao.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\IEmployeeDataSetDao.cs" />
     <Compile Include="Seasar.Dao.Tests.Impl\IEmployeeNullableAutoDao.cs" />
     <Compile Include="Seasar.Dao.Tests.Impl\IEmployeeVersionNoDao.cs" />
     <Compile Include="Seasar.Dao.Tests.Impl\IFormUseHistoryDao.cs">
@@ -270,6 +314,7 @@
     <Compile Include="Seasar.Dao.Tests.Impl\SelectDynamicCommandTest.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Seasar.Dao.Tests.Impl\SelectAutoCommandTest.cs" />
     <Compile Include="Seasar.Dao.Tests.Impl\UnderscoreEntity.cs" />
     <Compile Include="Seasar.Dao.Tests.Impl\UpdateAutoStaticCommandTest.cs">
       <SubType>Code</SubType>
@@ -331,6 +376,32 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Seasar.Dao.Tests.Impl\IEmployeeDao_GetAllEmployeesToGenericList2.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="s2dotnetdemo.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="s2dotnetdemo_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>s2dotnetdemo.mdf</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Sql.Server.Express.1.0">
+      <Visible>False</Visible>
+      <ProductName>SQL Server 2005 Express Edition</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows インストーラ 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

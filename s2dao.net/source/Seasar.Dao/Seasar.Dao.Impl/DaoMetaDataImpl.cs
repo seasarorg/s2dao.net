@@ -28,6 +28,7 @@ using Seasar.Extension.ADO.Impl;
 using Seasar.Extension.ADO.Types;
 using Seasar.Framework.Beans;
 using Seasar.Framework.Util;
+using System.Data;
 
 namespace Seasar.Dao.Impl
 {
@@ -296,7 +297,15 @@ namespace Seasar.Dao.Impl
         {
             Type retType = mi.ReturnType;
 
-            if (retType.IsArray)
+            if(typeof(DataSet).IsAssignableFrom(retType))
+            {
+                return CreateBeanDataSetMetaDataDataReaderHandler(bmd, retType);
+            }
+            else if ( typeof(DataTable).IsAssignableFrom(retType) )
+            {
+                return CreateBeanDataTableMetaDataDataReaderHandler(bmd, retType);
+            }
+            else if (retType.IsArray)
             {
                 return CreateBeanArrayMetaDataDataReaderHandler(bmd);
             }
@@ -331,6 +340,16 @@ namespace Seasar.Dao.Impl
             {
                 return CreateObjectDataReaderHandler();
             }
+        }
+
+        protected virtual BeanDataSetMetaDataDataReaderHandler CreateBeanDataSetMetaDataDataReaderHandler(IBeanMetaData bmd, Type returnType)
+        {
+            return new BeanDataSetMetaDataDataReaderHandler(bmd, returnType);
+        }
+
+        protected virtual BeanDataTableMetaDataDataReaderHandler CreateBeanDataTableMetaDataDataReaderHandler(IBeanMetaData bmd, Type returnType)
+        {
+            return new BeanDataTableMetaDataDataReaderHandler(bmd, returnType);
         }
 
         protected virtual BeanListMetaDataDataReaderHandler CreateBeanListMetaDataDataReaderHandler(IBeanMetaData bmd)
