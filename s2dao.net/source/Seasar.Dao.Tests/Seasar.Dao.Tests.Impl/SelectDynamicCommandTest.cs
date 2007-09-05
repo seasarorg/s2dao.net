@@ -44,7 +44,7 @@ namespace Seasar.Dao.Tests.Impl
             Trace.WriteLine(emp);
             Assert.IsNotNull(emp, "1");
         }
-
+#if !NET_1_1
         [Test, S2]
         public void TestExecute_DataTableTx() {
             SelectDynamicCommand cmd = new SelectDynamicCommand(DataSource,
@@ -99,5 +99,6 @@ namespace Seasar.Dao.Tests.Impl
                 Trace.Write(" ");
             }
         }
+#endif
     }
 }

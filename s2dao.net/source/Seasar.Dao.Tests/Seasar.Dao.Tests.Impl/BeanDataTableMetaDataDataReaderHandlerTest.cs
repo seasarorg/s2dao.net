@@ -30,6 +30,7 @@ namespace Seasar.Dao.Tests.Impl
     [TestFixture]
     public class BeanDataTableMetaDataDataReaderHandlerTest : S2DaoTestCase
     {
+#if !NET_1_1
         [Test, S2]
         public void TestHandle()
         {
@@ -119,5 +120,6 @@ namespace Seasar.Dao.Tests.Impl
                 }
             }
         }
+#endif
     }
 }

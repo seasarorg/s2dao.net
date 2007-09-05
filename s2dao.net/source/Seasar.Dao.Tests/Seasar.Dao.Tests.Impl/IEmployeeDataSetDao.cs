@@ -8,6 +8,7 @@ namespace Seasar.Dao.Tests.Impl
     [Bean(typeof(Employee))]
 	public interface IEmployeeDataSetDao
 	{
+#if !NET_1_1
         EmployeeDataSet.EmpAndDeptDataTable SelectDataTableAuto(int empno);
 
         [Query("SELECT emp.empno,emp.ename,dept.deptno,dept.dname FROM emp left outer join dept on emp.deptno = dept.deptno where emp.empno = /*employeeNo*/7369")]
@@ -15,5 +16,6 @@ namespace Seasar.Dao.Tests.Impl
 
         [Query("SELECT emp.empno,emp.ename,dept.deptno,dept.dname FROM emp left outer join dept on emp.deptno = dept.deptno where emp.empno = /*employeeNo*/7369")]
         EmployeeDataSet SelectDataSet(int employeeNo);
+#endif
 	}
 }

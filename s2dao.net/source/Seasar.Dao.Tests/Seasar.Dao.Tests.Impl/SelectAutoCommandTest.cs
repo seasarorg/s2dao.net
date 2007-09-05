@@ -13,6 +13,7 @@ namespace Seasar.Dao.Tests.Impl
     [TestFixture]
     public class SelectAutoCommandTest : S2DaoTestCase
 	{
+#if !NET_1_1
         [Test, S2]
         public void TestExecute_QueryAnnotationAndReturnDataTable() {
             const int EMP_NO = 7499;
@@ -55,5 +56,6 @@ namespace Seasar.Dao.Tests.Impl
             Assert.AreEqual(DEPT_NO, actualRow["DEPTNO"]);
             Assert.AreEqual("SALES", actualRow["DNAME"]);
         }
+#endif
 	}
 }
