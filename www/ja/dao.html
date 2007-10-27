@@ -159,6 +159,13 @@ VB.NET
 		SELECT文でエンティティのリスト(System.Collections.List&lt;<span class="italic">Entity型</span>&gt;)を返します。</li>
 	<li>戻り値がエンティティ型の配列である場合は、エンティティ配列を返します。</li>
 	<li>戻り値の型がエンティティの型の場合は、エンティティを返します。</li>
+	<li>戻り値の型がDataTable型の場合はDataTable型を返します。<br>
+		型付きのDataTableの場合は型付きのDataTable型を返します。<br>
+		(S2Dao.NET 1.3.2以降)</li>
+	<li>戻り値の型がDataSet(型付き含む)型の場合はDataSet(型付きであれば型付きDataSet)型を返します。<br>
+		型付きのDataSetの場合は型付きのDataSet型を返します。<br>
+		(S2Dao.NET 1.3.2以降)<br>
+		※DataSet内にDataTableが一つだけ存在している場合のみを想定しています。</li>
 	<li>それ以外の場合は、SELECT count(*) FROM empのように1行1カラムの値を返すというようにS2Dao.NETは想定します。</li>
 </ul>
 </p>
