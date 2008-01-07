@@ -435,6 +435,15 @@ VB.NET
 &lt;TimestampProperty(<span class="str">"MyTimestamp"</span>)&gt; _
 <span class="kwrd">Public</span> <span class="kwrd">Class</span> Employee</pre>
 
+<h3>ODP.NET使用時のTimestampカラムの型</h3>
+
+<p>DBMSにOracle、データプロバイダにODP.NET(Oracle Data Provider .NET)を使用する場合、
+System.DateTime型のTimestampプロパティに対応するデータベースのTimestampカラムの型はTIMESTAMP(7)～TIMESTAMP(9)を使用してください。</p>
+<p>これは、データベースのTimestampカラムの型がTIMESTAMP(7)未満の場合、
+System.DateTime型の値が切り捨てられて格納されるため、
+更新(Update, Delete)時にEntityのTimestampプロパティとデータベースのTimestampカラムの値が常に異なり
+Seasar.Dao.NotSingleRowUpdatedRuntimeExceptionが発生するためです。</p>
+
 <!-- document end -->
 <!-- don't edit start -->
 </td>
