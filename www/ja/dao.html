@@ -54,6 +54,7 @@
 <ul>
 	<li><a href="#QueryAttr">Query属性 - 自動生成SELECT文にWHERE句やORDER BY句を追加する</a></li>
 	<li><a href="#SqlAttr">Sql属性 - Sqlを記述する</a></li>
+	<li><a href="#SqlFileAttr">SqlFile属性 - Sqlファイルを明示的を指定する(バージョン1.3.5以降)</a></li>
 	<li><a href="#ProcedureAttr">Procedure属性 - StoredProcedureを指定する</a></li>
 	<li><a href="#NoPersistentPropsAttr">NoPersistentProps属性 - 自動生成UPDATE文の更新しないプロパティを指定する</a></li>
 	<li><a href="#PersistentPropsAttr">PersistentProps属性 - 自動生成UPDATE文の更新するプロパティを指定する</a></li>
@@ -377,6 +378,36 @@ KindOfDbms列挙型は以下の列挙子を持っています。</p>
  		</tr>
  	</tbody>
 </table>
+
+
+<h2><a name="SqlFileAttr">SqlFile属性 - Sqlファイルを明示的を指定する(バージョン1.3.5以降)</a></h2>
+
+<p>引数なしのSqlFile属性をメソッドに指定した場合、対応するSQLファイルが見つからない場合、S2Dao.NETが例外を返します。</p>
+<p>引数ありのSqlFile属性をメソッドに指定した場合、対応するSQLファイルのパスを明示的に指定することが可能です。</p>
+<p>SqlFile属性は以下の形式でメソッドに指定します。</p>
+
+<p>[SqlFile] 
+または [SqlFile("<span class="italic">SQLファイルパス</span>")]</p>
+
+C#
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode">
+[SqlFile]
+int GetCount();
+
+[SqlFile(<span class="str">"Seasar.Tests.Dao.Impl.SqlFile.GetCount.sql"</span>)]
+int GetCount2();
+</pre>
+
+VB.NET
+<!-- code formatted by http://manoli.net/csharpformat/ -->
+<pre class="csharpcode vb">
+&lt;SqlFile()&gt; _
+<span class="kwrd">Function</span> GetCount() <span class="kwrd">As</span> Integer
+
+&lt;SqlFile(<span class="str">"Seasar.Tests.Dao.Impl.SqlFile.GetCount.sql"</span>)&gt; _
+<span class="kwrd">Function</span> GetCount2() <span class="kwrd">As</span> Integer
+</pre>
 
 <h2><a name="ProcedureAttr">Procedure属性 - StoredProcedureを記述する</a></h2>
 
