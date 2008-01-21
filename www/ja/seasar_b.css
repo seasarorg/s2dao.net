@@ -156,3 +156,10 @@ h3 {
 	background-repeat	: no-repeat;
 	background-image	: url(images/item_large_b.gif);
 }
+
+h4 {
+	padding-left		: 16px;
+	margin-left			: 0.5em;
+	background-repeat	: no-repeat;
+}
+
