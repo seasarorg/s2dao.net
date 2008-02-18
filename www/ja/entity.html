@@ -56,9 +56,7 @@
 <p>Entityクラスにはテーブルのカラムに対応したフィールドとプロパティを宣言・実装します。クラス名（名前空間名を除く）は可能であればテーブル名と同じに、
 プロパティ名は可能であればテーブルのカラム名と同じにすると良いでしょう。</p>
 <p>カラムがNull可の場合、プリミティブ型（System.Int32等）を指定するとNullの際、0（ゼロ）が返されます。
-Nullを扱うためには.NET Framework 2.0からのnull許容型（System.Nullable構造体）、System.Data.SqlTypes名前空間のデータ型、もしくは
-<a href="http://nhibernate.sourceforge.net/nh-docs/html/Nullables.html">NHibernateのNullables</a>
-のデータ型を指定して下さい。Nullables.dllは配布物に含まれています。</p>
+Nullを扱うためには.NET Framework 2.0からのnull許容型（System.Nullable構造体）、System.Data.SqlTypes名前空間のデータ型を指定して下さい。</p>
 <p>例えば、EMPテーブルに関連付くEntityクラスは次のようになります。</p>
 
 C#

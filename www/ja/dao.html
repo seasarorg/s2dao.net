@@ -175,9 +175,7 @@ VB.NET
 <h4>メソッドのsignature（引数の値や型）からWHERE句を自動生成する</h4>
 
 <p>属性やSQLファイルが用意されていなくてもメソッドのsignature（引数の値や型）から、S2Dao.NETにWHERE句を自動生成させることもできます。
-引数の型には組み込み型の他に、.NET　2.0からのnull許容型（System.Nullable構造体）、System.Data.SqlTypes名前空間のデータ型、もしくは
-<a href="http://nhibernate.sourceforge.net/nh-docs/html/Nullables.html">NHibernateのNullables</a>
-のデータ型を指定することも出来ます。</p>
+引数の型には組み込み型の他に、.NET　2.0からのnull許容型（System.Nullable構造体）、System.Data.SqlTypes名前空間のデータ型を指定することも出来ます。</p>
 
 <pre>
 SELECT * FROM emp
@@ -193,12 +191,12 @@ SELECT * FROM emp
 C#
 <!-- code formatted by http://manoli.net/csharpformat/ -->
 <pre class="csharpcode">
-IList GetEmployeeByJobDeptno(<span class="kwrd">string</span> job, NullableInt32 deptno);</pre>
+IList GetEmployeeByJobDeptno(<span class="kwrd">string</span> job, <span class="kwrd">int</span>? deptno);</pre>
 
 VB.NET
 <!-- code formatted by http://manoli.net/csharpformat/ -->
 <pre class="csharpcode vb">
-<span class="kwrd">Function</span> GetEmployeeByJobDeptno(job <span class="kwrd">As</span> <span class="kwrd">String</span>, deptno <span class="kwrd">As</span> NullableInt32) <span class="kwrd">As</span> IList</pre>
+<span class="kwrd">Function</span> GetEmployeeByJobDeptno(job <span class="kwrd">As</span> <span class="kwrd">String</span>, deptno <span class="kwrd">As</span> Nullable(Of Int32)) <span class="kwrd">As</span> IList</pre>
 
 <p><a href="entity.html#n1">N:1でマッピング</a>されているカラムを指定する場合には、「カラム名_Relno属性で指定した番号」で指定します。
 N:1でマッピングされているEntityは左外部結合を使って1つのSQL文で取得されます。左外部結合をサポートしていないRDBMSはSELECT文自動生成の対象外です。
